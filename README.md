@@ -1,4 +1,4 @@
-# swift-activity-feed
+# Stream Swift Activity Feed Components
 
 [swift-activity-feed](https://github.com/GetStream/swift-activity-feed) is a components to create activity and notification feeds with [Stream](https://getstream.io/).
 

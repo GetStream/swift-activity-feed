@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
-    <device id="retina5_5" orientation="portrait">
+    <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -15,17 +15,17 @@
             <objects>
                 <viewController id="01J-lp-oVM" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launchBackground" translatesAutoresizingMaskIntoConstraints="NO" id="beN-5o-2hm">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="487"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launch-background" translatesAutoresizingMaskIntoConstraints="NO" id="beN-5o-2hm">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="441"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="beN-5o-2hm" secondAttribute="height" multiplier="125:147" id="h5E-jX-UZE"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FFT-la-IW5">
-                                <rect key="frame" x="16" y="599.33333333333337" width="382" height="107.66666666666663"/>
+                                <rect key="frame" x="16" y="529.5" width="343" height="107.5"/>
                                 <string key="text">With the Stream API, you have complete flexibility when building Activity Feeds into your app. Our API can be used to build social networks or feeds like instagram, twitter and facebook.
 
 http://getstream.io </string>
@@ -33,8 +33,8 @@ http://getstream.io </string>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="xci-mv-vsv">
-                                <rect key="frame" x="16" y="559.33333333333337" width="117" height="20"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="blue-steam-logo" translatesAutoresizingMaskIntoConstraints="NO" id="xci-mv-vsv">
+                                <rect key="frame" x="16" y="468.5" width="234" height="41"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -47,7 +47,7 @@ http://getstream.io </string>
                             <constraint firstItem="xci-mv-vsv" firstAttribute="top" relation="greaterThanOrEqual" secondItem="beN-5o-2hm" secondAttribute="bottom" id="M7T-J3-a2j"/>
                             <constraint firstItem="FFT-la-IW5" firstAttribute="top" secondItem="xci-mv-vsv" secondAttribute="bottom" constant="20" id="WpI-ov-m2Q"/>
                             <constraint firstItem="xci-mv-vsv" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="dsZ-JC-v2d"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="FFT-la-IW5" secondAttribute="bottom" constant="29" id="wVh-2a-EWn"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="FFT-la-IW5" secondAttribute="bottom" constant="30" id="wVh-2a-EWn"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -58,7 +58,7 @@ http://getstream.io </string>
         </scene>
     </scenes>
     <resources>
-        <image name="launchBackground" width="375" height="441"/>
-        <image name="logo" width="117" height="20.5"/>
+        <image name="blue-steam-logo" width="234" height="41"/>
+        <image name="launch-background" width="375" height="441"/>
     </resources>
 </document>

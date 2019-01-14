@@ -8,13 +8,15 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-
+class RootViewController: UIViewController {
+    
+    var presenter: RootPresenter?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        if let presenter = presenter {
+            DispatchQueue.main.async(execute: presenter.setup)
+        }
     }
-
-
 }
-
