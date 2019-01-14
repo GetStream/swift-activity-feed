@@ -73,6 +73,7 @@
 		8A13FCCB21EC95D700D216C6 = {
 			isa = PBXGroup;
 			children = (
+				8A13FCF921EC9AAC00D216C6 /* Sources */,
 				8A13FCD621EC95D700D216C6 /* GetStreamActivityFeed */,
 				8A13FCEB21EC95D900D216C6 /* GetStreamActivityFeedTests */,
 				8A13FCD521EC95D700D216C6 /* Products */,
@@ -93,11 +94,11 @@
 		8A13FCD621EC95D700D216C6 /* GetStreamActivityFeed */ = {
 			isa = PBXGroup;
 			children = (
-				8A13FCD721EC95D700D216C6 /* AppDelegate.swift */,
+				8A13FCF721EC9A4F00D216C6 /* App */,
+				8A13FCF821EC9A5A00D216C6 /* User Story */,
 				8A13FCD921EC95D700D216C6 /* ViewController.swift */,
 				8A13FCDB21EC95D700D216C6 /* Main.storyboard */,
 				8A13FCDE21EC95D900D216C6 /* Assets.xcassets */,
-				8A13FCE021EC95D900D216C6 /* LaunchScreen.storyboard */,
 				8A13FCE321EC95D900D216C6 /* Info.plist */,
 			);
 			path = GetStreamActivityFeed;
@@ -110,6 +111,29 @@
 				8A13FCEE21EC95D900D216C6 /* Info.plist */,
 			);
 			path = GetStreamActivityFeedTests;
+			sourceTree = "<group>";
+		};
+		8A13FCF721EC9A4F00D216C6 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				8A13FCD721EC95D700D216C6 /* AppDelegate.swift */,
+				8A13FCE021EC95D900D216C6 /* LaunchScreen.storyboard */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		8A13FCF821EC9A5A00D216C6 /* User Story */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "User Story";
+			sourceTree = "<group>";
+		};
+		8A13FCF921EC9AAC00D216C6 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Sources;
 			sourceTree = "<group>";
 		};
 		FEA282DD76743CC8142F3496 /* Frameworks */ = {
