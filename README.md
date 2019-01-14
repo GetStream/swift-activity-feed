@@ -36,4 +36,4 @@ We continue to welcome pull requests from community members.
 
 Copyright (c) 2016-2018 Stream.io Inc, and individual contributors. All rights reserved.
 
-See the file "[LICENSE](https://github.com/GetStream/stream-swift/blob/master/LICENSE)" for information on the history of this software, terms & conditions for usage, and a DISCLAIMER OF ALL WARRANTIES.
+See the file "[LICENSE](https://github.com/GetStream/swift-activity-feed/blob/master/LICENSE)" for information on the history of this software, terms & conditions for usage, and a DISCLAIMER OF ALL WARRANTIES.
