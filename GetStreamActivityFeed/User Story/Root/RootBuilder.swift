@@ -12,8 +12,18 @@ final class RootBuilder {
     
     var rootTabBarController: UITabBarController {
         let tabBar = UITabBarController()
-        tabBar.viewControllers = [UIViewController(), UIViewController()]
+        tabBar.viewControllers = [profileViewController(user: UIApplication.shared.appDelegate.currentUser)]
         tabBar.view.backgroundColor = .white
         return tabBar
+    }
+    
+    func profileViewController(user: User?) -> UIViewController {
+        let navigationController = UINavigationController.fromBundledStoryboard(rootViewControllerType: ProfileViewController.self)
+        
+        if let viewController = navigationController.viewControllers.first as? ProfileViewController {
+            viewController.user = user
+        }
+        
+        return navigationController
     }
 }

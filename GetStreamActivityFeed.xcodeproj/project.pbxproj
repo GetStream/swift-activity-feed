@@ -21,7 +21,9 @@
 		8A13FD1421ECF8A700D216C6 /* RootRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A13FD1321ECF8A700D216C6 /* RootRouter.swift */; };
 		8AC40FAB21EE0ED50073B749 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC40FAA21EE0ED50073B749 /* UIViewController+Extensions.swift */; };
 		8AC40FAD21EE0FBB0073B749 /* RootBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC40FAC21EE0FBB0073B749 /* RootBuilder.swift */; };
-		8AFE16E821ED0EB0001A4CA1 /* BundledNibLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFE16E721ED0EB0001A4CA1 /* BundledNibLoadable.swift */; };
+		8AC40FB021EE2C8D0073B749 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC40FAF21EE2C8D0073B749 /* ProfileViewController.swift */; };
+		8AC40FB221EE2CB10073B749 /* ProfileViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AC40FB121EE2CB10073B749 /* ProfileViewController.storyboard */; };
+		8AC40FB421EE3A120073B749 /* BundledStoryboardLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC40FB321EE3A120073B749 /* BundledStoryboardLoadable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,7 +57,9 @@
 		8A13FD1321ECF8A700D216C6 /* RootRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootRouter.swift; sourceTree = "<group>"; };
 		8AC40FAA21EE0ED50073B749 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		8AC40FAC21EE0FBB0073B749 /* RootBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootBuilder.swift; sourceTree = "<group>"; };
-		8AFE16E721ED0EB0001A4CA1 /* BundledNibLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundledNibLoadable.swift; sourceTree = "<group>"; };
+		8AC40FAF21EE2C8D0073B749 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		8AC40FB121EE2CB10073B749 /* ProfileViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ProfileViewController.storyboard; sourceTree = "<group>"; };
+		8AC40FB321EE3A120073B749 /* BundledStoryboardLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundledStoryboardLoadable.swift; sourceTree = "<group>"; };
 		94BE0BBF8EF5D3D2C85C23D5 /* Pods-GetStreamActivityFeed.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GetStreamActivityFeed.debug.xcconfig"; path = "Target Support Files/Pods-GetStreamActivityFeed/Pods-GetStreamActivityFeed.debug.xcconfig"; sourceTree = "<group>"; };
 		FBE5C433E161964E569605F0 /* Pods-GetStreamActivityFeed.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GetStreamActivityFeed.release.xcconfig"; path = "Target Support Files/Pods-GetStreamActivityFeed/Pods-GetStreamActivityFeed.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -147,6 +151,7 @@
 			isa = PBXGroup;
 			children = (
 				8A13FD1221ECF87700D216C6 /* Root */,
+				8AC40FAE21EE18160073B749 /* Profile */,
 			);
 			path = "User Story";
 			sourceTree = "<group>";
@@ -211,11 +216,20 @@
 			path = Root;
 			sourceTree = "<group>";
 		};
+		8AC40FAE21EE18160073B749 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				8AC40FAF21EE2C8D0073B749 /* ProfileViewController.swift */,
+				8AC40FB121EE2CB10073B749 /* ProfileViewController.storyboard */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
 		8AFE16E621ED0E9B001A4CA1 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				8AFE16E721ED0EB0001A4CA1 /* BundledNibLoadable.swift */,
 				8AC40FAA21EE0ED50073B749 /* UIViewController+Extensions.swift */,
+				8AC40FB321EE3A120073B749 /* BundledStoryboardLoadable.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -313,6 +327,7 @@
 			files = (
 				8A13FCE221EC95D900D216C6 /* LaunchScreen.storyboard in Resources */,
 				8A13FCDF21EC95D900D216C6 /* Assets.xcassets in Resources */,
+				8AC40FB221EE2CB10073B749 /* ProfileViewController.storyboard in Resources */,
 				8A13FCDD21EC95D700D216C6 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -375,10 +390,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8AC40FB421EE3A120073B749 /* BundledStoryboardLoadable.swift in Sources */,
 				8A13FD0D21ECF51D00D216C6 /* RootViewController.swift in Sources */,
 				8A13FD0621ECD86700D216C6 /* User.swift in Sources */,
+				8AC40FB021EE2C8D0073B749 /* ProfileViewController.swift in Sources */,
 				8A13FD0821ECDFCC00D216C6 /* Bundle+StreamInfoKeys.swift in Sources */,
-				8AFE16E821ED0EB0001A4CA1 /* BundledNibLoadable.swift in Sources */,
 				8AC40FAB21EE0ED50073B749 /* UIViewController+Extensions.swift in Sources */,
 				8A13FD1421ECF8A700D216C6 /* RootRouter.swift in Sources */,
 				8A13FCD821EC95D700D216C6 /* AppDelegate.swift in Sources */,
