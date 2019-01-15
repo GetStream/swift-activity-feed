@@ -10,13 +10,13 @@ import UIKit
 
 class RootViewController: UIViewController {
     
+    @IBOutlet weak var warningView: UIView!
+    @IBOutlet weak var warningLabel: UILabel!
+    
     var presenter: RootPresenter?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        if let presenter = presenter {
-            DispatchQueue.main.async(execute: presenter.setup)
-        }
+        presenter?.setup()
     }
 }

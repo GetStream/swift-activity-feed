@@ -19,8 +19,8 @@
 		8A13FD0F21ECF66C00D216C6 /* RootPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A13FD0E21ECF66C00D216C6 /* RootPresenter.swift */; };
 		8A13FD1121ECF6C800D216C6 /* UIApplication+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A13FD1021ECF6C800D216C6 /* UIApplication+Extensions.swift */; };
 		8A13FD1421ECF8A700D216C6 /* RootRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A13FD1321ECF8A700D216C6 /* RootRouter.swift */; };
-		8A13FD1821ECF9FA00D216C6 /* ClientInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A13FD1621ECF9FA00D216C6 /* ClientInfoViewController.swift */; };
-		8A13FD1921ECF9FA00D216C6 /* ClientInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A13FD1721ECF9FA00D216C6 /* ClientInfoViewController.xib */; };
+		8AC40FAB21EE0ED50073B749 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC40FAA21EE0ED50073B749 /* UIViewController+Extensions.swift */; };
+		8AC40FAD21EE0FBB0073B749 /* RootBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC40FAC21EE0FBB0073B749 /* RootBuilder.swift */; };
 		8AFE16E821ED0EB0001A4CA1 /* BundledNibLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AFE16E721ED0EB0001A4CA1 /* BundledNibLoadable.swift */; };
 /* End PBXBuildFile section */
 
@@ -53,8 +53,8 @@
 		8A13FD0E21ECF66C00D216C6 /* RootPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootPresenter.swift; sourceTree = "<group>"; };
 		8A13FD1021ECF6C800D216C6 /* UIApplication+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extensions.swift"; sourceTree = "<group>"; };
 		8A13FD1321ECF8A700D216C6 /* RootRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootRouter.swift; sourceTree = "<group>"; };
-		8A13FD1621ECF9FA00D216C6 /* ClientInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientInfoViewController.swift; sourceTree = "<group>"; };
-		8A13FD1721ECF9FA00D216C6 /* ClientInfoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ClientInfoViewController.xib; sourceTree = "<group>"; };
+		8AC40FAA21EE0ED50073B749 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
+		8AC40FAC21EE0FBB0073B749 /* RootBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootBuilder.swift; sourceTree = "<group>"; };
 		8AFE16E721ED0EB0001A4CA1 /* BundledNibLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundledNibLoadable.swift; sourceTree = "<group>"; };
 		94BE0BBF8EF5D3D2C85C23D5 /* Pods-GetStreamActivityFeed.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GetStreamActivityFeed.debug.xcconfig"; path = "Target Support Files/Pods-GetStreamActivityFeed/Pods-GetStreamActivityFeed.debug.xcconfig"; sourceTree = "<group>"; };
 		FBE5C433E161964E569605F0 /* Pods-GetStreamActivityFeed.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GetStreamActivityFeed.release.xcconfig"; path = "Target Support Files/Pods-GetStreamActivityFeed/Pods-GetStreamActivityFeed.release.xcconfig"; sourceTree = "<group>"; };
@@ -147,7 +147,6 @@
 			isa = PBXGroup;
 			children = (
 				8A13FD1221ECF87700D216C6 /* Root */,
-				8A13FD1521ECF9D100D216C6 /* Client Info */,
 			);
 			path = "User Story";
 			sourceTree = "<group>";
@@ -207,23 +206,16 @@
 				8A13FD0C21ECF51D00D216C6 /* RootViewController.swift */,
 				8A13FD0E21ECF66C00D216C6 /* RootPresenter.swift */,
 				8A13FD1321ECF8A700D216C6 /* RootRouter.swift */,
+				8AC40FAC21EE0FBB0073B749 /* RootBuilder.swift */,
 			);
 			path = Root;
-			sourceTree = "<group>";
-		};
-		8A13FD1521ECF9D100D216C6 /* Client Info */ = {
-			isa = PBXGroup;
-			children = (
-				8A13FD1621ECF9FA00D216C6 /* ClientInfoViewController.swift */,
-				8A13FD1721ECF9FA00D216C6 /* ClientInfoViewController.xib */,
-			);
-			path = "Client Info";
 			sourceTree = "<group>";
 		};
 		8AFE16E621ED0E9B001A4CA1 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				8AFE16E721ED0EB0001A4CA1 /* BundledNibLoadable.swift */,
+				8AC40FAA21EE0ED50073B749 /* UIViewController+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -322,7 +314,6 @@
 				8A13FCE221EC95D900D216C6 /* LaunchScreen.storyboard in Resources */,
 				8A13FCDF21EC95D900D216C6 /* Assets.xcassets in Resources */,
 				8A13FCDD21EC95D700D216C6 /* Main.storyboard in Resources */,
-				8A13FD1921ECF9FA00D216C6 /* ClientInfoViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -388,9 +379,10 @@
 				8A13FD0621ECD86700D216C6 /* User.swift in Sources */,
 				8A13FD0821ECDFCC00D216C6 /* Bundle+StreamInfoKeys.swift in Sources */,
 				8AFE16E821ED0EB0001A4CA1 /* BundledNibLoadable.swift in Sources */,
-				8A13FD1821ECF9FA00D216C6 /* ClientInfoViewController.swift in Sources */,
+				8AC40FAB21EE0ED50073B749 /* UIViewController+Extensions.swift in Sources */,
 				8A13FD1421ECF8A700D216C6 /* RootRouter.swift in Sources */,
 				8A13FCD821EC95D700D216C6 /* AppDelegate.swift in Sources */,
+				8AC40FAD21EE0FBB0073B749 /* RootBuilder.swift in Sources */,
 				8A13FD1121ECF6C800D216C6 /* UIApplication+Extensions.swift in Sources */,
 				8A13FD0F21ECF66C00D216C6 /* RootPresenter.swift in Sources */,
 			);

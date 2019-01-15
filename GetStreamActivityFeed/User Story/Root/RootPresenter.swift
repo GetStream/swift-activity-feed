@@ -11,7 +11,11 @@ import GetStream
 
 final class RootPresenter {
     
-    let router = RootRouter()
+    let router: RootRouter
+    
+    init(router: RootRouter) {
+        self.router = router
+    }
     
     func setup() {
         guard let client = UIApplication.shared.appDelegate.client else {

@@ -18,11 +18,13 @@ PODS:
     - Alamofire (~> 4.1)
     - Result (~> 4.0)
   - Result (4.1.0)
+  - SnapKit (4.2.0)
   - Starscream (3.0.6)
   - Swime (3.0.1)
 
 DEPENDENCIES:
   - GetStream
+  - SnapKit
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -31,6 +33,7 @@ SPEC REPOS:
     - GetStream
     - Moya
     - Result
+    - SnapKit
     - Starscream
     - Swime
 
@@ -40,9 +43,10 @@ SPEC CHECKSUMS:
   GetStream: 72b9738ec1201c062e1b6b69904281011806c5fa
   Moya: cf730b3cd9e005401ef37a85143aa141a12fd38f
   Result: bd966fac789cc6c1563440b348ab2598cc24d5c7
+  SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
   Starscream: ef3ece99d765eeccb67de105bfa143f929026cf5
   Swime: da7f606c7a059f8744bc723aec243af1fb914476
 
-PODFILE CHECKSUM: c28b49c23c94d2c6b3342692b9fc4691fdbf0e64
+PODFILE CHECKSUM: 5d7e55799ef791c6a476d3f0dab8b617a3804826
 
 COCOAPODS: 1.6.0.beta.2
