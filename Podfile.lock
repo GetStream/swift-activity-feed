@@ -1,5 +1,5 @@
 PODS:
-  - Alamofire (4.8.0)
+  - Alamofire (4.8.1)
   - Faye (1.0.2):
     - Starscream (~> 3.0)
   - GetStream (1.0.3):
@@ -38,7 +38,7 @@ SPEC REPOS:
     - Swime
 
 SPEC CHECKSUMS:
-  Alamofire: 3ec537f71edc9804815215393ae2b1a8ea33a844
+  Alamofire: 16ce2c353fb72865124ddae8a57c5942388f4f11
   Faye: 1501690fd4f138c39c0f307136188894d6548629
   GetStream: 72b9738ec1201c062e1b6b69904281011806c5fa
   Moya: cf730b3cd9e005401ef37a85143aa141a12fd38f

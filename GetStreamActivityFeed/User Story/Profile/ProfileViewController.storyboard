@@ -25,23 +25,22 @@
                                     <constraint firstAttribute="height" constant="200" id="hYo-9v-chh"/>
                                 </constraints>
                             </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S34-nS-Yox">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S34-nS-Yox" customClass="AvatarView" customModule="GetStreamActivityFeed" customModuleProvider="target">
                                 <rect key="frame" x="209" y="100" width="150" height="150"/>
-                                <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="oDL-l5-9kh">
-                                        <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </imageView>
-                                </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="oDL-l5-9kh" firstAttribute="top" secondItem="S34-nS-Yox" secondAttribute="top" id="AmA-BE-IHC"/>
                                     <constraint firstAttribute="width" constant="150" id="Q3K-ns-A1Z"/>
-                                    <constraint firstAttribute="bottom" secondItem="oDL-l5-9kh" secondAttribute="bottom" id="XQC-gK-AqW"/>
                                     <constraint firstAttribute="height" constant="150" id="dbk-ib-WUK"/>
-                                    <constraint firstAttribute="trailing" secondItem="oDL-l5-9kh" secondAttribute="trailing" id="gLb-gQ-aeA"/>
-                                    <constraint firstItem="oDL-l5-9kh" firstAttribute="leading" secondItem="S34-nS-Yox" secondAttribute="leading" id="vj7-rW-0hZ"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="75"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                        <real key="value" value="30"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="image" keyPath="placeholder" value="close_icon"/>
+                                </userDefinedRuntimeAttributes>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wonder Woman" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qye-dy-kPo">
                                 <rect key="frame" x="20" y="101.5" width="189" height="93.5"/>
@@ -114,7 +113,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="7ex-h5-Nis"/>
                     <connections>
-                        <outlet property="avatarImageView" destination="oDL-l5-9kh" id="EP0-HB-4se"/>
+                        <outlet property="avatarView" destination="S34-nS-Yox" id="ww4-50-esc"/>
                         <outlet property="backgroundImageView" destination="QC8-Io-FnU" id="Xxh-IP-jBN"/>
                         <outlet property="feedTableView" destination="5f8-9v-SNd" id="6D6-PZ-dl9"/>
                         <outlet property="followersLabel" destination="Z3Q-ye-sW3" id="pZH-g7-Yvj"/>
@@ -124,7 +123,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nyd-oN-cPg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="906" y="139"/>
+            <point key="canvasLocation" x="904.79999999999995" y="138.98050974512745"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="NQh-gr-A9N">
@@ -145,4 +144,7 @@
             <point key="canvasLocation" x="157.59999999999999" y="138.98050974512745"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="close_icon" width="23" height="23"/>
+    </resources>
 </document>

@@ -19,21 +19,7 @@ class ProfileViewController: UIViewController, BundledStoryboardLoadable {
         }
     }
     
-    @IBOutlet weak var avatarImageView: UIImageView! {
-        didSet {
-            avatarImageView.layer.cornerRadius = avatarImageView.bounds.width / 2
-            
-            if let container = avatarImageView.superview {
-                container.layer.shadowOffset = CGSize(width: 0, height: 2)
-                container.layer.shadowColor = UIColor(white: 0, alpha: 0.2).cgColor
-                container.layer.shadowOpacity = 1
-                container.layer.shadowRadius = 30
-                container.layer.shadowPath = UIBezierPath(roundedRect: container.bounds,
-                                                          cornerRadius: avatarImageView.layer.cornerRadius).cgPath
-            }
-        }
-    }
-    
+    @IBOutlet weak var avatarView: AvatarView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var followersLabel: UILabel!
     @IBOutlet weak var followingLabel: UILabel!
@@ -43,8 +29,9 @@ class ProfileViewController: UIViewController, BundledStoryboardLoadable {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Profile"
+        tabBarItem = UITabBarItem(title: "Profile", image: UIImage(named: "notification_icon"), tag: 4)
         nameLabel.text = user?.name
+        loadAvatar()
     }
     
     private func loadAvatar() {
@@ -52,13 +39,21 @@ class ProfileViewController: UIViewController, BundledStoryboardLoadable {
             return
         }
         
+        let avatarWidth = avatarView.bounds.width
+        
         DispatchQueue.global().async {
             if let data = try? Data(contentsOf: avatarURL) {
                 let image = UIImage(data: data)
                 
-                DispatchQueue.main.async {
-                    self.avatarImageView.image = image
-                    self.backgroundImageView.image = image
+                if let image = image {
+                    let avatarImage = image.square(with: avatarWidth)
+                    let tabBarImage = image.square(with: 25).rounded.transparent(alpha: 0.8).original
+                    
+                    DispatchQueue.main.async {
+                        self.avatarView.image = avatarImage
+                        self.backgroundImageView.image = image
+                        self.tabBarItem = UITabBarItem(title: "Profile", image: tabBarImage, tag: 4)
+                    }
                 }
             }
         }

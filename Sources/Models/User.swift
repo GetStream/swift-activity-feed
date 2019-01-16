@@ -9,14 +9,14 @@
 import Foundation
 import GetStream
 
-final class User: GetStream.User {
+public final class User: GetStream.User, AvatarPresentable {
     private enum CodingKeys: String, CodingKey {
         case name
         case avatarURL = "profileImage"
     }
     
-    let name: String
-    var avatarURL: URL?
+    public let name: String
+    public var avatarURL: URL?
     
     init(name: String, id: String) {
         self.name = name
@@ -32,7 +32,7 @@ final class User: GetStream.User {
         try super.init(from: decoder)
     }
     
-    override func encode(to encoder: Encoder) throws {
+    override public func encode(to encoder: Encoder) throws {
         var dataContainer = encoder.container(keyedBy: DataCodingKeys.self)
         var container = dataContainer.nestedContainer(keyedBy: CodingKeys.self, forKey: .data)
         try container.encode(name, forKey: .name)
