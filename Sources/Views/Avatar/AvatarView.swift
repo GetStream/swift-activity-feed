@@ -39,12 +39,12 @@ public class AvatarView: UIView {
     @IBInspectable
     public var placeholder: UIImage? {
         didSet {
-            if imageView.image == nil {
-                imageView.contentMode = .center
-                imageView.image = placeholder
-            }
+            touchPlaceholder()
         }
     }
+    
+    @IBInspectable
+    public var defaultColor: UIColor?
     
     public var image: UIImage? {
         get {
@@ -53,6 +53,7 @@ public class AvatarView: UIView {
         set {
             imageView.contentMode = .scaleAspectFill
             imageView.image = newValue
+            touchPlaceholder()
         }
     }
     
@@ -79,10 +80,17 @@ public class AvatarView: UIView {
                 layer.shadowPath = nil
             }
             
-            imageView.backgroundColor = .white
+            imageView.backgroundColor = defaultColor ?? .white
             backgroundColor = .clear
         } else {
-            imageView.backgroundColor = UIColor(white: 0.9, alpha: 0.5)
+            imageView.backgroundColor = defaultColor ?? UIColor(white: 0.9, alpha: 0.5)
+        }
+    }
+    
+    private func touchPlaceholder() {
+        if imageView.image == nil {
+            imageView.contentMode = .center
+            imageView.image = placeholder
         }
     }
 }

@@ -9,6 +9,8 @@
 import UIKit
 import SnapKit
 
+// MARK: - Child View Controllers
+
 extension UIViewController {
     
     func add(viewController: UIViewController, to containerView: UIView? = nil) {
@@ -46,5 +48,18 @@ extension UIView {
         childViewController.view.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
+    }
+}
+
+// MARK: - Show Alert Controller
+
+extension UIViewController {
+    func showErrorAlert(error: Error) {
+        let alertController = UIAlertController(title: "Error",
+                                                message: error.localizedDescription,
+                                                preferredStyle: .alert)
+        
+        alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        present(alertController, animated: true)
     }
 }

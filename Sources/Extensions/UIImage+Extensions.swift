@@ -122,3 +122,42 @@ extension UIImage {
         return UIGraphicsGetImageFromCurrentImageContext() ?? self
     }
 }
+
+// MARK: - Create an Image with a color
+
+extension UIImage {
+    private static var colorsCGImages: [UIColor: CGImage] = [:]
+    
+    /// Create an Image 1x1 with a given color.
+    ///
+    /// - Parameter color: a `UIColor`. If the color has alpha 1, the image would be opaque.
+    convenience init(color: UIColor) {
+        if let cgImage = UIImage.colorsCGImages[color] {
+            self.init(cgImage: cgImage)
+            return
+        }
+        
+        // Get an alpha value from the color.
+        var alpha: CGFloat = 0
+        color.getRed(nil, green: nil, blue: nil, alpha: &alpha)
+        
+        let rect = CGRect(origin: .zero, size: CGSize(width: 1, height: 1))
+        UIGraphicsBeginImageContextWithOptions(rect.size, alpha == 1, 0.0)
+        
+        if let context = UIGraphicsGetCurrentContext() {
+            context.interpolationQuality = .none
+        }
+        
+        color.setFill()
+        UIRectFill(rect)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        if let cgImage = image?.cgImage {
+            UIImage.colorsCGImages[color] = cgImage
+            self.init(cgImage: cgImage)
+        } else {
+            self.init()
+        }
+    }
+}

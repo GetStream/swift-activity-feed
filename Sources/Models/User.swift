@@ -15,8 +15,15 @@ public final class User: GetStream.User, AvatarPresentable {
         case avatarURL = "profileImage"
     }
     
-    public let name: String
-    public var avatarURL: URL?
+    public var name: String
+    public var avatarURL: URL? {
+        didSet {
+            avatarImage = nil
+        }
+    }
+    
+    private let dispatchQueue = DispatchQueue(label: "io.getstream.User")
+    private var avatarImage: UIImage?
     
     init(name: String, id: String) {
         self.name = name
@@ -38,5 +45,54 @@ public final class User: GetStream.User, AvatarPresentable {
         try container.encode(name, forKey: .name)
         try container.encode(avatarURL, forKey: .avatarURL)
         try super.encode(to: encoder)
+    }
+}
+
+// MARK: - Avatar
+
+extension User {
+    public func loadAvatar(completion: @escaping (_ image: UIImage?) -> Void) {
+        guard let avatarURL = avatarURL else {
+            completion(nil)
+            return
+        }
+        
+        dispatchQueue.async { [weak self] in
+            if let image = self?.avatarImage {
+                DispatchQueue.main.async { completion(image) }
+                return
+            }
+            
+            if let data = try? Data(contentsOf: avatarURL) {
+                if let image = UIImage(data: data) {
+                    self?.avatarImage = image
+                    DispatchQueue.main.async { completion(image) }
+                } else {
+                    self?.avatarURL = nil
+                    self?.avatarImage = nil
+                    DispatchQueue.main.async { completion(nil) }
+                }
+            }
+        }
+    }
+    
+    public func updateAvatarURL(image: UIImage, completion: @escaping (_ error: Error?) -> Void) {
+        guard let file = File(name: name, jpegImage: image) else {
+            completion(nil)
+            return
+        }
+        
+        UIApplication.shared.appDelegate.client?.upload(image: file) { [weak self] result in
+            DispatchQueue.main.async {
+                do {
+                    self?.avatarURL = try result.get()
+                    self?.avatarImage = image
+                    completion(nil)
+                } catch {
+                    print("❌", #function, error.localizedDescription)
+                    completion(error)
+                }
+            }
+        }
     }
 }

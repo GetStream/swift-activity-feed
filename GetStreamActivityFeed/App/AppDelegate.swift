@@ -10,7 +10,7 @@ import UIKit
 import GetStream
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+final class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     var client: Client?
@@ -22,6 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         setupClient()
+        Appearance.setup()
         
         let router = RootRouter(rootViewController: application.rootViewController)
         application.rootViewController.presenter = RootPresenter(router: router)
