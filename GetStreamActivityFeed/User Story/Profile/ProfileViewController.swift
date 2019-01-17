@@ -31,9 +31,20 @@ class ProfileViewController: UIViewController, BundledStoryboardLoadable {
     var isCurrentUser: Bool = false
     let builder = ProfileBuilder()
     
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        loadAvatar(onlyTabBarItem: true)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        setupTabBarItem()
+        DispatchQueue.main.async { self.loadAvatar(onlyTabBarItem: true) }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        tabBarItem = UITabBarItem(title: "Profile", image: .profileIcon, tag: 4)
+        setupTabBarItem()
         updateUser()
         
         if isCurrentUser {
@@ -47,6 +58,10 @@ class ProfileViewController: UIViewController, BundledStoryboardLoadable {
         super.viewWillAppear(animated)
         navigationController?.presentTransparentNavigationBar(animated: false)
         hideBackButtonTitle()
+    }
+    
+    private func setupTabBarItem(image: UIImage? = .profileIcon) {
+        tabBarItem = UITabBarItem(title: "Profile", image: image, tag: 4)
     }
     
     func updateUser() {
@@ -84,16 +99,20 @@ extension ProfileViewController {
 
 extension ProfileViewController {
     
-    private func loadAvatar() {
+    private func loadAvatar(onlyTabBarItem: Bool = false) {
         user?.loadAvatar { [weak self] image in
             guard let self = self else {
                 return
             }
             
             if let image = image {
-                let avatarWidth = self.avatarView.bounds.width
-                DispatchQueue.global().async { [weak self] in self?.updateAvatar(image: image, avatarWidth: avatarWidth) }
-            } else {
+                let avatarWidth = onlyTabBarItem ? 0 : self.avatarView.bounds.width
+                
+                DispatchQueue.global().async { [weak self] in
+                    self?.updateAvatar(image: image, avatarWidth: avatarWidth, onlyTabBarItem: onlyTabBarItem)
+                }
+                
+            } else if !onlyTabBarItem {
                 self.avatarView.image = nil
                 self.backgroundImageView.image = nil
                 self.tabBarItem = UITabBarItem(title: "Profile", image: .profileIcon, tag: 4)
@@ -101,14 +120,17 @@ extension ProfileViewController {
         }
     }
     
-    private func updateAvatar(image: UIImage, avatarWidth: CGFloat) {
+    private func updateAvatar(image: UIImage, avatarWidth: CGFloat, onlyTabBarItem: Bool) {
         let avatarImage = image.square(with: avatarWidth)
         let tabBarImage = image.square(with: 25).rounded.transparent(alpha: 0.8).original
         
         DispatchQueue.main.async {
-            self.avatarView.image = avatarImage
-            self.backgroundImageView.image = image
             self.tabBarItem = UITabBarItem(title: "Profile", image: tabBarImage, tag: 4)
+
+            if !onlyTabBarItem {
+                self.avatarView.image = avatarImage
+                self.backgroundImageView.image = image
+            }
         }
     }
 }

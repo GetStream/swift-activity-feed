@@ -51,7 +51,7 @@ final class EditProfileViewController: UIViewController, BundledStoryboardLoadab
         if let newAvatarImage = newAvatarImage {
             user.updateAvatarURL(image: newAvatarImage) { [weak self] error in
                 if let error = error {
-                    self?.showErrorAlert(error: error)
+                    self?.showErrorAlert(error)
                 } else {
                     self?.updateUser()
                 }
@@ -76,7 +76,7 @@ final class EditProfileViewController: UIViewController, BundledStoryboardLoadab
                     self.completion?(user)
                     self.dismiss(animated: true)
                 } else if case .failure(let error) = result {
-                    self.showErrorAlert(error: error)
+                    self.showErrorAlert(error)
                 }
             }
         }

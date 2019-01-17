@@ -14,8 +14,22 @@ final class RootBuilder {
     
     var rootTabBarController: UITabBarController {
         let tabBar = UITabBarController()
-        tabBar.viewControllers = [profileBuilder.profileViewController(user: UIApplication.shared.appDelegate.currentUser)]
+        
+        tabBar.viewControllers = [flatFeedViewController,
+                                  profileBuilder.profileViewController(user: UIApplication.shared.appDelegate.currentUser)]
+        
         tabBar.view.backgroundColor = .white
         return tabBar
+    }
+    
+    var flatFeedViewController: UIViewController {
+        let navigationController = UINavigationController.fromBundledStoryboard(name: "ActivityFeed", bundle: Bundle.main)
+        
+        if let flatFeedViewController = navigationController.viewControllers.first as? FlatFeedViewController,
+            let flatFeed = UIApplication.shared.appDelegate.client?.flatFeed(feedSlug: "timeline") {
+            flatFeedViewController.presenter = FlatFeedPresenter<CustomActivity>(flatFeed: flatFeed)
+        }
+        
+        return navigationController
     }
 }

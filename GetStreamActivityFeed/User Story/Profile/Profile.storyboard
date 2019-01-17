@@ -28,6 +28,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S34-nS-Yox" customClass="AvatarView" customModule="GetStreamActivityFeed" customModuleProvider="target">
                                 <rect key="frame" x="209" y="100" width="150" height="150"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="150" id="Q3K-ns-A1Z"/>
                                     <constraint firstAttribute="height" constant="150" id="dbk-ib-WUK"/>
@@ -39,7 +40,7 @@
                                     <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
                                         <real key="value" value="30"/>
                                     </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="image" keyPath="placeholder" value="pick_photo_icon"/>
+                                    <userDefinedRuntimeAttribute type="image" keyPath="placeholder" value="user_icon"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wonder Woman" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qye-dy-kPo">
@@ -282,5 +283,6 @@
     <resources>
         <image name="close_icon" width="23" height="23"/>
         <image name="pick_photo_icon" width="36" height="36"/>
+        <image name="user_icon" width="24" height="24"/>
     </resources>
 </document>
