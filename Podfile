@@ -5,6 +5,8 @@ inhibit_all_warnings!
 target 'GetStreamActivityFeed' do
   use_frameworks!
   pod 'GetStream'
+  pod 'Nuke'
+  pod 'Reusable'
   pod 'SnapKit'
 end
 

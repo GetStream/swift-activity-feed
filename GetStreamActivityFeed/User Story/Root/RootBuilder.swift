@@ -27,7 +27,7 @@ final class RootBuilder {
         
         if let flatFeedViewController = navigationController.viewControllers.first as? FlatFeedViewController,
             let flatFeed = UIApplication.shared.appDelegate.client?.flatFeed(feedSlug: "timeline") {
-            flatFeedViewController.presenter = FlatFeedPresenter<CustomActivity>(flatFeed: flatFeed)
+            flatFeedViewController.presenter = FlatFeedPresenter<Activity>(flatFeed: flatFeed)
         }
         
         return navigationController

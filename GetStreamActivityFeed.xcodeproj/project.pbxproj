@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		63355CB6DBAFB62CCA26DB99 /* Pods_GetStreamActivityFeed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60A554AB5CB724535E1CB46B /* Pods_GetStreamActivityFeed.framework */; };
+		8A108D1221F20E8E0080ADEB /* ActivityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A108D1021F20E8E0080ADEB /* ActivityTableViewCell.swift */; };
+		8A108D1321F20E8E0080ADEB /* ActivityTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A108D1121F20E8E0080ADEB /* ActivityTableViewCell.xib */; };
+		8A108D1521F223DE0080ADEB /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A108D1421F223DE0080ADEB /* Date+Extensions.swift */; };
 		8A13FCD821EC95D700D216C6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A13FCD721EC95D700D216C6 /* AppDelegate.swift */; };
 		8A13FCDD21EC95D700D216C6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A13FCDB21EC95D700D216C6 /* Main.storyboard */; };
 		8A13FCDF21EC95D900D216C6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8A13FCDE21EC95D900D216C6 /* Assets.xcassets */; };
@@ -31,7 +34,7 @@
 		8A3E63C921F0B45300E17543 /* FlatFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3E63C821F0B45300E17543 /* FlatFeedViewController.swift */; };
 		8A3E63CB21F0B63600E17543 /* ActivityFeed.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A3E63CA21F0B63600E17543 /* ActivityFeed.storyboard */; };
 		8A3E63CD21F0CFE200E17543 /* FlatFeedPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3E63CC21F0CFE200E17543 /* FlatFeedPresenter.swift */; };
-		8A3E63D021F0D45E00E17543 /* CustomActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3E63CF21F0D45E00E17543 /* CustomActivity.swift */; };
+		8A3E63D021F0D45E00E17543 /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3E63CF21F0D45E00E17543 /* Activity.swift */; };
 		8AC40FAB21EE0ED50073B749 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC40FAA21EE0ED50073B749 /* UIViewController+Extensions.swift */; };
 		8AC40FAD21EE0FBB0073B749 /* RootBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC40FAC21EE0FBB0073B749 /* RootBuilder.swift */; };
 		8AC40FB021EE2C8D0073B749 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC40FAF21EE2C8D0073B749 /* ProfileViewController.swift */; };
@@ -54,6 +57,9 @@
 
 /* Begin PBXFileReference section */
 		60A554AB5CB724535E1CB46B /* Pods_GetStreamActivityFeed.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GetStreamActivityFeed.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8A108D1021F20E8E0080ADEB /* ActivityTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityTableViewCell.swift; sourceTree = "<group>"; };
+		8A108D1121F20E8E0080ADEB /* ActivityTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActivityTableViewCell.xib; sourceTree = "<group>"; };
+		8A108D1421F223DE0080ADEB /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		8A13FCD421EC95D700D216C6 /* GetStreamActivityFeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GetStreamActivityFeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A13FCD721EC95D700D216C6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8A13FCDC21EC95D700D216C6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -83,7 +89,7 @@
 		8A3E63C821F0B45300E17543 /* FlatFeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlatFeedViewController.swift; sourceTree = "<group>"; };
 		8A3E63CA21F0B63600E17543 /* ActivityFeed.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ActivityFeed.storyboard; sourceTree = "<group>"; };
 		8A3E63CC21F0CFE200E17543 /* FlatFeedPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlatFeedPresenter.swift; sourceTree = "<group>"; };
-		8A3E63CF21F0D45E00E17543 /* CustomActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomActivity.swift; sourceTree = "<group>"; };
+		8A3E63CF21F0D45E00E17543 /* Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
 		8AC40FAA21EE0ED50073B749 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		8AC40FAC21EE0FBB0073B749 /* RootBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootBuilder.swift; sourceTree = "<group>"; };
 		8AC40FAF21EE2C8D0073B749 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -122,6 +128,15 @@
 				FBE5C433E161964E569605F0 /* Pods-GetStreamActivityFeed.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		8A108D0F21F20E4B0080ADEB /* Table Cell */ = {
+			isa = PBXGroup;
+			children = (
+				8A108D1021F20E8E0080ADEB /* ActivityTableViewCell.swift */,
+				8A108D1121F20E8E0080ADEB /* ActivityTableViewCell.xib */,
+			);
+			path = "Table Cell";
 			sourceTree = "<group>";
 		};
 		8A13FCCB21EC95D700D216C6 = {
@@ -279,6 +294,7 @@
 				8AC40FBB21EF356F0073B749 /* UIImage+Extensions.swift */,
 				8A3E63B721EF65D400E17543 /* UIControl+Extensions.swift */,
 				8A3E63C421F08DC300E17543 /* UIColor+Extensions.swift */,
+				8A108D1421F223DE0080ADEB /* Date+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -304,7 +320,7 @@
 		8A3E63CE21F0D45100E17543 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				8A3E63CF21F0D45E00E17543 /* CustomActivity.swift */,
+				8A3E63CF21F0D45E00E17543 /* Activity.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -325,6 +341,7 @@
 			children = (
 				8A3E63B221EF497B00E17543 /* Button */,
 				8AC40FB621EE55A50073B749 /* Avatar */,
+				8A108D0F21F20E4B0080ADEB /* Table Cell */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -433,6 +450,7 @@
 				8A13FCDF21EC95D900D216C6 /* Assets.xcassets in Resources */,
 				8AC40FB221EE2CB10073B749 /* Profile.storyboard in Resources */,
 				8A13FCDD21EC95D700D216C6 /* Main.storyboard in Resources */,
+				8A108D1321F20E8E0080ADEB /* ActivityTableViewCell.xib in Resources */,
 				8A3E63CB21F0B63600E17543 /* ActivityFeed.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -504,6 +522,7 @@
 				8A13FD0821ECDFCC00D216C6 /* Bundle+StreamInfoKeys.swift in Sources */,
 				8A3E63C121F08C2400E17543 /* Appearance.swift in Sources */,
 				8AC40FAB21EE0ED50073B749 /* UIViewController+Extensions.swift in Sources */,
+				8A108D1521F223DE0080ADEB /* Date+Extensions.swift in Sources */,
 				8A13FD1421ECF8A700D216C6 /* RootRouter.swift in Sources */,
 				8A3E63BA21EF6DFA00E17543 /* ProfileBuilder.swift in Sources */,
 				8A3E63B821EF65D400E17543 /* UIControl+Extensions.swift in Sources */,
@@ -516,11 +535,12 @@
 				8A3E63BC21EF877600E17543 /* UIImage+Icons.swift in Sources */,
 				8AC40FB821EE57570073B749 /* AvatarPresentable.swift in Sources */,
 				8A3E63BF21EF92A000E17543 /* UIViewController+ImagePicker.swift in Sources */,
-				8A3E63D021F0D45E00E17543 /* CustomActivity.swift in Sources */,
+				8A3E63D021F0D45E00E17543 /* Activity.swift in Sources */,
 				8A3E63B121EF455100E17543 /* UINavigationController+Extensions.swift in Sources */,
 				8A3E63C521F08DC300E17543 /* UIColor+Extensions.swift in Sources */,
 				8A3E63C921F0B45300E17543 /* FlatFeedViewController.swift in Sources */,
 				8A13FD0F21ECF66C00D216C6 /* RootPresenter.swift in Sources */,
+				8A108D1221F20E8E0080ADEB /* ActivityTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -17,13 +17,21 @@ PODS:
   - Moya/Core (12.0.1):
     - Alamofire (~> 4.1)
     - Result (~> 4.0)
+  - Nuke (7.5.2)
   - Result (4.1.0)
+  - Reusable (4.0.5):
+    - Reusable/Storyboard (= 4.0.5)
+    - Reusable/View (= 4.0.5)
+  - Reusable/Storyboard (4.0.5)
+  - Reusable/View (4.0.5)
   - SnapKit (4.2.0)
   - Starscream (3.0.6)
   - Swime (3.0.1)
 
 DEPENDENCIES:
   - GetStream
+  - Nuke
+  - Reusable
   - SnapKit
 
 SPEC REPOS:
@@ -32,7 +40,9 @@ SPEC REPOS:
     - Faye
     - GetStream
     - Moya
+    - Nuke
     - Result
+    - Reusable
     - SnapKit
     - Starscream
     - Swime
@@ -42,11 +52,13 @@ SPEC CHECKSUMS:
   Faye: 1501690fd4f138c39c0f307136188894d6548629
   GetStream: 72b9738ec1201c062e1b6b69904281011806c5fa
   Moya: cf730b3cd9e005401ef37a85143aa141a12fd38f
+  Nuke: 0350d346a688426e8f2331253ef28dc2fc4f6178
   Result: bd966fac789cc6c1563440b348ab2598cc24d5c7
+  Reusable: 188be1a54ac0691bc66e5bb24ec6eb91971b315b
   SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
   Starscream: ef3ece99d765eeccb67de105bfa143f929026cf5
   Swime: da7f606c7a059f8744bc723aec243af1fb914476
 
-PODFILE CHECKSUM: 5d7e55799ef791c6a476d3f0dab8b617a3804826
+PODFILE CHECKSUM: 4789f845ad098652ff52b43810d2fe818d524f6c
 
 COCOAPODS: 1.6.0.beta.2
