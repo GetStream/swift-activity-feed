@@ -8,6 +8,7 @@
 
 import Foundation
 import GetStream
+import Nuke
 
 public final class User: GetStream.User, AvatarPresentable {
     private enum CodingKeys: String, CodingKey {
@@ -57,21 +58,23 @@ extension User {
             return
         }
         
-        dispatchQueue.async { [weak self] in
-            if let image = self?.avatarImage {
-                DispatchQueue.main.async { completion(image) }
+        if let image = avatarImage {
+            completion(image)
+            return
+        }
+        
+        ImagePipeline.shared.loadImage(with: avatarURL) { [weak self] response, error in
+            guard let self = self else {
                 return
             }
             
-            if let data = try? Data(contentsOf: avatarURL) {
-                if let image = UIImage(data: data) {
-                    self?.avatarImage = image
-                    DispatchQueue.main.async { completion(image) }
-                } else {
-                    self?.avatarURL = nil
-                    self?.avatarImage = nil
-                    DispatchQueue.main.async { completion(nil) }
-                }
+            if let response = response {
+                self.avatarImage = response.image
+                completion(response.image)
+            } else {
+                self.avatarURL = nil
+                self.avatarImage = nil
+                completion(nil)
             }
         }
     }
@@ -83,15 +86,17 @@ extension User {
         }
         
         UIApplication.shared.appDelegate.client?.upload(image: file) { [weak self] result in
-            DispatchQueue.main.async {
-                do {
-                    self?.avatarURL = try result.get()
-                    self?.avatarImage = image
-                    completion(nil)
-                } catch {
-                    print("❌", #function, error.localizedDescription)
-                    completion(error)
-                }
+            guard let self = self else {
+                return
+            }
+            
+            do {
+                self.avatarURL = try result.get()
+                self.avatarImage = image
+                completion(nil)
+            } catch {
+                print("❌", #function, error.localizedDescription)
+                completion(error)
             }
         }
     }

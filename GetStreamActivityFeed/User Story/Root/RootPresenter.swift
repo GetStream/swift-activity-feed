@@ -29,14 +29,12 @@ final class RootPresenter {
         }
         
         client.get(typeOf: User.self, userId: currentUserId) { result in
-            DispatchQueue.main.async {
-                do {
-                    let user = try result.get()
-                    client.currentUser = user
-                    self.router.showTabBar()
-                } catch {
-                    self.router.showClientInfo(error.localizedDescription)
-                }
+            do {
+                let user = try result.get()
+                client.currentUser = user
+                self.router.showTabBar()
+            } catch {
+                self.router.showClientInfo(error.localizedDescription)
             }
         }
     }

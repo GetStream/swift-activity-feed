@@ -67,17 +67,15 @@ final class EditProfileViewController: UIViewController, BundledStoryboardLoadab
         }
         
         UIApplication.shared.appDelegate.client?.update(user: user) { [weak self] result in
-            DispatchQueue.main.async {
-                guard let self = self else {
-                    return
-                }
-                
-                if case .success(let user) = result {
-                    self.completion?(user)
-                    self.dismiss(animated: true)
-                } else if case .failure(let error) = result {
-                    self.showErrorAlert(error)
-                }
+            guard let self = self else {
+                return
+            }
+            
+            if case .success(let user) = result {
+                self.completion?(user)
+                self.dismiss(animated: true)
+            } else if case .failure(let error) = result {
+                self.showErrorAlert(error)
             }
         }
     }

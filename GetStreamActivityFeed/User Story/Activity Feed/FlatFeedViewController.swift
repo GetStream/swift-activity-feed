@@ -9,17 +9,10 @@
 import UIKit
 import GetStream
 import Reusable
-import Nuke
 
 open class FlatFeedViewController: UITableViewController, BundledStoryboardLoadable {
     
     open var presenter: FlatFeedPresenter<Activity>?
-    
-    private let imageLoaderOptions = ImageLoadingOptions(placeholder: UIImage(named: "user_icon"),
-                                                         failureImage: UIImage(named: "user_icon"),
-                                                         contentModes: .init(success: .scaleAspectFill,
-                                                                             failure: .center,
-                                                                             placeholder: .center))
     
     override open func viewDidLoad() {
         super.viewDidLoad()
@@ -67,18 +60,23 @@ extension FlatFeedViewController {
         }
         
         let activity = presenter.activities[indexPath.section]
-        cell.nameLabel.text = activity.actor.name
-        cell.messageLabel.text = activity.text ?? activity.object
-        cell.dateLabel.text = activity.time?.relative
-        cell.actionButtonsStackView.isHidden = false
         
-        if let avatarURL = activity.actor.avatarURL {
-            Nuke.loadImage(with: avatarURL, options: imageLoaderOptions, into: cell.avatarImageView)
-        }
-        
-        if activity.verb == "reply" {
-            cell.reply = "reply to Leonhard konijn"
-        }
+        cell.update(with: activity,
+                    replyAction: { [weak self, weak activity] in
+                        if let button = $0 as? UIButton, let activity = activity {
+                            self?.reply(activity, button: button)
+                        }
+            },
+                    repostAction: { [weak self, weak activity] in
+                        if let button = $0 as? UIButton, let activity = activity {
+                            self?.repost(activity, button: button)
+                        }
+            },
+                    likeAction: { [weak self, weak activity] in
+                        if let button = $0 as? UIButton, let activity = activity {
+                            self?.like(activity, button: button)
+                        }
+        })
         
         return cell
     }
@@ -89,6 +87,53 @@ extension FlatFeedViewController {
     
     open override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         return nil
+    }
+}
+
+extension FlatFeedViewController {
+    func reply(_ activity: Activity, button: UIButton) {
+        
+    }
+    
+    func repost(_ activity: Activity, button: UIButton) {
+        
+    }
+    
+    func like(_ activity: Activity, button: UIButton) {
+        if button.isSelected {
+            if let likedReaction = activity.likedReaction {
+                button.isEnabled = false
+                
+                presenter?.dislike(activity, likedReaction) { [weak self, weak button] error in
+                    if let error = error {
+                        self?.showErrorAlert(error)
+                    } else {
+                        button?.isSelected = false
+                        self?.updateLikeCounter(for: activity, button)
+                    }
+                }
+            } else {
+                button.isSelected = false
+            }
+            
+            return
+        }
+        
+        button.isEnabled = false
+        
+        presenter?.like(activity) { [weak self, weak button] error in
+            if let error = error {
+                self?.showErrorAlert(error)
+            } else {
+                button?.isSelected = true
+                self?.updateLikeCounter(for: activity, button)
+            }
+        }
+    }
+    
+    private func updateLikeCounter(for activity: Activity, _ button: UIButton?) {
+        button?.isEnabled = true
+        button?.setTitle(String(activity.reactionCounts?[.like] ?? 0), for: .normal)
     }
 }
 

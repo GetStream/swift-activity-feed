@@ -9,6 +9,11 @@
 import Foundation
 import GetStream
 
+extension Verb {
+    static let post: Verb = "post"
+    static let reply: Verb = "reply"
+}
+
 public final class Activity: EnrichedActivity<User, String, String> {
     private enum CodingKeys: String, CodingKey {
         case text
@@ -16,12 +21,12 @@ public final class Activity: EnrichedActivity<User, String, String> {
     }
     
     var text: String?
-    var attachments: CustomActivityAttachment?
+    var attachments: ActivityAttachment?
     
     required public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         text = try container.decodeIfPresent(String.self, forKey: .text)
-        attachments = try container.decodeIfPresent(CustomActivityAttachment.self, forKey: .attachments)
+        attachments = try container.decodeIfPresent(ActivityAttachment.self, forKey: .attachments)
         try super.init(from: decoder)
     }
     
@@ -33,7 +38,21 @@ public final class Activity: EnrichedActivity<User, String, String> {
     }
 }
 
-final class CustomActivityAttachment: Codable {
+// MARK: - Reactions
+
+extension Activity {
+    var isLiked: Bool {
+        return ownReactions?[.like] != nil
+    }
+    
+    var likedReaction: Reaction<ReactionNoExtraData>? {
+        return ownReactions?[.like]?.first
+    }
+}
+
+// MARK: - Activity Attachment
+
+final class ActivityAttachment: Codable {
     private enum CodingKeys: String, CodingKey {
         case imageURLs = "images"
         case openGraphData = "og"
@@ -42,10 +61,12 @@ final class CustomActivityAttachment: Codable {
     
     var imageURLs: [URL]?
     var openGraphData: OGResponse?
-    var files: [CustomActivityAttachmentFile]?
+    var files: [ActivityAttachmentFile]?
 }
 
-final class CustomActivityAttachmentFile: Codable {
+// MARK: - Activity Attachment File
+
+final class ActivityAttachmentFile: Codable {
     var name: String
     var url: URL
     var mimeType: String

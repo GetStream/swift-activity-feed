@@ -108,7 +108,7 @@ extension ProfileViewController {
             if let image = image {
                 let avatarWidth = onlyTabBarItem ? 0 : self.avatarView.bounds.width
                 
-                DispatchQueue.global().async { [weak self] in
+                DispatchQueue.global(qos: .userInitiated).async { [weak self] in
                     self?.updateAvatar(image: image, avatarWidth: avatarWidth, onlyTabBarItem: onlyTabBarItem)
                 }
                 

@@ -8,19 +8,20 @@
 
 import UIKit
 import Reusable
+import GetStream
 
 open class ActivityTableViewCell: UITableViewCell, NibReusable {
 
-    @IBOutlet weak var avatarImageView: UIImageView!
-    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet public weak var avatarImageView: UIImageView!
+    @IBOutlet public weak var nameLabel: UILabel!
     @IBOutlet private weak var replyInfoStackView: UIStackView!
     @IBOutlet private weak var replyInfoLabel: UILabel!
-    @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var messageLabel: UILabel!
-    @IBOutlet weak var actionButtonsStackView: UIStackView!
-    @IBOutlet weak var replyButton: UIButton!
-    @IBOutlet weak var reshareButton: UIButton!
-    @IBOutlet weak var likeButton: UIButton!
+    @IBOutlet public weak var dateLabel: UILabel!
+    @IBOutlet public weak var messageLabel: UILabel!
+    @IBOutlet public weak var actionButtonsStackView: UIStackView!
+    @IBOutlet public weak var replyButton: UIButton!
+    @IBOutlet public weak var repostButton: UIButton!
+    @IBOutlet public weak var likeButton: UIButton!
     
     public var reply: String? {
         get {
@@ -54,10 +55,10 @@ open class ActivityTableViewCell: UITableViewCell, NibReusable {
         dateLabel.text = nil
         messageLabel.text = nil
         actionButtonsStackView.isHidden = true
-        reshareButton.setTitle(nil, for: .normal)
+        repostButton.setTitle(nil, for: .normal)
         likeButton.setTitle(nil, for: .normal)
         replyButton.removeTap()
-        reshareButton.removeTap()
+        repostButton.removeTap()
         likeButton.removeTap()
     }
 }

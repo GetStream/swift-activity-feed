@@ -139,7 +139,7 @@
                 <outlet property="replyButton" destination="q2Q-ed-GIw" id="Eee-fp-S15"/>
                 <outlet property="replyInfoLabel" destination="YjD-CN-ZL2" id="jky-AZ-0av"/>
                 <outlet property="replyInfoStackView" destination="NcK-Ag-RoS" id="vGB-xt-P17"/>
-                <outlet property="reshareButton" destination="FFo-4u-Fka" id="ZyC-or-gEe"/>
+                <outlet property="repostButton" destination="FFo-4u-Fka" id="6XO-eN-d6y"/>
             </connections>
             <point key="canvasLocation" x="88.799999999999997" y="71.064467766116948"/>
         </tableViewCell>
