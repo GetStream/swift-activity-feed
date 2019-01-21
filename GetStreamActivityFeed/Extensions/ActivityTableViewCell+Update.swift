@@ -26,7 +26,9 @@ extension ActivityTableViewCell {
         actionButtonsStackView.isHidden = false
         
         if let avatarURL = activity.actor.avatarURL {
-            Nuke.loadImage(with: avatarURL, options: ActivityTableViewCell.imageLoaderOptions, into: avatarImageView)
+            ImagePipeline.shared.loadImage(with: avatarURL) { [weak self] response, error in
+                self?.updateAvatar(with: response?.image)
+            }
         }
         
         if activity.verb == .reply {

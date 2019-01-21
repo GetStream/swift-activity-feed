@@ -92,13 +92,15 @@ extension FlatFeedViewController {
 
 extension FlatFeedViewController {
     func reply(_ activity: Activity, button: UIButton) {
-        
     }
     
     func repost(_ activity: Activity, button: UIButton) {
-        
     }
-    
+}
+
+// MARK: - LIKE
+
+extension FlatFeedViewController {
     func like(_ activity: Activity, button: UIButton) {
         if button.isSelected {
             if let likedReaction = activity.likedReaction {

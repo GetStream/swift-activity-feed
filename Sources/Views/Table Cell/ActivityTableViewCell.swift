@@ -12,7 +12,7 @@ import GetStream
 
 open class ActivityTableViewCell: UITableViewCell, NibReusable {
 
-    @IBOutlet public weak var avatarImageView: UIImageView!
+    @IBOutlet public weak var avatarButton: UIButton!
     @IBOutlet public weak var nameLabel: UILabel!
     @IBOutlet private weak var replyInfoStackView: UIStackView!
     @IBOutlet private weak var replyInfoLabel: UILabel!
@@ -48,7 +48,7 @@ open class ActivityTableViewCell: UITableViewCell, NibReusable {
     }
     
     open func reset() {
-        avatarImageView.image = UIImage(named: "user_icon")
+        updateAvatar(with: nil)
         nameLabel.text = nil
         replyInfoStackView.isHidden = true
         replyInfoLabel.text = nil
@@ -57,8 +57,21 @@ open class ActivityTableViewCell: UITableViewCell, NibReusable {
         actionButtonsStackView.isHidden = true
         repostButton.setTitle(nil, for: .normal)
         likeButton.setTitle(nil, for: .normal)
+        avatarButton.removeTap()
         replyButton.removeTap()
         repostButton.removeTap()
         likeButton.removeTap()
+    }
+    
+    func updateAvatar(with image: UIImage?) {
+        if let image = image {
+            avatarButton.setImage(image, for: .normal)
+            avatarButton.contentHorizontalAlignment = .fill
+            avatarButton.contentVerticalAlignment = .fill
+        } else {
+            avatarButton.setImage(.profileIcon, for: .normal)
+            avatarButton.contentHorizontalAlignment = .center
+            avatarButton.contentVerticalAlignment = .center
+        }
     }
 }

@@ -66,6 +66,8 @@ class ProfileViewController: UIViewController, BundledStoryboardLoadable {
     
     func updateUser() {
         nameLabel.text = user?.name
+        followersLabel.text = String(user?.followersCount ?? 0)
+        followingLabel.text = String(user?.followingCount ?? 0)
         loadAvatar()
     }
 }

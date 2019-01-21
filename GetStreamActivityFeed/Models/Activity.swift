@@ -11,6 +11,7 @@ import GetStream
 
 extension Verb {
     static let post: Verb = "post"
+    static let repost: Verb = "repost"
     static let reply: Verb = "reply"
 }
 

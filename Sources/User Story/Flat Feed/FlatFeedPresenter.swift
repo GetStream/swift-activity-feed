@@ -53,7 +53,15 @@ public final class FlatFeedPresenter<T: ActivityProtocol> {
     }
 }
 
-// MARK: - Reaction
+// MARK: - Repost {
+
+extension FlatFeedPresenter {
+    public func repost(_ activity: Activity, completion: @escaping Completion) {
+        completion(nil)
+    }
+}
+
+// MARK: - Like
 
 extension FlatFeedPresenter {
     public func like(_ activity: T, completion: @escaping Completion) {
