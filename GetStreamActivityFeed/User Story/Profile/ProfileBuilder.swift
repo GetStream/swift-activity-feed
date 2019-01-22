@@ -10,19 +10,22 @@ import UIKit
 
 final class ProfileBuilder {
     
-    func profileViewController(user: User?) -> UIViewController {
+    weak var activityFeedBuilder: ActivityFeedBuilder?
+    
+    func profileNavigationController(user: User?) -> UINavigationController {
         let navigationController = UINavigationController.fromBundledStoryboard(name: ProfileViewController.storyboardName,
                                                                                 bundle: Bundle.main)
         
         if let viewController = navigationController.viewControllers.first as? ProfileViewController {
             viewController.user = user
             viewController.isCurrentUser = true
+            viewController.builder = self
         }
         
         return navigationController
     }
     
-    func editProfileViewController(_ setup: (_ editProfileViewController: EditProfileViewController) -> Void) -> UIViewController {
+    func editProfileNavigationController(_ setup: (_ editProfileViewController: EditProfileViewController) -> Void) -> UINavigationController {
         let navigationController = UINavigationController.fromBundledStoryboard(name: ProfileViewController.storyboardName,
                                                                                 id: String(describing: EditProfileViewController.self),
                                                                                 bundle: Bundle.main)
@@ -33,5 +36,12 @@ final class ProfileBuilder {
         }
         
         return navigationController
+    }
+    
+    func profileViewController(user: User?) -> ProfileViewController {
+        let profileViewController = ProfileViewController.fromBundledStoryboard()
+        profileViewController.user = user
+        
+        return profileViewController
     }
 }

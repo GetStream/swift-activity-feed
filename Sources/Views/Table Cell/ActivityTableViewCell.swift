@@ -14,8 +14,8 @@ open class ActivityTableViewCell: UITableViewCell, NibReusable {
 
     @IBOutlet public weak var avatarButton: UIButton!
     @IBOutlet public weak var nameLabel: UILabel!
-    @IBOutlet private weak var replyInfoStackView: UIStackView!
-    @IBOutlet private weak var replyInfoLabel: UILabel!
+    @IBOutlet private weak var repostInfoStackView: UIStackView!
+    @IBOutlet private weak var repostInfoLabel: UILabel!
     @IBOutlet public weak var dateLabel: UILabel!
     @IBOutlet public weak var messageLabel: UILabel!
     @IBOutlet public weak var actionButtonsStackView: UIStackView!
@@ -23,16 +23,16 @@ open class ActivityTableViewCell: UITableViewCell, NibReusable {
     @IBOutlet public weak var repostButton: UIButton!
     @IBOutlet public weak var likeButton: UIButton!
     
-    public var reply: String? {
+    public var repost: String? {
         get {
-            return replyInfoLabel.text
+            return repostInfoLabel.text
         }
         set {
             if let reply = newValue {
-                replyInfoStackView.isHidden = false
-                replyInfoLabel.text = reply
+                repostInfoStackView.isHidden = false
+                repostInfoLabel.text = reply
             } else {
-                replyInfoStackView.isHidden = true
+                repostInfoStackView.isHidden = true
             }
         }
     }
@@ -50,17 +50,23 @@ open class ActivityTableViewCell: UITableViewCell, NibReusable {
     open func reset() {
         updateAvatar(with: nil)
         nameLabel.text = nil
-        replyInfoStackView.isHidden = true
-        replyInfoLabel.text = nil
+        repostInfoStackView.isHidden = true
+        repostInfoLabel.text = nil
         dateLabel.text = nil
         messageLabel.text = nil
         actionButtonsStackView.isHidden = true
+        replyButton.setTitle(nil, for: .normal)
         repostButton.setTitle(nil, for: .normal)
         likeButton.setTitle(nil, for: .normal)
+        likeButton.isSelected = false
         avatarButton.removeTap()
         replyButton.removeTap()
         repostButton.removeTap()
         likeButton.removeTap()
+        avatarButton.isEnabled = true
+        replyButton.isEnabled = true
+        repostButton.isEnabled = true
+        likeButton.isEnabled = true
     }
     
     func updateAvatar(with image: UIImage?) {

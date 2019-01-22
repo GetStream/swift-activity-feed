@@ -25,6 +25,10 @@
 		8A3573C921F5CA20009EB9D7 /* ReactionKind+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3573C821F5CA20009EB9D7 /* ReactionKind+Extensions.swift */; };
 		8A3573CB21F5CA50009EB9D7 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3573CA21F5CA50009EB9D7 /* Comment.swift */; };
 		8A3573CD21F5CC26009EB9D7 /* ActivityTableViewCell+Update.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3573CC21F5CC26009EB9D7 /* ActivityTableViewCell+Update.swift */; };
+		8A3573CF21F72D9D009EB9D7 /* ActivityObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3573CE21F72D9D009EB9D7 /* ActivityObject.swift */; };
+		8A3573D121F72DE2009EB9D7 /* Verb+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3573D021F72DE2009EB9D7 /* Verb+Extensions.swift */; };
+		8A3573D321F74636009EB9D7 /* ActivityFeedBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3573D221F74636009EB9D7 /* ActivityFeedBuilder.swift */; };
+		8A3573D521F76A25009EB9D7 /* URL+ImageRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3573D421F76A25009EB9D7 /* URL+ImageRequest.swift */; };
 		8A3E63B121EF455100E17543 /* UINavigationController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3E63B021EF455100E17543 /* UINavigationController+Extensions.swift */; };
 		8A3E63B421EF49A500E17543 /* BarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3E63B321EF49A500E17543 /* BarButton.swift */; };
 		8A3E63B621EF63BB00E17543 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3E63B521EF63BB00E17543 /* EditProfileViewController.swift */; };
@@ -83,6 +87,10 @@
 		8A3573C821F5CA20009EB9D7 /* ReactionKind+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReactionKind+Extensions.swift"; sourceTree = "<group>"; };
 		8A3573CA21F5CA50009EB9D7 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		8A3573CC21F5CC26009EB9D7 /* ActivityTableViewCell+Update.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ActivityTableViewCell+Update.swift"; sourceTree = "<group>"; };
+		8A3573CE21F72D9D009EB9D7 /* ActivityObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityObject.swift; sourceTree = "<group>"; };
+		8A3573D021F72DE2009EB9D7 /* Verb+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Verb+Extensions.swift"; sourceTree = "<group>"; };
+		8A3573D221F74636009EB9D7 /* ActivityFeedBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityFeedBuilder.swift; sourceTree = "<group>"; };
+		8A3573D421F76A25009EB9D7 /* URL+ImageRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+ImageRequest.swift"; sourceTree = "<group>"; };
 		8A3E63B021EF455100E17543 /* UINavigationController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Extensions.swift"; sourceTree = "<group>"; };
 		8A3E63B321EF49A500E17543 /* BarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarButton.swift; sourceTree = "<group>"; };
 		8A3E63B521EF63BB00E17543 /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
@@ -311,8 +319,8 @@
 		8A3E63C621F0B12A00E17543 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				8A3573CC21F5CC26009EB9D7 /* ActivityTableViewCell+Update.swift */,
 				8A3E63BB21EF877600E17543 /* UIImage+Icons.swift */,
+				8A3573D421F76A25009EB9D7 /* URL+ImageRequest.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -321,7 +329,9 @@
 			isa = PBXGroup;
 			children = (
 				8A3E63CA21F0B63600E17543 /* ActivityFeed.storyboard */,
+				8A3573D221F74636009EB9D7 /* ActivityFeedBuilder.swift */,
 				8A3E63C821F0B45300E17543 /* FlatFeedViewController.swift */,
+				8A3573CC21F5CC26009EB9D7 /* ActivityTableViewCell+Update.swift */,
 			);
 			path = "Activity Feed";
 			sourceTree = "<group>";
@@ -330,6 +340,8 @@
 			isa = PBXGroup;
 			children = (
 				8A3E63CF21F0D45E00E17543 /* Activity.swift */,
+				8A3573CE21F72D9D009EB9D7 /* ActivityObject.swift */,
+				8A3573D021F72DE2009EB9D7 /* Verb+Extensions.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -533,15 +545,19 @@
 				8A3E63C121F08C2400E17543 /* Appearance.swift in Sources */,
 				8AC40FAB21EE0ED50073B749 /* UIViewController+Extensions.swift in Sources */,
 				8A108D1521F223DE0080ADEB /* Date+Extensions.swift in Sources */,
+				8A3573D121F72DE2009EB9D7 /* Verb+Extensions.swift in Sources */,
 				8A13FD1421ECF8A700D216C6 /* RootRouter.swift in Sources */,
 				8A3E63BA21EF6DFA00E17543 /* ProfileBuilder.swift in Sources */,
+				8A3573D521F76A25009EB9D7 /* URL+ImageRequest.swift in Sources */,
 				8A3E63B821EF65D400E17543 /* UIControl+Extensions.swift in Sources */,
 				8A13FCD821EC95D700D216C6 /* AppDelegate.swift in Sources */,
 				8A3E63B621EF63BB00E17543 /* EditProfileViewController.swift in Sources */,
 				8AC40FAD21EE0FBB0073B749 /* RootBuilder.swift in Sources */,
 				8A3E63B421EF49A500E17543 /* BarButton.swift in Sources */,
 				8A13FD1121ECF6C800D216C6 /* UIApplication+Extensions.swift in Sources */,
+				8A3573CF21F72D9D009EB9D7 /* ActivityObject.swift in Sources */,
 				8A3E63CD21F0CFE200E17543 /* FlatFeedPresenter.swift in Sources */,
+				8A3573D321F74636009EB9D7 /* ActivityFeedBuilder.swift in Sources */,
 				8A3E63BC21EF877600E17543 /* UIImage+Icons.swift in Sources */,
 				8AC40FB821EE57570073B749 /* AvatarPresentable.swift in Sources */,
 				8A3E63BF21EF92A000E17543 /* UIViewController+ImagePicker.swift in Sources */,

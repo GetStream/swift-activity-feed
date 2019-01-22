@@ -28,7 +28,7 @@ final class RootPresenter {
             return
         }
         
-        client.get(typeOf: User.self, userId: currentUserId) { result in
+        client.get(typeOf: User.self, userId: currentUserId, withFollowCounts: true) { result in
             do {
                 let user = try result.get()
                 client.currentUser = user

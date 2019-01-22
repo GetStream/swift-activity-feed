@@ -98,6 +98,7 @@ extension EditProfileViewController {
     @objc func changeAvatar() {
         pickImage { imagePickerInfo, status in
             if let image = imagePickerInfo[.originalImage] as? UIImage {
+                let image = image.scale(xTimes: 0.5).square()
                 self.avatarView.image = image
                 self.newAvatarImage = image
             } else if status != .authorized {

@@ -11,40 +11,50 @@ import UIKit
 // MARK: - Action block for UIControl
 
 extension UIControl {
-    public typealias Action = (_ control: UIControl) -> Void
-    
-    /// Add an action to the control with a given action block.
-    ///
-    /// - Parameters:
-    ///     - controlEvents: A bitmask specifying the control-specific events for which the action method is called.
-    ///                      Always specify at least one constant. For a list of possible constants, see `UIControl.Event`.
-    ///     - action: a block of an action.
-    public func addAction(for controlEvents: UIControl.Event, _ action: @escaping UIControl.Action) {
-        let sleeve = UIControlActionSleeve(self, action)
-        addTarget(sleeve, action: #selector(UIControlActionSleeve.invoke), for: controlEvents)
-        objc_setAssociatedObject(self, actionId(for: controlEvents), sleeve, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN)
+    private struct AssociatedKey {
+        static var touchUpInside: UInt8 = 0
+        static var valueChanged: UInt8 = 0
     }
     
-    /// Remove an action block for the given controlEvents.
+    public typealias Action = (_ control: UIControl) -> Void
+    
+    /// Add a tap action to the control.
     ///
-    /// - Parameter controlEvents: A bitmask specifying the control-specific events for which the action method is called.
-    ///                            Always specify at least one constant. For a list of possible constants, see `UIControl.Event`.
-    public func removeAction(for controlEvents: UIControl.Event) {
-        let key = actionId(for: controlEvents)
-        
-        if let sleeve = objc_getAssociatedObject(self, key) {
-            removeTarget(sleeve, action: nil, for: controlEvents)
-            objc_setAssociatedObject(self, key, nil, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN)
+    /// - Parameter action: an action block.
+    public func addTap(_ action: @escaping UIControl.Action) {
+        let sleeve = UIControlActionSleeve(self, action)
+        objc_setAssociatedObject(self, &AssociatedKey.touchUpInside, sleeve, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        addTarget(sleeve, action: #selector(UIControlActionSleeve.invoke), for: .touchUpInside)
+    }
+    
+    /// Remove a tap action block.
+    public func removeTap() {
+        if let sleeve = objc_getAssociatedObject(self, &AssociatedKey.touchUpInside) {
+            removeTarget(sleeve, action: nil, for: .touchUpInside)
+            objc_setAssociatedObject(self, &AssociatedKey.touchUpInside, nil, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
     
-    private func actionId(for controlEvents: UIControl.Event) -> String {
-        return String(ObjectIdentifier(self).hashValue) + String(controlEvents.rawValue)
+    /// Add a value changed action to the control.
+    ///
+    /// - Parameter action: an action block.
+    public func addValueChangedAction(_ action: @escaping UIControl.Action) {
+        let sleeve = UIControlActionSleeve(self, action)
+        objc_setAssociatedObject(self, &AssociatedKey.valueChanged, sleeve, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        addTarget(sleeve, action: #selector(UIControlActionSleeve.invoke), for: .valueChanged)
+    }
+    
+    /// Remove a value changed action block.
+    public func removeValueChangedAction() {
+        if let sleeve = objc_getAssociatedObject(self, &AssociatedKey.valueChanged) {
+            removeTarget(sleeve, action: nil, for: .valueChanged)
+            objc_setAssociatedObject(self, &AssociatedKey.valueChanged, nil, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
     }
 }
 
 private final class UIControlActionSleeve {
-    let control: UIControl
+    weak var control: UIControl?
     let action: UIControl.Action
     
     init (_ control: UIControl, _ action: @escaping UIControl.Action) {
@@ -53,18 +63,8 @@ private final class UIControlActionSleeve {
     }
     
     @objc func invoke () {
-        action(control)
-    }
-}
-
-// MARK: - Button tap
-
-extension UIButton {
-    public func addTap(_ action: @escaping UIControl.Action) {
-        addAction(for: .touchUpInside, action)
-    }
-    
-    public func removeTap() {
-        removeAction(for: .touchUpInside)
+        if let control = control {
+            action(control)
+        }
     }
 }

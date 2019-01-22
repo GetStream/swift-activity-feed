@@ -11,4 +11,5 @@ import GetStream
 extension ReactionKind {
     public static let like: ReactionKind = "like"
     public static let comment: ReactionKind = "comment"
+    public static let repost: ReactionKind = "repost"
 }

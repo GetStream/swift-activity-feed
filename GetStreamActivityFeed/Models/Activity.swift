@@ -6,16 +6,9 @@
 //  Copyright © 2019 Stream.io Inc. All rights reserved.
 //
 
-import Foundation
 import GetStream
 
-extension Verb {
-    static let post: Verb = "post"
-    static let repost: Verb = "repost"
-    static let reply: Verb = "reply"
-}
-
-public final class Activity: EnrichedActivity<User, String, String> {
+public final class Activity: EnrichedActivity<User, ActivityObject, String> {
     private enum CodingKeys: String, CodingKey {
         case text
         case attachments
@@ -23,6 +16,14 @@ public final class Activity: EnrichedActivity<User, String, String> {
     
     var text: String?
     var attachments: ActivityAttachment?
+    
+    var originalActivity: Activity {
+        if case .repost(let originalActivity) = object {
+            return originalActivity
+        }
+        
+        return self
+    }
     
     required public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -43,11 +44,31 @@ public final class Activity: EnrichedActivity<User, String, String> {
 
 extension Activity {
     var isLiked: Bool {
-        return ownReactions?[.like] != nil
+        return (ownReactions?[.like]?.count ?? 0) > 0
     }
     
     var likedReaction: Reaction<ReactionNoExtraData>? {
         return ownReactions?[.like]?.first
+    }
+    
+    var likesCount: Int {
+        return reactionCounts?[.like] ?? 0
+    }
+    
+    var repostsCount: Int {
+        return reactionCounts?[.repost] ?? 0
+    }
+    
+    var repostReaction: Reaction<ReactionNoExtraData>? {
+        return originalActivity.ownReactions?[.repost]?.first
+    }
+    
+    var isReposted: Bool {
+        return (ownReactions?[.repost]?.count ?? 0) > 0
+    }
+    
+    var commentsCount: Int {
+        return reactionCounts?[.comment] ?? 0
     }
 }
 

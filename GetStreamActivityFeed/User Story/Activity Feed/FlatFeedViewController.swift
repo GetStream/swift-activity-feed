@@ -11,15 +11,30 @@ import GetStream
 import Reusable
 
 open class FlatFeedViewController: UITableViewController, BundledStoryboardLoadable {
+    typealias RemoveActivityAction = (_ activity: Activity) -> Void
+    
+    static var storyboardName = "ActivityFeed"
     
     open var presenter: FlatFeedPresenter<Activity>?
+    var profileBuilder: ProfileBuilder?
+    var removeActivityAction: RemoveActivityAction?
     
-    override open func viewDidLoad() {
+    open override func viewDidLoad() {
         super.viewDidLoad()
         tabBarItem = UITabBarItem(title: "Home", image: .homeIcon, tag: 0)
+        hideBackButtonTitle()
         setupTableView()
         setupRefreshControl()
         reloadData()
+    }
+    
+    open override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if parent == nil || parent is UINavigationController {
+            navigationController?.restoreDefaultNavigationBar(animated: animated)
+            reloadData()
+        }
     }
 }
 
@@ -60,23 +75,39 @@ extension FlatFeedViewController {
         }
         
         let activity = presenter.activities[indexPath.section]
+        let user = activity.actor
         
-        cell.update(with: activity,
-                    replyAction: { [weak self, weak activity] in
-                        if let button = $0 as? UIButton, let activity = activity {
-                            self?.reply(activity, button: button)
-                        }
-            },
-                    repostAction: { [weak self, weak activity] in
-                        if let button = $0 as? UIButton, let activity = activity {
-                            self?.repost(activity, button: button)
-                        }
-            },
-                    likeAction: { [weak self, weak activity] in
-                        if let button = $0 as? UIButton, let activity = activity {
-                            self?.like(activity, button: button)
-                        }
-        })
+        cell.update(with: activity)
+        
+        cell.updateAvatar(with: activity) { [weak self] _ in
+            if let profileViewCotroller = self?.profileBuilder?.profileViewController(user: user) {
+                self?.navigationController?.pushViewController(profileViewCotroller, animated: true)
+            }
+        }
+        
+        cell.updateReply(with: activity) { [weak self, weak activity] in
+            if let button = $0 as? UIButton, let activity = activity?.originalActivity {
+                self?.reply(activity, button: button)
+            }
+        }
+        
+        var repostAction: UIControl.Action?
+        
+        if let currentUser = UIApplication.shared.appDelegate.currentUser, currentUser != activity.actor {
+            repostAction = { [weak self, weak activity] in
+                if let button = $0 as? UIButton, let activity = activity?.originalActivity {
+                    self?.repost(activity, button: button)
+                }
+            }
+        }
+        
+        cell.updateRepost(with: activity, action: repostAction)
+        
+        cell.updateLike(with: activity) { [weak self, weak activity] in
+            if let button = $0 as? UIButton, let activity = activity?.originalActivity {
+                self?.like(activity, button: button)
+            }
+        }
         
         return cell
     }
@@ -88,13 +119,47 @@ extension FlatFeedViewController {
     open override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         return nil
     }
+    
+    open override func tableView(_ tableView: UITableView,
+                                 commit editingStyle: UITableViewCell.EditingStyle,
+                                 forRowAt indexPath: IndexPath) {
+        guard let presenter = presenter, indexPath.row < presenter.activities.count else {
+            return
+        }
+        
+        if editingStyle == .delete, let removeActivityAction = removeActivityAction {
+            removeActivityAction(presenter.activities[indexPath.section])
+        }
+    }
+    
+    open override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return removeActivityAction != nil
+    }
 }
 
 extension FlatFeedViewController {
     func reply(_ activity: Activity, button: UIButton) {
+        
     }
     
     func repost(_ activity: Activity, button: UIButton) {
+        guard !button.isSelected else {
+            return
+        }
+        
+        button.isEnabled = false
+        
+        presenter?.repost(activity, completion: { [weak self, weak button] error in
+            button?.isEnabled = true
+            
+            if let error = error {
+                print("❌", error)
+                self?.showErrorAlert(error)
+            } else {
+                button?.setTitle(String(activity.repostsCount), for: .normal)
+                button?.isSelected = true
+            }
+        })
     }
 }
 
@@ -106,8 +171,11 @@ extension FlatFeedViewController {
             if let likedReaction = activity.likedReaction {
                 button.isEnabled = false
                 
-                presenter?.dislike(activity, likedReaction) { [weak self, weak button] error in
+                presenter?.remove(reaction: likedReaction, for: activity) { [weak self, weak button] error in
+                    button?.isEnabled = true
+                    
                     if let error = error {
+                        print("❌", error)
                         self?.showErrorAlert(error)
                     } else {
                         button?.isSelected = false
@@ -124,6 +192,8 @@ extension FlatFeedViewController {
         button.isEnabled = false
         
         presenter?.like(activity) { [weak self, weak button] error in
+            button?.isEnabled = true
+            
             if let error = error {
                 self?.showErrorAlert(error)
             } else {
@@ -144,6 +214,6 @@ extension FlatFeedViewController {
 extension FlatFeedViewController {
     func setupRefreshControl() {
         refreshControl = UIRefreshControl()
-        refreshControl?.addAction(for: .valueChanged) { [weak self] _ in self?.reloadData() }
+        refreshControl?.addValueChangedAction { [weak self] _ in self?.reloadData() }
     }
 }

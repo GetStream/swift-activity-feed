@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class ProfileViewController: UIViewController, BundledStoryboardLoadable {
     
@@ -25,11 +26,14 @@ class ProfileViewController: UIViewController, BundledStoryboardLoadable {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var followersLabel: UILabel!
     @IBOutlet weak var followingLabel: UILabel!
-    @IBOutlet weak var feedTableView: UITableView!
+    @IBOutlet weak var headerView: UIView!
+    @IBOutlet weak var headerViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var feedContainerView: UIView!
     
     var user: User?
     var isCurrentUser: Bool = false
-    let builder = ProfileBuilder()
+    var builder: ProfileBuilder?
+    private var flatFeedViewController: FlatFeedViewController?
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -44,6 +48,7 @@ class ProfileViewController: UIViewController, BundledStoryboardLoadable {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        hideBackButtonTitle()
         setupTabBarItem()
         updateUser()
         
@@ -51,13 +56,66 @@ class ProfileViewController: UIViewController, BundledStoryboardLoadable {
             addEditButton()
         } else {
             addFollowButton()
+            refreshUser()
         }
+        
+        setupFlatFeed()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.presentTransparentNavigationBar(animated: false)
-        hideBackButtonTitle()
+        flatFeedViewController?.reloadData()
+    }
+    
+    private func setupFlatFeed() {
+        flatFeedViewController = builder?.activityFeedBuilder?.flatFeedViewController(feedSlug: "user")
+        
+        guard let flatFeedViewController = flatFeedViewController else {
+            return
+        }
+        
+        add(viewController: flatFeedViewController, to: feedContainerView)
+        headerView.removeFromSuperview()
+        flatFeedViewController.tableView.tableHeaderView = headerView
+        
+        let navigationBarHeight = UIApplication.shared.statusBarFrame.height
+            + (navigationController?.navigationBar.frame.height ?? 0)
+        
+        headerView.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(-navigationBarHeight)
+            make.left.right.equalToSuperview()
+            make.width.equalToSuperview()
+        }
+        
+        headerViewHeightConstraint.constant -= navigationBarHeight
+        
+        guard isCurrentUser else {
+            return
+        }
+        
+        flatFeedViewController.removeActivityAction = { [weak self, weak flatFeedViewController] activity in
+            guard let self = self else {
+                return
+            }
+            
+            guard activity.originalActivity.isReposted else {
+                flatFeedViewController?.presenter?.remove(activity: activity, self.refresh)
+                return
+            }
+            
+            if let repostReaction = activity.repostReaction {
+                flatFeedViewController?.presenter?.remove(reaction: repostReaction, for: activity.originalActivity, self.refresh)
+            }
+        }
+    }
+    
+    private func refresh(_ error: Error?) {
+        if let error = error {
+            showErrorAlert(error)
+        } else {
+            flatFeedViewController?.reloadData()
+        }
     }
     
     private func setupTabBarItem(image: UIImage? = .profileIcon) {
@@ -70,17 +128,30 @@ class ProfileViewController: UIViewController, BundledStoryboardLoadable {
         followingLabel.text = String(user?.followingCount ?? 0)
         loadAvatar()
     }
+    
+    func refreshUser() {
+        user?.refresh(completion: { [weak self] user in
+            if let user = user {
+                self?.user = user
+                self?.updateUser()
+            }
+        })
+    }
 }
 
 // MARK: - Navigation Bar
 
 extension ProfileViewController {
     private func addEditButton() {
+        guard let builder = builder else {
+            return
+        }
+        
         let button =  BarButton(title: "Edit Profile", backgroundColor: UIColor(white: 1, alpha: 0.7))
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: button)
         
         button.addTap { _ in
-            let viewController = self.builder.editProfileViewController { editProfileViewController in
+            let viewController = builder.editProfileNavigationController { editProfileViewController in
                 editProfileViewController.completion = { user in
                     self.user = user
                     self.updateUser()

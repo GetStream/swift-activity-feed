@@ -10,26 +10,21 @@ import UIKit
 
 final class RootBuilder {
     
-    let profileBuilder = ProfileBuilder()
+    let profileBuilder: ProfileBuilder
+    let activityFeedBuilder: ActivityFeedBuilder
+    
+    init(profileBuilder: ProfileBuilder, activityFeedBuilder: ActivityFeedBuilder) {
+        self.profileBuilder = profileBuilder
+        self.activityFeedBuilder = activityFeedBuilder
+    }
     
     var rootTabBarController: UITabBarController {
         let tabBar = UITabBarController()
         
-        tabBar.viewControllers = [flatFeedViewController,
-                                  profileBuilder.profileViewController(user: UIApplication.shared.appDelegate.currentUser)]
+        tabBar.viewControllers = [activityFeedBuilder.flatFeedNavigationController(feedSlug: "timeline"),
+                                  profileBuilder.profileNavigationController(user: UIApplication.shared.appDelegate.currentUser)]
         
         tabBar.view.backgroundColor = .white
         return tabBar
-    }
-    
-    var flatFeedViewController: UIViewController {
-        let navigationController = UINavigationController.fromBundledStoryboard(name: "ActivityFeed", bundle: Bundle.main)
-        
-        if let flatFeedViewController = navigationController.viewControllers.first as? FlatFeedViewController,
-            let flatFeed = UIApplication.shared.appDelegate.client?.flatFeed(feedSlug: "timeline") {
-            flatFeedViewController.presenter = FlatFeedPresenter<Activity>(flatFeed: flatFeed)
-        }
-        
-        return navigationController
     }
 }

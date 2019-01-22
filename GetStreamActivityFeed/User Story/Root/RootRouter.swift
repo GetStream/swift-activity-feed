@@ -9,10 +9,11 @@
 import UIKit
 
 final class RootRouter {
-    var builder = RootBuilder()
+    var builder: RootBuilder
     weak var rootViewController: RootViewController?
     
-    init(rootViewController: RootViewController) {
+    init(rootBuilder: RootBuilder, rootViewController: RootViewController) {
+        builder = rootBuilder
         self.rootViewController = rootViewController
     }
     

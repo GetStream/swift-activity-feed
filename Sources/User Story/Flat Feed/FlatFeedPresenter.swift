@@ -53,11 +53,29 @@ public final class FlatFeedPresenter<T: ActivityProtocol> {
     }
 }
 
-// MARK: - Repost {
+// MARK: - Repost
 
 extension FlatFeedPresenter {
     public func repost(_ activity: Activity, completion: @escaping Completion) {
-        completion(nil)
+        guard let userFeedId = UIApplication.shared.appDelegate.userFeed?.feedId else {
+            return
+        }
+        
+        var activity = activity
+        
+        // We can repost only the original activity.
+        if case .repost(let originalActivity) = activity.object {
+            activity = originalActivity
+        }
+        
+        flatFeed.client.add(reactionTo: activity.id, kindOf: .repost, targetsFeedIds: [userFeedId]) { result in
+            if let reaction = try? result.get() {
+                var activity = activity
+                activity.addOwnReaction(reaction)
+            }
+            
+            completion(result.error)
+        }
     }
 }
 
@@ -74,14 +92,24 @@ extension FlatFeedPresenter {
             completion(result.error)
         }
     }
-    
-    public func dislike(_ activity: T, _ reaction: Reaction<ReactionNoExtraData>, completion: @escaping Completion) {
+}
+
+// MARK: - Reactions
+
+extension FlatFeedPresenter {
+    func remove(reaction: Reaction<ReactionNoExtraData>, for activity: T, _ completion: @escaping Completion) {
         flatFeed.client.delete(reactionId: reaction.id) { result in
             if result.error == nil {
                 var activity = activity
                 activity.deleteOwnReaction(reaction)
             }
             
+            completion(result.error)
+        }
+    }
+    
+    func remove(activity: Activity, _ completion: @escaping Completion) {
+        flatFeed.remove(activityId: activity.id) { result in
             completion(result.error)
         }
     }

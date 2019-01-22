@@ -73,6 +73,18 @@ extension UIImage {
         return resize(with: CGSize(width: resizeWidth, height: resizeWidth))
     }
     
+    public func scale(xTimes: CGFloat) -> UIImage {
+        return scale(xWidth: xTimes, xHeight: xTimes)
+    }
+    
+    public func scale(xWidth: CGFloat, xHeight: CGFloat) -> UIImage {
+        guard xWidth > 0, xHeight > 0 else {
+            return self
+        }
+        
+        return resize(with: CGSize(width: size.width * xWidth, height: size.height * xHeight))
+    }
+    
     /// Resize an image.
     ///
     /// - Parameters:

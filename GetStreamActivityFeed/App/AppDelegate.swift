@@ -19,12 +19,23 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         return client?.currentUser as? User
     }
     
+    var userFeed: FlatFeed? {
+        return client?.flatFeed(feedSlug: "user")
+    }
+
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         setupClient()
         Appearance.setup()
         
-        let router = RootRouter(rootViewController: application.rootViewController)
+        let activityBuilder = ActivityFeedBuilder()
+        let profileBuilder = ProfileBuilder()
+        activityBuilder.profileBuilder = profileBuilder
+        profileBuilder.activityFeedBuilder = activityBuilder
+        
+        let router = RootRouter(rootBuilder: RootBuilder(profileBuilder: profileBuilder, activityFeedBuilder: activityBuilder),
+                                rootViewController: application.rootViewController)
+        
         application.rootViewController.presenter = RootPresenter(router: router)
         
         return true

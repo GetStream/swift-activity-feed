@@ -49,6 +49,16 @@ public final class User: GetStream.User, AvatarPresentable {
     }
 }
 
+// MARK: - Refresh
+
+extension User {
+    public func refresh(completion: @escaping (_ user: User?) -> Void) {
+        UIApplication.shared.appDelegate.client?.get(typeOf: User.self, userId: id, withFollowCounts: true) { result in
+            completion(try? result.get())
+        }
+    }
+}
+
 // MARK: - Avatar
 
 extension User {
