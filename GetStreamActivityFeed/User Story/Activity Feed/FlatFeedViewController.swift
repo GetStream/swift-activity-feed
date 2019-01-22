@@ -81,6 +81,7 @@ extension FlatFeedViewController {
         
         cell.updateAvatar(with: activity) { [weak self] _ in
             if let profileViewCotroller = self?.profileBuilder?.profileViewController(user: user) {
+                profileViewCotroller.builder = self?.profileBuilder
                 self?.navigationController?.pushViewController(profileViewCotroller, animated: true)
             }
         }

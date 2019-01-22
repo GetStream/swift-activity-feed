@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GetStream
 
 final class ActivityFeedBuilder {
     
@@ -24,10 +25,10 @@ final class ActivityFeedBuilder {
         return navigationController
     }
     
-    func flatFeedViewController(feedSlug: String) -> FlatFeedViewController {
+    func flatFeedViewController(feedId: FeedId) -> FlatFeedViewController {
         let flatFeedViewController = FlatFeedViewController.fromBundledStoryboard()
         
-        if let flatFeed = UIApplication.shared.appDelegate.client?.flatFeed(feedSlug: feedSlug) {
+        if let flatFeed = UIApplication.shared.appDelegate.client?.flatFeed(feedId) {
             flatFeedViewController.presenter = FlatFeedPresenter<Activity>(flatFeed: flatFeed)
             flatFeedViewController.profileBuilder = profileBuilder
         }

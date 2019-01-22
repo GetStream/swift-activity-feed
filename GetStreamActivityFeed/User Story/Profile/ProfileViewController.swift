@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import GetStream
 
 class ProfileViewController: UIViewController, BundledStoryboardLoadable {
     
@@ -69,7 +70,12 @@ class ProfileViewController: UIViewController, BundledStoryboardLoadable {
     }
     
     private func setupFlatFeed() {
-        flatFeedViewController = builder?.activityFeedBuilder?.flatFeedViewController(feedSlug: "user")
+        guard let userId = user?.id else {
+            return
+        }
+        
+        let feedId = FeedId(feedSlug: "user", userId: userId)
+        flatFeedViewController = builder?.activityFeedBuilder?.flatFeedViewController(feedId: feedId)
         
         guard let flatFeedViewController = flatFeedViewController else {
             return
