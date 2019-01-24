@@ -8,7 +8,8 @@
 
 import GetStream
 
-public final class Activity: EnrichedActivity<User, ActivityObject, String> {
+final class Activity: EnrichedActivity<User, ActivityObject, String>, ActivityLikable {
+    
     private enum CodingKeys: String, CodingKey {
         case text
         case attachments
@@ -17,7 +18,7 @@ public final class Activity: EnrichedActivity<User, ActivityObject, String> {
     var text: String?
     var attachments: ActivityAttachment?
     
-    var originalActivity: Activity {
+    public var originalActivity: Activity {
         if case .repost(let originalActivity) = object {
             return originalActivity
         }

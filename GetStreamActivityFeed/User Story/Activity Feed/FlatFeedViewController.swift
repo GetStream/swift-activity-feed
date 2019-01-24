@@ -9,13 +9,14 @@
 import UIKit
 import GetStream
 import Reusable
+import Result
 
 open class FlatFeedViewController: UITableViewController, BundledStoryboardLoadable {
     typealias RemoveActivityAction = (_ activity: Activity) -> Void
     
     static var storyboardName = "ActivityFeed"
     
-    open var presenter: FlatFeedPresenter<Activity>?
+    var presenter: FlatFeedPresenter<Activity>?
     var profileBuilder: ProfileBuilder?
     var removeActivityAction: RemoveActivityAction?
     
@@ -71,7 +72,7 @@ extension FlatFeedViewController {
         
         guard let presenter = presenter,
             indexPath.row < presenter.activities.count else {
-            return cell
+                return cell
         }
         
         let activity = presenter.activities[indexPath.section]
@@ -86,27 +87,21 @@ extension FlatFeedViewController {
             }
         }
         
-        cell.updateReply(with: activity) { [weak self, weak activity] in
-            if let button = $0 as? UIButton, let activity = activity?.originalActivity {
-                self?.reply(activity, button: button)
+        cell.updateReply(with: activity)
+        
+        cell.updateRepost(with: activity) { [weak self, weak activity] in
+            if let userFeedId = UIApplication.shared.appDelegate.userFeed?.feedId,
+                let button = $0 as? RepostReactionButton,
+                let activity = activity,
+                let self = self,
+                let presenter = self.presenter {
+                button.setup(presenter: presenter, activity: activity, targetsFeedIds: [userFeedId], self.showErrorAlert)
             }
         }
-        
-        var repostAction: UIControl.Action?
-        
-        if let currentUser = UIApplication.shared.appDelegate.currentUser, currentUser != activity.actor {
-            repostAction = { [weak self, weak activity] in
-                if let button = $0 as? UIButton, let activity = activity?.originalActivity {
-                    self?.repost(activity, button: button)
-                }
-            }
-        }
-        
-        cell.updateRepost(with: activity, action: repostAction)
         
         cell.updateLike(with: activity) { [weak self, weak activity] in
-            if let button = $0 as? UIButton, let activity = activity?.originalActivity {
-                self?.like(activity, button: button)
+            if let button = $0 as? LikeReactionButton, let activity = activity, let self = self, let presenter = self.presenter {
+                button.setup(presenter: presenter, activity: activity, self.showErrorAlert)
             }
         }
         
@@ -135,78 +130,6 @@ extension FlatFeedViewController {
     
     open override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return removeActivityAction != nil
-    }
-}
-
-extension FlatFeedViewController {
-    func reply(_ activity: Activity, button: UIButton) {
-        
-    }
-    
-    func repost(_ activity: Activity, button: UIButton) {
-        guard !button.isSelected else {
-            return
-        }
-        
-        button.isEnabled = false
-        
-        presenter?.repost(activity, completion: { [weak self, weak button] error in
-            button?.isEnabled = true
-            
-            if let error = error {
-                print("❌", error)
-                self?.showErrorAlert(error)
-            } else {
-                button?.setTitle(String(activity.repostsCount), for: .normal)
-                button?.isSelected = true
-            }
-        })
-    }
-}
-
-// MARK: - LIKE
-
-extension FlatFeedViewController {
-    func like(_ activity: Activity, button: UIButton) {
-        if button.isSelected {
-            if let likedReaction = activity.likedReaction {
-                button.isEnabled = false
-                
-                presenter?.remove(reaction: likedReaction, for: activity) { [weak self, weak button] error in
-                    button?.isEnabled = true
-                    
-                    if let error = error {
-                        print("❌", error)
-                        self?.showErrorAlert(error)
-                    } else {
-                        button?.isSelected = false
-                        self?.updateLikeCounter(for: activity, button)
-                    }
-                }
-            } else {
-                button.isSelected = false
-            }
-            
-            return
-        }
-        
-        button.isEnabled = false
-        
-        presenter?.like(activity) { [weak self, weak button] error in
-            button?.isEnabled = true
-            
-            if let error = error {
-                self?.showErrorAlert(error)
-            } else {
-                button?.isSelected = true
-                self?.updateLikeCounter(for: activity, button)
-            }
-        }
-    }
-    
-    private func updateLikeCounter(for activity: Activity, _ button: UIButton?) {
-        button?.isEnabled = true
-        button?.setTitle(String(activity.reactionCounts?[.like] ?? 0), for: .normal)
     }
 }
 

@@ -111,7 +111,8 @@ class ProfileViewController: UIViewController, BundledStoryboardLoadable {
             }
             
             if let repostReaction = activity.repostReaction {
-                flatFeedViewController?.presenter?.remove(reaction: repostReaction, for: activity.originalActivity, self.refresh)
+                flatFeedViewController?.presenter?.remove(reaction: repostReaction,
+                                                          activity: activity) { [weak self] in self?.refresh($0.error) }
             }
         }
     }

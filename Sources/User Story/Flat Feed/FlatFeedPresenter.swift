@@ -8,6 +8,7 @@
 
 import Foundation
 import GetStream
+import Result
 
 public final class FlatFeedPresenter<T: ActivityProtocol> {
     public typealias Completion = (_ error: Error?) -> Void
@@ -53,61 +54,45 @@ public final class FlatFeedPresenter<T: ActivityProtocol> {
     }
 }
 
-// MARK: - Repost
+// MARK: - Reaction Presenter
 
-extension FlatFeedPresenter {
-    public func repost(_ activity: Activity, completion: @escaping Completion) {
-        guard let userFeedId = UIApplication.shared.appDelegate.userFeed?.feedId else {
-            return
-        }
-        
-        var activity = activity
-        
-        // We can repost only the original activity.
-        if case .repost(let originalActivity) = activity.object {
-            activity = originalActivity
-        }
-        
-        flatFeed.client.add(reactionTo: activity.id, kindOf: .repost, targetsFeedIds: [userFeedId]) { result in
+extension FlatFeedPresenter: ReactionPresenterProtocol {
+    
+    public func addReaction<T: EnhancedActivity>(for activity: T,
+                                                 kindOf kind: ReactionKind,
+                                                 targetsFeedIds: [FeedId],
+                                                 _ completion: @escaping (Result<T, ClientError>) -> Void) {
+        flatFeed.client.add(reactionTo: activity.id, kindOf: kind, targetsFeedIds: targetsFeedIds) { result in
             if let reaction = try? result.get() {
                 var activity = activity
                 activity.addOwnReaction(reaction)
+                completion(.success(activity))
+                
+            } else if let error = result.error {
+                completion(.failure(error))
             }
-            
-            completion(result.error)
         }
     }
-}
-
-// MARK: - Like
-
-extension FlatFeedPresenter {
-    public func like(_ activity: T, completion: @escaping Completion) {
-        flatFeed.client.add(reactionTo: activity.id, kindOf: .like) { result in
-            if let reaction = try? result.get() {
-                var activity = activity
-                activity.addOwnReaction(reaction)
-            }
-            
-            completion(result.error)
-        }
-    }
-}
-
-// MARK: - Reactions
-
-extension FlatFeedPresenter {
-    func remove(reaction: Reaction<ReactionNoExtraData>, for activity: T, _ completion: @escaping Completion) {
+    
+    public func remove<T: EnhancedActivity>(reaction: Reaction<ReactionNoExtraData>,
+                                            activity: T,
+                                            _ completion: @escaping (Result<T, ClientError>) -> Void) {
         flatFeed.client.delete(reactionId: reaction.id) { result in
             if result.error == nil {
                 var activity = activity
                 activity.deleteOwnReaction(reaction)
+                completion(.success(activity))
+                
+            } else if let error = result.error {
+                completion(.failure(error))
             }
-            
-            completion(result.error)
         }
     }
-    
+}
+
+// MARK: - Activities
+
+extension FlatFeedPresenter {
     func remove(activity: Activity, _ completion: @escaping Completion) {
         flatFeed.remove(activityId: activity.id) { result in
             completion(result.error)

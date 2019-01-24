@@ -20,8 +20,8 @@ open class ActivityTableViewCell: UITableViewCell, NibReusable {
     @IBOutlet public weak var messageLabel: UILabel!
     @IBOutlet public weak var actionButtonsStackView: UIStackView!
     @IBOutlet public weak var replyButton: UIButton!
-    @IBOutlet public weak var repostButton: UIButton!
-    @IBOutlet public weak var likeButton: UIButton!
+    @IBOutlet public weak var repostButton: LikeReactionButton!
+    @IBOutlet public weak var likeButton: RepostReactionButton!
     
     public var repost: String? {
         get {

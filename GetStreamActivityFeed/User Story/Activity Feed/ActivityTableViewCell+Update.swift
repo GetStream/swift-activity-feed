@@ -57,7 +57,7 @@ extension ActivityTableViewCell {
         }
     }
     
-    func updateReply(with activity: Activity, action: UIControl.Action?) {
+    func updateReply(with activity: Activity, action: UIControl.Action? = nil) {
         if let action = action {
             replyButton.addTap(action)
         }
@@ -65,7 +65,7 @@ extension ActivityTableViewCell {
         replyButton.setTitle(String(activity.originalActivity.commentsCount), for: .normal)
     }
 
-    func updateRepost(with activity: Activity, action: UIControl.Action?) {
+    func updateRepost(with activity: Activity, action: UIControl.Action? = nil) {
         if let action = action {
             repostButton.addTap(action)
         }
@@ -74,7 +74,7 @@ extension ActivityTableViewCell {
         repostButton.isSelected = activity.originalActivity.isReposted
     }
     
-    func updateLike(with activity: Activity, action: UIControl.Action?) {
+    func updateLike(with activity: Activity, action: UIControl.Action? = nil) {
         if let action = action {
             likeButton.addTap(action)
         }
