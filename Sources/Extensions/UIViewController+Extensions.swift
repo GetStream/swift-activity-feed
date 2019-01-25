@@ -54,7 +54,7 @@ extension UIView {
 // MARK: - Show Alert Controller
 
 extension UIViewController {
-    func showErrorAlert(_ error: Error?) {
+    func showErrorAlertIfNeeded(_ error: Error?) {
         if let error = error {
             showErrorAlert(error)
         }

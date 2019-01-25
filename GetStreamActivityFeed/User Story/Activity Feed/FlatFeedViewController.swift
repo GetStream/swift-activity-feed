@@ -90,18 +90,21 @@ extension FlatFeedViewController {
         cell.updateReply(with: activity)
         
         cell.updateRepost(with: activity) { [weak self, weak activity] in
-            if let userFeedId = UIApplication.shared.appDelegate.userFeed?.feedId,
-                let button = $0 as? RepostReactionButton,
+            if let self = self,
+                let userFeedId = UIApplication.shared.appDelegate.userFeed?.feedId,
+                let button = $0 as? RepostButton,
                 let activity = activity,
-                let self = self,
                 let presenter = self.presenter {
-                button.setup(presenter: presenter, activity: activity, targetsFeedIds: [userFeedId], self.showErrorAlert)
+                button.react(with: presenter.reactionPresenter,
+                             activity: activity,
+                             targetsFeedIds: [userFeedId],
+                             self.showErrorAlertIfNeeded)
             }
         }
         
         cell.updateLike(with: activity) { [weak self, weak activity] in
-            if let button = $0 as? LikeReactionButton, let activity = activity, let self = self, let presenter = self.presenter {
-                button.setup(presenter: presenter, activity: activity, self.showErrorAlert)
+            if let self = self, let button = $0 as? LikeButton, let activity = activity, let presenter = self.presenter {
+                button.react(with: presenter.reactionPresenter, activity: activity, self.showErrorAlertIfNeeded)
             }
         }
         
