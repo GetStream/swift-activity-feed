@@ -13,6 +13,7 @@ extension UIViewController {
     public typealias ImagePickerCompletion = (_ imagePickerInfo: [UIImagePickerController.InfoKey : Any],
         _ authorizationStatus: PHAuthorizationStatus, _ removed: Bool) -> Void
     
+    /// Pick an image.
     public func pickImage(title: String? = "Add a photo",
                           message: String? = "Select a photo source",
                           removeTitle: String? = nil,

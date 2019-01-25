@@ -52,15 +52,14 @@ class ProfileViewController: UIViewController, BundledStoryboardLoadable {
         hideBackButtonTitle()
         setupTabBarItem()
         updateUser()
-        
+        setupFlatFeed()
+
         if isCurrentUser {
             addEditButton()
         } else {
             addFollowButton()
             refreshUser()
         }
-        
-        setupFlatFeed()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -154,7 +153,7 @@ extension ProfileViewController {
             return
         }
         
-        let button =  BarButton(title: "Edit Profile", backgroundColor: UIColor(white: 1, alpha: 0.7))
+        let button = BarButton(title: "Edit Profile", backgroundColor: Appearance.Color.transparentWhite)
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: button)
         
         button.addTap { [weak self] _ in
@@ -171,8 +170,48 @@ extension ProfileViewController {
     }
     
     private func addFollowButton() {
+        guard let flatFeedPresenter = flatFeedViewController?.presenter else {
+            return
+        }
+        
         let button =  BarButton(title: "Follow", backgroundColor: UIColor(red:0, green:0.48, blue:1, alpha:1))
+        button.setTitle("Updating...", backgroundColor: Appearance.Color.transparentWhite, for: .disabled)
+        button.setTitle("Following", backgroundColor: Appearance.Color.transparentWhite, for: .selected)
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: button)
+        
+        button.addTap { [weak flatFeedPresenter]  in
+            if let button = $0 as? BarButton,
+                let feedId = flatFeedPresenter?.flatFeed.feedId,
+                let userFeed = UIApplication.shared.appDelegate.userFeed {
+                let isFollowing = button.isSelected
+                button.isEnabled = false
+                
+                if isFollowing {
+                    userFeed.unfollow(fromTarget: feedId) {
+                        button.isEnabled = true
+                        button.isSelected = !($0.error == nil)
+                    }
+                } else {
+                    userFeed.follow(toTarget: feedId) {
+                        button.isEnabled = true
+                        button.isSelected = $0.error == nil
+                    }
+                }
+            }
+        }
+        
+        // Update the current state.
+        button.isEnabled = false
+        
+        UIApplication.shared.appDelegate.currentUser?.isFollow(toTarget: flatFeedPresenter.flatFeed.feedId) { [weak self] in
+            button.isEnabled = true
+            
+            if let error = $2 {
+                self?.showErrorAlert(error)
+            } else {
+                button.isSelected = $0
+            }
+        }
     }
 }
 

@@ -12,6 +12,7 @@ struct Appearance {
     
     struct Color {
         static let gray = UIColor(red: 0.21, green: 0.25, blue: 0.28, alpha: 1)
+        static let transparentWhite = UIColor(white: 1, alpha: 0.7)
     }
     
     static func setup() {

@@ -59,6 +59,27 @@ extension User {
     }
 }
 
+// MARK: - Following
+
+extension User {
+    public func isFollow(toTarget target: FeedId,
+                         completion: @escaping (_ isFollow: Bool, _ following: Follower?, _ error: Error?) -> Void) {
+        guard let userFeed = UIApplication.shared.appDelegate.userFeed else {
+            print("⚠️", #function, "UserFeed is nil")
+            completion(false, nil, nil)
+            return
+        }
+        
+        userFeed.following(filter: [target]) {
+            if let response = try? $0.get() {
+                completion(response.results.first != nil, response.results.first, nil)
+            } else {
+                completion(false, nil, $0.error)
+            }
+        }
+    }
+}
+
 // MARK: - Avatar
 
 extension User {
@@ -90,12 +111,13 @@ extension User {
     }
     
     public func updateAvatarURL(image: UIImage, completion: @escaping (_ error: Error?) -> Void) {
-        guard let file = File(name: name, jpegImage: image) else {
+        guard let file = File(name: name, jpegImage: image),
+            let client = UIApplication.shared.appDelegate.client else {
             completion(nil)
             return
         }
         
-        UIApplication.shared.appDelegate.client?.upload(image: file) { [weak self] result in
+        client.upload(image: file) { [weak self] result in
             guard let self = self else {
                 return
             }

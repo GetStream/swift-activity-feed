@@ -65,3 +65,16 @@ extension FlatFeedPresenter {
         }
     }
 }
+
+// MARK: - Following
+
+extension FlatFeedPresenter {
+    
+    func follow(toTarget target: FeedId, activityCopyLimit: Int = 10, _ completion: @escaping Completion) {
+        flatFeed.follow(toTarget: target, activityCopyLimit: activityCopyLimit) { completion($0.error) }
+    }
+    
+    func unfollow(fromTarget target: FeedId, keepHistory: Bool = false, _ completion: @escaping Completion) {
+        flatFeed.unfollow(fromTarget: target, keepHistory: keepHistory) { completion($0.error) }
+    }
+}

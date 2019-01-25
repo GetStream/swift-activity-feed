@@ -49,6 +49,7 @@
 		8A3E63CD21F0CFE200E17543 /* FlatFeedPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3E63CC21F0CFE200E17543 /* FlatFeedPresenter.swift */; };
 		8A3E63D021F0D45E00E17543 /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3E63CF21F0D45E00E17543 /* Activity.swift */; };
 		8A571A1D21FB0D53004949B2 /* ReactionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A571A1C21FB0D53004949B2 /* ReactionPresenter.swift */; };
+		8A571A2121FB26CC004949B2 /* UIButton+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A571A2021FB26CC004949B2 /* UIButton+Extensions.swift */; };
 		8AC40FAB21EE0ED50073B749 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC40FAA21EE0ED50073B749 /* UIViewController+Extensions.swift */; };
 		8AC40FAD21EE0FBB0073B749 /* RootBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC40FAC21EE0FBB0073B749 /* RootBuilder.swift */; };
 		8AC40FB021EE2C8D0073B749 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC40FAF21EE2C8D0073B749 /* ProfileViewController.swift */; };
@@ -118,6 +119,7 @@
 		8A3E63CC21F0CFE200E17543 /* FlatFeedPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlatFeedPresenter.swift; sourceTree = "<group>"; };
 		8A3E63CF21F0D45E00E17543 /* Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
 		8A571A1C21FB0D53004949B2 /* ReactionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionPresenter.swift; sourceTree = "<group>"; };
+		8A571A2021FB26CC004949B2 /* UIButton+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extensions.swift"; sourceTree = "<group>"; };
 		8AC40FAA21EE0ED50073B749 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		8AC40FAC21EE0FBB0073B749 /* RootBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootBuilder.swift; sourceTree = "<group>"; };
 		8AC40FAF21EE2C8D0073B749 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -322,6 +324,7 @@
 				8A3E63B721EF65D400E17543 /* UIControl+Extensions.swift */,
 				8A3E63C421F08DC300E17543 /* UIColor+Extensions.swift */,
 				8A108D1421F223DE0080ADEB /* Date+Extensions.swift */,
+				8A571A2021FB26CC004949B2 /* UIButton+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -603,6 +606,7 @@
 				8A2DE1D121F9F7B5009E2469 /* RepostButton.swift in Sources */,
 				8A3E63C921F0B45300E17543 /* FlatFeedViewController.swift in Sources */,
 				8A13FD0F21ECF66C00D216C6 /* RootPresenter.swift in Sources */,
+				8A571A2121FB26CC004949B2 /* UIButton+Extensions.swift in Sources */,
 				8A108D1221F20E8E0080ADEB /* ActivityTableViewCell.swift in Sources */,
 				8A3573C921F5CA20009EB9D7 /* ReactionKind+Extensions.swift in Sources */,
 			);

@@ -12,12 +12,22 @@ import SnapKit
 public class BarButton: UIButton {
     convenience init(title: String, backgroundColor: UIColor) {
         self.init(type: .custom)
-        setTitle(title, for: .normal)
-        setBackgroundImage(backgroundColor.image, for: .normal)
-        setTitleColor(backgroundColor.isDark ? .white : Appearance.Color.gray, for: .normal)
+        setTitle(title, backgroundColor: backgroundColor, for: .normal)
         clipsToBounds = true
         layer.cornerRadius = 6
         contentEdgeInsets = UIEdgeInsets(top: 8, left: 12, bottom: 8, right: 12)
         titleLabel?.font = .systemFont(ofSize: 12, weight: .medium)
+    }
+    
+    public override var isEnabled: Bool {
+        didSet {
+            sizeToFit()
+        }
+    }
+    
+    public override var isSelected: Bool {
+        didSet {
+            sizeToFit()
+        }
     }
 }

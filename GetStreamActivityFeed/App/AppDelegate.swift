@@ -19,10 +19,10 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         return client?.currentUser as? User
     }
     
-    var userFeed: FlatFeed? {
+    lazy var userFeed: FlatFeed? = {
         return client?.flatFeed(feedSlug: "user")
-    }
-
+    }()
+    
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         setupClient()
