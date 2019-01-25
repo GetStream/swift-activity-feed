@@ -111,8 +111,8 @@ class ProfileViewController: UIViewController, BundledStoryboardLoadable {
             }
             
             if let repostReaction = activity.repostReaction {
-                flatFeedViewController?.presenter?.remove(reaction: repostReaction,
-                                                          activity: activity) { [weak self] in self?.refresh($0.error) }
+                flatFeedViewController?.presenter?.reactionPresenter
+                    .remove(reaction: repostReaction, activity: activity) { [weak self] in self?.refresh($0.error) }
             }
         }
     }
@@ -157,16 +157,17 @@ extension ProfileViewController {
         let button =  BarButton(title: "Edit Profile", backgroundColor: UIColor(white: 1, alpha: 0.7))
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: button)
         
-        button.addTap { _ in
-            let viewController = builder.editProfileNavigationController { editProfileViewController in
-                editProfileViewController.completion = { user in
-                    self.user = user
-                    self.updateUser()
-                }
-            }
-            
-            self.present(viewController, animated: true)
+        button.addTap { [weak self] _ in
+            let viewController = builder.editProfileNavigationController { $0.completion = self?.updateEditedUser }
+            self?.present(viewController, animated: true)
         }
+    }
+    
+    private func updateEditedUser(_ user: User) {
+        avatarView.image = nil
+        backgroundImageView.image = nil
+        self.user = user
+        updateUser()
     }
     
     private func addFollowButton() {
