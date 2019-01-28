@@ -51,6 +51,12 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
             return
         }
         
-        client = Client(apiKey: apiKey, appId: appId, token: token)
+        let client = Client(apiKey: apiKey, appId: appId, token: token)
+        self.client = client
+        
+        if let timelineFeed = client.flatFeed(feedSlug: "timeline"),
+            let userFeed = userFeed {
+            timelineFeed.follow(toTarget: userFeed.feedId) { _ in}
+        }
     }
 }

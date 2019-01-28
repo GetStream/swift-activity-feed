@@ -26,6 +26,10 @@ final class Activity: EnrichedActivity<User, ActivityObject, String>, ActivityLi
         return self
     }
     
+    public init(actor: User, verb: Verb, object: ActivityObject, target: TargetType? = nil, feedIds: FeedIds? = nil) {
+        super.init(actor: actor, verb: verb, object: object, target: target, feedIds: feedIds)
+    }
+    
     required public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         text = try container.decodeIfPresent(String.self, forKey: .text)

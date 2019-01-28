@@ -9,9 +9,9 @@
 import GetStream
 
 enum ActivityObject: Enrichable {
-    case text(value: String)
-    case image(url: URL)
-    case repost(activity: Activity)
+    case text(_ value: String)
+    case image(_ url: URL)
+    case repost(_ activity: Activity)
     
     public var referenceId: String {
         switch self {
@@ -42,12 +42,12 @@ enum ActivityObject: Enrichable {
         
         if let text = try? container.decode(String.self) {
             if text.hasPrefix("http"), let imageURL = try? container.decode(URL.self) {
-                self = .image(url: imageURL)
+                self = .image(imageURL)
             } else {
-                self = .text(value: text)
+                self = .text(text)
             }
         } else {
-            self = .repost(activity: try container.decode(Activity.self))
+            self = .repost(try container.decode(Activity.self))
         }
     }
 }
