@@ -32,7 +32,7 @@
         <scene sceneID="T62-Ky-q0E">
             <objects>
                 <tableViewController storyboardIdentifier="FlatFeedViewController" id="JAH-pc-eOh" customClass="FlatFeedViewController" customModule="GetStreamActivityFeed" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" keyboardDismissMode="interactive" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="120" sectionHeaderHeight="-1" sectionFooterHeight="-1" id="jgP-s8-82R">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" keyboardDismissMode="interactive" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="120" sectionHeaderHeight="-1" sectionFooterHeight="-1" id="jgP-s8-82R">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -46,7 +46,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Rr2-hc-LD2" id="4Hp-WD-uPd">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -83,7 +83,7 @@
                                     <constraint firstAttribute="height" constant="44" id="Eb5-Tx-Fms"/>
                                 </constraints>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" image="gear_icon"/>
+                                <state key="normal" image="image_icon"/>
                                 <connections>
                                     <action selector="addImage:" destination="NxW-4H-H8V" eventType="touchUpInside" id="V0v-jU-nCh"/>
                                 </connections>
@@ -255,7 +255,7 @@
     <resources>
         <image name="close_icon" width="23" height="23"/>
         <image name="compose_icon" width="24" height="24"/>
-        <image name="gear_icon" width="24" height="24"/>
+        <image name="image_icon" width="25" height="25"/>
         <image name="user_icon" width="24" height="24"/>
     </resources>
 </document>

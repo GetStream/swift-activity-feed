@@ -37,6 +37,14 @@ open class FlatFeedViewController: UITableViewController, BundledStoryboardLoada
             reloadData()
         }
     }
+    
+    private func activity(at section: Int) -> Activity? {
+        guard let presenter = presenter, section < presenter.activities.count else {
+            return nil
+        }
+        
+        return presenter.activities[section]
+    }
 }
 
 // MARK: - Table View
@@ -44,7 +52,10 @@ open class FlatFeedViewController: UITableViewController, BundledStoryboardLoada
 extension FlatFeedViewController {
     
     func setupTableView() {
+        tableView.estimatedRowHeight = 100
         tableView.register(cellType: ActivityTableViewCell.self)
+        tableView.register(cellType: OpenGraphTableViewCell.self)
+        tableView.register(cellType: SeparatorTableViewCell.self)
     }
     
     func reloadData() {
@@ -64,20 +75,39 @@ extension FlatFeedViewController {
     }
     
     open override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        guard let activity = activity(at: section) else {
+            return 0
+        }
+        
+        var count = 2
+        
+        if let attachments = activity.originalActivity.attachments, attachments.openGraphData != nil {
+            count += 1
+        }
+        
+        return count
     }
     
     open override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(for: indexPath) as ActivityTableViewCell
-        
-        guard let presenter = presenter,
-            indexPath.row < presenter.activities.count else {
+        if indexPath.row > 0 {
+            if indexPath.row == 1,
+                let activity = activity(at: indexPath.section)?.originalActivity,
+                let ogData = activity.attachments?.openGraphData {
+                let cell = tableView.dequeueReusableCell(for: indexPath) as OpenGraphTableViewCell
+                cell.update(with: ogData)
                 return cell
+            }
+            
+            return tableView.dequeueReusableCell(for: indexPath) as SeparatorTableViewCell
         }
         
-        let activity = presenter.activities[indexPath.section]
-        let user = activity.actor
+        let cell = tableView.dequeueReusableCell(for: indexPath) as ActivityTableViewCell
         
+        guard let activity = activity(at: indexPath.section) else {
+            return cell
+        }
+        
+        let user = activity.actor
         cell.update(with: activity)
         
         cell.updateAvatar(with: activity) { [weak self] _ in

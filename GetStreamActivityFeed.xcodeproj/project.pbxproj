@@ -54,6 +54,14 @@
 		8A571A2321FB3BE1004949B2 /* EditPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A571A2221FB3BE1004949B2 /* EditPostViewController.swift */; };
 		8A68395521FB7A170003C19B /* DataDetectorWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A68395421FB7A170003C19B /* DataDetectorWorker.swift */; };
 		8A7559A821FF06AA002187EA /* NSAttributedString+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7559A721FF06AA002187EA /* NSAttributedString+Extensions.swift */; };
+		8A7559AB21FF15B6002187EA /* OpenGraphWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7559AA21FF15B6002187EA /* OpenGraphWorker.swift */; };
+		8A7559AD21FF18D3002187EA /* EditPostPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7559AC21FF18D3002187EA /* EditPostPresenter.swift */; };
+		8A7559B021FF2F70002187EA /* OpenGraphTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7559AE21FF2F70002187EA /* OpenGraphTableViewCell.swift */; };
+		8A7559B121FF2F70002187EA /* OpenGraphTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A7559AF21FF2F70002187EA /* OpenGraphTableViewCell.xib */; };
+		8A7559B321FF55E3002187EA /* OpenGraphTableViewCell+Update.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7559B221FF55E3002187EA /* OpenGraphTableViewCell+Update.swift */; };
+		8A7559B821FF5C1D002187EA /* SeparatorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7559B621FF5C1D002187EA /* SeparatorTableViewCell.swift */; };
+		8A7559B921FF5C1D002187EA /* SeparatorTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A7559B721FF5C1D002187EA /* SeparatorTableViewCell.xib */; };
+		8A7559BC22005AE8002187EA /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7559BB22005AE8002187EA /* WebViewController.swift */; };
 		8AC40FAB21EE0ED50073B749 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC40FAA21EE0ED50073B749 /* UIViewController+Extensions.swift */; };
 		8AC40FAD21EE0FBB0073B749 /* RootBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC40FAC21EE0FBB0073B749 /* RootBuilder.swift */; };
 		8AC40FB021EE2C8D0073B749 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC40FAF21EE2C8D0073B749 /* ProfileViewController.swift */; };
@@ -128,6 +136,14 @@
 		8A571A2221FB3BE1004949B2 /* EditPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPostViewController.swift; sourceTree = "<group>"; };
 		8A68395421FB7A170003C19B /* DataDetectorWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataDetectorWorker.swift; sourceTree = "<group>"; };
 		8A7559A721FF06AA002187EA /* NSAttributedString+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+Extensions.swift"; sourceTree = "<group>"; };
+		8A7559AA21FF15B6002187EA /* OpenGraphWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenGraphWorker.swift; sourceTree = "<group>"; };
+		8A7559AC21FF18D3002187EA /* EditPostPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPostPresenter.swift; sourceTree = "<group>"; };
+		8A7559AE21FF2F70002187EA /* OpenGraphTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenGraphTableViewCell.swift; sourceTree = "<group>"; };
+		8A7559AF21FF2F70002187EA /* OpenGraphTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OpenGraphTableViewCell.xib; sourceTree = "<group>"; };
+		8A7559B221FF55E3002187EA /* OpenGraphTableViewCell+Update.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OpenGraphTableViewCell+Update.swift"; sourceTree = "<group>"; };
+		8A7559B621FF5C1D002187EA /* SeparatorTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeparatorTableViewCell.swift; sourceTree = "<group>"; };
+		8A7559B721FF5C1D002187EA /* SeparatorTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SeparatorTableViewCell.xib; sourceTree = "<group>"; };
+		8A7559BB22005AE8002187EA /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		8AC40FAA21EE0ED50073B749 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		8AC40FAC21EE0FBB0073B749 /* RootBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootBuilder.swift; sourceTree = "<group>"; };
 		8AC40FAF21EE2C8D0073B749 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -171,8 +187,6 @@
 		8A108D0F21F20E4B0080ADEB /* Table Cell */ = {
 			isa = PBXGroup;
 			children = (
-				8A108D1021F20E8E0080ADEB /* ActivityTableViewCell.swift */,
-				8A108D1121F20E8E0080ADEB /* ActivityTableViewCell.xib */,
 			);
 			path = "Table Cell";
 			sourceTree = "<group>";
@@ -260,6 +274,10 @@
 			isa = PBXGroup;
 			children = (
 				8A3E63CC21F0CFE200E17543 /* FlatFeedPresenter.swift */,
+				8A108D1021F20E8E0080ADEB /* ActivityTableViewCell.swift */,
+				8A108D1121F20E8E0080ADEB /* ActivityTableViewCell.xib */,
+				8A7559B621FF5C1D002187EA /* SeparatorTableViewCell.swift */,
+				8A7559B721FF5C1D002187EA /* SeparatorTableViewCell.xib */,
 			);
 			path = "Flat Feed";
 			sourceTree = "<group>";
@@ -279,7 +297,6 @@
 		8A13FD0921ECE9CF00D216C6 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				8A68395321FB7A000003C19B /* Data Detector */,
 				8A3E63C021F08C2400E17543 /* Appearance.swift */,
 			);
 			path = Services;
@@ -355,8 +372,9 @@
 				8A3E63CA21F0B63600E17543 /* ActivityFeed.storyboard */,
 				8A3573D221F74636009EB9D7 /* ActivityFeedBuilder.swift */,
 				8A3E63C821F0B45300E17543 /* FlatFeedViewController.swift */,
-				8A571A2221FB3BE1004949B2 /* EditPostViewController.swift */,
 				8A3573CC21F5CC26009EB9D7 /* ActivityTableViewCell+Update.swift */,
+				8A571A2221FB3BE1004949B2 /* EditPostViewController.swift */,
+				8A7559AC21FF18D3002187EA /* EditPostPresenter.swift */,
 			);
 			path = "Activity Feed";
 			sourceTree = "<group>";
@@ -376,6 +394,8 @@
 			children = (
 				8A13FD0321ECD83A00D216C6 /* Flat Feed */,
 				8A571A1F21FB15D9004949B2 /* Reaction */,
+				8A7559A921FF159E002187EA /* Open Graph */,
+				8A7559BA22005ABA002187EA /* Web View */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -390,12 +410,24 @@
 			path = Reaction;
 			sourceTree = "<group>";
 		};
-		8A68395321FB7A000003C19B /* Data Detector */ = {
+		8A7559A921FF159E002187EA /* Open Graph */ = {
 			isa = PBXGroup;
 			children = (
 				8A68395421FB7A170003C19B /* DataDetectorWorker.swift */,
+				8A7559AA21FF15B6002187EA /* OpenGraphWorker.swift */,
+				8A7559AE21FF2F70002187EA /* OpenGraphTableViewCell.swift */,
+				8A7559AF21FF2F70002187EA /* OpenGraphTableViewCell.xib */,
+				8A7559B221FF55E3002187EA /* OpenGraphTableViewCell+Update.swift */,
 			);
-			path = "Data Detector";
+			path = "Open Graph";
+			sourceTree = "<group>";
+		};
+		8A7559BA22005ABA002187EA /* Web View */ = {
+			isa = PBXGroup;
+			children = (
+				8A7559BB22005AE8002187EA /* WebViewController.swift */,
+			);
+			path = "Web View";
 			sourceTree = "<group>";
 		};
 		8AC40FAE21EE18160073B749 /* Profile */ = {
@@ -523,8 +555,10 @@
 				8A13FCDF21EC95D900D216C6 /* Assets.xcassets in Resources */,
 				8AC40FB221EE2CB10073B749 /* Profile.storyboard in Resources */,
 				8A13FCDD21EC95D700D216C6 /* Main.storyboard in Resources */,
+				8A7559B121FF2F70002187EA /* OpenGraphTableViewCell.xib in Resources */,
 				8A108D1321F20E8E0080ADEB /* ActivityTableViewCell.xib in Resources */,
 				8A3E63CB21F0B63600E17543 /* ActivityFeed.storyboard in Resources */,
+				8A7559B921FF5C1D002187EA /* SeparatorTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -591,24 +625,29 @@
 				8A13FD0621ECD86700D216C6 /* User.swift in Sources */,
 				8AC40FBC21EF356F0073B749 /* UIImage+Extensions.swift in Sources */,
 				8A2DE1D321FA2DAF009E2469 /* ReactionPresenterProtocol.swift in Sources */,
+				8A7559AD21FF18D3002187EA /* EditPostPresenter.swift in Sources */,
 				8AC40FB021EE2C8D0073B749 /* ProfileViewController.swift in Sources */,
 				8AC40FBA21EE57D80073B749 /* AvatarView.swift in Sources */,
 				8A3573CD21F5CC26009EB9D7 /* ActivityTableViewCell+Update.swift in Sources */,
 				8A2DE1CA21F9E819009E2469 /* ActivityRepostable.swift in Sources */,
 				8A13FD0821ECDFCC00D216C6 /* Bundle+StreamInfoKeys.swift in Sources */,
 				8A2DE1C821F9E768009E2469 /* ReactionButton.swift in Sources */,
+				8A7559BC22005AE8002187EA /* WebViewController.swift in Sources */,
 				8A3E63C121F08C2400E17543 /* Appearance.swift in Sources */,
 				8AC40FAB21EE0ED50073B749 /* UIViewController+Extensions.swift in Sources */,
 				8A108D1521F223DE0080ADEB /* Date+Extensions.swift in Sources */,
+				8A7559AB21FF15B6002187EA /* OpenGraphWorker.swift in Sources */,
 				8A3573D121F72DE2009EB9D7 /* Verb+Extensions.swift in Sources */,
 				8A13FD1421ECF8A700D216C6 /* RootRouter.swift in Sources */,
 				8A3E63BA21EF6DFA00E17543 /* ProfileBuilder.swift in Sources */,
+				8A7559B821FF5C1D002187EA /* SeparatorTableViewCell.swift in Sources */,
 				8A3573D521F76A25009EB9D7 /* URL+ImageRequest.swift in Sources */,
 				8A571A2321FB3BE1004949B2 /* EditPostViewController.swift in Sources */,
 				8A2DE1CD21F9F56E009E2469 /* LikeButton.swift in Sources */,
 				8A3E63B821EF65D400E17543 /* UIControl+Extensions.swift in Sources */,
 				8A13FCD821EC95D700D216C6 /* AppDelegate.swift in Sources */,
 				8A3E63B621EF63BB00E17543 /* EditProfileViewController.swift in Sources */,
+				8A7559B321FF55E3002187EA /* OpenGraphTableViewCell+Update.swift in Sources */,
 				8AC40FAD21EE0FBB0073B749 /* RootBuilder.swift in Sources */,
 				8A3E63B421EF49A500E17543 /* BarButton.swift in Sources */,
 				8A13FD1121ECF6C800D216C6 /* UIApplication+Extensions.swift in Sources */,
@@ -616,6 +655,7 @@
 				8A7559A821FF06AA002187EA /* NSAttributedString+Extensions.swift in Sources */,
 				8A3E63CD21F0CFE200E17543 /* FlatFeedPresenter.swift in Sources */,
 				8A3573D321F74636009EB9D7 /* ActivityFeedBuilder.swift in Sources */,
+				8A7559B021FF2F70002187EA /* OpenGraphTableViewCell.swift in Sources */,
 				8A3E63BC21EF877600E17543 /* UIImage+Icons.swift in Sources */,
 				8A2DE1CF21F9F675009E2469 /* ActivityLikable.swift in Sources */,
 				8AC40FB821EE57570073B749 /* AvatarPresentable.swift in Sources */,

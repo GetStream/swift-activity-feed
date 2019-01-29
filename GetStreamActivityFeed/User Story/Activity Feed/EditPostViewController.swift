@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Nuke
 
 class EditPostViewController: UIViewController {
     static var storyboardName = "ActivityFeed"
@@ -22,25 +23,20 @@ class EditPostViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var collectionViewHeightConstraint: NSLayoutConstraint!
     
-    var activity: Activity?
-    
-    private lazy var dataDetectorWorker: DataDetectorWorker? = {
-        let worker = try? DataDetectorWorker(types: .link) { [weak self] items in
-            if let self = self {
-                self.updateOpenGraph(items)
-                self.underlineLinks(items)
-            }
-        }
-        
-        return worker
-    }()
-    
-    private var detectedURL: URL?
+    var presenter: EditPostPresenter?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // TODO: Inject presenter.
+        if let client = UIApplication.shared.appDelegate.client {
+            let presenter = EditPostPresenter(client: client, view: self, activity: nil)
+            self.presenter = presenter
+        }
+        
         loadAvatar()
         setupTextView()
+        setupTableView()
         activityIndicatorBarButtonItem.customView = activityIndicator
         collectionViewHeightConstraint.constant = 0
     }
@@ -51,11 +47,6 @@ class EditPostViewController: UIViewController {
     }
     
     @IBAction func save(_ sender: UIBarButtonItem) {
-        guard let user = UIApplication.shared.appDelegate.currentUser else {
-            close(sender)
-            return
-        }
-        
         view.endEditing(true)
         activityIndicator.startAnimating()
         sender.isEnabled = false
@@ -67,9 +58,7 @@ class EditPostViewController: UIViewController {
             return
         }
         
-        let activity = Activity(actor: user, verb: .post, object: .text(text))
-        
-        user.add(activity: activity) { [weak self] error in
+        presenter?.save(text) { [weak self] error in
             guard let self = self else {
                 return
             }
@@ -86,8 +75,12 @@ class EditPostViewController: UIViewController {
     }
     
     @IBAction func addImage(_ sender: Any) {
-        pickImage(title: "Add a photo") { info, status, _ in
-            
+        pickImage(title: "Add a photo") { [weak self] info, status, _ in
+            if let image = info[.originalImage] as? UIImage {
+                self?.presenter?.images.append(image)
+            } else if status != .authorized {
+                print("❌ Photos authorization status: ", status)
+            }
         }
     }
     
@@ -101,6 +94,34 @@ class EditPostViewController: UIViewController {
                 avatarView.image = image.square(with: avatarView.bounds.width)
             }
         }
+    }
+}
+
+// MARK: - Edit Post Viewable
+
+extension EditPostViewController: EditPostViewable {
+    
+    func underlineLinks(with dataDetectorURLItems: [DataDetectorURLItem]) {
+        textView.attributedText = textView.attributedText.string
+            .attributedString { attributedString in
+                dataDetectorURLItems.forEach { item in
+                    attributedString.addAttributes([.backgroundColor: Appearance.Color.transparentYellow2], range: item.range.range)
+                }
+            }
+            .applyFont(textView.font)
+    }
+    
+    func updateOpenGraphData() {
+        tableView.reloadData()
+    }
+    
+    func updateImages() {
+        guard let presenter = presenter else {
+            return
+        }
+        
+        collectionView.isHidden = presenter.images.count == 0
+        collectionView.reloadData()
     }
 }
 
@@ -127,16 +148,16 @@ extension EditPostViewController: UITextViewDelegate {
     }
     
     func textViewDidChange(_ textView: UITextView) {
-        let text = validText()
+        let text = validatedText()
         saveBarButtonItem.isEnabled = text != nil
         
         if let text = text {
-            dataDetectorWorker?.match(text)
+            presenter?.dataDetectorWorker?.match(text)
         }
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        let text = validText()
+        let text = validatedText()
         saveBarButtonItem.isEnabled = text != nil
         
         if !saveBarButtonItem.isEnabled {
@@ -144,31 +165,35 @@ extension EditPostViewController: UITextViewDelegate {
         }
     }
     
-    private func validText() -> String? {
+    private func validatedText() -> String? {
         let text = textView.attributedText.string.trimmingCharacters(in: .whitespacesAndNewlines)
         return text.isEmpty || text == EditPostViewController.textViewPlaceholder.string ? nil : text
     }
-    
-    private func updateOpenGraph(_ dataDetectorURLItems: [DataDetectorURLItem]) {
-        guard let item = dataDetectorURLItems.first else {
-            return
-        }
-        
-        if let detectedURL = detectedURL, detectedURL == item.url {
-            return
-        }
-        
-        self.detectedURL = item.url
-        tableView.reloadData()
+}
+
+// MARK: - Table View
+
+extension EditPostViewController: UITableViewDelegate, UITableViewDataSource {
+    private func setupTableView() {
+        tableView.estimatedRowHeight = 116
+        tableView.register(cellType: OpenGraphTableViewCell.self)
+        tableView.delegate = self
+        tableView.dataSource = self
     }
     
-    private func underlineLinks(_ dataDetectorURLItems: [DataDetectorURLItem]) {
-        textView.attributedText = textView.attributedText.string
-            .attributedString { attributedString in
-                dataDetectorURLItems.forEach { item in
-                    attributedString.addAttributes([.backgroundColor: Appearance.Color.transparentYellow2], range: item.range.range)
-                }
-            }
-            .applyFont(textView.font)
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return presenter?.ogData == nil ? 0 : 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(for: indexPath) as OpenGraphTableViewCell
+        
+        guard let ogData = presenter?.ogData else {
+            return cell
+        }
+        
+        cell.update(with: ogData)
+        
+        return cell
     }
 }
