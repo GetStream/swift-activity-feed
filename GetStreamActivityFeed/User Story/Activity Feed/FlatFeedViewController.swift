@@ -45,6 +45,14 @@ open class FlatFeedViewController: UITableViewController, BundledStoryboardLoada
         
         return presenter.activities[section]
     }
+    
+    private func openGraph(at section: Int) -> OGResponse? {
+        if let activity = activity(at: section), let attachments = activity.originalActivity.attachments {
+            return attachments.openGraphData
+        }
+        
+        return nil
+    }
 }
 
 // MARK: - Table View
@@ -75,17 +83,11 @@ extension FlatFeedViewController {
     }
     
     open override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let activity = activity(at: section) else {
-            return 0
+        if openGraph(at: section) != nil {
+            return 3
         }
         
-        var count = 2
-        
-        if let attachments = activity.originalActivity.attachments, attachments.openGraphData != nil {
-            count += 1
-        }
-        
-        return count
+        return activity(at: section) == nil ? 0 : 2
     }
     
     open override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -142,11 +144,19 @@ extension FlatFeedViewController {
     }
     
     open override func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+        if let openGraph = openGraph(at: indexPath.section), openGraph.url != nil {
+            return true
+        }
+        
         return false
     }
     
-    open override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        return nil
+    open override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let openGraph = self.openGraph(at: indexPath.section)
+        let viewController = WebViewController()
+        viewController.url = openGraph?.url
+        viewController.title = openGraph?.title
+        present(UINavigationController(rootViewController: viewController), animated: true)
     }
     
     open override func tableView(_ tableView: UITableView,
@@ -162,7 +172,7 @@ extension FlatFeedViewController {
     }
     
     open override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return removeActivityAction != nil
+        return removeActivityAction != nil && indexPath.row == 0
     }
 }
 

@@ -19,7 +19,6 @@ public final class OpenGraphTableViewCell: UITableViewCell, NibReusable {
     
     public override func awakeFromNib() {
         super.awakeFromNib()
-        selectedBackgroundView = UIView()
         reset()
     }
     
@@ -41,15 +40,6 @@ public final class OpenGraphTableViewCell: UITableViewCell, NibReusable {
         previewImageView.backgroundColor = Appearance.Color.lightGray
         titleLabel.text = nil
         descriptionLabel.text = nil
-    }
-    
-    public override func setSelected(_ selected: Bool, animated: Bool) {
-        backgroundColor = isSelected ? Appearance.Color.lightGray : .white
-        selectedBackgroundView?.backgroundColor = backgroundColor
-    }
-    
-    public override func setHighlighted(_ highlighted: Bool, animated: Bool) {
-        setSelected(highlighted, animated: animated)
     }
     
     public func updatePreviewImage(with url: URL?) {
