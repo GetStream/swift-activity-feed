@@ -37,8 +37,8 @@ class EditPostViewController: UIViewController {
         loadAvatar()
         setupTextView()
         setupTableView()
+        setupCollectionView()
         activityIndicatorBarButtonItem.customView = activityIndicator
-        collectionViewHeightConstraint.constant = 0
     }
     
     @IBAction func close(_ sender: Any) {
@@ -75,12 +75,22 @@ class EditPostViewController: UIViewController {
     }
     
     @IBAction func addImage(_ sender: Any) {
+        view.endEditing(true)
+        
         pickImage(title: "Add a photo") { [weak self] info, status, _ in
             if let image = info[.originalImage] as? UIImage {
-                self?.presenter?.images.append(image)
+                self?.presenter?.images.insert(image, at: 0)
+                self?.updateCollectionView()
             } else if status != .authorized {
                 print("❌ Photos authorization status: ", status)
             }
+        }
+    }
+    
+    private func removeImage(at indexPath: IndexPath) {
+        if let presenter = presenter, indexPath.item < presenter.images.count {
+            presenter.images.remove(at: indexPath.item)
+            updateCollectionView()
         }
     }
     
@@ -105,7 +115,7 @@ extension EditPostViewController: EditPostViewable {
         textView.attributedText = textView.attributedText.string
             .attributedString { attributedString in
                 dataDetectorURLItems.forEach { item in
-                    attributedString.addAttributes([.backgroundColor: Appearance.Color.transparentYellow2], range: item.range.range)
+                    attributedString.addAttributes([.backgroundColor: Appearance.Color.transparentBlue2], range: item.range.range)
                 }
             }
             .applyFont(textView.font)
@@ -113,15 +123,6 @@ extension EditPostViewController: EditPostViewable {
     
     func updateOpenGraphData() {
         tableView.reloadData()
-    }
-    
-    func updateImages() {
-        guard let presenter = presenter else {
-            return
-        }
-        
-        collectionView.isHidden = presenter.images.count == 0
-        collectionView.reloadData()
     }
 }
 
@@ -132,7 +133,12 @@ extension EditPostViewController: UITextViewDelegate {
     func setupTextView() {
         let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
         
-        toolbar.items = [UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addImage(_:))),
+        let imageButton = UIButton(type: .custom)
+        imageButton.setImage(.imageIcon, for: .normal)
+        imageButton.addTarget(self, action: #selector(addImage(_:)), for: .touchUpInside)
+        let imageBarButton = UIBarButtonItem(customView: imageButton)
+        
+        toolbar.items = [imageBarButton,
                          UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
                          UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))]
         
@@ -193,6 +199,41 @@ extension EditPostViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         cell.update(with: ogData)
+        
+        return cell
+    }
+}
+
+// MARK: - Collection View
+
+extension EditPostViewController: UICollectionViewDataSource {
+    
+    private func setupCollectionView() {
+        collectionViewHeightConstraint.constant = 0
+        collectionView.register(cellType: AddingImageCollectionViewCell.self)
+        collectionView.dataSource = self
+    }
+    
+    private func updateCollectionView() {
+        guard let presenter = presenter else {
+            return
+        }
+        
+        collectionViewHeightConstraint.constant = presenter.images.count > 0 ? AddingImageCollectionViewCell.height : 0
+        collectionView.reloadData()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return presenter?.images.count ?? 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(for: indexPath) as AddingImageCollectionViewCell
+        cell.imageView.image = presenter?.images[indexPath.item]
+        
+        cell.removeButton.addTap { [weak self] _ in
+            self?.removeImage(at: indexPath)
+        }
         
         return cell
     }

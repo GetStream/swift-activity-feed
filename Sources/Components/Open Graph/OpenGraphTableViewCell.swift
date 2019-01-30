@@ -14,6 +14,7 @@ public final class OpenGraphTableViewCell: UITableViewCell, NibReusable {
     
     @IBOutlet private weak var containerView: UIView!
     @IBOutlet private weak var previewImageView: UIImageView!
+    @IBOutlet weak var previewImageWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     
@@ -38,6 +39,8 @@ public final class OpenGraphTableViewCell: UITableViewCell, NibReusable {
         previewImageView.image = .imageIcon
         previewImageView.contentMode = .center
         previewImageView.backgroundColor = Appearance.Color.lightGray
+        previewImageView.isHidden = false
+        previewImageWidthConstraint.constant = 100
         titleLabel.text = nil
         descriptionLabel.text = nil
     }
@@ -48,9 +51,18 @@ public final class OpenGraphTableViewCell: UITableViewCell, NibReusable {
         }
         
         ImagePipeline.shared.loadImage(with: url.imageRequest(in: previewImageView)) { [weak self] response, error in
-            self?.previewImageView.image = response?.image
-            self?.previewImageView.contentMode = .scaleAspectFit
-            self?.previewImageView.backgroundColor = .white
+            guard let self = self else {
+                return
+            }
+            
+            if let image = response?.image {
+                self.previewImageView.image = image
+                self.previewImageView.contentMode = .scaleAspectFit
+                self.previewImageView.backgroundColor = .white
+            } else {
+                self.previewImageWidthConstraint.constant = 0
+                self.previewImageView.isHidden = true
+            }
         }
     }
 }

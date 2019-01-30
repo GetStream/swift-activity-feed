@@ -47,8 +47,8 @@ open class FlatFeedViewController: UITableViewController, BundledStoryboardLoada
     }
     
     private func openGraph(at section: Int) -> OGResponse? {
-        if let activity = activity(at: section), let attachments = activity.originalActivity.attachments {
-            return attachments.openGraphData
+        if let activity = activity(at: section), let attachment = activity.originalActivity.attachment {
+            return attachment.openGraphData
         }
         
         return nil
@@ -94,7 +94,7 @@ extension FlatFeedViewController {
         if indexPath.row > 0 {
             if indexPath.row == 1,
                 let activity = activity(at: indexPath.section)?.originalActivity,
-                let ogData = activity.attachments?.openGraphData {
+                let ogData = activity.attachment?.openGraphData {
                 let cell = tableView.dequeueReusableCell(for: indexPath) as OpenGraphTableViewCell
                 cell.update(with: ogData)
                 return cell

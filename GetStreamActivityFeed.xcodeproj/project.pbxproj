@@ -52,6 +52,8 @@
 		8A571A1D21FB0D53004949B2 /* ReactionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A571A1C21FB0D53004949B2 /* ReactionPresenter.swift */; };
 		8A571A2121FB26CC004949B2 /* UIButton+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A571A2021FB26CC004949B2 /* UIButton+Extensions.swift */; };
 		8A571A2321FB3BE1004949B2 /* EditPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A571A2221FB3BE1004949B2 /* EditPostViewController.swift */; };
+		8A6801D42200B3E600B77352 /* AddingImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6801D22200B3E500B77352 /* AddingImageCollectionViewCell.swift */; };
+		8A6801D52200B3E600B77352 /* AddingImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A6801D32200B3E600B77352 /* AddingImageCollectionViewCell.xib */; };
 		8A68395521FB7A170003C19B /* DataDetectorWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A68395421FB7A170003C19B /* DataDetectorWorker.swift */; };
 		8A7559A821FF06AA002187EA /* NSAttributedString+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7559A721FF06AA002187EA /* NSAttributedString+Extensions.swift */; };
 		8A7559AB21FF15B6002187EA /* OpenGraphWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7559AA21FF15B6002187EA /* OpenGraphWorker.swift */; };
@@ -134,6 +136,8 @@
 		8A571A1C21FB0D53004949B2 /* ReactionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionPresenter.swift; sourceTree = "<group>"; };
 		8A571A2021FB26CC004949B2 /* UIButton+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extensions.swift"; sourceTree = "<group>"; };
 		8A571A2221FB3BE1004949B2 /* EditPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPostViewController.swift; sourceTree = "<group>"; };
+		8A6801D22200B3E500B77352 /* AddingImageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddingImageCollectionViewCell.swift; sourceTree = "<group>"; };
+		8A6801D32200B3E600B77352 /* AddingImageCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddingImageCollectionViewCell.xib; sourceTree = "<group>"; };
 		8A68395421FB7A170003C19B /* DataDetectorWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataDetectorWorker.swift; sourceTree = "<group>"; };
 		8A7559A721FF06AA002187EA /* NSAttributedString+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+Extensions.swift"; sourceTree = "<group>"; };
 		8A7559AA21FF15B6002187EA /* OpenGraphWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenGraphWorker.swift; sourceTree = "<group>"; };
@@ -278,6 +282,8 @@
 				8A108D1121F20E8E0080ADEB /* ActivityTableViewCell.xib */,
 				8A7559B621FF5C1D002187EA /* SeparatorTableViewCell.swift */,
 				8A7559B721FF5C1D002187EA /* SeparatorTableViewCell.xib */,
+				8A6801D22200B3E500B77352 /* AddingImageCollectionViewCell.swift */,
+				8A6801D32200B3E600B77352 /* AddingImageCollectionViewCell.xib */,
 			);
 			path = "Flat Feed";
 			sourceTree = "<group>";
@@ -556,6 +562,7 @@
 				8AC40FB221EE2CB10073B749 /* Profile.storyboard in Resources */,
 				8A13FCDD21EC95D700D216C6 /* Main.storyboard in Resources */,
 				8A7559B121FF2F70002187EA /* OpenGraphTableViewCell.xib in Resources */,
+				8A6801D52200B3E600B77352 /* AddingImageCollectionViewCell.xib in Resources */,
 				8A108D1321F20E8E0080ADEB /* ActivityTableViewCell.xib in Resources */,
 				8A3E63CB21F0B63600E17543 /* ActivityFeed.storyboard in Resources */,
 				8A7559B921FF5C1D002187EA /* SeparatorTableViewCell.xib in Resources */,
@@ -659,6 +666,7 @@
 				8A3E63BC21EF877600E17543 /* UIImage+Icons.swift in Sources */,
 				8A2DE1CF21F9F675009E2469 /* ActivityLikable.swift in Sources */,
 				8AC40FB821EE57570073B749 /* AvatarPresentable.swift in Sources */,
+				8A6801D42200B3E600B77352 /* AddingImageCollectionViewCell.swift in Sources */,
 				8A68395521FB7A170003C19B /* DataDetectorWorker.swift in Sources */,
 				8A571A1D21FB0D53004949B2 /* ReactionPresenter.swift in Sources */,
 				8A3E63BF21EF92A000E17543 /* UIViewController+ImagePicker.swift in Sources */,

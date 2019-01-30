@@ -16,7 +16,7 @@ final class Activity: EnrichedActivity<User, ActivityObject, String>, ActivityLi
     }
     
     var text: String?
-    var attachments: ActivityAttachment?
+    var attachment: ActivityAttachment?
     
     public var originalActivity: Activity {
         if case .repost(let originalActivity) = object {
@@ -33,14 +33,14 @@ final class Activity: EnrichedActivity<User, ActivityObject, String>, ActivityLi
     required public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         text = try container.decodeIfPresent(String.self, forKey: .text)
-        attachments = try container.decodeIfPresent(ActivityAttachment.self, forKey: .attachments)
+        attachment = try container.decodeIfPresent(ActivityAttachment.self, forKey: .attachments)
         try super.init(from: decoder)
     }
     
     override public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(text, forKey: .text)
-        try container.encodeIfPresent(attachments, forKey: .attachments)
+        try container.encodeIfPresent(attachment, forKey: .attachments)
         try super.encode(to: encoder)
     }
 }

@@ -11,7 +11,6 @@ import GetStream
 
 protocol EditPostViewable: class {
     func underlineLinks(with dataDetectorURLItems: [DataDetectorURLItem])
-    func updateImages()
     func updateOpenGraphData()
 }
 
@@ -43,20 +42,61 @@ public final class EditPostPresenter {
     }
     
     public func save(_ text: String?, completion: @escaping (_ error: Error?) -> Void) {
-        guard let user = UIApplication.shared.appDelegate.currentUser, let text = text else {
+        guard UIApplication.shared.appDelegate.currentUser != nil else {
             completion(nil)
             return
         }
         
-        let activity = Activity(actor: user, verb: .post, object: .text(text))
-        
-        if let ogData = ogData {
-            let attachment = ActivityAttachment()
-            attachment.openGraphData = ogData
-            activity.attachments = attachment
+        if images.count > 0 {
+            saveWithImages(text: text, completion: completion)
+        } else {
+            saveActivity(text: text, completion: completion)
+        }
+    }
+    
+    private func saveWithImages(text: String?, completion: @escaping (_ error: Error?) -> Void) {
+        File.files(from: images, process: { File(name: "image\($0)", jpegImage: $1) }) { [weak self] files in
+            self?.client.upload(images: files) { result in
+                if let imageURLs = try? result.get() {
+                    self?.saveActivity(text: text, imageURLs: imageURLs, completion: completion)
+                } else if let error = result.error {
+                    completion(error)
+                }
+            }
+        }
+    }
+    
+    private func saveActivity(text: String?, imageURLs: [URL] = [], completion: @escaping (_ error: Error?) -> Void) {
+        guard let user = UIApplication.shared.appDelegate.currentUser, (text != nil || imageURLs.count > 0) else {
+            completion(nil)
+            return
         }
         
-        user.add(activity: activity) { completion($0) }
+        let activity: Activity
+        let attachment = ActivityAttachment()
+        var imageURLs = imageURLs
+        
+        if let text = text {
+            activity = Activity(actor: user, verb: .post, object: .text(text))
+        } else if let imageURL = imageURLs.first {
+            imageURLs.removeFirst()
+            activity = Activity(actor: user, verb: .post, object: .image(imageURL))
+        } else {
+            completion(nil)
+            return
+        }
+        
+        if imageURLs.count > 0 {
+            attachment.imageURLs = imageURLs
+            activity.attachment = attachment
+        }
+        
+        if let ogData = ogData {
+            attachment.openGraphData = ogData
+            activity.attachment = attachment
+        }
+        
+        user.add(activity: activity, completion)
     }
 }
 

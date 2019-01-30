@@ -62,7 +62,7 @@ extension User {
 // MARK: - Posts
 
 extension User {
-    func add(activity: Activity, completion: @escaping (_ error: Error?) -> Void) {
+    func add(activity: Activity, _ completion: @escaping (_ error: Error?) -> Void) {
         guard let userFeed = UIApplication.shared.appDelegate.userFeed else {
             return
         }
