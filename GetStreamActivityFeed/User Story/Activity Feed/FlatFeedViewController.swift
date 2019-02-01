@@ -38,7 +38,7 @@ open class FlatFeedViewController: UITableViewController, BundledStoryboardLoada
         }
     }
     
-    private func activity(at section: Int) -> Activity? {
+    private func activity(in section: Int) -> Activity? {
         guard let presenter = presenter, section < presenter.activities.count else {
             return nil
         }
@@ -46,12 +46,38 @@ open class FlatFeedViewController: UITableViewController, BundledStoryboardLoada
         return presenter.activities[section]
     }
     
-    private func openGraph(at section: Int) -> OGResponse? {
-        if let activity = activity(at: section), let attachment = activity.originalActivity.attachment {
+    private func ogData(in section: Int) -> OGResponse? {
+        if let activity = activity(in: section), let attachment = activity.originalActivity.attachment {
             return attachment.openGraphData
         }
         
         return nil
+    }
+    
+    private func attachmentImageURLs(in section: Int) -> [URL]? {
+        if let imageURLs = activity(in: section)?.attachment?.imageURLs, imageURLs.count > 0 {
+            return imageURLs
+        }
+        
+        return nil
+    }
+    
+    private func cellsCount(in section: Int) -> Int {
+        guard activity(in: section) != nil else {
+            return 0
+        }
+        
+        var count = 3
+        
+        if attachmentImageURLs(in: section) != nil {
+            count += 1
+        }
+        
+        if ogData(in: section) != nil {
+            count += 1
+        }
+        
+        return count
     }
 }
 
@@ -60,8 +86,9 @@ open class FlatFeedViewController: UITableViewController, BundledStoryboardLoada
 extension FlatFeedViewController {
     
     func setupTableView() {
-        tableView.estimatedRowHeight = 100
-        tableView.register(cellType: ActivityTableViewCell.self)
+        tableView.register(cellType: PostHeaderTableViewCell.self)
+        tableView.register(cellType: PostActionsTableViewCell.self)
+        tableView.register(cellType: PostAttachmentImagesTableViewCell.self)
         tableView.register(cellType: OpenGraphTableViewCell.self)
         tableView.register(cellType: SeparatorTableViewCell.self)
     }
@@ -83,76 +110,102 @@ extension FlatFeedViewController {
     }
     
     open override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if openGraph(at: section) != nil {
-            return 3
-        }
-        
-        return activity(at: section) == nil ? 0 : 2
+        return cellsCount(in: section)
     }
     
     open override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.row > 0 {
-            if indexPath.row == 1,
-                let activity = activity(at: indexPath.section)?.originalActivity,
-                let ogData = activity.attachment?.openGraphData {
+        guard let activity = activity(in: indexPath.section), let presenter = presenter else {
+            return UITableViewCell(style: .default, reuseIdentifier: "unused")
+        }
+        
+        let cellsCount = self.cellsCount(in: indexPath.section)
+        
+        switch indexPath.row {
+        case 0:
+            // Post Header and Text.
+            let cell = tableView.dequeueReusableCell(for: indexPath) as PostHeaderTableViewCell
+            let user = activity.actor
+            cell.update(with: activity)
+            
+            cell.updateAvatar(with: activity) { [weak self] _ in
+                if let profileViewCotroller = self?.profileBuilder?.profileViewController(user: user) {
+                    profileViewCotroller.builder = self?.profileBuilder
+                    self?.navigationController?.pushViewController(profileViewCotroller, animated: true)
+                }
+            }
+            
+            return cell
+            
+        case (cellsCount - 4):
+            if attachmentImageURLs(in: indexPath.section) != nil {
+                return postAttachmentImagesTableViewCell(activity, at: indexPath)
+            }
+            
+        case (cellsCount - 3): // Open Graph Data.
+            if let ogData = ogData(in: indexPath.section) {
                 let cell = tableView.dequeueReusableCell(for: indexPath) as OpenGraphTableViewCell
                 cell.update(with: ogData)
                 return cell
+                
+            } else if attachmentImageURLs(in: indexPath.section) != nil {
+                return postAttachmentImagesTableViewCell(activity, at: indexPath)
+            }
+        case (cellsCount - 2): // Post activities.
+            let cell = tableView.dequeueReusableCell(for: indexPath) as PostActionsTableViewCell
+            
+            cell.updateReply(with: activity)
+            
+            cell.updateRepost(with: activity) { [weak self, weak activity, weak presenter] in
+                if let self = self,
+                    let userFeedId = UIApplication.shared.appDelegate.userFeed?.feedId,
+                    let button = $0 as? RepostButton,
+                    let activity = activity,
+                    let presenter = presenter {
+                    button.react(with: presenter.reactionPresenter,
+                                 activity: activity,
+                                 targetsFeedIds: [userFeedId],
+                                 self.showErrorAlertIfNeeded)
+                }
             }
             
-            return tableView.dequeueReusableCell(for: indexPath) as SeparatorTableViewCell
-        }
-        
-        let cell = tableView.dequeueReusableCell(for: indexPath) as ActivityTableViewCell
-        
-        guard let activity = activity(at: indexPath.section) else {
+            cell.updateLike(with: activity) { [weak self, weak activity] in
+                if let self = self, let button = $0 as? LikeButton, let activity = activity {
+                    button.react(with: presenter.reactionPresenter, activity: activity, self.showErrorAlertIfNeeded)
+                }
+            }
+            
             return cell
+            
+        case (cellsCount - 1): // Separator.
+            return tableView.dequeueReusableCell(for: indexPath) as SeparatorTableViewCell
+        default:
+            break
         }
         
-        let user = activity.actor
-        cell.update(with: activity)
+        return UITableViewCell(style: .default, reuseIdentifier: "unused")
+    }
+    
+    private func postAttachmentImagesTableViewCell(_ activity: Activity, at indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(for: indexPath) as PostAttachmentImagesTableViewCell
         
-        cell.updateAvatar(with: activity) { [weak self] _ in
-            if let profileViewCotroller = self?.profileBuilder?.profileViewController(user: user) {
-                profileViewCotroller.builder = self?.profileBuilder
-                self?.navigationController?.pushViewController(profileViewCotroller, animated: true)
-            }
-        }
-        
-        cell.updateReply(with: activity)
-        
-        cell.updateRepost(with: activity) { [weak self, weak activity] in
-            if let self = self,
-                let userFeedId = UIApplication.shared.appDelegate.userFeed?.feedId,
-                let button = $0 as? RepostButton,
-                let activity = activity,
-                let presenter = self.presenter {
-                button.react(with: presenter.reactionPresenter,
-                             activity: activity,
-                             targetsFeedIds: [userFeedId],
-                             self.showErrorAlertIfNeeded)
-            }
-        }
-        
-        cell.updateLike(with: activity) { [weak self, weak activity] in
-            if let self = self, let button = $0 as? LikeButton, let activity = activity, let presenter = self.presenter {
-                button.react(with: presenter.reactionPresenter, activity: activity, self.showErrorAlertIfNeeded)
-            }
+        if let imageURLs = activity.attachment?.imageURLs {
+            cell.update(with: imageURLs)
         }
         
         return cell
     }
     
     open override func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
-        if let openGraph = openGraph(at: indexPath.section), openGraph.url != nil {
-            return true
+        guard indexPath.row == cellsCount(in: indexPath.section) - 3,
+            let openGraph = ogData(in: indexPath.section) else {
+            return false
         }
         
-        return false
+        return openGraph.url != nil
     }
     
     open override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let openGraph = self.openGraph(at: indexPath.section)
+        let openGraph = self.ogData(in: indexPath.section)
         let viewController = WebViewController()
         viewController.url = openGraph?.url
         viewController.title = openGraph?.title

@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		63355CB6DBAFB62CCA26DB99 /* Pods_GetStreamActivityFeed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60A554AB5CB724535E1CB46B /* Pods_GetStreamActivityFeed.framework */; };
 		8A0525B321FBA7A90029E385 /* Range+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0525B221FBA7A90029E385 /* Range+Extensions.swift */; };
-		8A108D1221F20E8E0080ADEB /* ActivityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A108D1021F20E8E0080ADEB /* ActivityTableViewCell.swift */; };
-		8A108D1321F20E8E0080ADEB /* ActivityTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A108D1121F20E8E0080ADEB /* ActivityTableViewCell.xib */; };
+		8A108D1221F20E8E0080ADEB /* PostHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A108D1021F20E8E0080ADEB /* PostHeaderTableViewCell.swift */; };
+		8A108D1321F20E8E0080ADEB /* PostHeaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A108D1121F20E8E0080ADEB /* PostHeaderTableViewCell.xib */; };
 		8A108D1521F223DE0080ADEB /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A108D1421F223DE0080ADEB /* Date+Extensions.swift */; };
 		8A13FCD821EC95D700D216C6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A13FCD721EC95D700D216C6 /* AppDelegate.swift */; };
 		8A13FCDD21EC95D700D216C6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A13FCDB21EC95D700D216C6 /* Main.storyboard */; };
@@ -31,7 +31,6 @@
 		8A2DE1D321FA2DAF009E2469 /* ReactionPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2DE1D221FA2DAF009E2469 /* ReactionPresenterProtocol.swift */; };
 		8A3573C921F5CA20009EB9D7 /* ReactionKind+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3573C821F5CA20009EB9D7 /* ReactionKind+Extensions.swift */; };
 		8A3573CB21F5CA50009EB9D7 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3573CA21F5CA50009EB9D7 /* Comment.swift */; };
-		8A3573CD21F5CC26009EB9D7 /* ActivityTableViewCell+Update.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3573CC21F5CC26009EB9D7 /* ActivityTableViewCell+Update.swift */; };
 		8A3573CF21F72D9D009EB9D7 /* ActivityObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3573CE21F72D9D009EB9D7 /* ActivityObject.swift */; };
 		8A3573D121F72DE2009EB9D7 /* Verb+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3573D021F72DE2009EB9D7 /* Verb+Extensions.swift */; };
 		8A3573D321F74636009EB9D7 /* ActivityFeedBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3573D221F74636009EB9D7 /* ActivityFeedBuilder.swift */; };
@@ -54,6 +53,8 @@
 		8A571A2321FB3BE1004949B2 /* EditPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A571A2221FB3BE1004949B2 /* EditPostViewController.swift */; };
 		8A6801D42200B3E600B77352 /* AddingImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6801D22200B3E500B77352 /* AddingImageCollectionViewCell.swift */; };
 		8A6801D52200B3E600B77352 /* AddingImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A6801D32200B3E600B77352 /* AddingImageCollectionViewCell.xib */; };
+		8A6801DC22033B3600B77352 /* PostActionsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6801DA22033B3600B77352 /* PostActionsTableViewCell.swift */; };
+		8A6801DD22033B3600B77352 /* PostActionsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A6801DB22033B3600B77352 /* PostActionsTableViewCell.xib */; };
 		8A68395521FB7A170003C19B /* DataDetectorWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A68395421FB7A170003C19B /* DataDetectorWorker.swift */; };
 		8A7559A821FF06AA002187EA /* NSAttributedString+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7559A721FF06AA002187EA /* NSAttributedString+Extensions.swift */; };
 		8A7559AB21FF15B6002187EA /* OpenGraphWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7559AA21FF15B6002187EA /* OpenGraphWorker.swift */; };
@@ -64,6 +65,8 @@
 		8A7559B821FF5C1D002187EA /* SeparatorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7559B621FF5C1D002187EA /* SeparatorTableViewCell.swift */; };
 		8A7559B921FF5C1D002187EA /* SeparatorTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A7559B721FF5C1D002187EA /* SeparatorTableViewCell.xib */; };
 		8A7559BC22005AE8002187EA /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7559BB22005AE8002187EA /* WebViewController.swift */; };
+		8A9DFC4322034DDC002F8700 /* PostAttachmentImagesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9DFC4122034DDC002F8700 /* PostAttachmentImagesTableViewCell.swift */; };
+		8A9DFC4422034DDC002F8700 /* PostAttachmentImagesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A9DFC4222034DDC002F8700 /* PostAttachmentImagesTableViewCell.xib */; };
 		8AC40FAB21EE0ED50073B749 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC40FAA21EE0ED50073B749 /* UIViewController+Extensions.swift */; };
 		8AC40FAD21EE0FBB0073B749 /* RootBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC40FAC21EE0FBB0073B749 /* RootBuilder.swift */; };
 		8AC40FB021EE2C8D0073B749 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC40FAF21EE2C8D0073B749 /* ProfileViewController.swift */; };
@@ -87,8 +90,8 @@
 /* Begin PBXFileReference section */
 		60A554AB5CB724535E1CB46B /* Pods_GetStreamActivityFeed.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GetStreamActivityFeed.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A0525B221FBA7A90029E385 /* Range+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Range+Extensions.swift"; sourceTree = "<group>"; };
-		8A108D1021F20E8E0080ADEB /* ActivityTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityTableViewCell.swift; sourceTree = "<group>"; };
-		8A108D1121F20E8E0080ADEB /* ActivityTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActivityTableViewCell.xib; sourceTree = "<group>"; };
+		8A108D1021F20E8E0080ADEB /* PostHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostHeaderTableViewCell.swift; sourceTree = "<group>"; };
+		8A108D1121F20E8E0080ADEB /* PostHeaderTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostHeaderTableViewCell.xib; sourceTree = "<group>"; };
 		8A108D1421F223DE0080ADEB /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		8A13FCD421EC95D700D216C6 /* GetStreamActivityFeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GetStreamActivityFeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A13FCD721EC95D700D216C6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -115,7 +118,6 @@
 		8A2DE1D221FA2DAF009E2469 /* ReactionPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionPresenterProtocol.swift; sourceTree = "<group>"; };
 		8A3573C821F5CA20009EB9D7 /* ReactionKind+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReactionKind+Extensions.swift"; sourceTree = "<group>"; };
 		8A3573CA21F5CA50009EB9D7 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
-		8A3573CC21F5CC26009EB9D7 /* ActivityTableViewCell+Update.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ActivityTableViewCell+Update.swift"; sourceTree = "<group>"; };
 		8A3573CE21F72D9D009EB9D7 /* ActivityObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityObject.swift; sourceTree = "<group>"; };
 		8A3573D021F72DE2009EB9D7 /* Verb+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Verb+Extensions.swift"; sourceTree = "<group>"; };
 		8A3573D221F74636009EB9D7 /* ActivityFeedBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityFeedBuilder.swift; sourceTree = "<group>"; };
@@ -138,6 +140,8 @@
 		8A571A2221FB3BE1004949B2 /* EditPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPostViewController.swift; sourceTree = "<group>"; };
 		8A6801D22200B3E500B77352 /* AddingImageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddingImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		8A6801D32200B3E600B77352 /* AddingImageCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddingImageCollectionViewCell.xib; sourceTree = "<group>"; };
+		8A6801DA22033B3600B77352 /* PostActionsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostActionsTableViewCell.swift; sourceTree = "<group>"; };
+		8A6801DB22033B3600B77352 /* PostActionsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostActionsTableViewCell.xib; sourceTree = "<group>"; };
 		8A68395421FB7A170003C19B /* DataDetectorWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataDetectorWorker.swift; sourceTree = "<group>"; };
 		8A7559A721FF06AA002187EA /* NSAttributedString+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+Extensions.swift"; sourceTree = "<group>"; };
 		8A7559AA21FF15B6002187EA /* OpenGraphWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenGraphWorker.swift; sourceTree = "<group>"; };
@@ -148,6 +152,8 @@
 		8A7559B621FF5C1D002187EA /* SeparatorTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeparatorTableViewCell.swift; sourceTree = "<group>"; };
 		8A7559B721FF5C1D002187EA /* SeparatorTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SeparatorTableViewCell.xib; sourceTree = "<group>"; };
 		8A7559BB22005AE8002187EA /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		8A9DFC4122034DDC002F8700 /* PostAttachmentImagesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostAttachmentImagesTableViewCell.swift; sourceTree = "<group>"; };
+		8A9DFC4222034DDC002F8700 /* PostAttachmentImagesTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostAttachmentImagesTableViewCell.xib; sourceTree = "<group>"; };
 		8AC40FAA21EE0ED50073B749 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		8AC40FAC21EE0FBB0073B749 /* RootBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootBuilder.swift; sourceTree = "<group>"; };
 		8AC40FAF21EE2C8D0073B749 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -278,10 +284,7 @@
 			isa = PBXGroup;
 			children = (
 				8A3E63CC21F0CFE200E17543 /* FlatFeedPresenter.swift */,
-				8A108D1021F20E8E0080ADEB /* ActivityTableViewCell.swift */,
-				8A108D1121F20E8E0080ADEB /* ActivityTableViewCell.xib */,
-				8A7559B621FF5C1D002187EA /* SeparatorTableViewCell.swift */,
-				8A7559B721FF5C1D002187EA /* SeparatorTableViewCell.xib */,
+				8A6801DE22033B3F00B77352 /* Table View Cells */,
 				8A6801D22200B3E500B77352 /* AddingImageCollectionViewCell.swift */,
 				8A6801D32200B3E600B77352 /* AddingImageCollectionViewCell.xib */,
 			);
@@ -378,7 +381,6 @@
 				8A3E63CA21F0B63600E17543 /* ActivityFeed.storyboard */,
 				8A3573D221F74636009EB9D7 /* ActivityFeedBuilder.swift */,
 				8A3E63C821F0B45300E17543 /* FlatFeedViewController.swift */,
-				8A3573CC21F5CC26009EB9D7 /* ActivityTableViewCell+Update.swift */,
 				8A571A2221FB3BE1004949B2 /* EditPostViewController.swift */,
 				8A7559AC21FF18D3002187EA /* EditPostPresenter.swift */,
 			);
@@ -414,6 +416,21 @@
 				8A2DE1CB21F9F550009E2469 /* Reaction Buttons */,
 			);
 			path = Reaction;
+			sourceTree = "<group>";
+		};
+		8A6801DE22033B3F00B77352 /* Table View Cells */ = {
+			isa = PBXGroup;
+			children = (
+				8A108D1021F20E8E0080ADEB /* PostHeaderTableViewCell.swift */,
+				8A108D1121F20E8E0080ADEB /* PostHeaderTableViewCell.xib */,
+				8A6801DA22033B3600B77352 /* PostActionsTableViewCell.swift */,
+				8A6801DB22033B3600B77352 /* PostActionsTableViewCell.xib */,
+				8A9DFC4122034DDC002F8700 /* PostAttachmentImagesTableViewCell.swift */,
+				8A9DFC4222034DDC002F8700 /* PostAttachmentImagesTableViewCell.xib */,
+				8A7559B621FF5C1D002187EA /* SeparatorTableViewCell.swift */,
+				8A7559B721FF5C1D002187EA /* SeparatorTableViewCell.xib */,
+			);
+			path = "Table View Cells";
 			sourceTree = "<group>";
 		};
 		8A7559A921FF159E002187EA /* Open Graph */ = {
@@ -563,7 +580,9 @@
 				8A13FCDD21EC95D700D216C6 /* Main.storyboard in Resources */,
 				8A7559B121FF2F70002187EA /* OpenGraphTableViewCell.xib in Resources */,
 				8A6801D52200B3E600B77352 /* AddingImageCollectionViewCell.xib in Resources */,
-				8A108D1321F20E8E0080ADEB /* ActivityTableViewCell.xib in Resources */,
+				8A9DFC4422034DDC002F8700 /* PostAttachmentImagesTableViewCell.xib in Resources */,
+				8A6801DD22033B3600B77352 /* PostActionsTableViewCell.xib in Resources */,
+				8A108D1321F20E8E0080ADEB /* PostHeaderTableViewCell.xib in Resources */,
 				8A3E63CB21F0B63600E17543 /* ActivityFeed.storyboard in Resources */,
 				8A7559B921FF5C1D002187EA /* SeparatorTableViewCell.xib in Resources */,
 			);
@@ -635,7 +654,6 @@
 				8A7559AD21FF18D3002187EA /* EditPostPresenter.swift in Sources */,
 				8AC40FB021EE2C8D0073B749 /* ProfileViewController.swift in Sources */,
 				8AC40FBA21EE57D80073B749 /* AvatarView.swift in Sources */,
-				8A3573CD21F5CC26009EB9D7 /* ActivityTableViewCell+Update.swift in Sources */,
 				8A2DE1CA21F9E819009E2469 /* ActivityRepostable.swift in Sources */,
 				8A13FD0821ECDFCC00D216C6 /* Bundle+StreamInfoKeys.swift in Sources */,
 				8A2DE1C821F9E768009E2469 /* ReactionButton.swift in Sources */,
@@ -653,9 +671,11 @@
 				8A2DE1CD21F9F56E009E2469 /* LikeButton.swift in Sources */,
 				8A3E63B821EF65D400E17543 /* UIControl+Extensions.swift in Sources */,
 				8A13FCD821EC95D700D216C6 /* AppDelegate.swift in Sources */,
+				8A6801DC22033B3600B77352 /* PostActionsTableViewCell.swift in Sources */,
 				8A3E63B621EF63BB00E17543 /* EditProfileViewController.swift in Sources */,
 				8A7559B321FF55E3002187EA /* OpenGraphTableViewCell+Update.swift in Sources */,
 				8AC40FAD21EE0FBB0073B749 /* RootBuilder.swift in Sources */,
+				8A9DFC4322034DDC002F8700 /* PostAttachmentImagesTableViewCell.swift in Sources */,
 				8A3E63B421EF49A500E17543 /* BarButton.swift in Sources */,
 				8A13FD1121ECF6C800D216C6 /* UIApplication+Extensions.swift in Sources */,
 				8A3573CF21F72D9D009EB9D7 /* ActivityObject.swift in Sources */,
@@ -679,7 +699,7 @@
 				8A3E63C921F0B45300E17543 /* FlatFeedViewController.swift in Sources */,
 				8A13FD0F21ECF66C00D216C6 /* RootPresenter.swift in Sources */,
 				8A571A2121FB26CC004949B2 /* UIButton+Extensions.swift in Sources */,
-				8A108D1221F20E8E0080ADEB /* ActivityTableViewCell.swift in Sources */,
+				8A108D1221F20E8E0080ADEB /* PostHeaderTableViewCell.swift in Sources */,
 				8A3573C921F5CA20009EB9D7 /* ReactionKind+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

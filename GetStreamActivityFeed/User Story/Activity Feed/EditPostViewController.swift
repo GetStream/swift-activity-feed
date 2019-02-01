@@ -51,14 +51,7 @@ class EditPostViewController: UIViewController {
         activityIndicator.startAnimating()
         sender.isEnabled = false
         
-        let text = textView.attributedText.string.trimmingCharacters(in: .whitespacesAndNewlines)
-        
-        if text.isEmpty || text == EditPostViewController.textViewPlaceholder.string {
-            dismiss(animated: true)
-            return
-        }
-        
-        presenter?.save(text) { [weak self] error in
+        presenter?.save(validatedText()) { [weak self] error in
             guard let self = self else {
                 return
             }
@@ -104,6 +97,14 @@ class EditPostViewController: UIViewController {
                 avatarView.image = image.square(with: avatarView.bounds.width)
             }
         }
+    }
+    
+    private func updateSaveButtonEnabling() {
+        guard let presenter = presenter else {
+            return
+        }
+        
+        saveBarButtonItem.isEnabled = presenter.images.count > 0 || validatedText() != nil
     }
 }
 
@@ -154,17 +155,15 @@ extension EditPostViewController: UITextViewDelegate {
     }
     
     func textViewDidChange(_ textView: UITextView) {
-        let text = validatedText()
-        saveBarButtonItem.isEnabled = text != nil
+        updateSaveButtonEnabling()
         
-        if let text = text {
+        if let text = validatedText() {
             presenter?.dataDetectorWorker?.match(text)
         }
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        let text = validatedText()
-        saveBarButtonItem.isEnabled = text != nil
+        updateSaveButtonEnabling()
         
         if !saveBarButtonItem.isEnabled {
             textView.attributedText = EditPostViewController.textViewPlaceholder.applyFont(textView.font)
@@ -221,6 +220,7 @@ extension EditPostViewController: UICollectionViewDataSource {
         
         collectionViewHeightConstraint.constant = presenter.images.count > 0 ? AddingImageCollectionViewCell.height : 0
         collectionView.reloadData()
+        updateSaveButtonEnabling()
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
