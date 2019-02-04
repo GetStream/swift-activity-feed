@@ -8,7 +8,7 @@
 
 import GetStream
 
-enum ActivityObject: Enrichable {
+public enum ActivityObject: Enrichable {
     case text(_ value: String)
     case image(_ url: URL)
     case repost(_ activity: Activity)

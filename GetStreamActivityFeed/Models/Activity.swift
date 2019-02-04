@@ -8,7 +8,7 @@
 
 import GetStream
 
-final class Activity: EnrichedActivity<User, ActivityObject, String>, ActivityLikable {
+public final class Activity: EnrichedActivity<User, ActivityObject, String>, ActivityLikable {
     
     private enum CodingKeys: String, CodingKey {
         case text
@@ -48,31 +48,31 @@ final class Activity: EnrichedActivity<User, ActivityObject, String>, ActivityLi
 // MARK: - Reactions
 
 extension Activity {
-    var isLiked: Bool {
+    public var isLiked: Bool {
         return (ownReactions?[.like]?.count ?? 0) > 0
     }
     
-    var likedReaction: Reaction<ReactionNoExtraData>? {
+    public var likedReaction: Reaction<ReactionNoExtraData>? {
         return ownReactions?[.like]?.first
     }
     
-    var likesCount: Int {
+    public var likesCount: Int {
         return reactionCounts?[.like] ?? 0
     }
     
-    var repostsCount: Int {
+    public var repostsCount: Int {
         return reactionCounts?[.repost] ?? 0
     }
     
-    var repostReaction: Reaction<ReactionNoExtraData>? {
+    public var repostReaction: Reaction<ReactionNoExtraData>? {
         return originalActivity.ownReactions?[.repost]?.first
     }
     
-    var isReposted: Bool {
+    public var isReposted: Bool {
         return (ownReactions?[.repost]?.count ?? 0) > 0
     }
     
-    var commentsCount: Int {
+    public var commentsCount: Int {
         return reactionCounts?[.comment] ?? 0
     }
 }

@@ -7,11 +7,10 @@
 //
 
 import UIKit
-import Reusable
 import Nuke
 import GetStream
 
-open class PostHeaderTableViewCell: UITableViewCell, NibReusable {
+open class PostHeaderTableViewCell: BaseTableViewCell {
 
     @IBOutlet public weak var avatarButton: UIButton!
     @IBOutlet public weak var nameLabel: UILabel!
@@ -36,17 +35,7 @@ open class PostHeaderTableViewCell: UITableViewCell, NibReusable {
         }
     }
     
-    open override func awakeFromNib() {
-        super.awakeFromNib()
-        reset()
-    }
-    
-    open override func prepareForReuse() {
-        reset()
-        super.prepareForReuse()
-    }
-    
-    open func reset() {
+    open override func reset() {
         updateAvatar(with: nil)
         avatarButton.removeTap()
         avatarButton.isEnabled = true
@@ -84,7 +73,7 @@ open class PostHeaderTableViewCell: UITableViewCell, NibReusable {
 
 extension PostHeaderTableViewCell {
     
-    func update(with activity: Activity) {
+    func update(with activity: Activity, skipImageObject: Bool = false) {
         nameLabel.text = activity.actor.name
         messageLabel.text = activity.text
         var repostActivity: Activity?
@@ -93,7 +82,9 @@ extension PostHeaderTableViewCell {
         case .text(let text):
             messageLabel.text = text
         case .image(let url):
-            updatePhoto(with: url)
+            if !skipImageObject {
+                updatePhoto(with: url)
+            }
         case .repost(let activity):
             repostActivity = activity
             

@@ -17,7 +17,7 @@ extension Date {
         } else if timeInterval < 129_600 {
             return "Yesterday, \(DateFormatter.time.string(from: self))"
         } else if timeInterval < 518_400 {
-            return DateFormatter.weekDay.string(from: self)
+            return "\(DateFormatter.weekDay.string(from: self)), \(DateFormatter.time.string(from: self))"
         }
         
         return DateFormatter.short.string(from: self)

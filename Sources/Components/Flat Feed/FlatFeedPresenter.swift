@@ -15,9 +15,9 @@ open class FlatFeedPresenter<T: ActivityProtocol> {
     
     let flatFeed: FlatFeed
     let reactionPresenter: ReactionPresenter
-    var includeReactions: FeedReactionsOptions = [.counts, .own]
+    var includeReactions: FeedReactionsOptions = [.counts, .own, .latest]
     
-    private(set) var activities: [T] = []
+    private(set) var activityPresenters: [ActivityPresenter<T>] = []
     private var next: Pagination = .none
     
     init(flatFeed: FlatFeed) {
@@ -33,7 +33,7 @@ open class FlatFeedPresenter<T: ActivityProtocol> {
             }
             
             if case .none = pagination {
-                self.activities = []
+                self.activityPresenters = []
                 self.next = .none
             }
             
@@ -41,7 +41,9 @@ open class FlatFeedPresenter<T: ActivityProtocol> {
             
             do {
                 let response = try result.get()
-                self.activities.append(contentsOf: response.results)
+                self.activityPresenters
+                    .append(contentsOf: response.results.map({ ActivityPresenter(activity: $0,
+                                                                                 reactionPresenter: self.reactionPresenter) }))
                 self.next = response.next ?? .none
             } catch let responseError {
                 error = responseError
