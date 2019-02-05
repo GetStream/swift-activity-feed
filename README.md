@@ -1,10 +1,23 @@
 # Stream Swift and iOS Activity Feed Components
 
-[swift-activity-feed](https://github.com/GetStream/swift-activity-feed) is a components to create activity and notification feeds with [Stream](https://getstream.io/).
+![react native activity feed](https://github.com/GetStream/react-native-activity-feed/blob/master/src/images/githubhero.png)
 
-You can sign up for a Stream account at https://getstream.io/get_started.
+The official iOS and Swift integration library for Stream, a web service for building scalable newsfeeds and activity streams.
 
-Swift client for the Stream is here: [stream-swift](https://github.com/GetStream/stream-swift).
+## TL;DR built-in components for social networks and regular apps
+
+- Flat feeds
+- Notification feed
+- Likes
+- Comments
+- Activity detail view
+- Realtime notifications
+
+## Useful links
+
+[Get Started](https://getstream.io/react-native-activity-feed/tutorial/)
+
+[stream-swift API client](https://github.com/GetStream/stream-swift)
 
 ## Installation
 
@@ -34,6 +47,6 @@ We continue to welcome pull requests from community members.
 
 ## Copyright and License Information
 
-Copyright (c) 2016-2018 Stream.io Inc, and individual contributors. All rights reserved.
+Copyright (c) 2015-2019 Stream.io Inc, and individual contributors. All rights reserved.
 
-See the file "[LICENSE](https://github.com/GetStream/swift-activity-feed/blob/master/LICENSE)" for information on the history of this software, terms & conditions for usage, and a DISCLAIMER OF ALL WARRANTIES.
+See the file "LICENSE" for information on the history of this software, terms & conditions for usage, and a DISCLAIMER OF ALL WARRANTIES.
