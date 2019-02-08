@@ -62,8 +62,6 @@ extension OpenGraphWorker {
     }
     
     private func parse(_ url: URL) {
-        print("🕵🏻‍♂️", #function)
-        
         client.og(url: url) { [weak self] result in
             self?.callbackQueue.async {
                 guard let self = self else {

@@ -43,7 +43,7 @@ public final class DataDetectorWorker {
                 urlString = "https:\(urlString)"
             }
             
-            if !urlString.hasPrefix("http") {
+            if !urlString.lowercased().hasPrefix("http") {
                 urlString = "https://\(urlString)"
             }
             
