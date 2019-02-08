@@ -9,14 +9,13 @@
 import UIKit
 import SnapKit
 
-open class TextToolBar: UIView {
+final class TextToolBar: UIView {
     public static let height: CGFloat = 80
+    public static let maxHeight: CGFloat = 200
     public static let avatarWidth: CGFloat = 50
     
-    public var placeholderText = "" {
-        didSet {
-            addPlaceholder()
-        }
+    public static var textToolBar: TextToolBar {
+        return TextToolBar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: TextToolBar.height))
     }
     
     public private(set) lazy var avatarView: AvatarView = {
@@ -44,7 +43,7 @@ open class TextToolBar: UIView {
         
         textView.snp.makeConstraints({ make in
             make.top.equalTo(TextToolBar.height / 2 - 17)
-            make.bottom.equalToSuperview()
+            make.bottom.equalToSuperview().offset(-8)
             make.right.equalTo(sendButton.snp.left).offset(-8)
             make.left.equalTo(avatarView.snp.right).offset(16)
         })
@@ -71,12 +70,12 @@ open class TextToolBar: UIView {
         return button
     }()
     
-    @IBOutlet public weak var bottomConstraint: NSLayoutConstraint?
-    private weak var heightConstraint: NSLayoutConstraint?
-
-    public static func textToolBar() -> TextToolBar {
-        return TextToolBar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 46))
+    public var placeholderText = "" {
+        didSet { addPlaceholder() }
     }
+    
+    private weak var heightConstraint: NSLayoutConstraint?
+    private var baseTextHeight = CGFloat.greatestFiniteMagnitude
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -89,7 +88,7 @@ open class TextToolBar: UIView {
     }
     
     private func setup() {
-        backgroundColor = UIColor(white: 0.95, alpha: 1)
+        backgroundColor = UIColor(white: 0.97, alpha: 1)
         textView.font = .systemFont(ofSize: 15)
         
         NotificationCenter.default.addObserver(self,
@@ -128,6 +127,45 @@ open class TextToolBar: UIView {
     }
 }
 
+// MARK: - Text View Height
+
+extension TextToolBar {
+    /// Update the height of the text view for a big text length.
+    public func updateTextHeightIfNeeded() {
+        guard heightConstraint != nil  else {
+            return
+        }
+        
+        if baseTextHeight == .greatestFiniteMagnitude {
+            let text = textView.text
+            textView.text = ""
+            baseTextHeight = textView.contentSize.height.rounded()
+            textView.text = text
+            
+            if textView.contentSize.height <= baseTextHeight {
+                return
+            }
+        }
+        
+        guard textView.text.count > 0 else {
+            updateTextHeight(baseTextHeight)
+            return
+        }
+        
+        let size = textView.sizeThatFits(CGSize(width: textView.frame.width, height: .greatestFiniteMagnitude))
+        updateTextHeight(size.height.rounded())
+    }
+    
+    private func updateTextHeight(_ height: CGFloat) {
+        let height = min(max(height + (TextToolBar.height - baseTextHeight), TextToolBar.height), TextToolBar.maxHeight)
+        
+        if let heightConstraint = heightConstraint, heightConstraint.constant != height {
+            heightConstraint.constant = height
+            animateConstraints()
+        }
+    }
+}
+
 // MARK: - Keyboard Events
 
 extension TextToolBar {
@@ -143,14 +181,22 @@ extension TextToolBar {
         }
         
         if let durationNumber = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber {
-            UIView.animate(withDuration: durationNumber.doubleValue,
-                           delay: 0,
-                           usingSpringWithDamping: 1,
-                           initialSpringVelocity: 0,
-                           options: [],
-                           animations: { self.layoutIfNeeded() })
+            animateConstraints(duration: durationNumber.doubleValue)
         } else {
             layoutIfNeeded()
         }
+    }
+}
+
+// MARK: - Animations
+
+extension TextToolBar {
+    private func animateConstraints(duration: Double = 0.3) {
+        UIView.animate(withDuration: duration,
+                       delay: 0,
+                       usingSpringWithDamping: 1,
+                       initialSpringVelocity: 0,
+                       options: [],
+                       animations: { self.layoutIfNeeded() })
     }
 }

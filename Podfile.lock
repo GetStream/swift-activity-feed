@@ -29,7 +29,7 @@ PODS:
   - Swime (3.0.1)
 
 DEPENDENCIES:
-  - GetStream (from `../stream-swift`)
+  - GetStream
   - Nuke
   - Reusable
   - SnapKit
@@ -38,6 +38,7 @@ SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
     - Faye
+    - GetStream
     - Moya
     - Nuke
     - Result
@@ -45,10 +46,6 @@ SPEC REPOS:
     - SnapKit
     - Starscream
     - Swime
-
-EXTERNAL SOURCES:
-  GetStream:
-    :path: "../stream-swift"
 
 SPEC CHECKSUMS:
   Alamofire: 16ce2c353fb72865124ddae8a57c5942388f4f11
@@ -62,6 +59,6 @@ SPEC CHECKSUMS:
   Starscream: ef3ece99d765eeccb67de105bfa143f929026cf5
   Swime: da7f606c7a059f8744bc723aec243af1fb914476
 
-PODFILE CHECKSUM: 6905d276e21b733c50b1b1c805325a8a37312b0e
+PODFILE CHECKSUM: 7d82d9087b392d15395df0984620a44028327f36
 
 COCOAPODS: 1.6.0

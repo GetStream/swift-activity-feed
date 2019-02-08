@@ -12,7 +12,7 @@ import SnapKit
 open class PostDetailTableViewController: UITableViewController {
     
     var activityPresenter: ActivityPresenter<Activity>?
-    let textToolBar = TextToolBar.textToolBar()
+    let textToolBar = TextToolBar.textToolBar
     
     open override func viewDidLoad() {
         super.viewDidLoad()
@@ -181,5 +181,6 @@ extension PostDetailTableViewController: UITextViewDelegate {
     
     public func textViewDidChange(_ textView: UITextView) {
         textToolBar.sendButton.isEnabled = !textView.text.isEmpty
+        textToolBar.updateTextHeightIfNeeded()
     }
 }
