@@ -7,11 +7,12 @@
 //
 
 import UIKit
+import GetStream
 
 open class LikeButton: ReactionButton {
-    open func react<T: EnhancedActivity>(with presenter: ReactionPresenterProtocol,
-                                         activity: T,
-                                         _ completion: @escaping ErrorCompletion) {
+    open func react<T: ActivityLikable>(with presenter: ReactionPresenterProtocol,
+                                        activity: T,
+                                        _ completion: @escaping ErrorCompletion) {
         super.react(with: presenter, activity: activity, reaction: activity.likedReaction, kindOf: .like) {
             if let result = try? $0.get() {
                 result.button.setTitle(String(result.activity.likesCount), for: .normal)

@@ -12,10 +12,19 @@ import SnapKit
 open class PostDetailTableViewController: UITableViewController {
     
     var activityPresenter: ActivityPresenter<Activity>?
+    let textToolBar = TextToolBar.textToolBar()
     
     open override func viewDidLoad() {
         super.viewDidLoad()
         tableView.registerPostCells()
+        
+        UIApplication.shared.appDelegate.currentUser?.loadAvatar { [weak self] in
+            self?.setupCommentTextField(avatarImage: $0)
+        }
+    }
+    
+    open override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
     }
 }
 
@@ -32,23 +41,20 @@ extension PostDetailTableViewController {
             return 0
         }
         
+        let activity = activityPresenter.activity.originalActivity
+        
         switch section {
         case 0: return activityPresenter.cellsCount - 1
-        case 1: return activityPresenter.activity.originalActivity.likesCount > 0 ? 1 : 0
-        case 2: return activityPresenter.activity.originalActivity.repostsCount
-        case 3: return activityPresenter.activity.originalActivity.commentsCount
+        case 1: return activity.likesCount > 0 ? 1 : 0
+        case 2: return activity.repostsCount
+        case 3: return activity.commentsCount
         default: return 0
         }
     }
     
     open override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let title: String
-        
-        switch section {
-        case 1: title = "Liked"
-        case 2: title = "Reposts"
-        case 3: title = "Comments"
-        default: return nil
+        guard let title = sectionHeader(in: section) else {
+            return nil
         }
         
         let view = UIView(frame: .zero)
@@ -67,8 +73,21 @@ extension PostDetailTableViewController {
         return view
     }
     
+    private func sectionHeader(in section: Int) -> String? {
+        guard let activity = activityPresenter?.activity.originalActivity else {
+            return nil
+        }
+        
+        switch section {
+        case 1: return activity.likesCount > 0 ? "Liked (\(activity.likesCount))" : nil
+        case 2: return activity.repostsCount > 0 ? "Reposts (\(activity.repostsCount))" : nil
+        case 3: return activity.commentsCount > 0 ? "Comments (\(activity.commentsCount))" : nil
+        default: return nil
+        }
+    }
+    
     open override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return section == 0 ? 0 : 30
+        return section == 0 || sectionHeader(in: section) == nil ? 0 : 30
     }
     
     open override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -87,8 +106,32 @@ extension PostDetailTableViewController {
             }
         case 1:
             let cell = tableView.dequeueReusableCell(for: indexPath) as ActionUsersTableViewCell
-            cell.titleLabel.text = activityPresenter.likedTitle
+            cell.titleLabel.text = activityPresenter.reactionTitle(kindOf: .like, suffix: "liked the post")
+            cell.avatarsStackView.loadImages(with: activityPresenter.reactionUserAvatarURLs(kindOf: .like))
             return cell
+            
+        case 2:
+            let cell = tableView.dequeueReusableCell(for: indexPath) as ActionUsersTableViewCell
+            cell.titleLabel.text = activityPresenter.reactionTitle(kindOf: .repost, suffix: "reposted the post")
+            cell.avatarsStackView.loadImages(with: activityPresenter.reactionUserAvatarURLs(kindOf: .repost))
+            return cell
+            
+        case 3:
+            let cell = tableView.dequeueReusableCell(for: indexPath) as CommentTableViewCell
+            
+            if let comment = activityPresenter.comment(at: indexPath.row),
+                let text = comment.data(typeOf: Comment.self)?.text {
+                cell.updateComment(name: comment.user.name, comment: text, date: comment.created)
+                
+                comment.user.loadAvatar { [weak cell] in
+                    if let image = $0 {
+                        cell?.avatarImageView?.image = image
+                    }
+                }
+            }
+            
+            return cell
+            
         default:
             break
         }
@@ -107,5 +150,36 @@ extension PostDetailTableViewController {
             viewController.title = openGraph.title
             present(UINavigationController(rootViewController: viewController), animated: true)
         }
+    }
+}
+
+// MARK: - Comment Text Field
+
+extension PostDetailTableViewController: UITextViewDelegate {
+    private func setupCommentTextField(avatarImage: UIImage?) {
+        tableView.keyboardDismissMode = .onDrag
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: TextToolBar.height, right: 0)
+        textToolBar.placeholderText = "Leave reply"
+        textToolBar.addToSuperview(view)
+        textToolBar.textView.delegate = self
+        textToolBar.avatarView.image = avatarImage
+    }
+    
+    @objc func send() {
+        
+    }
+    
+    public func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+        textToolBar.clearPlaceholder()
+        return true
+    }
+    
+    public func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
+        textToolBar.addPlaceholder()
+        return true
+    }
+    
+    public func textViewDidChange(_ textView: UITextView) {
+        textToolBar.sendButton.isEnabled = !textView.text.isEmpty
     }
 }

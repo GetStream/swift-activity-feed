@@ -9,17 +9,15 @@
 import Result
 import GetStream
 
-public typealias EnhancedActivity = (ActivityRepostable & ActivityLikable)
-
 public protocol ReactionPresenterProtocol {
-    typealias Completion<T: EnhancedActivity> = (_ error: Result<T, ClientError>) -> Void
+    typealias Completion<T: ActivityLikable> = (_ result: Result<T, ClientError>) -> Void
     
-    func addReaction<T: EnhancedActivity>(for activity: T,
-                                          kindOf kind: ReactionKind,
-                                          targetsFeedIds: [FeedId],
-                                          _ completion: @escaping Completion<T>)
+    func addReaction<T: ActivityLikable>(for activity: T,
+                                         kindOf kind: ReactionKind,
+                                         targetsFeedIds: [FeedId],
+                                         _ completion: @escaping Completion<T>)
     
-    func remove<T: EnhancedActivity>(reaction: Reaction<ReactionNoExtraData>,
-                                     activity: T,
-                                     _ completion: @escaping Completion<T>)
+    func remove<T: ActivityLikable>(reaction: UserReaction,
+                                    activity: T,
+                                    _ completion: @escaping Completion<T>)
 }

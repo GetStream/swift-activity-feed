@@ -9,7 +9,8 @@
 import GetStream
 
 /// A protocol define an Activity that can be reposted.
-public protocol ActivityRepostable: ActivityProtocol {
+public protocol ActivityRepostable: ActivityProtocol where ReactionType == UserReaction {
+    
     /// The original Activity that was reposted.
     var originalActivity: Self { get }
     
@@ -17,7 +18,7 @@ public protocol ActivityRepostable: ActivityProtocol {
     var isReposted: Bool { get }
     
     /// The reposted reaction.
-    var repostReaction: Reaction<ReactionNoExtraData>? { get }
+    var repostReaction: UserReaction? { get }
     
     /// The number of reposts.
     var repostsCount: Int { get }

@@ -10,11 +10,11 @@ import UIKit
 
 class ActionUsersTableViewCell: BaseTableViewCell {
 
-    @IBOutlet private weak var avatarsStackView: UIStackView!
+    @IBOutlet weak var avatarsStackView: UIStackView!
     @IBOutlet weak var titleLabel: UILabel!
     
-    override open func reset() {
-        avatarsStackView.arrangedSubviews.forEach { ($0 as? UIImageView)?.image = nil }
+    open override func reset() {
+        avatarsStackView.cancelImagesLoading()
         titleLabel.text = nil
     }
 }

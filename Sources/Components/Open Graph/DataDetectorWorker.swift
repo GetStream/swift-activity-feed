@@ -28,7 +28,9 @@ public final class DataDetectorWorker {
     
     private func matchInBackground(_ text: String) {
         var urls: [DataDetectorURLItem] = []
-        let matches = detector.matches(in: text, options: [], range: NSRange(location: 0, length: text.utf16.count))
+        let matches: [NSTextCheckingResult] = detector.matches(in: text,
+                                                               options: [],
+                                                               range: NSRange(location: 0, length: text.utf16.count))
         
         for match in matches {
             guard let range = Range(match.range, in: text) else {

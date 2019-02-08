@@ -17,32 +17,30 @@ open class ReactionPresenter: ReactionPresenterProtocol {
         self.client = client
     }
     
-    public func addReaction<T: EnhancedActivity>(for activity: T,
-                                                 kindOf kind: ReactionKind,
-                                                 targetsFeedIds: [FeedId],
-                                                 _ completion: @escaping (Result<T, ClientError>) -> Void) {
-        client.add(reactionTo: activity.id, kindOf: kind, targetsFeedIds: targetsFeedIds) { result in
-            if let reaction = try? result.get() {
+    public func addReaction<T: ActivityLikable>(for activity: T,
+                                                kindOf kind: ReactionKind,
+                                                targetsFeedIds: [FeedId],
+                                                _ completion: @escaping Completion<T>) {
+        client.add(reactionTo: activity.id, kindOf: kind, extraData: EmptyReactionExtraData.shared, userTypeOf: User.self) {
+            if let reaction = try? $0.get() {
                 var activity = activity
                 activity.addOwnReaction(reaction)
                 completion(.success(activity))
-                
-            } else if let error = result.error {
+            } else if let error = $0.error {
                 completion(.failure(error))
             }
         }
     }
     
-    public func remove<T: EnhancedActivity>(reaction: Reaction<ReactionNoExtraData>,
-                                            activity: T,
-                                            _ completion: @escaping (Result<T, ClientError>) -> Void) {
-        client.delete(reactionId: reaction.id) { result in
-            if result.error == nil {
+    public func remove<T: ActivityLikable>(reaction: UserReaction,
+                                           activity: T,
+                                           _ completion: @escaping Completion<T>) {
+        client.delete(reactionId: reaction.id) {
+            if $0.error == nil {
                 var activity = activity
                 activity.deleteOwnReaction(reaction)
                 completion(.success(activity))
-                
-            } else if let error = result.error {
+            } else if let error = $0.error {
                 completion(.failure(error))
             }
         }

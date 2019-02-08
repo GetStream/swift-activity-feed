@@ -57,6 +57,10 @@
 		8A3E63CB21F0B63600E17543 /* ActivityFeed.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A3E63CA21F0B63600E17543 /* ActivityFeed.storyboard */; };
 		8A3E63CD21F0CFE200E17543 /* FlatFeedPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3E63CC21F0CFE200E17543 /* FlatFeedPresenter.swift */; };
 		8A3E63D021F0D45E00E17543 /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3E63CF21F0D45E00E17543 /* Activity.swift */; };
+		8A420A2E220B275E00AF573F /* UIStackView+LoadingImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A420A2D220B275E00AF573F /* UIStackView+LoadingImages.swift */; };
+		8A420A31220B2E8300AF573F /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A420A2F220B2E8300AF573F /* CommentTableViewCell.swift */; };
+		8A420A32220B2E8300AF573F /* CommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A420A30220B2E8300AF573F /* CommentTableViewCell.xib */; };
+		8A420A34220C904500AF573F /* TextToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A420A33220C904500AF573F /* TextToolBar.swift */; };
 		8A571A1D21FB0D53004949B2 /* ReactionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A571A1C21FB0D53004949B2 /* ReactionPresenter.swift */; };
 		8A571A2121FB26CC004949B2 /* UIButton+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A571A2021FB26CC004949B2 /* UIButton+Extensions.swift */; };
 		8A571A2321FB3BE1004949B2 /* EditPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A571A2221FB3BE1004949B2 /* EditPostViewController.swift */; };
@@ -153,6 +157,10 @@
 		8A3E63CA21F0B63600E17543 /* ActivityFeed.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ActivityFeed.storyboard; sourceTree = "<group>"; };
 		8A3E63CC21F0CFE200E17543 /* FlatFeedPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlatFeedPresenter.swift; sourceTree = "<group>"; };
 		8A3E63CF21F0D45E00E17543 /* Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
+		8A420A2D220B275E00AF573F /* UIStackView+LoadingImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+LoadingImages.swift"; sourceTree = "<group>"; };
+		8A420A2F220B2E8300AF573F /* CommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
+		8A420A30220B2E8300AF573F /* CommentTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommentTableViewCell.xib; sourceTree = "<group>"; };
+		8A420A33220C904500AF573F /* TextToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextToolBar.swift; sourceTree = "<group>"; };
 		8A571A1C21FB0D53004949B2 /* ReactionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionPresenter.swift; sourceTree = "<group>"; };
 		8A571A2021FB26CC004949B2 /* UIButton+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extensions.swift"; sourceTree = "<group>"; };
 		8A571A2221FB3BE1004949B2 /* EditPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPostViewController.swift; sourceTree = "<group>"; };
@@ -241,6 +249,7 @@
 				8A571A2021FB26CC004949B2 /* UIButton+Extensions.swift */,
 				8A0DE443220476300042A0FF /* UITableView+Extensions.swift */,
 				8A0DE44722047DA60042A0FF /* UITableViewCell+Extensions.swift */,
+				8A420A2D220B275E00AF573F /* UIStackView+LoadingImages.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -480,6 +489,8 @@
 				8A7559B721FF5C1D002187EA /* SeparatorTableViewCell.xib */,
 				8A0DE4492204990A0042A0FF /* ActionUsersTableViewCell.swift */,
 				8A0DE44A2204990A0042A0FF /* ActionUsersTableViewCell.xib */,
+				8A420A2F220B2E8300AF573F /* CommentTableViewCell.swift */,
+				8A420A30220B2E8300AF573F /* CommentTableViewCell.xib */,
 			);
 			path = "Table View Cells";
 			sourceTree = "<group>";
@@ -521,6 +532,7 @@
 				8A3E63B221EF497B00E17543 /* Button */,
 				8AC40FB621EE55A50073B749 /* Avatar */,
 				8A108D0F21F20E4B0080ADEB /* Table Cell */,
+				8A420A33220C904500AF573F /* TextToolBar.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -629,6 +641,7 @@
 				8A13FCDF21EC95D900D216C6 /* Assets.xcassets in Resources */,
 				8AC40FB221EE2CB10073B749 /* Profile.storyboard in Resources */,
 				8A13FCDD21EC95D700D216C6 /* Main.storyboard in Resources */,
+				8A420A32220B2E8300AF573F /* CommentTableViewCell.xib in Resources */,
 				8A7559B121FF2F70002187EA /* OpenGraphTableViewCell.xib in Resources */,
 				8A6801D52200B3E600B77352 /* AddingImageCollectionViewCell.xib in Resources */,
 				8A9DFC4422034DDC002F8700 /* PostAttachmentImagesTableViewCell.xib in Resources */,
@@ -738,12 +751,14 @@
 				8A0DE43F220463DC0042A0FF /* ActivityPresenter.swift in Sources */,
 				8A13FD1121ECF6C800D216C6 /* UIApplication+Extensions.swift in Sources */,
 				8A3573CF21F72D9D009EB9D7 /* ActivityObject.swift in Sources */,
+				8A420A2E220B275E00AF573F /* UIStackView+LoadingImages.swift in Sources */,
 				8A7559A821FF06AA002187EA /* NSAttributedString+Extensions.swift in Sources */,
 				8A3E63CD21F0CFE200E17543 /* FlatFeedPresenter.swift in Sources */,
 				8A3573D321F74636009EB9D7 /* ActivityFeedBuilder.swift in Sources */,
 				8A7559B021FF2F70002187EA /* OpenGraphTableViewCell.swift in Sources */,
 				8A3E63BC21EF877600E17543 /* UIImage+Icons.swift in Sources */,
 				8A2DE1CF21F9F675009E2469 /* ActivityLikable.swift in Sources */,
+				8A420A31220B2E8300AF573F /* CommentTableViewCell.swift in Sources */,
 				8AC40FB821EE57570073B749 /* AvatarPresentable.swift in Sources */,
 				8A6801D42200B3E600B77352 /* AddingImageCollectionViewCell.swift in Sources */,
 				8A68395521FB7A170003C19B /* DataDetectorWorker.swift in Sources */,
@@ -758,6 +773,7 @@
 				8A2DE1D121F9F7B5009E2469 /* RepostButton.swift in Sources */,
 				8A3E63C921F0B45300E17543 /* FlatFeedViewController.swift in Sources */,
 				8A13FD0F21ECF66C00D216C6 /* RootPresenter.swift in Sources */,
+				8A420A34220C904500AF573F /* TextToolBar.swift in Sources */,
 				8A571A2121FB26CC004949B2 /* UIButton+Extensions.swift in Sources */,
 				8A108D1221F20E8E0080ADEB /* PostHeaderTableViewCell.swift in Sources */,
 				8A3573C921F5CA20009EB9D7 /* ReactionKind+Extensions.swift in Sources */,
@@ -934,6 +950,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -Xfrontend -warn-long-function-bodies=100 -Xfrontend -warn-long-expression-type-checking=100";
 				PRODUCT_BUNDLE_IDENTIFIER = io.getstream.GetStreamActivityFeed;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -954,6 +971,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -Xfrontend -warn-long-function-bodies=100 -Xfrontend -warn-long-expression-type-checking=100";
 				PRODUCT_BUNDLE_IDENTIFIER = io.getstream.GetStreamActivityFeed;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;

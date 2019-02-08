@@ -8,7 +8,9 @@
 
 import GetStream
 
-public final class Activity: EnrichedActivity<User, ActivityObject, String>, ActivityLikable {
+public typealias UserReaction = Reaction<EmptyReactionExtraData, User>
+
+public final class Activity: EnrichedActivity<User, ActivityObject, String, UserReaction>, ActivityLikable {
     
     private enum CodingKeys: String, CodingKey {
         case text
@@ -52,7 +54,7 @@ extension Activity {
         return (ownReactions?[.like]?.count ?? 0) > 0
     }
     
-    public var likedReaction: Reaction<ReactionNoExtraData>? {
+    public var likedReaction: UserReaction? {
         return ownReactions?[.like]?.first
     }
     
@@ -64,7 +66,7 @@ extension Activity {
         return reactionCounts?[.repost] ?? 0
     }
     
-    public var repostReaction: Reaction<ReactionNoExtraData>? {
+    public var repostReaction: UserReaction? {
         return originalActivity.ownReactions?[.repost]?.first
     }
     

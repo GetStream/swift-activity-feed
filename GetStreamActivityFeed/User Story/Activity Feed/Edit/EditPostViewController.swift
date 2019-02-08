@@ -119,7 +119,7 @@ extension EditPostViewController: EditPostViewable {
                     attributedString.addAttributes([.backgroundColor: Appearance.Color.transparentBlue2], range: item.range.range)
                 }
             }
-            .applyFont(textView.font)
+            .applyedFont(textView.font)
     }
     
     func updateOpenGraphData() {
@@ -148,7 +148,7 @@ extension EditPostViewController: UITextViewDelegate {
     
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
         if textView.attributedText.string == EditPostViewController.textViewPlaceholder.string {
-            textView.attributedText = NSAttributedString(string: "").applyFont(textView.font)
+            textView.attributedText = NSAttributedString(string: "").applyedFont(textView.font)
         }
         
         return true
@@ -166,7 +166,7 @@ extension EditPostViewController: UITextViewDelegate {
         updateSaveButtonEnabling()
         
         if !saveBarButtonItem.isEnabled {
-            textView.attributedText = EditPostViewController.textViewPlaceholder.applyFont(textView.font)
+            textView.attributedText = EditPostViewController.textViewPlaceholder.applyedFont(textView.font)
         }
     }
     

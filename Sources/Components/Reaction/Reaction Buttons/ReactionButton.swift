@@ -12,15 +12,15 @@ import Result
 
 /// A base class for reaction buttons.
 open class ReactionButton: UIButton {
-    public typealias Completion<T: EnhancedActivity> = (_ result: Result<(activity: T, button: UIButton), ClientError>) -> Void
+    public typealias Completion<T: ActivityLikable> = (_ result: Result<(activity: T, button: UIButton), ClientError>) -> Void
     public typealias ErrorCompletion = (_ error: Error?) -> Void
     
-    open func react<T: EnhancedActivity>(with presenter: ReactionPresenterProtocol,
-                                         activity: T,
-                                         reaction: Reaction<ReactionNoExtraData>?,
-                                         kindOf kind: ReactionKind,
-                                         targetsFeedIds: [FeedId] = [],
-                                         _ completion: @escaping Completion<T>) {
+    open func react<T: ActivityLikable>(with presenter: ReactionPresenterProtocol,
+                                        activity: T,
+                                        reaction: UserReaction?,
+                                        kindOf kind: ReactionKind,
+                                        targetsFeedIds: [FeedId] = [],
+                                        _ completion: @escaping Completion<T>) {
         if isSelected {
             isEnabled = false
             if let reaction = reaction {
@@ -38,9 +38,9 @@ open class ReactionButton: UIButton {
         }
     }
     
-    private func parse<T: EnhancedActivity>(_ result: Result<T, ClientError>,
-                                            isSelected: Bool,
-                                            _ completion: @escaping Completion<T>) {
+    private func parse<T: ActivityLikable>(_ result: Result<T, ClientError>,
+                                           isSelected: Bool,
+                                           _ completion: @escaping Completion<T>) {
         isEnabled = true
         
         if let activity = try? result.get() {

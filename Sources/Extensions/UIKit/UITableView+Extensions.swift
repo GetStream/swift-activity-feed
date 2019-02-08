@@ -18,6 +18,7 @@ extension UITableView {
         register(cellType: OpenGraphTableViewCell.self)
         register(cellType: SeparatorTableViewCell.self)
         register(cellType: ActionUsersTableViewCell.self)
+        register(cellType: CommentTableViewCell.self)
     }
 }
 
@@ -113,7 +114,7 @@ extension UITableView {
                 imageURLs.insert(url, at: 0)
             }
             
-            cell.update(with: imageURLs)
+            cell.stackView.loadImages(with: imageURLs)
         }
         
         return cell
