@@ -119,9 +119,7 @@ extension PostDetailTableViewController {
         case 3:
             let cell = tableView.dequeueReusableCell(for: indexPath) as CommentTableViewCell
             
-            if let comment = activityPresenter.comment(at: indexPath.row),
-                let extraData = comment.data(typeOf: ReactionExtraData.self),
-                case .comment(let text) = extraData {
+            if let comment = activityPresenter.comment(at: indexPath.row), case .comment(let text) = comment.data {
                 cell.updateComment(name: comment.user.name, comment: text, date: comment.created)
                 
                 comment.user.loadAvatar { [weak cell] in
