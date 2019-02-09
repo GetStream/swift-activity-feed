@@ -9,13 +9,16 @@
 import UIKit
 import SnapKit
 
-open class PostDetailTableViewController: UITableViewController {
+open class PostDetailTableViewController: UIViewController {
     
+    @IBOutlet weak var tableView: UITableView!
     var activityPresenter: ActivityPresenter<Activity>?
     let textToolBar = TextToolBar.textToolBar
     
     open override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.delegate = self
+        tableView.dataSource = self
         tableView.registerPostCells()
         
         UIApplication.shared.appDelegate.currentUser?.loadAvatar { [weak self] in
@@ -30,13 +33,13 @@ open class PostDetailTableViewController: UITableViewController {
 
 // MARK: - Table view data source
 
-extension PostDetailTableViewController {
+extension PostDetailTableViewController: UITableViewDataSource, UITableViewDelegate {
     
-    open override func numberOfSections(in tableView: UITableView) -> Int {
+    open func numberOfSections(in tableView: UITableView) -> Int {
         return 4
     }
     
-    open override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let activityPresenter = activityPresenter else {
             return 0
         }
@@ -52,7 +55,7 @@ extension PostDetailTableViewController {
         }
     }
     
-    open override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    open func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let title = sectionHeader(in: section) else {
             return nil
         }
@@ -86,11 +89,11 @@ extension PostDetailTableViewController {
         }
     }
     
-    open override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    open func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return section == 0 || sectionHeader(in: section) == nil ? 0 : 30
     }
     
-    open override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let activityPresenter = activityPresenter else {
             return .unused
         }
@@ -138,11 +141,11 @@ extension PostDetailTableViewController {
         return .unused
     }
     
-    open override func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+    open func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
         return indexPath.section == 0 && activityPresenter?.ogData != nil
     }
     
-    open override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let openGraph = activityPresenter?.ogData {
             let viewController = WebViewController()
             viewController.url = openGraph.url
@@ -156,13 +159,15 @@ extension PostDetailTableViewController {
 
 extension PostDetailTableViewController: UITextViewDelegate {
     private func setupCommentTextField(avatarImage: UIImage?) {
-        tableView.keyboardDismissMode = .onDrag
-        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: TextToolBar.height, right: 0)
         textToolBar.placeholderText = "Leave reply"
         textToolBar.addToSuperview(view)
         textToolBar.textView.delegate = self
         textToolBar.avatarView.image = avatarImage
         textToolBar.sendButton.addTarget(self, action: #selector(send(_:)), for: .touchUpInside)
+        
+        tableView.snp.makeConstraints { make in
+            make.bottom.equalTo(textToolBar.snp.top)
+        }
     }
     
     @objc func send(_ button: UIButton) {

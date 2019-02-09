@@ -109,7 +109,7 @@ final class TextToolBar: UIView {
             make.left.right.equalToSuperview()
             make.width.equalTo(UIScreen.main.bounds.width)
             heightConstraint = make.height.equalTo(TextToolBar.height).constraint.layoutConstraints.first
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+            make.bottom.equalTo(view)
         }
     }
     
@@ -184,7 +184,7 @@ extension TextToolBar {
         let offset: CGFloat = notification.name == UIResponder.keyboardWillHideNotification ? 0 : -value.cgRectValue.height
         
         snp.updateConstraints { make in
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(offset)
+            make.bottom.equalTo(view).offset(offset)
         }
         
         if let durationNumber = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber {

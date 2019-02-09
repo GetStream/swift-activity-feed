@@ -64,7 +64,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <segue destination="deu-ib-ioZ" kind="show" identifier="PostDetailTableViewController" id="UF3-yz-Ovw"/>
+                        <segue destination="BLY-u4-gAI" kind="show" identifier="PostDetailTableViewController" id="InL-zd-Sv7"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="O0o-pa-2Qs" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -72,32 +72,33 @@
             <point key="canvasLocation" x="1114" y="-243"/>
         </scene>
         <!--POST DETAIL-->
-        <scene sceneID="rNH-M2-Ro4">
+        <scene sceneID="mb5-HH-uRU">
             <objects>
-                <tableViewController storyboardIdentifier="PostDetailTableViewController" title="POST DETAIL" hidesBottomBarWhenPushed="YES" id="deu-ib-ioZ" customClass="PostDetailTableViewController" customModule="GetStreamActivityFeed" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="biN-81-OaR">
+                <viewController storyboardIdentifier="PostDetailTableViewController" title="POST DETAIL" hidesBottomBarWhenPushed="YES" id="BLY-u4-gAI" customClass="PostDetailTableViewController" customModule="GetStreamActivityFeed" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="eQP-Xx-dLf">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" keyboardDismissMode="interactive" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="j5S-RW-29b">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="unused" id="fIt-oC-QxZ">
-                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="fIt-oC-QxZ" id="vYT-TS-hLC">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="deu-ib-ioZ" id="d3V-F4-CbM"/>
-                            <outlet property="delegate" destination="deu-ib-ioZ" id="Kz7-No-kBi"/>
-                        </connections>
-                    </tableView>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="m7z-Ro-1x8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                        <constraints>
+                            <constraint firstItem="j5S-RW-29b" firstAttribute="top" secondItem="eQP-Xx-dLf" secondAttribute="top" id="Ib1-Rd-xym"/>
+                            <constraint firstItem="j5S-RW-29b" firstAttribute="leading" secondItem="Ucu-Ix-KfA" secondAttribute="leading" id="Uiv-UV-Jd8"/>
+                            <constraint firstItem="Ucu-Ix-KfA" firstAttribute="trailing" secondItem="j5S-RW-29b" secondAttribute="trailing" id="cah-q1-QlB"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Ucu-Ix-KfA"/>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="j5S-RW-29b" id="iAL-hl-Rzh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nCn-eJ-BlQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1113" y="509"/>
+            <point key="canvasLocation" x="1113" y="504"/>
         </scene>
         <!--NEW POST-->
         <scene sceneID="j9F-ru-1d7">
