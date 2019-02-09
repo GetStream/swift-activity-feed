@@ -8,7 +8,7 @@
 
 import GetStream
 
-public typealias UserReaction = Reaction<EmptyReactionExtraData, User>
+public typealias UserReaction = Reaction<ReactionExtraData, User>
 
 public final class Activity: EnrichedActivity<User, ActivityObject, String, UserReaction>, ActivityLikable {
     

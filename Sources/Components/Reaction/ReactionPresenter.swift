@@ -21,14 +21,26 @@ open class ReactionPresenter: ReactionPresenterProtocol {
                                                 kindOf kind: ReactionKind,
                                                 targetsFeedIds: [FeedId],
                                                 _ completion: @escaping Completion<T>) {
-        client.add(reactionTo: activity.id, kindOf: kind, extraData: EmptyReactionExtraData.shared, userTypeOf: User.self) {
-            if let reaction = try? $0.get() {
-                var activity = activity
-                activity.addOwnReaction(reaction)
-                completion(.success(activity))
-            } else if let error = $0.error {
-                completion(.failure(error))
-            }
+        client.add(reactionTo: activity.id, kindOf: kind, extraData: ReactionExtraData.empty, userTypeOf: User.self) {
+            self.parse($0, for: activity, completion)
+        }
+    }
+    
+    public func addComment<T: ActivityLikable>(for activity: T, text: String, _ completion: @escaping Completion<T>) {
+        client.add(reactionTo: activity.id, kindOf: .comment, extraData: ReactionExtraData.comment(text), userTypeOf: User.self) {
+            self.parse($0, for: activity, completion)
+        }
+    }
+    
+    private func parse<T: ActivityLikable>(_ result: Result<T.ReactionType, ClientError>,
+                                           for activity: T,
+                                           _ completion: @escaping Completion<T>) {
+        if let reaction = try? result.get() {
+            var activity = activity
+            activity.addOwnReaction(reaction)
+            completion(.success(activity))
+        } else if let error = result.error {
+            completion(.failure(error))
         }
     }
     

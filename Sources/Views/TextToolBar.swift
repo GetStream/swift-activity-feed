@@ -95,6 +95,11 @@ final class TextToolBar: UIView {
                                                selector: #selector(keyboardUpdated(_:)),
                                                name: UIResponder.keyboardWillChangeFrameNotification,
                                                object: nil)
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardUpdated(_:)),
+                                               name: UIResponder.keyboardWillHideNotification,
+                                               object: nil)
     }
     
     public func addToSuperview(_ view: UIView) {
@@ -176,8 +181,10 @@ extension TextToolBar {
             return
         }
         
+        let offset: CGFloat = notification.name == UIResponder.keyboardWillHideNotification ? 0 : -value.cgRectValue.height
+        
         snp.updateConstraints { make in
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-value.cgRectValue.height)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(offset)
         }
         
         if let durationNumber = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber {

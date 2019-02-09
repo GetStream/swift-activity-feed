@@ -120,7 +120,8 @@ extension PostDetailTableViewController {
             let cell = tableView.dequeueReusableCell(for: indexPath) as CommentTableViewCell
             
             if let comment = activityPresenter.comment(at: indexPath.row),
-                let text = comment.data(typeOf: Comment.self)?.text {
+                let extraData = comment.data(typeOf: ReactionExtraData.self),
+                case .comment(let text) = extraData {
                 cell.updateComment(name: comment.user.name, comment: text, date: comment.created)
                 
                 comment.user.loadAvatar { [weak cell] in
@@ -163,10 +164,31 @@ extension PostDetailTableViewController: UITextViewDelegate {
         textToolBar.addToSuperview(view)
         textToolBar.textView.delegate = self
         textToolBar.avatarView.image = avatarImage
+        textToolBar.sendButton.addTarget(self, action: #selector(send(_:)), for: .touchUpInside)
     }
     
-    @objc func send() {
+    @objc func send(_ button: UIButton) {
+        view.endEditing(true)
         
+        guard let text = textToolBar.textView.text, !text.isEmpty, let activityPresenter = activityPresenter else {
+            return
+        }
+        
+        textToolBar.textView.text = nil
+        textToolBar.addPlaceholder()
+        textToolBar.textView.isEditable = false
+        
+        activityPresenter.reactionPresenter.addComment(for: activityPresenter.activity, text: text) { [weak self] in
+            if let self = self {
+                self.textToolBar.textView.isEditable = true
+                
+                if let error = $0.error {
+                    self.showErrorAlert(error)
+                } else {
+                    self.tableView.reloadData()
+                }
+            }
+        }
     }
     
     public func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
