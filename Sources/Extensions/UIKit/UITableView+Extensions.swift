@@ -19,6 +19,7 @@ extension UITableView {
         register(cellType: SeparatorTableViewCell.self)
         register(cellType: ActionUsersTableViewCell.self)
         register(cellType: CommentTableViewCell.self)
+        register(cellType: PaginationTableViewCell.self)
     }
 }
 

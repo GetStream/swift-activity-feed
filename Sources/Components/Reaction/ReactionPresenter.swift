@@ -16,6 +16,11 @@ open class ReactionPresenter: ReactionPresenterProtocol {
     init(client: Client) {
         self.client = client
     }
+}
+
+// MARK: - Editing
+
+extension ReactionPresenter {
     
     public func addReaction<T: ActivityLikable>(for activity: T,
                                                 kindOf kind: ReactionKind,

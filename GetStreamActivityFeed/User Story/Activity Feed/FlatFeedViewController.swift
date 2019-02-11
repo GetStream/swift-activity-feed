@@ -48,11 +48,25 @@ open class FlatFeedViewController: UITableViewController, BundledStoryboardLoada
     }
     
     private func activityPresenter(in section: Int) -> ActivityPresenter<Activity>? {
-        if let presenter = presenter, section < presenter.activityPresenters.count {
-            return presenter.activityPresenters[section]
+        if let presenter = presenter, section < presenter.count {
+            return presenter.items[section]
         }
         
         return nil
+    }
+    
+    func reloadData() {
+        presenter?.load(completion: dataLoaded)
+    }
+    
+    func dataLoaded(_ error: Error?) {
+        refreshControl?.endRefreshing()
+        
+        if let error = error {
+            showErrorAlert(error)
+        } else {
+            tableView.reloadData()
+        }
     }
 }
 
@@ -60,29 +74,26 @@ open class FlatFeedViewController: UITableViewController, BundledStoryboardLoada
 
 extension FlatFeedViewController {
     
-    func reloadData() {
-        presenter?.loadActivities { [weak self] error in
-            self?.refreshControl?.endRefreshing()
-            
-            if let error = error {
-                self?.showErrorAlert(error)
-            } else {
-                self?.tableView.reloadData()
-            }
-        }
-    }
-    
     open override func numberOfSections(in tableView: UITableView) -> Int {
-        return presenter?.activityPresenters.count ?? 0
+        guard let presenter = presenter else {
+            return 0
+        }
+        
+        return presenter.count + (presenter.hasNext ? 1 : 0)
     }
     
     open override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return activityPresenter(in: section)?.cellsCount ?? 0
+        return activityPresenter(in: section)?.cellsCount ?? 1
     }
     
     open override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let activityPresenter = activityPresenter(in: indexPath.section),
             let cell = tableView.postCell(at: indexPath, in: self, presenter: activityPresenter) else {
+                if let presenter = presenter, presenter.hasNext {
+                    presenter.loadNext(completion: dataLoaded)
+                    return tableView.dequeueReusableCell(for: indexPath) as PaginationTableViewCell
+                }
+                
                 return .unused
         }
         

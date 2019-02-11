@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		63355CB6DBAFB62CCA26DB99 /* Pods_GetStreamActivityFeed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60A554AB5CB724535E1CB46B /* Pods_GetStreamActivityFeed.framework */; };
 		8A0525B321FBA7A90029E385 /* Range+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0525B221FBA7A90029E385 /* Range+Extensions.swift */; };
+		8A0759232211AAA9009C11FB /* ReactionPaginator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0759222211AAA9009C11FB /* ReactionPaginator.swift */; };
+		8A0759262211B061009C11FB /* PaginationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0759242211B061009C11FB /* PaginationTableViewCell.swift */; };
+		8A0759272211B061009C11FB /* PaginationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A0759252211B061009C11FB /* PaginationTableViewCell.xib */; };
+		8A0759292211BF90009C11FB /* PaginatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0759282211BF90009C11FB /* PaginatorProtocol.swift */; };
 		8A0DE43B220460840042A0FF /* PostDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0DE43A220460840042A0FF /* PostDetailTableViewController.swift */; };
 		8A0DE43F220463DC0042A0FF /* ActivityPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0DE43E220463DC0042A0FF /* ActivityPresenter.swift */; };
 		8A0DE441220465520042A0FF /* ActivityPresenter+Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0DE440220465520042A0FF /* ActivityPresenter+Activity.swift */; };
@@ -104,6 +108,10 @@
 /* Begin PBXFileReference section */
 		60A554AB5CB724535E1CB46B /* Pods_GetStreamActivityFeed.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GetStreamActivityFeed.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A0525B221FBA7A90029E385 /* Range+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Range+Extensions.swift"; sourceTree = "<group>"; };
+		8A0759222211AAA9009C11FB /* ReactionPaginator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionPaginator.swift; sourceTree = "<group>"; };
+		8A0759242211B061009C11FB /* PaginationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationTableViewCell.swift; sourceTree = "<group>"; };
+		8A0759252211B061009C11FB /* PaginationTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PaginationTableViewCell.xib; sourceTree = "<group>"; };
+		8A0759282211BF90009C11FB /* PaginatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginatorProtocol.swift; sourceTree = "<group>"; };
 		8A0DE43A220460840042A0FF /* PostDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailTableViewController.swift; sourceTree = "<group>"; };
 		8A0DE43E220463DC0042A0FF /* ActivityPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityPresenter.swift; sourceTree = "<group>"; };
 		8A0DE440220465520042A0FF /* ActivityPresenter+Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ActivityPresenter+Activity.swift"; sourceTree = "<group>"; };
@@ -229,14 +237,6 @@
 				8A7559AC21FF18D3002187EA /* EditPostPresenter.swift */,
 			);
 			path = Edit;
-			sourceTree = "<group>";
-		};
-		8A0DE43D220461BC0042A0FF /* Detail */ = {
-			isa = PBXGroup;
-			children = (
-				8A0DE43A220460840042A0FF /* PostDetailTableViewController.swift */,
-			);
-			path = Detail;
 			sourceTree = "<group>";
 		};
 		8A0DE4422204760E0042A0FF /* UIKit */ = {
@@ -365,6 +365,7 @@
 				8A2DE1CE21F9F675009E2469 /* ActivityLikable.swift */,
 				8A2765E8220E5498003AD983 /* Comment.swift */,
 				8A2765EA220E54A8003AD983 /* ReactionExtraData.swift */,
+				8A0759282211BF90009C11FB /* PaginatorProtocol.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -442,7 +443,7 @@
 				8A3573D221F74636009EB9D7 /* ActivityFeedBuilder.swift */,
 				8A3E63C821F0B45300E17543 /* FlatFeedViewController.swift */,
 				8A0DE43C220461B20042A0FF /* Edit */,
-				8A0DE43D220461BC0042A0FF /* Detail */,
+				8A0DE43A220460840042A0FF /* PostDetailTableViewController.swift */,
 			);
 			path = "Activity Feed";
 			sourceTree = "<group>";
@@ -473,6 +474,7 @@
 			children = (
 				8A2DE1D221FA2DAF009E2469 /* ReactionPresenterProtocol.swift */,
 				8A571A1C21FB0D53004949B2 /* ReactionPresenter.swift */,
+				8A0759222211AAA9009C11FB /* ReactionPaginator.swift */,
 				8A2DE1CB21F9F550009E2469 /* Reaction Buttons */,
 			);
 			path = Reaction;
@@ -494,6 +496,8 @@
 				8A0DE44A2204990A0042A0FF /* ActionUsersTableViewCell.xib */,
 				8A420A2F220B2E8300AF573F /* CommentTableViewCell.swift */,
 				8A420A30220B2E8300AF573F /* CommentTableViewCell.xib */,
+				8A0759242211B061009C11FB /* PaginationTableViewCell.swift */,
+				8A0759252211B061009C11FB /* PaginationTableViewCell.xib */,
 			);
 			path = "Table View Cells";
 			sourceTree = "<group>";
@@ -645,6 +649,7 @@
 				8AC40FB221EE2CB10073B749 /* Profile.storyboard in Resources */,
 				8A13FCDD21EC95D700D216C6 /* Main.storyboard in Resources */,
 				8A420A32220B2E8300AF573F /* CommentTableViewCell.xib in Resources */,
+				8A0759272211B061009C11FB /* PaginationTableViewCell.xib in Resources */,
 				8A7559B121FF2F70002187EA /* OpenGraphTableViewCell.xib in Resources */,
 				8A6801D52200B3E600B77352 /* AddingImageCollectionViewCell.xib in Resources */,
 				8A9DFC4422034DDC002F8700 /* PostAttachmentImagesTableViewCell.xib in Resources */,
@@ -734,6 +739,7 @@
 				8A108D1521F223DE0080ADEB /* Date+Extensions.swift in Sources */,
 				8A7559AB21FF15B6002187EA /* OpenGraphWorker.swift in Sources */,
 				8A0DE44822047DA60042A0FF /* UITableViewCell+Extensions.swift in Sources */,
+				8A0759232211AAA9009C11FB /* ReactionPaginator.swift in Sources */,
 				8A3573D121F72DE2009EB9D7 /* Verb+Extensions.swift in Sources */,
 				8A13FD1421ECF8A700D216C6 /* RootRouter.swift in Sources */,
 				8A3E63BA21EF6DFA00E17543 /* ProfileBuilder.swift in Sources */,
@@ -746,6 +752,7 @@
 				8A0DE446220478910042A0FF /* ActivityRouter.swift in Sources */,
 				8A13FCD821EC95D700D216C6 /* AppDelegate.swift in Sources */,
 				8A0DE444220476300042A0FF /* UITableView+Extensions.swift in Sources */,
+				8A0759292211BF90009C11FB /* PaginatorProtocol.swift in Sources */,
 				8A2765E9220E5499003AD983 /* Comment.swift in Sources */,
 				8A6801DC22033B3600B77352 /* PostActionsTableViewCell.swift in Sources */,
 				8A3E63B621EF63BB00E17543 /* EditProfileViewController.swift in Sources */,
@@ -762,6 +769,7 @@
 				8A3573D321F74636009EB9D7 /* ActivityFeedBuilder.swift in Sources */,
 				8A7559B021FF2F70002187EA /* OpenGraphTableViewCell.swift in Sources */,
 				8A3E63BC21EF877600E17543 /* UIImage+Icons.swift in Sources */,
+				8A0759262211B061009C11FB /* PaginationTableViewCell.swift in Sources */,
 				8A2DE1CF21F9F675009E2469 /* ActivityLikable.swift in Sources */,
 				8A420A31220B2E8300AF573F /* CommentTableViewCell.swift in Sources */,
 				8AC40FB821EE57570073B749 /* AvatarPresentable.swift in Sources */,

@@ -10,15 +10,15 @@ import Foundation
 import GetStream
 import Result
 
-open class FlatFeedPresenter<T: ActivityProtocol> {
+open class FlatFeedPresenter<T: ActivityProtocol>: PaginatorProtocol {
     public typealias Completion = (_ error: Error?) -> Void
     
     let flatFeed: FlatFeed
     let reactionPresenter: ReactionPresenter
     var includeReactions: FeedReactionsOptions = [.counts, .own, .latest]
     
-    private(set) var activityPresenters: [ActivityPresenter<T>] = []
-    private var next: Pagination = .none
+    public private(set) var items: [ActivityPresenter<T>] = []
+    public var next: Pagination = .none
     
     init(flatFeed: FlatFeed) {
         self.flatFeed = flatFeed
@@ -26,14 +26,14 @@ open class FlatFeedPresenter<T: ActivityProtocol> {
         reactionPresenter = ReactionPresenter(client: flatFeed.client)
     }
     
-    public func loadActivities(pagination: Pagination = .none, completion: @escaping Completion) {
+    public func load(_ pagination: Pagination = .none, completion: @escaping Completion) {
         flatFeed.get(typeOf: T.self, pagination: pagination, includeReactions: includeReactions) { [weak self] result in
             guard let self = self else {
                 return
             }
             
             if case .none = pagination {
-                self.activityPresenters = []
+                self.items = []
                 self.next = .none
             }
             
@@ -41,9 +41,10 @@ open class FlatFeedPresenter<T: ActivityProtocol> {
             
             do {
                 let response = try result.get()
-                self.activityPresenters
-                    .append(contentsOf: response.results.map({ ActivityPresenter(activity: $0,
-                                                                                 reactionPresenter: self.reactionPresenter) }))
+                
+                self.items.append(contentsOf: response.results
+                    .map({ ActivityPresenter(activity: $0, reactionPresenter: self.reactionPresenter) }))
+                
                 self.next = response.next ?? .none
             } catch let responseError {
                 error = responseError
@@ -51,10 +52,6 @@ open class FlatFeedPresenter<T: ActivityProtocol> {
             
             DispatchQueue.main.async { completion(error) }
         }
-    }
-    
-    public func loadNext(completion: @escaping Completion) {
-        loadActivities(pagination: next, completion: completion)
     }
 }
 
