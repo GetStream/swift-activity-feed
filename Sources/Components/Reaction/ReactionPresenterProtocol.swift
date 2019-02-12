@@ -14,12 +14,14 @@ public protocol ReactionPresenterProtocol {
     
     func addReaction<T: ActivityLikable>(for activity: T,
                                          kindOf kind: ReactionKind,
+                                         parentReactionId: String?,
                                          targetsFeedIds: [FeedId],
                                          _ completion: @escaping Completion<T>)
     
-    func addComment<T: ActivityLikable>(for activity: T, text: String, _ completion: @escaping Completion<T>)
+    func addComment<T: ActivityLikable>(for activity: T,
+                                        text: String,
+                                        parentReactionId: String?,
+                                        _ completion: @escaping Completion<T>)
     
-    func remove<T: ActivityLikable>(reaction: UserReaction,
-                                    activity: T,
-                                    _ completion: @escaping Completion<T>)
+    func remove<T: ActivityLikable>(reaction: UserReaction, activity: T, _ completion: @escaping Completion<T>)
 }

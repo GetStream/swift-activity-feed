@@ -24,15 +24,27 @@ extension ReactionPresenter {
     
     public func addReaction<T: ActivityLikable>(for activity: T,
                                                 kindOf kind: ReactionKind,
+                                                parentReactionId: String? = nil,
                                                 targetsFeedIds: [FeedId],
                                                 _ completion: @escaping Completion<T>) {
-        client.add(reactionTo: activity.id, kindOf: kind, extraData: ReactionExtraData.empty, userTypeOf: User.self) {
+        client.add(reactionTo: activity.id,
+                   parentReactionId: parentReactionId,
+                   kindOf: kind,
+                   extraData: ReactionExtraData.empty,
+                   userTypeOf: User.self) {
             self.parse($0, for: activity, completion)
         }
     }
     
-    public func addComment<T: ActivityLikable>(for activity: T, text: String, _ completion: @escaping Completion<T>) {
-        client.add(reactionTo: activity.id, kindOf: .comment, extraData: ReactionExtraData.comment(text), userTypeOf: User.self) {
+    public func addComment<T: ActivityLikable>(for activity: T,
+                                               text: String,
+                                               parentReactionId: String? = nil,
+                                               _ completion: @escaping Completion<T>) {
+        client.add(reactionTo: activity.id,
+                   parentReactionId: parentReactionId,
+                   kindOf: .comment,
+                   extraData: ReactionExtraData.comment(text),
+                   userTypeOf: User.self) {
             self.parse($0, for: activity, completion)
         }
     }
@@ -49,9 +61,7 @@ extension ReactionPresenter {
         }
     }
     
-    public func remove<T: ActivityLikable>(reaction: UserReaction,
-                                           activity: T,
-                                           _ completion: @escaping Completion<T>) {
+    public func remove<T: ActivityLikable>(reaction: UserReaction, activity: T, _ completion: @escaping Completion<T>) {
         client.delete(reactionId: reaction.id) {
             if $0.error == nil {
                 var activity = activity

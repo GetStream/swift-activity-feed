@@ -17,6 +17,7 @@ open class RepostButton: ReactionButton {
         super.react(with: presenter,
                     activity: activity,
                     reaction: activity.repostReaction,
+                    parentReaction: nil,
                     kindOf: .repost,
                     targetsFeedIds: targetsFeedIds) {
                         if let result = try? $0.get() {

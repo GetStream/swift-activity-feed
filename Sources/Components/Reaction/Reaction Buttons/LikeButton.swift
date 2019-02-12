@@ -12,10 +12,24 @@ import GetStream
 open class LikeButton: ReactionButton {
     open func react<T: ActivityLikable>(with presenter: ReactionPresenterProtocol,
                                         activity: T,
+                                        parentReaction: T.ReactionType? = nil,
                                         _ completion: @escaping ErrorCompletion) {
-        super.react(with: presenter, activity: activity, reaction: activity.likedReaction, kindOf: .like) {
+        super.react(with: presenter,
+                    activity: activity,
+                    reaction: activity.likedReaction,
+                    parentReaction: parentReaction,
+                    kindOf: .like) {
             if let result = try? $0.get() {
-                result.button.setTitle(String(result.activity.likesCount), for: .normal)
+                let title: String
+                
+                if let parentReaction = parentReaction {
+                    let count = parentReaction.childrenCounts[.like] ?? 0
+                    title = count > 0 ? String(count) : ""
+                } else {
+                    title = result.activity.likesCount > 0 ? String(result.activity.likesCount) : ""
+                }
+                
+                result.button.setTitle(title, for: .normal)
                 completion(nil)
             } else {
                 completion($0.error)

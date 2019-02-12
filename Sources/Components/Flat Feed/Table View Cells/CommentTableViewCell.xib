@@ -32,26 +32,8 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </imageView>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UO9-Y7-sDU">
-                        <rect key="frame" x="329" y="16" width="30" height="30"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="30" id="R2I-jb-UkE"/>
-                            <constraint firstAttribute="height" constant="30" id="hvn-EL-qkW"/>
-                        </constraints>
-                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <state key="normal" image="love_gray_icon"/>
-                    </button>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pcu-27-34M">
-                        <rect key="frame" x="291" y="16" width="30" height="30"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="30" id="l61-rY-iSB"/>
-                            <constraint firstAttribute="height" constant="30" id="s0G-6N-pVM"/>
-                        </constraints>
-                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <state key="normal" image="reply_icon"/>
-                    </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gaC-2d-zYq">
-                        <rect key="frame" x="54" y="16" width="229" height="90"/>
+                        <rect key="frame" x="54" y="16" width="218" height="90"/>
                         <attributedString key="attributedText">
                             <fragment content="TheBat LOL! I bet he thinks this is great. 2 mins">
                                 <attributes>
@@ -63,32 +45,59 @@
                         </attributedString>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button contentMode="scaleToFill" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Fy-LO-AKF" customClass="LikeButton" customModule="GetStreamActivityFeed" customModuleProvider="target">
+                        <rect key="frame" x="318" y="16" width="49" height="30"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="55" id="9ff-5D-vid"/>
+                            <constraint firstAttribute="height" constant="30" id="bE2-fJ-VBl"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        <inset key="imageEdgeInsets" minX="-8" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        <state key="normal" title="888" image="love_gray_icon">
+                            <color key="titleColor" red="0.43529412150000002" green="0.4431372583" blue="0.47450980539999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </state>
+                        <state key="selected" image="love_icon"/>
+                        <state key="highlighted" image="love_icon"/>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pcu-27-34M">
+                        <rect key="frame" x="280" y="16" width="30" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="30" id="l61-rY-iSB"/>
+                            <constraint firstAttribute="height" constant="30" id="s0G-6N-pVM"/>
+                        </constraints>
+                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <state key="normal" image="reply_icon"/>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottomMargin" secondItem="gaC-2d-zYq" secondAttribute="bottom" constant="5" id="1gB-qE-zcz"/>
-                    <constraint firstItem="UO9-Y7-sDU" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="Q5t-MW-DZb"/>
+                    <constraint firstItem="5Fy-LO-AKF" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailing" constant="-8" id="3Gu-DR-S4C"/>
+                    <constraint firstItem="pcu-27-34M" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="5" id="45U-bh-UFg"/>
                     <constraint firstItem="pcu-27-34M" firstAttribute="leading" secondItem="gaC-2d-zYq" secondAttribute="trailing" constant="8" id="T2H-rC-go0"/>
                     <constraint firstItem="Qir-bI-evL" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="VTR-rp-BL9"/>
-                    <constraint firstItem="pcu-27-34M" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="X1v-FH-2UR"/>
-                    <constraint firstItem="UO9-Y7-sDU" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailing" constant="-16" id="bga-u1-hqf"/>
+                    <constraint firstItem="5Fy-LO-AKF" firstAttribute="leading" secondItem="pcu-27-34M" secondAttribute="trailing" constant="8" id="gpU-Bi-vTY"/>
+                    <constraint firstItem="5Fy-LO-AKF" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="5" id="he2-qK-RmN"/>
                     <constraint firstItem="gaC-2d-zYq" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="5" id="jNK-C1-3B7"/>
+                    <constraint firstItem="Qir-bI-evL" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="5" id="o6P-nd-Fiu"/>
                     <constraint firstItem="gaC-2d-zYq" firstAttribute="leading" secondItem="Qir-bI-evL" secondAttribute="trailing" constant="8" id="qrs-qx-N4X"/>
-                    <constraint firstItem="Qir-bI-evL" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="r1r-11-crT"/>
-                    <constraint firstItem="UO9-Y7-sDU" firstAttribute="leading" secondItem="pcu-27-34M" secondAttribute="trailing" constant="8" id="umU-ZP-vJv"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="avatarImageView" destination="Qir-bI-evL" id="sAU-r9-A6M"/>
                 <outlet property="commentLabel" destination="gaC-2d-zYq" id="GSr-Tq-txh"/>
-                <outlet property="likeButton" destination="UO9-Y7-sDU" id="eeT-59-PKv"/>
+                <outlet property="likeButton" destination="5Fy-LO-AKF" id="Qe3-vD-g9X"/>
                 <outlet property="replyButton" destination="pcu-27-34M" id="5kZ-33-8lh"/>
             </connections>
-            <point key="canvasLocation" x="-23" y="144"/>
+            <point key="canvasLocation" x="-23.199999999999999" y="143.02848575712144"/>
         </tableViewCell>
     </objects>
     <resources>
         <image name="love_gray_icon" width="18" height="16"/>
+        <image name="love_icon" width="17" height="15"/>
         <image name="reply_icon" width="19" height="14"/>
         <image name="user_icon" width="24" height="24"/>
     </resources>

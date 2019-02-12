@@ -36,15 +36,12 @@
 		8A13FD0F21ECF66C00D216C6 /* RootPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A13FD0E21ECF66C00D216C6 /* RootPresenter.swift */; };
 		8A13FD1121ECF6C800D216C6 /* UIApplication+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A13FD1021ECF6C800D216C6 /* UIApplication+Extensions.swift */; };
 		8A13FD1421ECF8A700D216C6 /* RootRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A13FD1321ECF8A700D216C6 /* RootRouter.swift */; };
-		8A2765E9220E5499003AD983 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2765E8220E5498003AD983 /* Comment.swift */; };
-		8A2765EB220E54A8003AD983 /* ReactionExtraData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2765EA220E54A8003AD983 /* ReactionExtraData.swift */; };
 		8A2DE1C821F9E768009E2469 /* ReactionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2DE1C721F9E768009E2469 /* ReactionButton.swift */; };
 		8A2DE1CA21F9E819009E2469 /* ActivityRepostable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2DE1C921F9E819009E2469 /* ActivityRepostable.swift */; };
 		8A2DE1CD21F9F56E009E2469 /* LikeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2DE1CC21F9F56E009E2469 /* LikeButton.swift */; };
 		8A2DE1CF21F9F675009E2469 /* ActivityLikable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2DE1CE21F9F675009E2469 /* ActivityLikable.swift */; };
 		8A2DE1D121F9F7B5009E2469 /* RepostButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2DE1D021F9F7B5009E2469 /* RepostButton.swift */; };
 		8A2DE1D321FA2DAF009E2469 /* ReactionPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2DE1D221FA2DAF009E2469 /* ReactionPresenterProtocol.swift */; };
-		8A3573C921F5CA20009EB9D7 /* ReactionKind+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3573C821F5CA20009EB9D7 /* ReactionKind+Extensions.swift */; };
 		8A3573CF21F72D9D009EB9D7 /* ActivityObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3573CE21F72D9D009EB9D7 /* ActivityObject.swift */; };
 		8A3573D121F72DE2009EB9D7 /* Verb+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3573D021F72DE2009EB9D7 /* Verb+Extensions.swift */; };
 		8A3573D321F74636009EB9D7 /* ActivityFeedBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3573D221F74636009EB9D7 /* ActivityFeedBuilder.swift */; };
@@ -141,15 +138,12 @@
 		8A13FD0E21ECF66C00D216C6 /* RootPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootPresenter.swift; sourceTree = "<group>"; };
 		8A13FD1021ECF6C800D216C6 /* UIApplication+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extensions.swift"; sourceTree = "<group>"; };
 		8A13FD1321ECF8A700D216C6 /* RootRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootRouter.swift; sourceTree = "<group>"; };
-		8A2765E8220E5498003AD983 /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
-		8A2765EA220E54A8003AD983 /* ReactionExtraData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionExtraData.swift; sourceTree = "<group>"; };
 		8A2DE1C721F9E768009E2469 /* ReactionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionButton.swift; sourceTree = "<group>"; };
 		8A2DE1C921F9E819009E2469 /* ActivityRepostable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityRepostable.swift; sourceTree = "<group>"; };
 		8A2DE1CC21F9F56E009E2469 /* LikeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeButton.swift; sourceTree = "<group>"; };
 		8A2DE1CE21F9F675009E2469 /* ActivityLikable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityLikable.swift; sourceTree = "<group>"; };
 		8A2DE1D021F9F7B5009E2469 /* RepostButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepostButton.swift; sourceTree = "<group>"; };
 		8A2DE1D221FA2DAF009E2469 /* ReactionPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionPresenterProtocol.swift; sourceTree = "<group>"; };
-		8A3573C821F5CA20009EB9D7 /* ReactionKind+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReactionKind+Extensions.swift"; sourceTree = "<group>"; };
 		8A3573CE21F72D9D009EB9D7 /* ActivityObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityObject.swift; sourceTree = "<group>"; };
 		8A3573D021F72DE2009EB9D7 /* Verb+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Verb+Extensions.swift"; sourceTree = "<group>"; };
 		8A3573D221F74636009EB9D7 /* ActivityFeedBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityFeedBuilder.swift; sourceTree = "<group>"; };
@@ -360,11 +354,8 @@
 			isa = PBXGroup;
 			children = (
 				8A13FD0521ECD86700D216C6 /* User.swift */,
-				8A3573C821F5CA20009EB9D7 /* ReactionKind+Extensions.swift */,
 				8A2DE1C921F9E819009E2469 /* ActivityRepostable.swift */,
 				8A2DE1CE21F9F675009E2469 /* ActivityLikable.swift */,
-				8A2765E8220E5498003AD983 /* Comment.swift */,
-				8A2765EA220E54A8003AD983 /* ReactionExtraData.swift */,
 				8A0759282211BF90009C11FB /* PaginatorProtocol.swift */,
 			);
 			path = Models;
@@ -735,7 +726,6 @@
 				8A7559BC22005AE8002187EA /* WebViewController.swift in Sources */,
 				8A3E63C121F08C2400E17543 /* Appearance.swift in Sources */,
 				8AC40FAB21EE0ED50073B749 /* UIViewController+Extensions.swift in Sources */,
-				8A2765EB220E54A8003AD983 /* ReactionExtraData.swift in Sources */,
 				8A108D1521F223DE0080ADEB /* Date+Extensions.swift in Sources */,
 				8A7559AB21FF15B6002187EA /* OpenGraphWorker.swift in Sources */,
 				8A0DE44822047DA60042A0FF /* UITableViewCell+Extensions.swift in Sources */,
@@ -753,7 +743,6 @@
 				8A13FCD821EC95D700D216C6 /* AppDelegate.swift in Sources */,
 				8A0DE444220476300042A0FF /* UITableView+Extensions.swift in Sources */,
 				8A0759292211BF90009C11FB /* PaginatorProtocol.swift in Sources */,
-				8A2765E9220E5499003AD983 /* Comment.swift in Sources */,
 				8A6801DC22033B3600B77352 /* PostActionsTableViewCell.swift in Sources */,
 				8A3E63B621EF63BB00E17543 /* EditProfileViewController.swift in Sources */,
 				8A7559B321FF55E3002187EA /* OpenGraphTableViewCell+Update.swift in Sources */,
@@ -788,7 +777,6 @@
 				8A420A34220C904500AF573F /* TextToolBar.swift in Sources */,
 				8A571A2121FB26CC004949B2 /* UIButton+Extensions.swift in Sources */,
 				8A108D1221F20E8E0080ADEB /* PostHeaderTableViewCell.swift in Sources */,
-				8A3573C921F5CA20009EB9D7 /* ReactionKind+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

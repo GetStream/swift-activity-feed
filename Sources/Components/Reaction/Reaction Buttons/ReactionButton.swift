@@ -17,7 +17,8 @@ open class ReactionButton: UIButton {
     
     open func react<T: ActivityLikable>(with presenter: ReactionPresenterProtocol,
                                         activity: T,
-                                        reaction: UserReaction?,
+                                        reaction: T.ReactionType?,
+                                        parentReaction: T.ReactionType?,
                                         kindOf kind: ReactionKind,
                                         targetsFeedIds: [FeedId] = [],
                                         _ completion: @escaping Completion<T>) {
@@ -32,7 +33,10 @@ open class ReactionButton: UIButton {
             }
         } else {
             isEnabled = false
-            presenter.addReaction(for: activity.originalActivity, kindOf: kind, targetsFeedIds: targetsFeedIds) { [weak self] in
+            presenter.addReaction(for: activity.originalActivity,
+                                  kindOf: kind,
+                                  parentReactionId: parentReaction?.id,
+                                  targetsFeedIds: targetsFeedIds) { [weak self] in
                 self?.parse($0, isSelected: true, completion)
             }
         }

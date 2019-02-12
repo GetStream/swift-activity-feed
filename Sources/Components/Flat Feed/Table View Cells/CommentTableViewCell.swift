@@ -13,7 +13,7 @@ open class CommentTableViewCell: BaseTableViewCell {
     @IBOutlet weak var avatarImageView: UIImageView!
     @IBOutlet private weak var commentLabel: UILabel!
     @IBOutlet weak var replyButton: UIButton!
-    @IBOutlet weak var likeButton: UIButton!
+    @IBOutlet weak var likeButton: LikeButton!
     
     open override func reset() {
         avatarImageView.image = .userIcon

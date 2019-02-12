@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import GetStream
 
 open class PostDetailTableViewController: UIViewController {
     
@@ -161,6 +162,20 @@ extension PostDetailTableViewController: UITableViewDataSource, UITableViewDeleg
                 comment.user.loadAvatar { [weak cell] in
                     if let image = $0 {
                         cell?.avatarImageView?.image = image
+                    }
+                }
+                
+                let countTitle = comment.childrenCounts[.like] ?? 0
+                cell.likeButton.setTitle(countTitle == 0 ? "" : String(countTitle), for: .normal)
+                cell.isSelected = comment.hasUserOwnChildReaction(.like)
+                
+                cell.likeButton.addTap { [weak self] in
+                    if let activityPresenter = self?.activityPresenter, let button = $0 as? LikeButton {
+                        button.react(with: activityPresenter.reactionPresenter,
+                                     activity: activityPresenter.activity,
+                                     parentReaction: comment) { _ in
+                            
+                        }
                     }
                 }
             }
