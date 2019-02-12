@@ -10,18 +10,45 @@ import UIKit
 
 open class CommentTableViewCell: BaseTableViewCell {
     
+    @IBOutlet weak var avatarLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var avatarImageView: UIImageView!
     @IBOutlet private weak var commentLabel: UILabel!
     @IBOutlet weak var replyButton: UIButton!
     @IBOutlet weak var likeButton: LikeButton!
+    @IBOutlet weak var moreRepliesStackView: UIStackView!
+    @IBOutlet weak var moreRepliesLabel: UILabel!
+    
+    var withIndent: Bool {
+        get { return avatarLeadingConstraint.constant != 0 }
+        set {
+            avatarLeadingConstraint.constant = newValue ? avatarImageView.bounds.width : 0
+            
+            if newValue {
+                replyButton.isHidden = true
+                likeButton.isHidden = true
+            }
+        }
+    }
+    
+    var moreReplies: String {
+        get { return moreRepliesLabel.text ?? "" }
+        set {
+            moreRepliesStackView.isHidden = newValue.isEmpty
+            moreRepliesLabel.text = newValue
+        }
+    }
     
     open override func reset() {
         avatarImageView.image = .userIcon
         commentLabel.attributedText = nil
         replyButton.removeTap()
-        likeButton.removeTap()
         replyButton.isSelected = false
+        replyButton.isHidden = false
+        likeButton.removeTap()
         likeButton.isSelected = false
+        likeButton.isHidden = false
+        withIndent = false
+        moreReplies = ""
     }
     
     public func updateComment(name: String, comment: String, date: Date) {

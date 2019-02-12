@@ -20,7 +20,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user_icon" translatesAutoresizingMaskIntoConstraints="NO" id="Qir-bI-evL">
-                        <rect key="frame" x="16" y="16" width="30" height="30"/>
+                        <rect key="frame" x="16" y="11" width="30" height="30"/>
                         <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="30" id="Yv8-lU-DQX"/>
@@ -32,21 +32,48 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gaC-2d-zYq">
-                        <rect key="frame" x="54" y="16" width="218" height="90"/>
-                        <attributedString key="attributedText">
-                            <fragment content="TheBat LOL! I bet he thinks this is great. 2 mins">
-                                <attributes>
-                                    <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                    <font key="NSFont" size="12" name=".SFNSText"/>
-                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.1000000000000001" tighteningFactorForTruncation="0.0"/>
-                                </attributes>
-                            </fragment>
-                        </attributedString>
-                        <nil key="highlightedColor"/>
-                    </label>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="hfV-iQ-bwJ">
+                        <rect key="frame" x="54" y="11" width="218" height="100"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gaC-2d-zYq">
+                                <rect key="frame" x="0.0" y="0.0" width="218" height="78"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="TheBat LOL! I bet he thinks this is great. 2 mins">
+                                        <attributes>
+                                            <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                            <font key="NSFont" size="12" name=".SFNSText"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.1000000000000001" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="1Qu-57-rmG">
+                                <rect key="frame" x="0.0" y="82" width="218" height="18"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="reply_icon" translatesAutoresizingMaskIntoConstraints="NO" id="NgK-zH-tEv">
+                                        <rect key="frame" x="0.0" y="0.0" width="25" height="18"/>
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="25" id="KC7-8U-8jY"/>
+                                            <constraint firstAttribute="height" constant="18" id="lv2-k9-Gdr"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4 more replies" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="riN-Gu-lx4">
+                                        <rect key="frame" x="29" y="2" width="189" height="14.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="18" id="Le1-Ib-KSY"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                    </stackView>
                     <button contentMode="scaleToFill" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Fy-LO-AKF" customClass="LikeButton" customModule="GetStreamActivityFeed" customModuleProvider="target">
-                        <rect key="frame" x="318" y="16" width="49" height="30"/>
+                        <rect key="frame" x="318" y="11" width="49" height="30"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="lessThanOrEqual" constant="55" id="9ff-5D-vid"/>
@@ -63,7 +90,7 @@
                         <state key="highlighted" image="love_icon"/>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pcu-27-34M">
-                        <rect key="frame" x="280" y="16" width="30" height="30"/>
+                        <rect key="frame" x="280" y="11" width="30" height="30"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="30" id="l61-rY-iSB"/>
                             <constraint firstAttribute="height" constant="30" id="s0G-6N-pVM"/>
@@ -73,26 +100,29 @@
                     </button>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottomMargin" secondItem="gaC-2d-zYq" secondAttribute="bottom" constant="5" id="1gB-qE-zcz"/>
                     <constraint firstItem="5Fy-LO-AKF" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailing" constant="-8" id="3Gu-DR-S4C"/>
-                    <constraint firstItem="pcu-27-34M" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="5" id="45U-bh-UFg"/>
-                    <constraint firstItem="pcu-27-34M" firstAttribute="leading" secondItem="gaC-2d-zYq" secondAttribute="trailing" constant="8" id="T2H-rC-go0"/>
-                    <constraint firstItem="Qir-bI-evL" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="VTR-rp-BL9"/>
+                    <constraint firstItem="pcu-27-34M" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="45U-bh-UFg"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="hfV-iQ-bwJ" secondAttribute="bottom" id="DFM-hw-2cD"/>
+                    <constraint firstItem="hfV-iQ-bwJ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="HOJ-f2-LKh"/>
+                    <constraint firstItem="pcu-27-34M" firstAttribute="leading" secondItem="hfV-iQ-bwJ" secondAttribute="trailing" constant="8" id="K6n-JJ-URT"/>
+                    <constraint firstItem="hfV-iQ-bwJ" firstAttribute="leading" secondItem="Qir-bI-evL" secondAttribute="trailing" constant="8" id="TQG-dO-gz6"/>
+                    <constraint firstItem="Qir-bI-evL" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="VTR-rp-BL9"/>
                     <constraint firstItem="5Fy-LO-AKF" firstAttribute="leading" secondItem="pcu-27-34M" secondAttribute="trailing" constant="8" id="gpU-Bi-vTY"/>
-                    <constraint firstItem="5Fy-LO-AKF" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="5" id="he2-qK-RmN"/>
-                    <constraint firstItem="gaC-2d-zYq" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="5" id="jNK-C1-3B7"/>
-                    <constraint firstItem="Qir-bI-evL" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="5" id="o6P-nd-Fiu"/>
-                    <constraint firstItem="gaC-2d-zYq" firstAttribute="leading" secondItem="Qir-bI-evL" secondAttribute="trailing" constant="8" id="qrs-qx-N4X"/>
+                    <constraint firstItem="5Fy-LO-AKF" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="he2-qK-RmN"/>
+                    <constraint firstItem="Qir-bI-evL" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="o6P-nd-Fiu"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="avatarImageView" destination="Qir-bI-evL" id="sAU-r9-A6M"/>
+                <outlet property="avatarLeadingConstraint" destination="VTR-rp-BL9" id="KcJ-LS-UJj"/>
                 <outlet property="commentLabel" destination="gaC-2d-zYq" id="GSr-Tq-txh"/>
                 <outlet property="likeButton" destination="5Fy-LO-AKF" id="Qe3-vD-g9X"/>
+                <outlet property="moreRepliesLabel" destination="riN-Gu-lx4" id="sAp-7F-bo9"/>
+                <outlet property="moreRepliesStackView" destination="1Qu-57-rmG" id="lBr-lT-Lhr"/>
                 <outlet property="replyButton" destination="pcu-27-34M" id="5kZ-33-8lh"/>
             </connections>
-            <point key="canvasLocation" x="-23.199999999999999" y="143.02848575712144"/>
+            <point key="canvasLocation" x="-94" y="62"/>
         </tableViewCell>
     </objects>
     <resources>

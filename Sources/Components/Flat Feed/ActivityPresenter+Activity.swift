@@ -42,7 +42,7 @@ extension ActivityPresenter where T == Activity {
 extension ActivityPresenter where T == Activity {
     
     func reactionTitle(kindOf reactionKind: ReactionKind, suffix: String) -> String? {
-        guard let reactions: [UserReaction] = activity.originalActivity.latestReactions?[reactionKind],
+        guard let reactions: [Reaction] = activity.originalActivity.latestReactions?[reactionKind],
             let count: Int = activity.originalActivity.reactionCounts?[reactionKind],
             let first = reactions.first else {
             return nil
@@ -63,7 +63,7 @@ extension ActivityPresenter where T == Activity {
         return reactions.map { $0.user.avatarURL }.compactMap { $0 }
     }
     
-    func comment(at index: Int) -> UserReaction? {
+    func comment(at index: Int) -> Reaction? {
         guard let reactions = activity.originalActivity.latestReactions?[.comment] else {
             return nil
         }

@@ -15,7 +15,7 @@ public protocol ActivityLikable: ActivityRepostable {
     var isLiked: Bool { get }
     
     /// The liked reaction.
-    var likedReaction: UserReaction? { get }
+    var likedReaction: Reaction? { get }
     
     /// The number of likes.
     var likesCount: Int { get }

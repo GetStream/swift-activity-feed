@@ -55,11 +55,17 @@ extension PostDetailTableViewController: UITableViewDataSource, UITableViewDeleg
     }
     
     open func numberOfSections(in tableView: UITableView) -> Int {
-        return 4
+        var count = 3
+        
+        if let reactionPaginator = reactionPaginator {
+            count += reactionPaginator.count + (reactionPaginator.hasNext ? 1 : 0)
+        }
+        
+        return count
     }
     
     open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let activityPresenter = activityPresenter else {
+        guard let activityPresenter = activityPresenter, let reactionPaginator = reactionPaginator else {
             return 0
         }
         
@@ -69,14 +75,17 @@ extension PostDetailTableViewController: UITableViewDataSource, UITableViewDeleg
         case 0: return activityPresenter.cellsCount - 1
         case 1: return activity.likesCount > 0 ? 1 : 0
         case 2: return activity.repostsCount
-        case 3:
-            if let reactionPaginator = reactionPaginator {
-                return reactionPaginator.count + (reactionPaginator.hasNext ? 1 : 0)
-            }
         default: break
         }
         
-        return 0
+        let commentIndex = section - 3
+        
+        if commentIndex < reactionPaginator.items.count {
+            let reaction = reactionPaginator.items[commentIndex]
+            return 1 + (reaction.childrenCounts[.comment] ?? 0) > 0 ? 1 : 0
+        }
+        
+        return 1
     }
     
     open func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -118,7 +127,7 @@ extension PostDetailTableViewController: UITableViewDataSource, UITableViewDeleg
     }
     
     open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let activityPresenter = activityPresenter else {
+        guard let activityPresenter = activityPresenter, let reactionPaginator = reactionPaginator else {
             return .unused
         }
         
@@ -143,50 +152,32 @@ extension PostDetailTableViewController: UITableViewDataSource, UITableViewDeleg
             cell.avatarsStackView.loadImages(with: activityPresenter.reactionUserAvatarURLs(kindOf: .repost))
             return cell
             
-        case 3:
-            guard let reactionPaginator = reactionPaginator else {
-                return .unused
-            }
-            
-            if indexPath.row >= reactionPaginator.count {
-                reactionPaginator.loadNext(completion: commentsLoaded)
-                return tableView.dequeueReusableCell(for: indexPath) as PaginationTableViewCell
-            }
-            
-            let cell = tableView.dequeueReusableCell(for: indexPath) as CommentTableViewCell
-            let comment = reactionPaginator.items[indexPath.row]
-            
-            if case .comment(let text) = comment.data {
-                cell.updateComment(name: comment.user.name, comment: text, date: comment.created)
-                
-                comment.user.loadAvatar { [weak cell] in
-                    if let image = $0 {
-                        cell?.avatarImageView?.image = image
-                    }
-                }
-                
-                let countTitle = comment.childrenCounts[.like] ?? 0
-                cell.likeButton.setTitle(countTitle == 0 ? "" : String(countTitle), for: .normal)
-                cell.isSelected = comment.hasUserOwnChildReaction(.like)
-                
-                cell.likeButton.addTap { [weak self] in
-                    if let activityPresenter = self?.activityPresenter, let button = $0 as? LikeButton {
-                        button.react(with: activityPresenter.reactionPresenter,
-                                     activity: activityPresenter.activity,
-                                     parentReaction: comment) { _ in
-                            
-                        }
-                    }
-                }
-            }
-            
-            return cell
-            
-        default:
-            break
+        default: break
         }
         
-        return .unused
+        let commentIndex = indexPath.section - 3
+        
+        if commentIndex >= reactionPaginator.count {
+            reactionPaginator.loadNext(completion: commentsLoaded)
+            return tableView.dequeueReusableCell(for: indexPath) as PaginationTableViewCell
+        }
+        
+        let cell = tableView.dequeueReusableCell(for: indexPath) as CommentTableViewCell
+        let comment = reactionPaginator.items[commentIndex]
+        
+        if indexPath.row == 0 {
+            update(cell: cell, with: comment)
+            
+        } else if let childComment = comment.latestChildren[.comment]?.first {
+            update(cell: cell, with: childComment)
+            cell.withIndent = true
+            
+            if let count = comment.childrenCounts[.comment], count > 1 {
+                cell.moreReplies = "\(count - 1) more replies"
+            }
+        }
+        
+        return cell
     }
     
     open func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
@@ -199,6 +190,34 @@ extension PostDetailTableViewController: UITableViewDataSource, UITableViewDeleg
             viewController.url = openGraph.url
             viewController.title = openGraph.title
             present(UINavigationController(rootViewController: viewController), animated: true)
+        }
+    }
+    
+    private func update(cell: CommentTableViewCell, with comment: Reaction) {
+        guard case .comment(let text) = comment.data else {
+            return
+        }
+        
+        cell.updateComment(name: comment.user.name, comment: text, date: comment.created)
+        
+        comment.user.loadAvatar { [weak cell] in
+            if let image = $0 {
+                cell?.avatarImageView?.image = image
+            }
+        }
+        
+        let countTitle = comment.childrenCounts[.like] ?? 0
+        cell.likeButton.setTitle(countTitle == 0 ? "" : String(countTitle), for: .normal)
+        cell.likeButton.isSelected = comment.hasUserOwnChildReaction(.like)
+        
+        cell.likeButton.addTap { [weak self] in
+            if let activityPresenter = self?.activityPresenter, let button = $0 as? LikeButton {
+                button.react(with: activityPresenter.reactionPresenter,
+                             activity: activityPresenter.activity,
+                             parentReaction: comment) { _ in
+                                
+                }
+            }
         }
     }
 }
@@ -267,7 +286,7 @@ extension PostDetailTableViewController {
         if let error = error {
             showErrorAlert(error)
         } else {
-            tableView.reloadSections([3], with: .none)
+            tableView.reloadData()
         }
     }
 }

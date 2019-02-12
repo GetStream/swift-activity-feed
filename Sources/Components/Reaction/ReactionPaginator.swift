@@ -15,7 +15,7 @@ public class ReactionPaginator<T: ReactionExtraDataProtocol, U: UserProtocol>: P
     let activityId: String
     let reactionKind: ReactionKind
     
-    public private(set) var items: [Reaction<T, U>] = []
+    public private(set) var items: [GetStream.Reaction<T, U>] = []
     public var next: Pagination = .none
     
     init(client: Client, activityId: String, reactionKind: ReactionKind) {
