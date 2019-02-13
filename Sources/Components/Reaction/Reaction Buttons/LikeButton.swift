@@ -12,11 +12,12 @@ import GetStream
 open class LikeButton: ReactionButton {
     open func react<T: ActivityLikable>(with presenter: ReactionPresenterProtocol,
                                         activity: T,
+                                        reaction: T.ReactionType? = nil,
                                         parentReaction: T.ReactionType? = nil,
                                         _ completion: @escaping ErrorCompletion) {
         super.react(with: presenter,
                     activity: activity,
-                    reaction: activity.likedReaction,
+                    reaction: reaction ?? activity.likedReaction,
                     parentReaction: parentReaction,
                     kindOf: .like) {
             if let result = try? $0.get() {

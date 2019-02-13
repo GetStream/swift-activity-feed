@@ -20,11 +20,11 @@ final class RootBuilder {
     
     var rootTabBarController: UITabBarController {
         let tabBar = UITabBarController()
+        tabBar.view.backgroundColor = .white
+        tabBar.tabBar.isTranslucent = false
         
         tabBar.viewControllers = [activityFeedBuilder.flatFeedNavigationController(feedSlug: "timeline"),
                                   profileBuilder.profileNavigationController(user: UIApplication.shared.appDelegate.currentUser)]
-        
-        tabBar.view.backgroundColor = .white
         return tabBar
     }
 }

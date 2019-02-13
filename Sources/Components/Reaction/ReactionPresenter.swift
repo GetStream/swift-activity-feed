@@ -24,51 +24,72 @@ extension ReactionPresenter {
     
     public func addReaction<T: ActivityLikable>(for activity: T,
                                                 kindOf kind: ReactionKind,
-                                                parentReactionId: String? = nil,
+                                                parentReaction: Reaction? = nil,
                                                 targetsFeedIds: [FeedId],
                                                 _ completion: @escaping Completion<T>) {
         client.add(reactionTo: activity.id,
-                   parentReactionId: parentReactionId,
+                   parentReactionId: parentReaction?.id,
                    kindOf: kind,
                    extraData: ReactionExtraData.empty,
                    userTypeOf: User.self) {
-            self.parse($0, for: activity, completion)
+                    self.parse($0, for: activity, parentReaction, completion)
         }
     }
     
     public func addComment<T: ActivityLikable>(for activity: T,
                                                text: String,
-                                               parentReactionId: String? = nil,
+                                               parentReaction: Reaction? = nil,
                                                _ completion: @escaping Completion<T>) {
         client.add(reactionTo: activity.id,
-                   parentReactionId: parentReactionId,
+                   parentReactionId: parentReaction?.id,
                    kindOf: .comment,
                    extraData: ReactionExtraData.comment(text),
                    userTypeOf: User.self) {
-            self.parse($0, for: activity, completion)
+                    self.parse($0, for: activity, parentReaction, completion)
         }
     }
     
     private func parse<T: ActivityLikable>(_ result: Result<T.ReactionType, ClientError>,
                                            for activity: T,
+                                           _ parentReaction: Reaction?,
                                            _ completion: @escaping Completion<T>) {
         if let reaction = try? result.get() {
             var activity = activity
-            activity.addOwnReaction(reaction)
+            
+            if let parentReaction = parentReaction {
+                parentReaction.addUserOwnChild(reaction)
+            } else {
+                activity.addUserOwnReaction(reaction)
+            }
+            
             completion(.success(activity))
+            
         } else if let error = result.error {
             completion(.failure(error))
         }
     }
     
-    public func remove<T: ActivityLikable>(reaction: UserReaction, activity: T, _ completion: @escaping Completion<T>) {
+    public func remove<T: ActivityLikable>(reaction: T.ReactionType, activity: T, _ completion: @escaping Completion<T>) {
         client.delete(reactionId: reaction.id) {
             if $0.error == nil {
                 var activity = activity
-                activity.deleteOwnReaction(reaction)
+                activity.removeUserOwnReaction(reaction)
                 completion(.success(activity))
             } else if let error = $0.error {
                 completion(.failure(error))
+            }
+        }
+    }
+    
+    public func remove(reaction: Reaction,
+                       parentReaction: Reaction,
+                       _ completion: @escaping (_ result: Result<Reaction, ClientError>) -> Void) {
+        client.delete(reactionId: reaction.id) {
+            if let error = $0.error {
+                completion(.failure(error))
+            } else {
+                parentReaction.removeUserOwnChild(reaction)
+                completion(.success(parentReaction))
             }
         }
     }

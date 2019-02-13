@@ -9,7 +9,7 @@
 import UIKit
 import SnapKit
 
-final class TextToolBar: UIView {
+public final class TextToolBar: UIView {
     public static let height: CGFloat = 80
     public static let maxHeight: CGFloat = 200
     public static let avatarWidth: CGFloat = 50

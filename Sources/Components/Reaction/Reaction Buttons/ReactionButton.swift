@@ -24,9 +24,27 @@ open class ReactionButton: UIButton {
                                         _ completion: @escaping Completion<T>) {
         if isSelected {
             isEnabled = false
+            
             if let reaction = reaction {
-                presenter.remove(reaction: reaction, activity: activity.originalActivity) { [weak self] in
-                    self?.parse($0, isSelected: false, completion)
+                if let parentReaction = parentReaction {
+                    presenter.remove(reaction: reaction, parentReaction: parentReaction) { [weak self] in
+                        guard let self = self else {
+                            return
+                        }
+                        
+                        self.isEnabled = true
+                        
+                        if let error = $0.error {
+                            completion(.failure(error))
+                        } else {
+                            self.isSelected = false
+                            completion(.success((activity, self)))
+                        }
+                    }
+                } else {
+                    presenter.remove(reaction: reaction, activity: activity.originalActivity) { [weak self] in
+                        self?.parse($0, isSelected: false, completion)
+                    }
                 }
             } else {
                 isSelected = false
@@ -35,7 +53,7 @@ open class ReactionButton: UIButton {
             isEnabled = false
             presenter.addReaction(for: activity.originalActivity,
                                   kindOf: kind,
-                                  parentReactionId: parentReaction?.id,
+                                  parentReaction: parentReaction,
                                   targetsFeedIds: targetsFeedIds) { [weak self] in
                 self?.parse($0, isSelected: true, completion)
             }

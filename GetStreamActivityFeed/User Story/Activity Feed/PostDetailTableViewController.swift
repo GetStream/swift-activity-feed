@@ -214,6 +214,7 @@ extension PostDetailTableViewController: UITableViewDataSource, UITableViewDeleg
             if let activityPresenter = self?.activityPresenter, let button = $0 as? LikeButton {
                 button.react(with: activityPresenter.reactionPresenter,
                              activity: activityPresenter.activity,
+                             reaction: comment.userOwnChildReaction(.like),
                              parentReaction: comment) { _ in
                                 
                 }

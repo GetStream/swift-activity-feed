@@ -51,11 +51,11 @@ public final class Activity: EnrichedActivity<User, ActivityObject, String, Reac
 
 extension Activity {
     public var isLiked: Bool {
-        return (ownReactions?[.like]?.count ?? 0) > 0
+        return (userOwnReactions?[.like]?.count ?? 0) > 0
     }
     
     public var likedReaction: Reaction? {
-        return ownReactions?[.like]?.first
+        return userOwnReactions?[.like]?.first
     }
     
     public var likesCount: Int {
@@ -67,11 +67,11 @@ extension Activity {
     }
     
     public var repostReaction: Reaction? {
-        return originalActivity.ownReactions?[.repost]?.first
+        return originalActivity.userOwnReactions?[.repost]?.first
     }
     
     public var isReposted: Bool {
-        return (ownReactions?[.repost]?.count ?? 0) > 0
+        return (userOwnReactions?[.repost]?.count ?? 0) > 0
     }
     
     public var commentsCount: Int {

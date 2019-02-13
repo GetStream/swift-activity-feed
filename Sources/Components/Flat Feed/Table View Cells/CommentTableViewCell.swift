@@ -21,7 +21,7 @@ open class CommentTableViewCell: BaseTableViewCell {
     var withIndent: Bool {
         get { return avatarLeadingConstraint.constant != 0 }
         set {
-            avatarLeadingConstraint.constant = newValue ? avatarImageView.bounds.width : 0
+            avatarLeadingConstraint.constant = newValue ? avatarImageView.bounds.width + 8 : 0
             
             if newValue {
                 replyButton.isHidden = true
