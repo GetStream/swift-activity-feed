@@ -157,24 +157,19 @@ extension PostDetailTableViewController: UITableViewDataSource, UITableViewDeleg
         default: break
         }
         
-        let commentIndex = indexPath.section - 3
-        
-        if commentIndex >= reactionPaginator.count {
+        guard let comment = comment(at: indexPath) else {
             reactionPaginator.loadNext(completion: commentsLoaded)
             return tableView.dequeueReusableCell(for: indexPath) as PaginationTableViewCell
         }
         
         let cell = tableView.dequeueReusableCell(for: indexPath) as CommentTableViewCell
-        let comment = reactionPaginator.items[commentIndex]
-        
-        if indexPath.row == 0 {
-            update(cell: cell, with: comment)
-            
-        } else if let childComment = comment.latestChildren[.comment]?.first {
-            update(cell: cell, with: childComment)
+        update(cell: cell, with: comment)
+
+        if indexPath.row > 0 {
             cell.withIndent = true
             
-            if let count = comment.childrenCounts[.comment], count > 1 {
+            if let parentComment = self.comment(at: IndexPath(row: 0, section: indexPath.section)),
+                let count = parentComment.childrenCounts[.comment], count > 1 {
                 cell.moreReplies = "\(count - 1) more replies"
             }
         }
@@ -193,6 +188,66 @@ extension PostDetailTableViewController: UITableViewDataSource, UITableViewDeleg
             viewController.title = openGraph.title
             present(UINavigationController(rootViewController: viewController), animated: true)
         }
+    }
+}
+
+// MARK: - Table View - Comments
+
+extension PostDetailTableViewController {
+    
+    open func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        guard let comment = comment(at: indexPath), let currentUser = UIApplication.shared.appDelegate.currentUser else {
+            return false
+        }
+        
+        return comment.user.id == currentUser.id
+    }
+    
+    open func tableView(_ tableView: UITableView,
+                                 commit editingStyle: UITableViewCell.EditingStyle,
+                                 forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete,
+            let activityPresenter = activityPresenter,
+            let comment = comment(at: indexPath),
+            let parentComment = self.comment(at: IndexPath(row: 0, section: indexPath.section)) {
+            if comment == parentComment {
+                activityPresenter.reactionPresenter.remove(reaction: comment, activity: activityPresenter.activity) { [weak self] in
+                    if let error = $0.error {
+                        self?.showErrorAlert(error)
+                    } else if let self = self{
+                        self.reactionPaginator?.load(completion: self.commentsLoaded)
+                    }
+                }
+            } else {
+                activityPresenter.reactionPresenter.remove(reaction: comment, parentReaction: parentComment) { [weak self] in
+                    if let error = $0.error {
+                        self?.showErrorAlert(error)
+                    } else {
+                        self?.tableView.reloadData()
+                    }
+                }
+            }
+        }
+    }
+    
+    private func comment(at indexPath: IndexPath) -> Reaction? {
+        guard indexPath.section > 2 else {
+            return nil
+        }
+        
+        let commentIndex = indexPath.section - 3
+        
+        guard let reactionPaginator = reactionPaginator, commentIndex < reactionPaginator.count else {
+            return nil
+        }
+        
+        let comment = reactionPaginator.items[commentIndex]
+        
+        if indexPath.row > 0, let childComment = comment.latestChildren[.comment]?.first {
+            return childComment
+        }
+        
+        return comment
     }
     
     private func update(cell: CommentTableViewCell, with comment: Reaction) {

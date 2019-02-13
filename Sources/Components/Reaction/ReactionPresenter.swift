@@ -69,7 +69,7 @@ extension ReactionPresenter {
         }
     }
     
-    public func remove<T: ActivityLikable>(reaction: T.ReactionType, activity: T, _ completion: @escaping Completion<T>) {
+    public func remove<T: ActivityLikable>(reaction: Reaction, activity: T, _ completion: @escaping Completion<T>) {
         client.delete(reactionId: reaction.id) {
             if $0.error == nil {
                 var activity = activity

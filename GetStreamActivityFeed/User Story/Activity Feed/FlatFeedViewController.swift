@@ -129,6 +129,10 @@ extension FlatFeedViewController {
         performSegue(show: PostDetailTableViewController.self, sender: activityPresenter)
     }
     
+    open override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return removeActivityAction != nil && indexPath.row == 0
+    }
+    
     open override func tableView(_ tableView: UITableView,
                                  commit editingStyle: UITableViewCell.EditingStyle,
                                  forRowAt indexPath: IndexPath) {
@@ -139,10 +143,6 @@ extension FlatFeedViewController {
         if editingStyle == .delete, let removeActivityAction = removeActivityAction {
             removeActivityAction(activityPresenter.activity)
         }
-    }
-    
-    open override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return removeActivityAction != nil && indexPath.row == 0
     }
 }
 
