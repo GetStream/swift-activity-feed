@@ -90,6 +90,7 @@
 		8AC40FB821EE57570073B749 /* AvatarPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC40FB721EE57570073B749 /* AvatarPresentable.swift */; };
 		8AC40FBA21EE57D80073B749 /* AvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC40FB921EE57D80073B749 /* AvatarView.swift */; };
 		8AC40FBC21EF356F0073B749 /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC40FBB21EF356F0073B749 /* UIImage+Extensions.swift */; };
+		8AD370A522145DF500182834 /* ImageGalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD370A422145DF500182834 /* ImageGalleryViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -192,6 +193,7 @@
 		8AC40FB721EE57570073B749 /* AvatarPresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarPresentable.swift; sourceTree = "<group>"; };
 		8AC40FB921EE57D80073B749 /* AvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarView.swift; sourceTree = "<group>"; };
 		8AC40FBB21EF356F0073B749 /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
+		8AD370A422145DF500182834 /* ImageGalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageGalleryViewController.swift; sourceTree = "<group>"; };
 		94BE0BBF8EF5D3D2C85C23D5 /* Pods-GetStreamActivityFeed.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GetStreamActivityFeed.debug.xcconfig"; path = "Target Support Files/Pods-GetStreamActivityFeed/Pods-GetStreamActivityFeed.debug.xcconfig"; sourceTree = "<group>"; };
 		FBE5C433E161964E569605F0 /* Pods-GetStreamActivityFeed.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GetStreamActivityFeed.release.xcconfig"; path = "Target Support Files/Pods-GetStreamActivityFeed/Pods-GetStreamActivityFeed.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -455,6 +457,7 @@
 				8A13FD0321ECD83A00D216C6 /* Flat Feed */,
 				8A571A1F21FB15D9004949B2 /* Reaction */,
 				8A7559A921FF159E002187EA /* Open Graph */,
+				8AD370A322145DB300182834 /* Image Gallery */,
 				8A7559BA22005ABA002187EA /* Web View */,
 			);
 			path = Components;
@@ -542,6 +545,14 @@
 				8AC40FB921EE57D80073B749 /* AvatarView.swift */,
 			);
 			path = Avatar;
+			sourceTree = "<group>";
+		};
+		8AD370A322145DB300182834 /* Image Gallery */ = {
+			isa = PBXGroup;
+			children = (
+				8AD370A422145DF500182834 /* ImageGalleryViewController.swift */,
+			);
+			path = "Image Gallery";
 			sourceTree = "<group>";
 		};
 		FEA282DD76743CC8142F3496 /* Frameworks */ = {
@@ -772,6 +783,7 @@
 				8A3E63B121EF455100E17543 /* UINavigationController+Extensions.swift in Sources */,
 				8A3E63C521F08DC300E17543 /* UIColor+Extensions.swift in Sources */,
 				8A2DE1D121F9F7B5009E2469 /* RepostButton.swift in Sources */,
+				8AD370A522145DF500182834 /* ImageGalleryViewController.swift in Sources */,
 				8A3E63C921F0B45300E17543 /* FlatFeedViewController.swift in Sources */,
 				8A13FD0F21ECF66C00D216C6 /* RootPresenter.swift in Sources */,
 				8A420A34220C904500AF573F /* TextToolBar.swift in Sources */,

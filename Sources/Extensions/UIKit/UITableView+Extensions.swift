@@ -108,7 +108,7 @@ extension UITableView {
                                                    type: PostCellType) -> UITableViewCell {
         let cell = dequeueReusableCell(for: indexPath) as PostAttachmentImagesTableViewCell
         
-        if let imageURLs = presenter.attachmentImageURLs {
+        if let imageURLs = presenter.attachmentImageURLs() {
             var imageURLs = imageURLs
             
             if type == .detail, case .image(let url) = presenter.activity.object {

@@ -114,16 +114,29 @@ extension FlatFeedViewController {
     }
     
     open override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard  let activityPresenter = activityPresenter(in: indexPath.section) else {
+        guard let activityPresenter = activityPresenter(in: indexPath.section) else {
             return
         }
         
-        if indexPath.row == (activityPresenter.cellsCount - 3), let openGraph = activityPresenter.ogData {
-            let viewController = WebViewController()
-            viewController.url = openGraph.url
-            viewController.title = openGraph.title
-            present(UINavigationController(rootViewController: viewController), animated: true)
-            return
+        let cellsCount = activityPresenter.cellsCount
+        
+        if indexPath.row != 0 {
+            if indexPath.row == (cellsCount - 4) {
+                showImageGallery(activityPresenter: activityPresenter)
+                return
+            }
+            
+            if indexPath.row == (cellsCount - 3) {
+                if let openGraph = activityPresenter.ogData {
+                    let viewController = WebViewController()
+                    viewController.url = openGraph.url
+                    viewController.title = openGraph.title
+                    present(UINavigationController(rootViewController: viewController), animated: true)
+                } else {
+                    showImageGallery(activityPresenter: activityPresenter)
+                }
+                return
+            }
         }
         
         performSegue(show: PostDetailTableViewController.self, sender: activityPresenter)
@@ -143,6 +156,16 @@ extension FlatFeedViewController {
         if editingStyle == .delete, let removeActivityAction = removeActivityAction {
             removeActivityAction(activityPresenter.activity)
         }
+    }
+    
+    private func showImageGallery(activityPresenter: ActivityPresenter<Activity>) {
+        guard let attachmentImageURLs = activityPresenter.attachmentImageURLs(withObjectImage: true) else {
+            return
+        }
+        
+        let imageGalleryViewController = ImageGalleryViewController()
+        imageGalleryViewController.imageURLs = attachmentImageURLs
+        present(imageGalleryViewController, animated: true)
     }
 }
 

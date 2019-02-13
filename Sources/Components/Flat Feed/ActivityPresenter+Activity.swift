@@ -14,8 +14,22 @@ extension ActivityPresenter where T == Activity {
         return activity.originalActivity.attachment?.openGraphData
     }
     
-    public var attachmentImageURLs: [URL]? {
+    public func attachmentImageURLs(withObjectImage: Bool = false) -> [URL]? {
+        let activity: T
+        
+        if case .repost = self.activity.object {
+            activity = self.activity.originalActivity
+        } else {
+            activity = self.activity
+        }
+
         if let imageURLs = activity.attachment?.imageURLs, imageURLs.count > 0 {
+            var imageURLs = imageURLs
+            
+            if withObjectImage, case .image(let url) = activity.object {
+                imageURLs.insert(url, at: 0)
+            }
+            
             return imageURLs
         }
         
@@ -25,7 +39,7 @@ extension ActivityPresenter where T == Activity {
     public var cellsCount: Int {
         var count = 3
         
-        if attachmentImageURLs != nil {
+        if attachmentImageURLs() != nil {
             count += 1
         }
         
