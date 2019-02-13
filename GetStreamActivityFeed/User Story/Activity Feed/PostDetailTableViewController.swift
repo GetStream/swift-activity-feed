@@ -17,6 +17,7 @@ open class PostDetailTableViewController: UIViewController {
     var activityPresenter: ActivityPresenter<Activity>?
     var reactionPaginator: ReactionPaginator<ReactionExtraData, User>?
     let textToolBar = TextToolBar.textToolBar
+    private var replyToComment: Reaction?
     
     open override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,7 +83,8 @@ extension PostDetailTableViewController: UITableViewDataSource, UITableViewDeleg
         
         if commentIndex < reactionPaginator.items.count {
             let reaction = reactionPaginator.items[commentIndex]
-            return 1 + (reaction.childrenCounts[.comment] ?? 0) > 0 ? 1 : 0
+            let childCommentsCount = (reaction.childrenCounts[.comment] ?? 0) > 0 ? 1 : 0
+            return 1 + childCommentsCount
         }
         
         return 1
@@ -206,6 +208,16 @@ extension PostDetailTableViewController: UITableViewDataSource, UITableViewDeleg
             }
         }
         
+        // Reply button.
+        cell.replyButton.addTap { [weak self] _ in
+            if let self = self, case .comment(let text) = comment.data {
+                self.replyToComment = comment
+                self.textToolBar.replyText = "Reply to \(comment.user.name): \(text)"
+                self.textToolBar.textView.becomeFirstResponder()
+            }
+        }
+        
+        // Like button.
         let countTitle = comment.childrenCounts[.like] ?? 0
         cell.likeButton.setTitle(countTitle == 0 ? "" : String(countTitle), for: .normal)
         cell.likeButton.isSelected = comment.hasUserOwnChildReaction(.like)
@@ -239,6 +251,7 @@ extension PostDetailTableViewController: UITextViewDelegate {
     }
     
     @objc func send(_ button: UIButton) {
+        let parentReaction: Reaction? = textToolBar.replyText == nil ? nil : replyToComment
         view.endEditing(true)
         
         guard let text = textToolBar.textView.text, !text.isEmpty, let activityPresenter = activityPresenter else {
@@ -249,7 +262,9 @@ extension PostDetailTableViewController: UITextViewDelegate {
         textToolBar.addPlaceholder()
         textToolBar.textView.isEditable = false
         
-        activityPresenter.reactionPresenter.addComment(for: activityPresenter.activity, text: text) { [weak self] in
+        activityPresenter.reactionPresenter.addComment(for: activityPresenter.activity,
+                                                       text: text,
+                                                       parentReaction: parentReaction) { [weak self] in
             if let self = self {
                 self.textToolBar.textView.isEditable = true
                 

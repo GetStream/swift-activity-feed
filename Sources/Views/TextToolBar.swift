@@ -77,6 +77,44 @@ public final class TextToolBar: UIView {
     private weak var heightConstraint: NSLayoutConstraint?
     private var baseTextHeight = CGFloat.greatestFiniteMagnitude
     
+    private lazy var replyContainer: UIView = {
+        let view = UIView(frame: .zero)
+        view.backgroundColor = backgroundColor
+        addSubview(view)
+        
+        view.snp.makeConstraints { make in
+            make.bottom.equalTo(snp.top)
+            make.left.right.equalToSuperview()
+            make.height.equalTo(30)
+        }
+        
+        return view
+    }()
+    
+    private lazy var replyLabel: UILabel = {
+        let label = UILabel(frame: .zero)
+        label.font = UIFont.systemFont(ofSize: 12)
+        label.textColor = .gray
+        label.backgroundColor = backgroundColor
+        replyContainer.addSubview(label)
+        
+        label.snp.makeConstraints { make in
+            make.bottom.equalToSuperview()
+            make.left.equalTo(textView)
+            make.right.equalTo(textView)
+        }
+        
+        return label
+    }()
+    
+    public var replyText: String? {
+        get { return replyLabel.text }
+        set {
+            replyLabel.text = newValue
+            replyContainer.isHidden = newValue == nil
+        }
+    }
+
     public override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
@@ -181,10 +219,15 @@ extension TextToolBar {
             return
         }
         
-        let offset: CGFloat = notification.name == UIResponder.keyboardWillHideNotification ? 0 : -value.cgRectValue.height
+        let willHide = notification.name == UIResponder.keyboardWillHideNotification
+        let offset: CGFloat = willHide ? 0 : -value.cgRectValue.height
         
         snp.updateConstraints { make in
             make.bottom.equalTo(view).offset(offset)
+        }
+        
+        if willHide {
+            replyText = nil
         }
         
         if let durationNumber = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber {
