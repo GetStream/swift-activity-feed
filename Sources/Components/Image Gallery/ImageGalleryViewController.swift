@@ -104,7 +104,17 @@ extension ImageGalleryViewController: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(for: indexPath) as ImageGalleryCollectionViewCell
         
         cell.activityIndicatorView.startAnimating()
-        cell.loadImage(imageURLs[indexPath.item])
+        
+        if indexPath.item < imageURLs.count {
+            let url = imageURLs[indexPath.item]
+            
+            cell.loadImage(url) { [weak self] in
+                if $0 != nil, let badIndex = self?.imageURLs.firstIndex(of: url) {
+                    self?.imageURLs.remove(at: badIndex)
+                    self?.collectionView.reloadData()
+                }
+            }
+        }
         
         return cell
     }
@@ -141,19 +151,25 @@ public final class ImageGalleryCollectionViewCell: UICollectionViewCell, Reusabl
         imageTask = nil
     }
     
-    func loadImage(_ url: URL) {
+    func loadImage(_ url: URL, completion: @escaping (_ error: Error?) -> Void) {
         imageTask?.cancel()
         activityIndicatorView.startAnimating()
         
         imageTask = ImagePipeline.shared.loadImage(with: url) { [weak self] response, error in
-            self?.activityIndicatorView.stopAnimating()
+            guard let self = self else {
+                return
+            }
+            
+            self.activityIndicatorView.stopAnimating()
             
             if let image = response?.image {
-                self?.imageView.image = image
+                self.imageView.image = image
             } else {
-                self?.imageView.contentMode = .center
-                self?.imageView.image = .imageIcon
+                self.imageView.contentMode = .center
+                self.imageView.image = .imageIcon
             }
+            
+            completion(error)
         }
     }
 }

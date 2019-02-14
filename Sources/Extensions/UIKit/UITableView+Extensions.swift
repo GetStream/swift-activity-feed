@@ -39,7 +39,7 @@ extension UITableView {
         var skipImageObject = false
         
         if type == .detail {
-            skipImageObject = presenter.attachmentImageURLs != nil
+            skipImageObject = presenter.attachmentImageURLs() != nil
         }
         
         switch indexPath.row {
@@ -51,7 +51,7 @@ extension UITableView {
             
         case (cellsCount - 4):
             // Images.
-            if presenter.attachmentImageURLs != nil {
+            if presenter.attachmentImageURLs() != nil {
                 return postAttachmentImagesTableViewCell(presenter, at: indexPath, type: type)
             }
             
@@ -61,7 +61,7 @@ extension UITableView {
                 cell.update(with: ogData)
                 return cell
                 
-            } else if presenter.attachmentImageURLs != nil {
+            } else if presenter.attachmentImageURLs() != nil {
                 // Images.
                 return postAttachmentImagesTableViewCell(presenter, at: indexPath, type: type)
             }

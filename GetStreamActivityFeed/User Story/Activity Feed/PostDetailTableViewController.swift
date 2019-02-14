@@ -16,8 +16,18 @@ open class PostDetailTableViewController: UIViewController {
     let refreshControl  = UIRefreshControl(frame: .zero)
     var activityPresenter: ActivityPresenter<Activity>?
     var reactionPaginator: ReactionPaginator<ReactionExtraData, User>?
+    var profileBuilder: ProfileBuilder?
     let textToolBar = TextToolBar.textToolBar
     private var replyToComment: Reaction?
+    
+    private lazy var activityRouter: ActivityRouter? = {
+        if let profileBuilder = profileBuilder {
+            let activityRouter = ActivityRouter(viewController: self, profileBuilder: profileBuilder)
+            return activityRouter
+        }
+        
+        return nil
+    }()
     
     open override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,8 +43,12 @@ open class PostDetailTableViewController: UIViewController {
         }
     }
     
-    open override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
+    open override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if let indexPathForSelectedRow = tableView.indexPathForSelectedRow {
+            tableView.deselectRow(at: indexPathForSelectedRow, animated: animated)
+        }
     }
 }
 
@@ -178,15 +192,34 @@ extension PostDetailTableViewController: UITableViewDataSource, UITableViewDeleg
     }
     
     open func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
-        return indexPath.section == 0 && activityPresenter?.ogData != nil
+        guard indexPath.row != 0, let activityPresenter = activityPresenter else {
+            return false
+        }
+        
+        let cellsCount = activityPresenter.cellsCount
+        
+        return indexPath.row == (cellsCount - 4) || indexPath.row == (cellsCount - 3)
     }
     
     open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let openGraph = activityPresenter?.ogData {
-            let viewController = WebViewController()
-            viewController.url = openGraph.url
-            viewController.title = openGraph.title
-            present(UINavigationController(rootViewController: viewController), animated: true)
+        guard indexPath.row != 0, let activityPresenter = activityPresenter else {
+            return
+        }
+        
+         let cellsCount = activityPresenter.cellsCount
+        
+        if indexPath.row == (cellsCount - 4) {
+            activityRouter?.show(attachmentImageURLs: activityPresenter.attachmentImageURLs(withObjectImage: true))
+            return
+        }
+        
+        if indexPath.row == (cellsCount - 3) {
+            if let ogData = activityPresenter.ogData {
+                activityRouter?.show(ogData: ogData)
+            } else {
+                activityRouter?.show(attachmentImageURLs: activityPresenter.attachmentImageURLs(withObjectImage: true))
+            }
+            return
         }
     }
 }

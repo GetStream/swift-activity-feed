@@ -20,6 +20,15 @@ open class FlatFeedViewController: UITableViewController, BundledStoryboardLoada
     var profileBuilder: ProfileBuilder?
     var removeActivityAction: RemoveActivityAction?
     
+    private lazy var activityRouter: ActivityRouter? = {
+        if let profileBuilder = profileBuilder {
+            let activityRouter = ActivityRouter(viewController: self, profileBuilder: profileBuilder)
+            return activityRouter
+        }
+        
+        return nil
+    }()
+    
     open override func viewDidLoad() {
         super.viewDidLoad()
         tabBarItem = UITabBarItem(title: "Home", image: .homeIcon, tag: 0)
@@ -45,6 +54,7 @@ open class FlatFeedViewController: UITableViewController, BundledStoryboardLoada
         }
         
         postDetailTableViewController.activityPresenter = activityPresenter
+        postDetailTableViewController.profileBuilder = profileBuilder
     }
     
     private func activityPresenter(in section: Int) -> ActivityPresenter<Activity>? {
@@ -122,18 +132,15 @@ extension FlatFeedViewController {
         
         if indexPath.row != 0 {
             if indexPath.row == (cellsCount - 4) {
-                showImageGallery(activityPresenter: activityPresenter)
+                activityRouter?.show(attachmentImageURLs: activityPresenter.attachmentImageURLs(withObjectImage: true))
                 return
             }
             
             if indexPath.row == (cellsCount - 3) {
-                if let openGraph = activityPresenter.ogData {
-                    let viewController = WebViewController()
-                    viewController.url = openGraph.url
-                    viewController.title = openGraph.title
-                    present(UINavigationController(rootViewController: viewController), animated: true)
+                if let ogData = activityPresenter.ogData {
+                    activityRouter?.show(ogData: ogData)
                 } else {
-                    showImageGallery(activityPresenter: activityPresenter)
+                    activityRouter?.show(attachmentImageURLs: activityPresenter.attachmentImageURLs(withObjectImage: true))
                 }
                 return
             }
@@ -156,16 +163,6 @@ extension FlatFeedViewController {
         if editingStyle == .delete, let removeActivityAction = removeActivityAction {
             removeActivityAction(activityPresenter.activity)
         }
-    }
-    
-    private func showImageGallery(activityPresenter: ActivityPresenter<Activity>) {
-        guard let attachmentImageURLs = activityPresenter.attachmentImageURLs(withObjectImage: true) else {
-            return
-        }
-        
-        let imageGalleryViewController = ImageGalleryViewController()
-        imageGalleryViewController.imageURLs = attachmentImageURLs
-        present(imageGalleryViewController, animated: true)
     }
 }
 
