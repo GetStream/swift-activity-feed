@@ -31,6 +31,7 @@ open class PostDetailTableViewController: UIViewController {
     
     open override func viewDidLoad() {
         super.viewDidLoad()
+        hideBackButtonTitle()
         setupTableView()
         
         UIApplication.shared.appDelegate.currentUser?.loadAvatar { [weak self] in
@@ -192,21 +193,26 @@ extension PostDetailTableViewController: UITableViewDataSource, UITableViewDeleg
     }
     
     open func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
-        guard indexPath.row != 0, let activityPresenter = activityPresenter else {
+        guard indexPath.section == 0, let activityPresenter = activityPresenter else {
             return false
         }
         
         let cellsCount = activityPresenter.cellsCount
         
-        return indexPath.row == (cellsCount - 4) || indexPath.row == (cellsCount - 3)
+        return indexPath.row == 0 || indexPath.row == (cellsCount - 4) || indexPath.row == (cellsCount - 3)
     }
     
     open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard indexPath.row != 0, let activityPresenter = activityPresenter else {
+        guard let activityPresenter = activityPresenter else {
             return
         }
         
-         let cellsCount = activityPresenter.cellsCount
+        if indexPath.row == 0 {
+            activityRouter?.show(user: activityPresenter.activity.actor)
+            return
+        }
+        
+        let cellsCount = activityPresenter.cellsCount
         
         if indexPath.row == (cellsCount - 4) {
             activityRouter?.show(attachmentImageURLs: activityPresenter.attachmentImageURLs(withObjectImage: true))

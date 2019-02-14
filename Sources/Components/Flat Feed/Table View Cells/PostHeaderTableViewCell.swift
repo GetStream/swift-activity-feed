@@ -39,6 +39,7 @@ open class PostHeaderTableViewCell: BaseTableViewCell {
         updateAvatar(with: nil)
         avatarButton.removeTap()
         avatarButton.isEnabled = true
+        avatarButton.isUserInteractionEnabled = true
         nameLabel.text = nil
         dateLabel.text = nil
         repostInfoLabel.text = nil
@@ -106,6 +107,8 @@ extension PostHeaderTableViewCell {
     func updateAvatar(with activity: Activity, action: UIControl.Action? = nil) {
         if let action = action {
             avatarButton.addTap(action)
+        } else {
+            avatarButton.isUserInteractionEnabled = false
         }
         
         if let avatarURL = activity.actor.avatarURL {
