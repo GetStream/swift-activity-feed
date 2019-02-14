@@ -47,7 +47,18 @@ open class FlatFeedViewController: UITableViewController, BundledStoryboardLoada
         }
     }
     
+    @IBAction func showEditPost(_ sender: Any) {
+        performSegue(show: EditPostViewController.self, sender: nil)
+    }
+    
     open override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let editPostnavigationController = segue.destination as? UINavigationController,
+            let editPostViewController = editPostnavigationController.viewControllers.first as? EditPostViewController,
+            let presenter = presenter {
+            editPostViewController.presenter = EditPostPresenter(flatFeed: presenter.flatFeed, view: editPostViewController)
+            return
+        }
+        
         guard let postDetailTableViewController = segue.destination as? PostDetailTableViewController,
             let activityPresenter = sender as? ActivityPresenter<Activity> else {
             return

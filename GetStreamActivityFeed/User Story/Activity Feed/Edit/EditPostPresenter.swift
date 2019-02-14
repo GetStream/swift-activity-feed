@@ -15,8 +15,8 @@ protocol EditPostViewable: class {
 }
 
 public final class EditPostPresenter {
-    private let activity: Activity?
-    private let client: Client
+    let flatFeed: FlatFeed
+    let activity: Activity?
     private weak var view: EditPostViewable?
     private var detectedURL: URL?
     private(set) var ogData: OGResponse?
@@ -27,16 +27,16 @@ public final class EditPostPresenter {
         self?.updateOpenGraph($0)
     }
     
-    private(set) lazy var openGraphWorker: OpenGraphWorker = OpenGraphWorker(client: client) { [weak self] url, response in
+    private(set) lazy var openGraphWorker: OpenGraphWorker = OpenGraphWorker(client: flatFeed.client) { [weak self] in
         if let self = self {
-            self.detectedURL = url
-            self.ogData = response
+            self.detectedURL = $0
+            self.ogData = $1
             self.view?.updateOpenGraphData()
         }
     }
     
-    init(client: Client, view: EditPostViewable, activity: Activity?) {
-        self.client = client
+    init(flatFeed: FlatFeed, view: EditPostViewable, activity: Activity? = nil) {
+        self.flatFeed = flatFeed
         self.view = view
         self.activity = activity
     }
@@ -56,7 +56,7 @@ public final class EditPostPresenter {
     
     private func saveWithImages(text: String?, completion: @escaping (_ error: Error?) -> Void) {
         File.files(from: images, process: { File(name: "image\($0)", jpegImage: $1) }) { [weak self] files in
-            self?.client.upload(images: files) { result in
+            self?.flatFeed.client.upload(images: files) { result in
                 if let imageURLs = try? result.get() {
                     self?.saveActivity(text: text, imageURLs: imageURLs, completion: completion)
                 } else if let error = result.error {
@@ -97,7 +97,7 @@ public final class EditPostPresenter {
             activity.attachment = attachment
         }
         
-        user.add(activity: activity, completion)
+        flatFeed.add(activity) { completion($0.error) }
     }
 }
 

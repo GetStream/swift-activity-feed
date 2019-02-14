@@ -456,6 +456,7 @@
 			children = (
 				8A13FD0321ECD83A00D216C6 /* Flat Feed */,
 				8A571A1F21FB15D9004949B2 /* Reaction */,
+				8A9420482215A578006528C9 /* Notifications */,
 				8A7559A921FF159E002187EA /* Open Graph */,
 				8AD370A322145DB300182834 /* Image Gallery */,
 				8A7559BA22005ABA002187EA /* Web View */,
@@ -514,6 +515,13 @@
 				8A7559BB22005AE8002187EA /* WebViewController.swift */,
 			);
 			path = "Web View";
+			sourceTree = "<group>";
+		};
+		8A9420482215A578006528C9 /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Notifications;
 			sourceTree = "<group>";
 		};
 		8AC40FAE21EE18160073B749 /* Profile */ = {

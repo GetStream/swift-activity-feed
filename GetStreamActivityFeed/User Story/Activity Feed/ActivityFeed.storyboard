@@ -59,12 +59,13 @@
                     <navigationItem key="navigationItem" title="HOME" id="SNg-9X-Wnu">
                         <barButtonItem key="rightBarButtonItem" image="compose_icon" id="twQ-lT-V2u">
                             <connections>
-                                <segue destination="ibm-wW-ZPp" kind="presentation" id="SJp-zO-bu7"/>
+                                <action selector="showEditPost:" destination="JAH-pc-eOh" id="tjM-1x-pCS"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <segue destination="BLY-u4-gAI" kind="show" identifier="PostDetailTableViewController" id="InL-zd-Sv7"/>
+                        <segue destination="ibm-wW-ZPp" kind="presentation" identifier="EditPostViewController" id="O7l-Mp-nlv"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="O0o-pa-2Qs" userLabel="First Responder" sceneMemberID="firstResponder"/>

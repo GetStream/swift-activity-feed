@@ -27,13 +27,6 @@ class EditPostViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // TODO: Inject presenter.
-        if let client = UIApplication.shared.appDelegate.client {
-            let presenter = EditPostPresenter(client: client, view: self, activity: nil)
-            self.presenter = presenter
-        }
-        
         loadAvatar()
         setupTextView()
         setupTableView()
