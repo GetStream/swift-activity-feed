@@ -33,7 +33,9 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         activityBuilder.profileBuilder = profileBuilder
         profileBuilder.activityFeedBuilder = activityBuilder
         
-        let router = RootRouter(rootBuilder: RootBuilder(profileBuilder: profileBuilder, activityFeedBuilder: activityBuilder),
+        let router = RootRouter(rootBuilder: RootBuilder(activityFeedBuilder: activityBuilder,
+                                                         notificationsBuilder: NotificationsBuilder(),
+                                                         profileBuilder: profileBuilder),
                                 rootViewController: application.rootViewController)
         
         application.rootViewController.presenter = RootPresenter(router: router)

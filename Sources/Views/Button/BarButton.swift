@@ -10,6 +10,7 @@ import UIKit
 import SnapKit
 
 public class BarButton: UIButton {
+    
     convenience init(title: String, backgroundColor: UIColor) {
         self.init(type: .custom)
         setTitle(title, backgroundColor: backgroundColor, for: .normal)
@@ -20,14 +21,10 @@ public class BarButton: UIButton {
     }
     
     public override var isEnabled: Bool {
-        didSet {
-            sizeToFit()
-        }
+        didSet { sizeToFit() }
     }
     
     public override var isSelected: Bool {
-        didSet {
-            sizeToFit()
-        }
+        didSet { sizeToFit() }
     }
 }

@@ -10,12 +10,16 @@ import UIKit
 
 final class RootBuilder {
     
-    let profileBuilder: ProfileBuilder
     let activityFeedBuilder: ActivityFeedBuilder
-    
-    init(profileBuilder: ProfileBuilder, activityFeedBuilder: ActivityFeedBuilder) {
-        self.profileBuilder = profileBuilder
+    let notificationsBuilder: NotificationsBuilder
+    let profileBuilder: ProfileBuilder
+
+    init(activityFeedBuilder: ActivityFeedBuilder,
+         notificationsBuilder: NotificationsBuilder,
+         profileBuilder: ProfileBuilder) {
         self.activityFeedBuilder = activityFeedBuilder
+        self.notificationsBuilder = notificationsBuilder
+        self.profileBuilder = profileBuilder
     }
     
     var rootTabBarController: UITabBarController {
@@ -24,6 +28,7 @@ final class RootBuilder {
         tabBar.tabBar.isTranslucent = false
         
         tabBar.viewControllers = [activityFeedBuilder.flatFeedNavigationController(feedSlug: "timeline"),
+                                  notificationsBuilder.notificationsNavigationController(feedSlug: "notification"),
                                   profileBuilder.profileNavigationController(user: UIApplication.shared.appDelegate.currentUser)]
         return tabBar
     }

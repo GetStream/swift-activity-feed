@@ -295,12 +295,7 @@ extension PostDetailTableViewController {
         }
         
         cell.updateComment(name: comment.user.name, comment: text, date: comment.created)
-        
-        comment.user.loadAvatar { [weak cell] in
-            if let image = $0 {
-                cell?.avatarImageView?.image = image
-            }
-        }
+        comment.user.loadAvatar { [weak cell] in cell?.avatarImageView?.image = $0 }
         
         // Reply button.
         cell.replyButton.addTap { [weak self] _ in

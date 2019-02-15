@@ -10,7 +10,7 @@ import Foundation
 import GetStream
 import Result
 
-open class FlatFeedPresenter<T: ActivityProtocol>: PaginatorProtocol {
+final class FlatFeedPresenter<T: ActivityProtocol>: PaginatorProtocol {
     public typealias Completion = (_ error: Error?) -> Void
     
     let flatFeed: FlatFeed

@@ -14,4 +14,5 @@ extension UIImage {
     static let imageIcon = UIImage(named: "image_icon")
     static let closeIcon = UIImage(named: "close_icon")
     static let userIcon = UIImage(named: "user_icon")
+    static let notificationsIcon = UIImage(named: "notifications_icon")
 }

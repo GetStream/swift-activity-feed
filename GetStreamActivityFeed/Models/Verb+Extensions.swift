@@ -10,4 +10,5 @@ import GetStream
 
 extension Verb {
     static let post: Verb = "post"
+    static let follow: Verb = "follow"
 }

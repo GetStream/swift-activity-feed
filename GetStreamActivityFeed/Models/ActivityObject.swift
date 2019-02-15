@@ -12,6 +12,7 @@ public enum ActivityObject: Enrichable {
     case text(_ value: String)
     case image(_ url: URL)
     case repost(_ activity: Activity)
+    case following(_ user: User)
     
     public var referenceId: String {
         switch self {
@@ -21,6 +22,8 @@ public enum ActivityObject: Enrichable {
             return url.absoluteString
         case .repost(let activity):
             return activity.referenceId
+        case .following(let user):
+            return user.referenceId
         }
     }
     
@@ -34,6 +37,8 @@ public enum ActivityObject: Enrichable {
             try container.encode(url)
         case .repost(let activity):
             try container.encode(activity)
+        case .following(let user):
+            try container.encode(user)
         }
     }
     
@@ -46,8 +51,10 @@ public enum ActivityObject: Enrichable {
             } else {
                 self = .text(text)
             }
+        } else if let activity = try? container.decode(Activity.self) {
+            self = .repost(activity)
         } else {
-            self = .repost(try container.decode(Activity.self))
+            self = .following(try container.decode(User.self))
         }
     }
 }
