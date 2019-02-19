@@ -14,7 +14,8 @@ final class ActivityFeedBuilder {
     weak var profileBuilder: ProfileBuilder?
     
     func flatFeedNavigationController(feedSlug: String) -> UINavigationController {
-        let navigationController = UINavigationController.fromBundledStoryboard(name: "ActivityFeed", bundle: Bundle.main)
+        let navigationController = UINavigationController.fromBundledStoryboard(name: FlatFeedViewController.storyboardName,
+                                                                                bundle: Bundle.main)
         
         if let flatFeedViewController = navigationController.viewControllers.first as? FlatFeedViewController,
             let flatFeed = UIApplication.shared.appDelegate.client?.flatFeed(feedSlug: feedSlug) {

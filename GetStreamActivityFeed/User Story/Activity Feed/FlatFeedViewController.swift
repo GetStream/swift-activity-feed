@@ -17,6 +17,9 @@ open class FlatFeedViewController: UITableViewController, BundledStoryboardLoada
     static var storyboardName = "ActivityFeed"
     
     var presenter: FlatFeedPresenter<Activity>?
+    var subscriptionId: SubscriptionId?
+    var notificationsPresenter: NotificationsPresenter<Activity>?
+    var notificationsSubscriptionId: SubscriptionId?
     var profileBuilder: ProfileBuilder?
     var removeActivityAction: RemoveActivityAction?
     
@@ -35,11 +38,13 @@ open class FlatFeedViewController: UITableViewController, BundledStoryboardLoada
         hideBackButtonTitle()
         tableView.registerPostCells()
         setupRefreshControl()
+        setupBellButton()
         reloadData()
     }
     
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        updateBellCounter()
         
         if parent == nil || parent is UINavigationController {
             navigationController?.restoreDefaultNavigationBar(animated: animated)
@@ -183,5 +188,35 @@ extension FlatFeedViewController {
     func setupRefreshControl() {
         refreshControl = UIRefreshControl()
         refreshControl?.addValueChangedAction { [weak self] _ in self?.reloadData() }
+    }
+}
+
+// MARK: - Bell Button
+
+extension FlatFeedViewController {
+    func setupBellButton() {
+        guard let notificationsPresenter = notificationsPresenter else {
+            return
+        }
+        
+        let bellButton = BellButton()
+        bellButton.addTap { [weak self] _ in self?.tabBarController?.selectTab(with: NotificationsViewController.self) }
+        
+        notificationsSubscriptionId = notificationsPresenter.subscribeForUpdates { [weak bellButton] result in
+            if let response = try? result.get() {
+                bellButton?.count(response.newActivities.count)
+            }
+        }
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: bellButton)
+    }
+    
+    func updateBellCounter() {
+        guard let notificationsViewController = tabBarController?.find(viewControllerType: NotificationsViewController.self),
+            let bellButton = navigationItem.leftBarButtonItem?.customView as? BellButton else {
+            return
+        }
+        
+        bellButton.count(Int(notificationsViewController.tabBarItem.badgeValue ?? "0") ?? 0)
     }
 }

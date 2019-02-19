@@ -27,8 +27,16 @@ final class RootBuilder {
         tabBar.view.backgroundColor = .white
         tabBar.tabBar.isTranslucent = false
         
-        tabBar.viewControllers = [activityFeedBuilder.flatFeedNavigationController(feedSlug: "timeline"),
-                                  notificationsBuilder.notificationsNavigationController(feedSlug: "notification"),
+        let flatFeed = activityFeedBuilder.flatFeedNavigationController(feedSlug: "timeline")
+        let notifications = notificationsBuilder.notificationsNavigationController(feedSlug: "notification")
+        
+        if  let flatFeedViewController = flatFeed.findFirst(viewControllerType: FlatFeedViewController.self),
+            let notificationsViewController = notifications.findFirst(viewControllerType: NotificationsViewController.self) {
+            flatFeedViewController.notificationsPresenter = notificationsViewController.presenter
+        }
+        
+        tabBar.viewControllers = [flatFeed,
+                                  notifications,
                                   profileBuilder.profileNavigationController(user: UIApplication.shared.appDelegate.currentUser)]
         return tabBar
     }

@@ -11,6 +11,8 @@ import GetStream
 
 final class NotificationsBuilder {
     
+    weak var notificationsViewController: NotificationsViewController?
+    
     func notificationsNavigationController(feedSlug: String) -> UINavigationController {
         let navigationController = UINavigationController.fromBundledStoryboard(name: NotificationsViewController.storyboardName,
                                                                                 bundle: Bundle.main)
@@ -19,7 +21,7 @@ final class NotificationsBuilder {
             let client = UIApplication.shared.appDelegate.client,
             let userId = UIApplication.shared.appDelegate.currentUser?.id {
             let notificationFeed = NotificationFeed(FeedId(feedSlug: feedSlug, userId: userId), client: client)
-            notificationsViewController.notificationsPresenter = NotificationsPresenter(notificationFeed)
+            notificationsViewController.presenter = NotificationsPresenter(notificationFeed)
         }
         
         return navigationController

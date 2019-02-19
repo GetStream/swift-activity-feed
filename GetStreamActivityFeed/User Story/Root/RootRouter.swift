@@ -11,6 +11,7 @@ import UIKit
 final class RootRouter {
     var builder: RootBuilder
     weak var rootViewController: RootViewController?
+    weak var tabBarController: UITabBarController?
     
     init(rootBuilder: RootBuilder, rootViewController: RootViewController) {
         builder = rootBuilder
@@ -30,7 +31,9 @@ final class RootRouter {
             return
         }
         
+        let tabBarController = builder.rootTabBarController
         rootViewController.warningView.removeFromSuperview()
-        rootViewController.add(viewController: builder.rootTabBarController)
+        rootViewController.add(viewController: tabBarController)
+        self.tabBarController = tabBarController
     }
 }

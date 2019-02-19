@@ -20,13 +20,21 @@ extension UINavigationController {
         return viewControllers[viewControllers.count - 2]
     }
     
-    public func findLast(viewControllerType: UIViewController.Type) -> UIViewController? {
+    public func findFirst<T: UIViewController>(viewControllerType: T.Type) -> T? {
+        return find(viewControllerType: viewControllerType, in: viewControllers)
+    }
+    
+    public func findLast<T: UIViewController>(viewControllerType: T.Type) -> T? {
+        return find(viewControllerType: viewControllerType, in: viewControllers.reversed())
+    }
+    
+    private func find<T: UIViewController>(viewControllerType: T.Type, in viewControllers: [UIViewController]) -> T? {
         guard viewControllers.count > 0 else {
             return nil
         }
         
-        for viewController in viewControllers.reversed() {
-            if type(of: viewController) == viewControllerType {
+        for viewController in viewControllers {
+            if let viewController = viewController as? T {
                 return viewController
             }
         }

@@ -19,11 +19,13 @@ final class FlatFeedPresenter<T: ActivityProtocol>: PaginatorProtocol {
     
     public private(set) var items: [ActivityPresenter<T>] = []
     public var next: Pagination = .none
+    private let subscriptionPresenter: SubscriptionPresenter<T>
     
     init(flatFeed: FlatFeed) {
         self.flatFeed = flatFeed
         flatFeed.callbackQueue = DispatchQueue.init(label: "io.getstream.FlatFeedPresenter", qos: .userInitiated)
         reactionPresenter = ReactionPresenter(client: flatFeed.client)
+        subscriptionPresenter = SubscriptionPresenter(feed: flatFeed)
     }
     
     public func load(_ pagination: Pagination = .none, completion: @escaping Completion) {

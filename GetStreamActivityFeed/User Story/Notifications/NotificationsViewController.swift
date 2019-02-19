@@ -13,10 +13,13 @@ final class NotificationsViewController: UITableViewController, BundledStoryboar
     
     static var storyboardName = "Notifications"
     
-    var notificationsPresenter: NotificationsPresenter<Activity>? {
+    var subscriptionId: SubscriptionId?
+    
+    var presenter: NotificationsPresenter<Activity>? {
         didSet {
-            if notificationsPresenter != nil {
+            if let presenter = presenter {
                 load()
+                subscriptionId = presenter.subscribeForUpdates { [weak self] _ in self?.load() }
             }
         }
     }
@@ -39,16 +42,16 @@ final class NotificationsViewController: UITableViewController, BundledStoryboar
     }
     
     private func setup() {
-        tabBarItem = UITabBarItem(title: "Notifications", image: .notificationsIcon, tag: 1)
+        tabBarItem = UITabBarItem(title: "Notifications", image: .bellIcon, tag: 1)
     }
     
     private func load() {
         if isViewLoaded {
-            notificationsPresenter?.markOption = .seenAll
+            presenter?.markOption = .seenAll
         }
         
-        notificationsPresenter?.load { [weak self] in
-            guard let self = self, let notificationsPresenter = self.notificationsPresenter else {
+        presenter?.load { [weak self] in
+            guard let self = self, let notificationsPresenter = self.presenter else {
                 return
             }
             
@@ -83,17 +86,17 @@ extension NotificationsViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return notificationsPresenter?.count ?? 0
+        return presenter?.count ?? 0
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(for: indexPath) as NotificationTableViewCell
         
-        if let item = notificationsPresenter?.items[indexPath.row], let first = item.activities.first {
+        if let item = presenter?.items[indexPath.row], let first = item.activities.first {
             var title = first.actor.name
             
-            if item.actorsCount > 1 {
-                title += " and \(item.actorsCount - 1) others"
+            if item.activitiesCount > 1 {
+                title += " and \(item.activitiesCount - 1) others"
             }
             
             if item.verb == .like {

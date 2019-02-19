@@ -88,6 +88,9 @@
 		8A9E4BA72216C47600BF8A10 /* NotificationsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9E4BA62216C47600BF8A10 /* NotificationsPresenter.swift */; };
 		8A9E4BAC2217052200BF8A10 /* NotificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9E4BAA2217052200BF8A10 /* NotificationTableViewCell.swift */; };
 		8A9E4BAD2217052200BF8A10 /* NotificationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A9E4BAB2217052200BF8A10 /* NotificationTableViewCell.xib */; };
+		8AABA962221B466300E24505 /* UITabBarController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AABA961221B466300E24505 /* UITabBarController+Extensions.swift */; };
+		8AAEE3EE221AB3D700327FCB /* SubscriptionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAEE3ED221AB3D700327FCB /* SubscriptionPresenter.swift */; };
+		8AAEE3F6221AF3DA00327FCB /* BellButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AAEE3F5221AF3DA00327FCB /* BellButton.swift */; };
 		8AC40FAB21EE0ED50073B749 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC40FAA21EE0ED50073B749 /* UIViewController+Extensions.swift */; };
 		8AC40FAD21EE0FBB0073B749 /* RootBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC40FAC21EE0FBB0073B749 /* RootBuilder.swift */; };
 		8AC40FB021EE2C8D0073B749 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC40FAF21EE2C8D0073B749 /* ProfileViewController.swift */; };
@@ -197,6 +200,9 @@
 		8A9E4BA62216C47600BF8A10 /* NotificationsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsPresenter.swift; sourceTree = "<group>"; };
 		8A9E4BAA2217052200BF8A10 /* NotificationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTableViewCell.swift; sourceTree = "<group>"; };
 		8A9E4BAB2217052200BF8A10 /* NotificationTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NotificationTableViewCell.xib; sourceTree = "<group>"; };
+		8AABA961221B466300E24505 /* UITabBarController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITabBarController+Extensions.swift"; sourceTree = "<group>"; };
+		8AAEE3ED221AB3D700327FCB /* SubscriptionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionPresenter.swift; sourceTree = "<group>"; };
+		8AAEE3F5221AF3DA00327FCB /* BellButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BellButton.swift; sourceTree = "<group>"; };
 		8AC40FAA21EE0ED50073B749 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		8AC40FAC21EE0FBB0073B749 /* RootBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootBuilder.swift; sourceTree = "<group>"; };
 		8AC40FAF21EE2C8D0073B749 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -260,6 +266,7 @@
 				8A0DE443220476300042A0FF /* UITableView+Extensions.swift */,
 				8A0DE44722047DA60042A0FF /* UITableViewCell+Extensions.swift */,
 				8A420A2D220B275E00AF573F /* UIStackView+LoadingImages.swift */,
+				8AABA961221B466300E24505 /* UITabBarController+Extensions.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -375,10 +382,10 @@
 			isa = PBXGroup;
 			children = (
 				8A13FCDB21EC95D700D216C6 /* Main.storyboard */,
+				8AC40FAC21EE0FBB0073B749 /* RootBuilder.swift */,
 				8A13FD0C21ECF51D00D216C6 /* RootViewController.swift */,
 				8A13FD0E21ECF66C00D216C6 /* RootPresenter.swift */,
 				8A13FD1321ECF8A700D216C6 /* RootRouter.swift */,
-				8AC40FAC21EE0FBB0073B749 /* RootBuilder.swift */,
 			);
 			path = Root;
 			sourceTree = "<group>";
@@ -457,6 +464,7 @@
 				8A9E4BA82216C74600BF8A10 /* Activity */,
 				8A13FD0321ECD83A00D216C6 /* Flat Feed */,
 				8A9420482215A578006528C9 /* Notifications */,
+				8AAEE3EC221AB3A000327FCB /* Subscription */,
 				8A571A1F21FB15D9004949B2 /* Reaction */,
 				8A7559A921FF159E002187EA /* Open Graph */,
 				8AD370A322145DB300182834 /* Image Gallery */,
@@ -555,6 +563,15 @@
 				8A6801D32200B3E600B77352 /* AddingImageCollectionViewCell.xib */,
 			);
 			path = "Collection View Cells";
+			sourceTree = "<group>";
+		};
+		8AAEE3EC221AB3A000327FCB /* Subscription */ = {
+			isa = PBXGroup;
+			children = (
+				8AAEE3ED221AB3D700327FCB /* SubscriptionPresenter.swift */,
+				8AAEE3F5221AF3DA00327FCB /* BellButton.swift */,
+			);
+			path = Subscription;
 			sourceTree = "<group>";
 		};
 		8AC40FAE21EE18160073B749 /* Profile */ = {
@@ -768,6 +785,7 @@
 				8AC40FB421EE3A120073B749 /* BundledStoryboardLoadable.swift in Sources */,
 				8A13FD0D21ECF51D00D216C6 /* RootViewController.swift in Sources */,
 				8A13FD0621ECD86700D216C6 /* User.swift in Sources */,
+				8AAEE3EE221AB3D700327FCB /* SubscriptionPresenter.swift in Sources */,
 				8AC40FBC21EF356F0073B749 /* UIImage+Extensions.swift in Sources */,
 				8A0DE44E22049ECA0042A0FF /* BaseTableViewCell.swift in Sources */,
 				8A9E4BA52215BC9400BF8A10 /* NotificationsViewController.swift in Sources */,
@@ -816,6 +834,7 @@
 				8A3E63CD21F0CFE200E17543 /* FlatFeedPresenter.swift in Sources */,
 				8A3573D321F74636009EB9D7 /* ActivityFeedBuilder.swift in Sources */,
 				8A7559B021FF2F70002187EA /* OpenGraphTableViewCell.swift in Sources */,
+				8AAEE3F6221AF3DA00327FCB /* BellButton.swift in Sources */,
 				8A3E63BC21EF877600E17543 /* UIImage+Icons.swift in Sources */,
 				8A0759262211B061009C11FB /* PaginationTableViewCell.swift in Sources */,
 				8A2DE1CF21F9F675009E2469 /* ActivityLikable.swift in Sources */,
@@ -829,6 +848,7 @@
 				8A0525B321FBA7A90029E385 /* Range+Extensions.swift in Sources */,
 				8A3E63D021F0D45E00E17543 /* Activity.swift in Sources */,
 				8A3E63B121EF455100E17543 /* UINavigationController+Extensions.swift in Sources */,
+				8AABA962221B466300E24505 /* UITabBarController+Extensions.swift in Sources */,
 				8A3E63C521F08DC300E17543 /* UIColor+Extensions.swift in Sources */,
 				8A2DE1D121F9F7B5009E2469 /* RepostButton.swift in Sources */,
 				8AD370A522145DF500182834 /* ImageGalleryViewController.swift in Sources */,

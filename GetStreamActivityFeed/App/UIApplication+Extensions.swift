@@ -33,7 +33,7 @@ extension UIApplication {
             return rootViewController
         }
         
-        debugPrint("🚨 Root view controller missed!")
+        print("🚨 Root view controller missed!")
         
         return RootViewController()
     }
