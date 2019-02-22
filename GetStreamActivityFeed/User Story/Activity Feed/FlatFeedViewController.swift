@@ -16,8 +16,20 @@ open class FlatFeedViewController: UITableViewController, BundledStoryboardLoada
     
     static var storyboardName = "ActivityFeed"
     
-    var presenter: FlatFeedPresenter<Activity>?
     var subscriptionId: SubscriptionId?
+    let bannerView = BannerView()
+    
+    var presenter: FlatFeedPresenter<Activity>? {
+        didSet {
+            subscriptionId = presenter?.subscriptionPresenter.subscribe { [weak self] in
+                if let self = self, let response = try? $0.get() {
+                    self.bannerView.textLabel.text = "You have \(response.newActivities.count) new activities"
+                    self.bannerView.present(in: self)
+                }
+            }
+        }
+    }
+    
     var notificationsPresenter: NotificationsPresenter<Activity>?
     var notificationsSubscriptionId: SubscriptionId?
     var profileBuilder: ProfileBuilder?
@@ -87,6 +99,7 @@ open class FlatFeedViewController: UITableViewController, BundledStoryboardLoada
     
     func dataLoaded(_ error: Error?) {
         refreshControl?.endRefreshing()
+        bannerView.hide(from: self)
         
         if let error = error {
             showErrorAlert(error)
@@ -202,9 +215,11 @@ extension FlatFeedViewController {
         let bellButton = BellButton()
         bellButton.addTap { [weak self] _ in self?.tabBarController?.selectTab(with: NotificationsViewController.self) }
         
-        notificationsSubscriptionId = notificationsPresenter.subscribeForUpdates { [weak bellButton] result in
-            if let response = try? result.get() {
-                bellButton?.count(response.newActivities.count)
+        notificationsSubscriptionId = notificationsPresenter.subscriptionPresenter.subscribe { [weak bellButton] in
+            if let response = try? $0.get() {
+                bellButton?.count += response.newActivities.count
+            } else {
+                bellButton?.count = 0
             }
         }
         
@@ -217,6 +232,6 @@ extension FlatFeedViewController {
             return
         }
         
-        bellButton.count(Int(notificationsViewController.tabBarItem.badgeValue ?? "0") ?? 0)
+        bellButton.count = Int(notificationsViewController.tabBarItem.badgeValue ?? "") ?? 0
     }
 }

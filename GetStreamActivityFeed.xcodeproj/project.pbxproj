@@ -22,6 +22,7 @@
 		8A0DE44B2204990A0042A0FF /* ActionUsersTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0DE4492204990A0042A0FF /* ActionUsersTableViewCell.swift */; };
 		8A0DE44C2204990A0042A0FF /* ActionUsersTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A0DE44A2204990A0042A0FF /* ActionUsersTableViewCell.xib */; };
 		8A0DE44E22049ECA0042A0FF /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0DE44D22049ECA0042A0FF /* BaseTableViewCell.swift */; };
+		8A0EC25D221C572F008B8E9D /* BannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0EC25C221C572F008B8E9D /* BannerView.swift */; };
 		8A108D1221F20E8E0080ADEB /* PostHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A108D1021F20E8E0080ADEB /* PostHeaderTableViewCell.swift */; };
 		8A108D1321F20E8E0080ADEB /* PostHeaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A108D1121F20E8E0080ADEB /* PostHeaderTableViewCell.xib */; };
 		8A108D1521F223DE0080ADEB /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A108D1421F223DE0080ADEB /* Date+Extensions.swift */; };
@@ -128,6 +129,7 @@
 		8A0DE4492204990A0042A0FF /* ActionUsersTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionUsersTableViewCell.swift; sourceTree = "<group>"; };
 		8A0DE44A2204990A0042A0FF /* ActionUsersTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActionUsersTableViewCell.xib; sourceTree = "<group>"; };
 		8A0DE44D22049ECA0042A0FF /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
+		8A0EC25C221C572F008B8E9D /* BannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerView.swift; sourceTree = "<group>"; };
 		8A108D1021F20E8E0080ADEB /* PostHeaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		8A108D1121F20E8E0080ADEB /* PostHeaderTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostHeaderTableViewCell.xib; sourceTree = "<group>"; };
 		8A108D1421F223DE0080ADEB /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
@@ -570,6 +572,7 @@
 			children = (
 				8AAEE3ED221AB3D700327FCB /* SubscriptionPresenter.swift */,
 				8AAEE3F5221AF3DA00327FCB /* BellButton.swift */,
+				8A0EC25C221C572F008B8E9D /* BannerView.swift */,
 			);
 			path = Subscription;
 			sourceTree = "<group>";
@@ -822,6 +825,7 @@
 				8A9E4BAC2217052200BF8A10 /* NotificationTableViewCell.swift in Sources */,
 				8A6801DC22033B3600B77352 /* PostActionsTableViewCell.swift in Sources */,
 				8A3E63B621EF63BB00E17543 /* EditProfileViewController.swift in Sources */,
+				8A0EC25D221C572F008B8E9D /* BannerView.swift in Sources */,
 				8A7559B321FF55E3002187EA /* OpenGraphTableViewCell+Update.swift in Sources */,
 				8AC40FAD21EE0FBB0073B749 /* RootBuilder.swift in Sources */,
 				8A9DFC4322034DDC002F8700 /* PostAttachmentImagesTableViewCell.swift in Sources */,

@@ -19,7 +19,7 @@ final class NotificationsViewController: UITableViewController, BundledStoryboar
         didSet {
             if let presenter = presenter {
                 load()
-                subscriptionId = presenter.subscribeForUpdates { [weak self] _ in self?.load() }
+                subscriptionId = presenter.subscriptionPresenter.subscribe { [weak self] _ in self?.load() }
             }
         }
     }

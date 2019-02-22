@@ -44,19 +44,23 @@ public final class BellButton: UIButton {
         setImage(.bellIcon, for: .normal)
     }
     
-    public func count(_ count: Int) {
-        guard count > 0 else {
-            counterLabel.isHidden = true
-            return
+    public var count: Int {
+        get { return Int(counterLabel.text?.trimmingCharacters(in: CharacterSet(charactersIn: "_")) ?? "0") ?? 0 }
+        set {
+            guard newValue > 0 else {
+                counterLabel.text = nil
+                counterLabel.isHidden = true
+                return
+            }
+            
+            let space = NSAttributedString(string: "_", attributes: [.foregroundColor: Appearance.Color.red])
+            let attributedText = NSMutableAttributedString(attributedString: space)
+            attributedText.append(NSAttributedString(string: String(newValue), attributes: [.foregroundColor: UIColor.white]))
+            attributedText.append(space)
+            attributedText.applyFont(.systemFont(ofSize: 12))
+            
+            counterLabel.attributedText = attributedText
+            counterLabel.isHidden = false
         }
-        
-        let space = NSAttributedString(string: "_", attributes: [.foregroundColor: Appearance.Color.red])
-        let attributedText = NSMutableAttributedString(attributedString: space)
-        attributedText.append(NSAttributedString(string: String(count), attributes: [.foregroundColor: UIColor.white]))
-        attributedText.append(space)
-        attributedText.applyFont(.systemFont(ofSize: 12))
-        
-        counterLabel.attributedText = attributedText
-        counterLabel.isHidden = false
     }
 }

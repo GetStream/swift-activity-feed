@@ -19,7 +19,7 @@ final class FlatFeedPresenter<T: ActivityProtocol>: PaginatorProtocol {
     
     public private(set) var items: [ActivityPresenter<T>] = []
     public var next: Pagination = .none
-    private let subscriptionPresenter: SubscriptionPresenter<T>
+    public let subscriptionPresenter: SubscriptionPresenter<T>
     
     init(flatFeed: FlatFeed) {
         self.flatFeed = flatFeed

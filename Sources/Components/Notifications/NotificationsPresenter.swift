@@ -20,15 +20,11 @@ public final class NotificationsPresenter<T: ActivityProtocol>: PaginatorProtoco
     public private(set) var unseenCount: Int = 0
     public private(set) var unreadCount: Int = 0
     
-    private let subscriptionPresenter: SubscriptionPresenter<T>
+    public let subscriptionPresenter: SubscriptionPresenter<T>
     
     public init(_ notificationFeed: NotificationFeed) {
         self.notificationFeed = notificationFeed
         self.subscriptionPresenter = SubscriptionPresenter(feed: notificationFeed)
-    }
-    
-    public func subscribeForUpdates(_ subscription: @escaping Subscription<T>) -> SubscriptionId {
-        return subscriptionPresenter.subscribe(subscription)
     }
 }
 
