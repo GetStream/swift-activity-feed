@@ -53,12 +53,11 @@ public final class TextToolBar: UIView {
     
     public private(set) lazy var sendButton: UIButton = {
         let button = UIButton(frame: .zero)
-        button.setTitle("Send", for: .normal)
+        button.setTitle(sendTitle, for: .normal)
         button.setTitleColor(Appearance.Color.blue, for: .normal)
         button.setTitleColor(.lightGray, for: .disabled)
         button.titleLabel?.font = .systemFont(ofSize: 15, weight: .medium)
         button.sizeToFit()
-        button.isEnabled = false
         addSubview(button)
         
         button.snp.makeConstraints { make in
@@ -67,8 +66,13 @@ public final class TextToolBar: UIView {
             make.width.equalTo(button.frame.size.width + 16)
         }
         
+        button.isHidden = true
+        
         return button
     }()
+    
+    public var sendTitle: String = "Send"
+    public var cancelTitle: String = "Cancel"
     
     public var placeholderText = "" {
         didSet { addPlaceholder() }
@@ -155,17 +159,27 @@ public final class TextToolBar: UIView {
         if textView.text.isEmpty {
             textView.text = placeholderText
             textView.textColor = .lightGray
-            sendButton.isEnabled = false
         } else {
             textView.textColor = .black
-            sendButton.isEnabled = true
         }
+        
+        DispatchQueue.main.async { self.updateSendButton() }
     }
     
     public func clearPlaceholder() {
         if textView.text == placeholderText {
             textView.text = ""
             textView.textColor = .black
+        }
+        
+        DispatchQueue.main.async { self.updateSendButton() }
+    }
+    
+    public func updateSendButton() {
+        sendButton.isHidden = !textView.isFirstResponder
+        
+        if !sendButton.isHidden {
+            sendButton.setTitle(textView.text.isEmpty ? cancelTitle : sendTitle, for: .normal)
         }
     }
 }

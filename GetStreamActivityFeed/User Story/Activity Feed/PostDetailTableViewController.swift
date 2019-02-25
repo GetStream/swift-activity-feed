@@ -342,6 +342,7 @@ extension PostDetailTableViewController: UITextViewDelegate {
     @objc func send(_ button: UIButton) {
         let parentReaction: Reaction? = textToolBar.replyText == nil ? nil : replyToComment
         view.endEditing(true)
+        textToolBar.clearPlaceholder()
         
         guard let text = textToolBar.textView.text, !text.isEmpty, let activityPresenter = activityPresenter else {
             return
@@ -377,7 +378,7 @@ extension PostDetailTableViewController: UITextViewDelegate {
     }
     
     public func textViewDidChange(_ textView: UITextView) {
-        textToolBar.sendButton.isEnabled = !textView.text.isEmpty
+        textToolBar.updateSendButton()
         textToolBar.updateTextHeightIfNeeded()
     }
 }
