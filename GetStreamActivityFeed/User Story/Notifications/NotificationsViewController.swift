@@ -14,12 +14,31 @@ final class NotificationsViewController: UITableViewController, BundledStoryboar
     static var storyboardName = "Notifications"
     
     var subscriptionId: SubscriptionId?
+    let bannerView = BannerView()
+    
+    var badgeValue: Int = 0 {
+        didSet {
+            tabBarItem.badgeValue = badgeValue > 0 ? String(badgeValue) : nil
+            
+            if badgeValue > 0 {
+                bannerView.textLabel.text = "You have \(badgeValue) new notifications"
+                bannerView.present(in: self)
+            } else {
+                bannerView.hide(from: self)
+            }
+        }
+    }
     
     var presenter: NotificationsPresenter<Activity>? {
         didSet {
             if let presenter = presenter {
                 load()
-                subscriptionId = presenter.subscriptionPresenter.subscribe { [weak self] _ in self?.load() }
+                
+                subscriptionId = presenter.subscriptionPresenter.subscribe { [weak self] in
+                    if let self = self, let response = try? $0.get() {
+                        self.badgeValue += response.newActivities.count
+                    }
+                }
             }
         }
     }
@@ -41,6 +60,14 @@ final class NotificationsViewController: UITableViewController, BundledStoryboar
         load()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if badgeValue > 0 {
+            load()
+        }
+    }
+    
     private func setup() {
         tabBarItem = UITabBarItem(title: "Notifications", image: .bellIcon, tag: 1)
     }
@@ -59,9 +86,9 @@ final class NotificationsViewController: UITableViewController, BundledStoryboar
                 self.showErrorAlert(error)
             } else {
                 if notificationsPresenter.unseenCount > 0 {
-                    self.tabBarItem.badgeValue = String(notificationsPresenter.unseenCount)
+                    self.badgeValue = max(self.badgeValue, notificationsPresenter.unseenCount)
                 } else {
-                    self.tabBarItem.badgeValue = nil
+                    self.badgeValue = 0
                 }
                 
                 if self.isViewLoaded {

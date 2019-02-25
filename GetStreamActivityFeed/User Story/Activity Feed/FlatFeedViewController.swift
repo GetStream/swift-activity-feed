@@ -232,6 +232,6 @@ extension FlatFeedViewController {
             return
         }
         
-        bellButton.count = Int(notificationsViewController.tabBarItem.badgeValue ?? "") ?? 0
+        bellButton.count = notificationsViewController.badgeValue
     }
 }
