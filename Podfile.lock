@@ -1,15 +1,15 @@
 PODS:
   - Alamofire (4.8.1)
-  - Faye (1.0.2):
+  - Faye (1.1.3):
     - Starscream (~> 3.0)
-  - GetStream (1.1.0):
-    - GetStream/Core (= 1.1.0)
-    - GetStream/Faye (= 1.1.0)
-  - GetStream/Core (1.1.0):
+  - GetStream (1.1.3):
+    - GetStream/Core (= 1.1.3)
+    - GetStream/Faye (= 1.1.3)
+  - GetStream/Core (1.1.3):
     - Moya (~> 12.0)
     - Result (~> 4.1)
     - Swime (~> 3.0)
-  - GetStream/Faye (1.1.0):
+  - GetStream/Faye (1.1.3):
     - Faye
     - GetStream/Core
   - Moya (12.0.1):
@@ -49,8 +49,8 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: 16ce2c353fb72865124ddae8a57c5942388f4f11
-  Faye: 1501690fd4f138c39c0f307136188894d6548629
-  GetStream: 5c56aa83ee68132abe054be21e02ec5dc8ba2d20
+  Faye: 017b404b4ab78839f64424f41f198abb1fe061a9
+  GetStream: be98d43dadb9c7e424a32a529f84ddadd073ca37
   Moya: cf730b3cd9e005401ef37a85143aa141a12fd38f
   Nuke: 0350d346a688426e8f2331253ef28dc2fc4f6178
   Result: bd966fac789cc6c1563440b348ab2598cc24d5c7
