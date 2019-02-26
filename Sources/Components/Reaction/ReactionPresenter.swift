@@ -11,28 +11,17 @@ import Result
 
 open class ReactionPresenter: ReactionPresenterProtocol {
     
-    let client: Client
-    
-    init(client: Client) {
-        self.client = client
-    }
-}
-
-// MARK: - Editing
-
-extension ReactionPresenter {
-    
     public func addReaction<T: ActivityLikable>(for activity: T,
                                                 kindOf kind: ReactionKind,
                                                 parentReaction: Reaction? = nil,
                                                 targetsFeedIds: [FeedId],
                                                 _ completion: @escaping Completion<T>) {
-        client.add(reactionTo: activity.id,
-                   parentReactionId: parentReaction?.id,
-                   kindOf: kind,
-                   extraData: ReactionExtraData.empty,
-                   userTypeOf: User.self) {
-                    self.parse($0, for: activity, parentReaction, completion)
+        Client.shared.add(reactionTo: activity.id,
+                          parentReactionId: parentReaction?.id,
+                          kindOf: kind,
+                          extraData: ReactionExtraData.empty,
+                          userTypeOf: User.self) {
+                            self.parse($0, for: activity, parentReaction, completion)
         }
     }
     
@@ -40,12 +29,12 @@ extension ReactionPresenter {
                                                text: String,
                                                parentReaction: Reaction? = nil,
                                                _ completion: @escaping Completion<T>) {
-        client.add(reactionTo: activity.id,
-                   parentReactionId: parentReaction?.id,
-                   kindOf: .comment,
-                   extraData: ReactionExtraData.comment(text),
-                   userTypeOf: User.self) {
-                    self.parse($0, for: activity, parentReaction, completion)
+        Client.shared.add(reactionTo: activity.id,
+                          parentReactionId: parentReaction?.id,
+                          kindOf: .comment,
+                          extraData: ReactionExtraData.comment(text),
+                          userTypeOf: User.self) {
+                            self.parse($0, for: activity, parentReaction, completion)
         }
     }
     
@@ -70,7 +59,7 @@ extension ReactionPresenter {
     }
     
     public func remove<T: ActivityLikable>(reaction: Reaction, activity: T, _ completion: @escaping Completion<T>) {
-        client.delete(reactionId: reaction.id) {
+        Client.shared.delete(reactionId: reaction.id) {
             if $0.error == nil {
                 var activity = activity
                 activity.removeUserOwnReaction(reaction)
@@ -84,7 +73,7 @@ extension ReactionPresenter {
     public func remove(reaction: Reaction,
                        parentReaction: Reaction,
                        _ completion: @escaping (_ result: Result<Reaction, ClientError>) -> Void) {
-        client.delete(reactionId: reaction.id) {
+        Client.shared.delete(reactionId: reaction.id) {
             if let error = $0.error {
                 completion(.failure(error))
             } else {

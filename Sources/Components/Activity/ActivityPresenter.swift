@@ -16,6 +16,6 @@ public struct ActivityPresenter<T: ActivityProtocol> {
     public func reactionPaginator<E: ReactionExtraDataProtocol,
                                   U: UserProtocol>(reactionKind: ReactionKind) -> ReactionPaginator<E, U>
         where T.ReactionType == GetStream.Reaction<E, U> {
-        return ReactionPaginator(client: reactionPresenter.client, activityId: activity.id, reactionKind: reactionKind)
+        return ReactionPaginator(activityId: activity.id, reactionKind: reactionKind)
     }
 }

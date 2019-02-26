@@ -27,7 +27,7 @@ public final class EditPostPresenter {
         self?.updateOpenGraph($0)
     }
     
-    private(set) lazy var openGraphWorker: OpenGraphWorker = OpenGraphWorker(client: flatFeed.client) { [weak self] in
+    private(set) lazy var openGraphWorker = OpenGraphWorker() { [weak self] in
         if let self = self {
             self.detectedURL = $0
             self.ogData = $1

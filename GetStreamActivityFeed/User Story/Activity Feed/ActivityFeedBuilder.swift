@@ -18,7 +18,7 @@ final class ActivityFeedBuilder {
                                                                                 bundle: Bundle.main)
         
         if let flatFeedViewController = navigationController.viewControllers.first as? FlatFeedViewController,
-            let flatFeed = UIApplication.shared.appDelegate.client?.flatFeed(feedSlug: feedSlug) {
+            let flatFeed = Client.shared.flatFeed(feedSlug: feedSlug) {
             flatFeedViewController.presenter = FlatFeedPresenter<Activity>(flatFeed: flatFeed)
             flatFeedViewController.profileBuilder = profileBuilder
         }
@@ -27,12 +27,10 @@ final class ActivityFeedBuilder {
     }
     
     func flatFeedViewController(feedId: FeedId) -> FlatFeedViewController {
+        let flatFeed = Client.shared.flatFeed(feedId)
         let flatFeedViewController = FlatFeedViewController.fromBundledStoryboard()
-        
-        if let flatFeed = UIApplication.shared.appDelegate.client?.flatFeed(feedId) {
-            flatFeedViewController.presenter = FlatFeedPresenter<Activity>(flatFeed: flatFeed)
-            flatFeedViewController.profileBuilder = profileBuilder
-        }
+        flatFeedViewController.presenter = FlatFeedPresenter<Activity>(flatFeed: flatFeed)
+        flatFeedViewController.profileBuilder = profileBuilder
         
         return flatFeedViewController
     }

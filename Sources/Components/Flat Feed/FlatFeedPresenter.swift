@@ -24,7 +24,7 @@ final class FlatFeedPresenter<T: ActivityProtocol>: PaginatorProtocol {
     init(flatFeed: FlatFeed) {
         self.flatFeed = flatFeed
         flatFeed.callbackQueue = DispatchQueue.init(label: "io.getstream.FlatFeedPresenter", qos: .userInitiated)
-        reactionPresenter = ReactionPresenter(client: flatFeed.client)
+        reactionPresenter = ReactionPresenter()
         subscriptionPresenter = SubscriptionPresenter(feed: flatFeed)
     }
     

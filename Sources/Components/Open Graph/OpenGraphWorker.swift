@@ -12,7 +12,6 @@ import GetStream
 public final class OpenGraphWorker {
     public typealias Completion = (_ url: URL, _ response: OGResponse) -> Void
     
-    private let client: Client
     private let completion: Completion
     private let dispatchQueue = DispatchQueue(label: "io.getstream.OpenGraphWorker")
     private var dispatchWorkItem: DispatchWorkItem?
@@ -20,8 +19,7 @@ public final class OpenGraphWorker {
     private var cache: [URL: OGResponse] = [:]
     private var cacheBad: [URL] = []
     
-    public init(client: Client, callbackQueue: DispatchQueue = .main, completion: @escaping Completion) {
-        self.client = client
+    public init(callbackQueue: DispatchQueue = .main, completion: @escaping Completion) {
         self.completion = completion
         self.callbackQueue = callbackQueue
     }
@@ -62,7 +60,7 @@ extension OpenGraphWorker {
     }
     
     private func parse(_ url: URL) {
-        client.og(url: url) { [weak self] result in
+        Client.shared.og(url: url) { [weak self] result in
             self?.callbackQueue.async {
                 guard let self = self else {
                     return

@@ -13,9 +13,8 @@ import GetStream
 final class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
-    var client: Client?
-    var currentUser: User? { return client?.currentUser as? User }
-    lazy var userFeed: FlatFeed? = client?.flatFeed(feedSlug: "user")
+    var currentUser: User? { return Client.shared.currentUser as? User }
+    lazy var userFeed: FlatFeed? = Client.shared.flatFeed(feedSlug: "user")
     
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -47,11 +46,9 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
             return
         }
         
-        let client = Client(apiKey: apiKey, appId: appId, token: token)
-        self.client = client
+        Client.config = .init(apiKey: apiKey, appId: appId, token: token)
         
-        if let timelineFeed = client.flatFeed(feedSlug: "timeline"),
-            let userFeed = userFeed {
+        if let timelineFeed = Client.shared.flatFeed(feedSlug: "timeline"), let userFeed = userFeed {
             timelineFeed.follow(toTarget: userFeed.feedId) { _ in}
         }
     }

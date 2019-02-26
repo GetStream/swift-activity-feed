@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GetStream
 
 final class EditProfileViewController: UIViewController, BundledStoryboardLoadable {
     
@@ -70,7 +71,7 @@ final class EditProfileViewController: UIViewController, BundledStoryboardLoadab
             return
         }
         
-        UIApplication.shared.appDelegate.client?.update(user: user) { [weak self] result in
+        Client.shared.update(user: user) { [weak self] result in
             guard let self = self else {
                 return
             }

@@ -18,20 +18,20 @@ final class RootPresenter {
     }
     
     func setup() {
-        guard let client = UIApplication.shared.appDelegate.client else {
+        guard Client.shared.isValid else {
             router.showClientInfo()
             return
         }
         
-        guard let currentUserId = client.currentUserId, !currentUserId.isEmpty else {
+        guard let currentUserId = Client.shared.currentUserId, !currentUserId.isEmpty else {
             router.showClientInfo("⚠️ Token is wrong\n\nThe payload doesn't contain an userId or it's empty.")
             return
         }
         
-        client.get(typeOf: User.self, userId: currentUserId, withFollowCounts: true) { result in
+        Client.shared.get(typeOf: User.self, userId: currentUserId, withFollowCounts: true) { result in
             do {
                 let user = try result.get()
-                client.currentUser = user
+                Client.shared.currentUser = user
                 self.router.showTabBar()
             } catch {
                 self.router.showClientInfo(error.localizedDescription)

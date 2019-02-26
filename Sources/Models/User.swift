@@ -53,7 +53,7 @@ public final class User: GetStream.User, AvatarPresentable {
 
 extension User {
     public func refresh(completion: @escaping (_ user: User?) -> Void) {
-        UIApplication.shared.appDelegate.client?.get(typeOf: User.self, userId: id, withFollowCounts: true) { result in
+        Client.shared.get(typeOf: User.self, userId: id, withFollowCounts: true) { result in
             completion(try? result.get())
         }
     }
@@ -111,13 +111,12 @@ extension User {
     }
     
     public func updateAvatarURL(image: UIImage, completion: @escaping (_ error: Error?) -> Void) {
-        guard let file = File(name: name, jpegImage: image),
-            let client = UIApplication.shared.appDelegate.client else {
+        guard let file = File(name: name, jpegImage: image) else {
             completion(nil)
             return
         }
         
-        client.upload(image: file) { [weak self] result in
+        Client.shared.upload(image: file) { [weak self] result in
             guard let self = self else {
                 return
             }
