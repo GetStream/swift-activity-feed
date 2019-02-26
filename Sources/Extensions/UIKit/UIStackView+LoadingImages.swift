@@ -9,16 +9,14 @@
 import UIKit
 import Nuke
 
-fileprivate var imageTasksKey: UInt8 = 0
-
 extension UIStackView {
+    private struct AssociatedKeys {
+        static var imageTasksKey: UInt8 = 0
+    }
+    
     private var imageTasks: [ImageTask] {
-        get {
-            return (objc_getAssociatedObject(self, &imageTasksKey) as? [ImageTask]) ?? []
-        }
-        set {
-            objc_setAssociatedObject(self, &imageTasksKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-        }
+        get { return (objc_getAssociatedObject(self, &AssociatedKeys.imageTasksKey) as? [ImageTask]) ?? [] }
+        set { objc_setAssociatedObject(self, &AssociatedKeys.imageTasksKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
     }
     
     public func cancelImagesLoading() {
