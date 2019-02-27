@@ -150,6 +150,7 @@
 		8A13FD0E21ECF66C00D216C6 /* RootPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootPresenter.swift; sourceTree = "<group>"; };
 		8A13FD1021ECF6C800D216C6 /* UIApplication+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extensions.swift"; sourceTree = "<group>"; };
 		8A13FD1321ECF8A700D216C6 /* RootRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootRouter.swift; sourceTree = "<group>"; };
+		8A2D83FC2226C6CA00795FAE /* GetStreamActivityFeed.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = GetStreamActivityFeed.podspec; sourceTree = "<group>"; };
 		8A2DE1C721F9E768009E2469 /* ReactionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionButton.swift; sourceTree = "<group>"; };
 		8A2DE1C921F9E819009E2469 /* ActivityRepostable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityRepostable.swift; sourceTree = "<group>"; };
 		8A2DE1CC21F9F56E009E2469 /* LikeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeButton.swift; sourceTree = "<group>"; };
@@ -282,6 +283,7 @@
 				8A13FCD521EC95D700D216C6 /* Products */,
 				0F8A702313C4CDBAD5D21A97 /* Pods */,
 				FEA282DD76743CC8142F3496 /* Frameworks */,
+				8A2D83FC2226C6CA00795FAE /* GetStreamActivityFeed.podspec */,
 				8A13FCFB21ECBD1100D216C6 /* README.md */,
 				8A13FCFA21ECBD1100D216C6 /* LICENSE */,
 			);
@@ -323,7 +325,6 @@
 			children = (
 				8A13FCD721EC95D700D216C6 /* AppDelegate.swift */,
 				8A13FCE021EC95D900D216C6 /* LaunchScreen.storyboard */,
-				8A13FD0721ECDFCC00D216C6 /* Bundle+StreamInfoKeys.swift */,
 				8A13FD1021ECF6C800D216C6 /* UIApplication+Extensions.swift */,
 			);
 			path = App;
@@ -422,6 +423,7 @@
 			isa = PBXGroup;
 			children = (
 				8A0DE4422204760E0042A0FF /* UIKit */,
+				8A13FD0721ECDFCC00D216C6 /* Bundle+StreamInfoKeys.swift */,
 				8A108D1421F223DE0080ADEB /* Date+Extensions.swift */,
 				8A0525B221FBA7A90029E385 /* Range+Extensions.swift */,
 				8A7559A721FF06AA002187EA /* NSAttributedString+Extensions.swift */,

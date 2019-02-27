@@ -182,7 +182,7 @@ extension ProfileViewController {
         button.addTap { [weak flatFeedPresenter]  in
             if let button = $0 as? BarButton,
                 let feedId = flatFeedPresenter?.flatFeed.feedId,
-                let userFeed = UIApplication.shared.appDelegate.userFeed {
+                let userFeed = Client.shared.flatFeed(feedSlug: "user") {
                 let isFollowing = button.isSelected
                 button.isEnabled = false
                 
@@ -203,13 +203,15 @@ extension ProfileViewController {
         // Update the current state.
         button.isEnabled = false
         
-        UIApplication.shared.appDelegate.currentUser?.isFollow(toTarget: flatFeedPresenter.flatFeed.feedId) { [weak self] in
-            button.isEnabled = true
-            
-            if let error = $2 {
-                self?.showErrorAlert(error)
-            } else {
-                button.isSelected = $0
+        if let user = Client.shared.currentUser as? User {
+            user.isFollow(toTarget: flatFeedPresenter.flatFeed.feedId) { [weak self] in
+                button.isEnabled = true
+                
+                if let error = $2 {
+                    self?.showErrorAlert(error)
+                } else {
+                    button.isSelected = $0
+                }
             }
         }
     }

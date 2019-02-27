@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GetStream
 
 final class RootBuilder {
     
@@ -37,7 +38,7 @@ final class RootBuilder {
         
         tabBar.viewControllers = [flatFeed,
                                   notifications,
-                                  profileBuilder.profileNavigationController(user: UIApplication.shared.appDelegate.currentUser)]
+                                  profileBuilder.profileNavigationController(user: Client.shared.currentUser as? User)]
         return tabBar
     }
 }

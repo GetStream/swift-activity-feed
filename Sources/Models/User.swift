@@ -64,7 +64,7 @@ extension User {
 extension User {
     public func isFollow(toTarget target: FeedId,
                          completion: @escaping (_ isFollow: Bool, _ following: Follower?, _ error: Error?) -> Void) {
-        guard let userFeed = UIApplication.shared.appDelegate.userFeed else {
+        guard let userFeed = Client.shared.flatFeed(feedSlug: "user") else {
             print("⚠️", #function, "UserFeed is nil")
             completion(false, nil, nil)
             return

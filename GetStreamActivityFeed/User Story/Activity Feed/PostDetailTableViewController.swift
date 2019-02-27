@@ -34,8 +34,8 @@ open class PostDetailTableViewController: UIViewController {
         hideBackButtonTitle()
         setupTableView()
         
-        UIApplication.shared.appDelegate.currentUser?.loadAvatar { [weak self] in
-            self?.setupCommentTextField(avatarImage: $0)
+        if let user = Client.shared.currentUser as? User {
+            user.loadAvatar { [weak self] in self?.setupCommentTextField(avatarImage: $0) }
         }
         
         if let activityPresenter = activityPresenter {
@@ -235,7 +235,8 @@ extension PostDetailTableViewController: UITableViewDataSource, UITableViewDeleg
 extension PostDetailTableViewController {
     
     open func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        guard let comment = comment(at: indexPath), let currentUser = UIApplication.shared.appDelegate.currentUser else {
+        guard let comment = comment(at: indexPath),
+            let currentUser = Client.shared.currentUser as? User else {
             return false
         }
         

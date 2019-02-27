@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GetStream
 
 // MARK: - Setup Post Table View
 
@@ -73,12 +74,12 @@ extension UITableView {
             
             // Repost.
             cell.updateRepost(with: presenter.activity) { [weak viewController] in
-                if let userFeedId = UIApplication.shared.appDelegate.userFeed?.feedId,
+                if let userId = Client.shared.currentUserId,
                     let button = $0 as? RepostButton,
                     let viewController = viewController {
                     button.react(with: presenter.reactionPresenter,
                                  activity: presenter.activity,
-                                 targetsFeedIds: [userFeedId],
+                                 targetsFeedIds: [FeedId(feedSlug: "user", userId: userId)],
                                  viewController.showErrorAlertIfNeeded)
                 }
             }

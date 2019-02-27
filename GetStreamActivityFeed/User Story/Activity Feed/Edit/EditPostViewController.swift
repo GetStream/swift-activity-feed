@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GetStream
 import Nuke
 
 class EditPostViewController: UIViewController {
@@ -85,9 +86,11 @@ class EditPostViewController: UIViewController {
     }
     
     private func loadAvatar() {
-        UIApplication.shared.appDelegate.currentUser?.loadAvatar { [weak self] image in
-            if let image = image, let avatarView = self?.avatarView {
-                avatarView.image = image.square(with: avatarView.bounds.width)
+        if let user = Client.shared.currentUser as? User {
+            user.loadAvatar { [weak self] image in
+                if let image = image, let avatarView = self?.avatarView {
+                    avatarView.image = image.square(with: avatarView.bounds.width)
+                }
             }
         }
     }

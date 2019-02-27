@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GetStream
 
 final class ProfileBuilder {
     
@@ -31,7 +32,7 @@ final class ProfileBuilder {
                                                                                 bundle: Bundle.main)
         
         if let viewController = navigationController.viewControllers.first as? EditProfileViewController {
-            viewController.user = UIApplication.shared.appDelegate.currentUser
+            viewController.user = Client.shared.currentUser as? User
             setup(viewController)
         }
         
