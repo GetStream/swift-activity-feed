@@ -28,13 +28,11 @@ final class RootPresenter {
             return
         }
         
-        Client.shared.get(typeOf: User.self, userId: currentUserId, withFollowCounts: true) { result in
-            do {
-                let user = try result.get()
-                Client.shared.currentUser = user
-                self.router.showTabBar()
-            } catch {
+        Client.shared.getCurrentUser(typeOf: User.self, withFollowCounts: true) {
+            if let error = $0.error {
                 self.router.showClientInfo(error.localizedDescription)
+            } else {
+                self.router.showTabBar()
             }
         }
     }
