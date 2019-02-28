@@ -13,7 +13,8 @@ Pod::Spec.new do |s|
   
   s.subspec "Core" do |ss|
     ss.source_files = "Sources/**/*"
-    ss.framework = "Foundation", "UIKit"
+    ss.resources = ["Sources/**/*.xib"]
+    ss.framework = "UIKit"
     ss.dependency "GetStream", "~> 1.1"
     ss.dependency "Nuke", "~> 7.5"
     ss.dependency "Reusable", "~> 4.0"
