@@ -32,7 +32,6 @@
 		8A13FCE221EC95D900D216C6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A13FCE021EC95D900D216C6 /* LaunchScreen.storyboard */; };
 		8A13FCED21EC95D900D216C6 /* GetStreamActivityFeedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A13FCEC21EC95D900D216C6 /* GetStreamActivityFeedTests.swift */; };
 		8A13FD0621ECD86700D216C6 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A13FD0521ECD86700D216C6 /* User.swift */; };
-		8A13FD0821ECDFCC00D216C6 /* Bundle+StreamInfoKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A13FD0721ECDFCC00D216C6 /* Bundle+StreamInfoKeys.swift */; };
 		8A13FD0D21ECF51D00D216C6 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A13FD0C21ECF51D00D216C6 /* RootViewController.swift */; };
 		8A13FD0F21ECF66C00D216C6 /* RootPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A13FD0E21ECF66C00D216C6 /* RootPresenter.swift */; };
 		8A13FD1121ECF6C800D216C6 /* UIApplication+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A13FD1021ECF6C800D216C6 /* UIApplication+Extensions.swift */; };
@@ -145,7 +144,6 @@
 		8A13FCFA21ECBD1100D216C6 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		8A13FCFB21ECBD1100D216C6 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		8A13FD0521ECD86700D216C6 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		8A13FD0721ECDFCC00D216C6 /* Bundle+StreamInfoKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+StreamInfoKeys.swift"; sourceTree = "<group>"; };
 		8A13FD0C21ECF51D00D216C6 /* RootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		8A13FD0E21ECF66C00D216C6 /* RootPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootPresenter.swift; sourceTree = "<group>"; };
 		8A13FD1021ECF6C800D216C6 /* UIApplication+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extensions.swift"; sourceTree = "<group>"; };
@@ -423,7 +421,6 @@
 			isa = PBXGroup;
 			children = (
 				8A0DE4422204760E0042A0FF /* UIKit */,
-				8A13FD0721ECDFCC00D216C6 /* Bundle+StreamInfoKeys.swift */,
 				8A108D1421F223DE0080ADEB /* Date+Extensions.swift */,
 				8A0525B221FBA7A90029E385 /* Range+Extensions.swift */,
 				8A7559A721FF06AA002187EA /* NSAttributedString+Extensions.swift */,
@@ -801,7 +798,6 @@
 				8AC40FB021EE2C8D0073B749 /* ProfileViewController.swift in Sources */,
 				8AC40FBA21EE57D80073B749 /* AvatarView.swift in Sources */,
 				8A2DE1CA21F9E819009E2469 /* ActivityRepostable.swift in Sources */,
-				8A13FD0821ECDFCC00D216C6 /* Bundle+StreamInfoKeys.swift in Sources */,
 				8A2DE1C821F9E768009E2469 /* ReactionButton.swift in Sources */,
 				8A7559BC22005AE8002187EA /* WebViewController.swift in Sources */,
 				8A3E63C121F08C2400E17543 /* Appearance.swift in Sources */,
