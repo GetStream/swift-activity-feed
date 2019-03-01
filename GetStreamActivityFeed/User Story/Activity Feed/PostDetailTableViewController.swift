@@ -14,6 +14,7 @@ open class PostDetailTableViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     let refreshControl  = UIRefreshControl(frame: .zero)
+    var feedId: FeedId?
     var activityPresenter: ActivityPresenter<Activity>?
     var reactionPaginator: ReactionPaginator<ReactionExtraData, User>?
     var profileBuilder: ProfileBuilder?
@@ -150,7 +151,11 @@ extension PostDetailTableViewController: UITableViewDataSource, UITableViewDeleg
         
         switch indexPath.section {
         case 0:
-            if let cell = tableView.postCell(at: indexPath, in: self, type: .detail, presenter: activityPresenter) {
+            if let cell = tableView.postCell(at: indexPath,
+                                             in: self,
+                                             type: .detail,
+                                             presenter: activityPresenter,
+                                             feedId: feedId) {
                 if let cell = cell as? PostHeaderTableViewCell {
                     cell.updateAvatar(with: activityPresenter.activity)
                 }

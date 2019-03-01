@@ -35,7 +35,8 @@ extension UITableView {
     public func postCell(at indexPath: IndexPath,
                          in viewController: UIViewController,
                          type: PostCellType = .feed,
-                         presenter: ActivityPresenter<Activity>) -> UITableViewCell? {
+                         presenter: ActivityPresenter<Activity>,
+                         feedId: FeedId?) -> UITableViewCell? {
         let cellsCount = presenter.cellsCount
         var skipImageObject = false
         
@@ -70,22 +71,25 @@ extension UITableView {
             let cell = dequeueReusableCell(for: indexPath) as PostActionsTableViewCell
             
             // Reply.
-            cell.updateReply(with: presenter.activity)
+            cell.updateReply(commentsCount: presenter.activity.commentsCount)
             
             // Repost.
-            cell.updateRepost(with: presenter.activity) { [weak viewController] in
-                if let userId = Client.shared.currentUserId,
-                    let button = $0 as? RepostButton,
-                    let viewController = viewController {
-                    button.react(with: presenter.reactionPresenter,
-                                 activity: presenter.activity,
-                                 targetsFeedIds: [FeedId(feedSlug: "user", userId: userId)],
-                                 viewController.showErrorAlertIfNeeded)
+            if let feedId = feedId {
+                cell.updateRepost(isReposted: presenter.activity.isReposted,
+                                  repostsCount: presenter.activity.repostsCount) { [weak viewController] in
+                                    if let button = $0 as? RepostButton,
+                                        let viewController = viewController {
+                                        button.react(with: presenter.reactionPresenter,
+                                                     activity: presenter.activity,
+                                                     targetsFeedIds: [feedId],
+                                                     viewController.showErrorAlertIfNeeded)
+                                    }
                 }
             }
             
             // Like.
-            cell.updateLike(with: presenter.activity) { [weak viewController] in
+            cell.updateLike(isLiked: presenter.activity.isLiked,
+                            likesCount: presenter.activity.likesCount) { [weak viewController] in
                 if let button = $0 as? LikeButton, let viewController = viewController {
                     button.react(with: presenter.reactionPresenter,
                                  activity: presenter.activity,

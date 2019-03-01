@@ -83,6 +83,7 @@ open class FlatFeedViewController: UITableViewController, BundledStoryboardLoada
         
         postDetailTableViewController.activityPresenter = activityPresenter
         postDetailTableViewController.profileBuilder = profileBuilder
+        postDetailTableViewController.feedId = FeedId(feedSlug: "user")
     }
     
     private func activityPresenter(in section: Int) -> ActivityPresenter<Activity>? {
@@ -127,7 +128,10 @@ extension FlatFeedViewController {
     
     open override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let activityPresenter = activityPresenter(in: indexPath.section),
-            let cell = tableView.postCell(at: indexPath, in: self, presenter: activityPresenter) else {
+            let cell = tableView.postCell(at: indexPath,
+                                          in: self,
+                                          presenter: activityPresenter,
+                                          feedId: FeedId(feedSlug: "user")) else {
                 if let presenter = presenter, presenter.hasNext {
                     presenter.loadNext(completion: dataLoaded)
                     return tableView.dequeueReusableCell(for: indexPath) as PaginationTableViewCell

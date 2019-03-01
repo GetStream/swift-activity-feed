@@ -12,8 +12,8 @@ Pod::Spec.new do |s|
   s.default_subspecs = "Core"
   
   s.subspec "Core" do |ss|
-    ss.source_files = "Sources/**/*"
-    ss.resources = ["Sources/**/*.xib"]
+    ss.source_files = "Sources/**/*.{swift}"
+    ss.resource_bundles = { "GetStreamActivityFeed" => ["Source/**/*.{xib}"] }
     ss.framework = "UIKit"
     ss.dependency "GetStream", "~> 1.1"
     ss.dependency "Nuke", "~> 7.5"

@@ -8,6 +8,7 @@
 
 import UIKit
 import Reusable
+import GetStream
 
 open class PostActionsTableViewCell: UITableViewCell, NibReusable {
 
@@ -38,6 +39,9 @@ open class PostActionsTableViewCell: UITableViewCell, NibReusable {
         replyButton.isEnabled = true
         repostButton.isEnabled = true
         likeButton.isEnabled = true
+        replyButton.isHidden = true
+        repostButton.isHidden = true
+        likeButton.isHidden = true
     }
 }
 
@@ -45,29 +49,32 @@ open class PostActionsTableViewCell: UITableViewCell, NibReusable {
 
 extension PostActionsTableViewCell {
     
-    func updateReply(with activity: Activity, action: UIControl.Action? = nil) {
+    public func updateReply(commentsCount: Int, action: UIControl.Action? = nil) {
         if let action = action {
             replyButton.addTap(action)
         }
         
-        replyButton.setTitle(String(activity.originalActivity.commentsCount), for: .normal)
+        replyButton.setTitle(String(commentsCount), for: .normal)
+        replyButton.isHidden = false
     }
     
-    func updateRepost(with activity: Activity, action: UIControl.Action? = nil) {
+    public func updateRepost(isReposted: Bool, repostsCount: Int, action: UIControl.Action? = nil) {
         if let action = action {
             repostButton.addTap(action)
         }
         
-        repostButton.setTitle(String(activity.originalActivity.repostsCount), for: .normal)
-        repostButton.isSelected = activity.originalActivity.isReposted
+        repostButton.setTitle(String(repostsCount), for: .normal)
+        repostButton.isSelected = isReposted
+        repostButton.isHidden = false
     }
     
-    func updateLike(with activity: Activity, action: UIControl.Action? = nil) {
+    public func updateLike(isLiked: Bool, likesCount: Int, action: UIControl.Action? = nil) {
         if let action = action {
             likeButton.addTap(action)
         }
         
-        likeButton.setTitle(String(activity.originalActivity.likesCount), for: .normal)
-        likeButton.isSelected = activity.originalActivity.isLiked
+        likeButton.setTitle(String(likesCount), for: .normal)
+        likeButton.isSelected = isLiked
+        likeButton.isHidden = false
     }
 }

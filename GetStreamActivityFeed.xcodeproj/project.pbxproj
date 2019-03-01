@@ -331,10 +331,11 @@
 		8A13FD0421ECD84600D216C6 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				8A2D842122295D6800795FAE /* Protocols */,
 				8A13FD0521ECD86700D216C6 /* User.swift */,
-				8A2DE1C921F9E819009E2469 /* ActivityRepostable.swift */,
-				8A2DE1CE21F9F675009E2469 /* ActivityLikable.swift */,
-				8A0759282211BF90009C11FB /* PaginatorProtocol.swift */,
+				8A3E63CF21F0D45E00E17543 /* Activity.swift */,
+				8A3573CE21F72D9D009EB9D7 /* ActivityObject.swift */,
+				8A3573D021F72DE2009EB9D7 /* Verb+Extensions.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -357,6 +358,16 @@
 				8A13FD1321ECF8A700D216C6 /* RootRouter.swift */,
 			);
 			path = Root;
+			sourceTree = "<group>";
+		};
+		8A2D842122295D6800795FAE /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				8A2DE1C921F9E819009E2469 /* ActivityRepostable.swift */,
+				8A2DE1CE21F9F675009E2469 /* ActivityLikable.swift */,
+				8A0759282211BF90009C11FB /* PaginatorProtocol.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		8A2DE1CB21F9F550009E2469 /* Reaction Buttons */ = {
@@ -420,9 +431,6 @@
 		8A3E63CE21F0D45100E17543 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				8A3E63CF21F0D45E00E17543 /* Activity.swift */,
-				8A3573CE21F72D9D009EB9D7 /* ActivityObject.swift */,
-				8A3573D021F72DE2009EB9D7 /* Verb+Extensions.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
