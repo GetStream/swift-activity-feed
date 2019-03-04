@@ -1,23 +1,25 @@
-Pod::Spec.new do |s|
-  s.name = "GetStreamActivityFeed"
-  s.version = "1.0.0"
-  s.summary = "Stream iOS Activity Feed Components - easy to use UI components with built-in support for Open Graph scraping, #hashtags, @mentions, likes, comments, file uploads and realtime updates."
-  s.homepage = "https://github.com/GetStream/swift-activity-feed"
-  s.license = { :type => "BSD-3", :file => "LICENSE" }
-  s.author = { "Alexey Bukhtin" => "alexey@getstream.io" }
-  s.social_media_url = "https://getstream.io"
-  s.swift_version = "4.2"
-  s.platform = :ios, "11.0"
-  s.source = { :git => "https://github.com/GetStream/swift-activity-feed.git", :tag => s.version.to_s }
-  s.default_subspecs = "Core"
+Pod::Spec.new do |spec|
+  spec.name         = "GetStreamActivityFeed"
+  spec.version      = "1.0.0"
+  spec.summary      = "Stream iOS Activity Feed Components"
   
-  s.subspec "Core" do |ss|
-    ss.source_files = "Sources/**/*.{swift}"
-    ss.resource_bundles = { "GetStreamActivityFeed" => ["Source/**/*.{xib}"] }
-    ss.framework = "UIKit"
-    ss.dependency "GetStream", "~> 1.1"
-    ss.dependency "Nuke", "~> 7.5"
-    ss.dependency "Reusable", "~> 4.0"
-    ss.dependency "SnapKit", "~> 4.2"
-  end
+  spec.description  = <<-DESC
+Easy to use UI components with built-in support for Open Graph scraping, hashtags, @mentions, likes, comments, file uploads and realtime; empowering you to quickly launch engaging activity feeds and notification feeds.
+DESC
+
+  spec.homepage     = "https://getstream.io/react-activity-feed/"
+  spec.license = { :type => "BSD-3", :file => "LICENSE" }
+  spec.author = { "Alexey Bukhtin" => "alexey@getstream.io" }
+  spec.social_media_url = "https://getstream.io"
+  spec.swift_version = "4.2"
+  spec.platform = :ios, "11.0"
+  spec.source = { :git => "https://github.com/GetStream/swift-activity-feed.git", :tag => "#{spec.version}" }
+  spec.source_files  = "Sources/**/*.{swift}"
+  spec.resources = "Sources/**/*.{xib}"
+  spec.framework = "Foundation", "UIKit"
+  spec.dependency "GetStream", "~> 1.1"
+  spec.dependency "Nuke", "~> 7.5"
+  spec.dependency "Reusable", "~> 4.0"
+  spec.dependency "SnapKit", "~> 4.2"
+  spec.requires_arc = true
 end

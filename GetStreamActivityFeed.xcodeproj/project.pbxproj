@@ -134,7 +134,7 @@
 		8A13FD0E21ECF66C00D216C6 /* RootPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootPresenter.swift; sourceTree = "<group>"; };
 		8A13FD1021ECF6C800D216C6 /* UIApplication+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extensions.swift"; sourceTree = "<group>"; };
 		8A13FD1321ECF8A700D216C6 /* RootRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootRouter.swift; sourceTree = "<group>"; };
-		8A2D83FC2226C6CA00795FAE /* GetStreamActivityFeed.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = GetStreamActivityFeed.podspec; sourceTree = "<group>"; };
+		8A2D83FC2226C6CA00795FAE /* GetStreamActivityFeed.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = GetStreamActivityFeed.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		8A2DE1C721F9E768009E2469 /* ReactionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionButton.swift; sourceTree = "<group>"; };
 		8A2DE1C921F9E819009E2469 /* ActivityRepostable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityRepostable.swift; sourceTree = "<group>"; };
 		8A2DE1CC21F9F56E009E2469 /* LikeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeButton.swift; sourceTree = "<group>"; };
@@ -247,6 +247,7 @@
 				8A0DE44722047DA60042A0FF /* UITableViewCell+Extensions.swift */,
 				8A420A2D220B275E00AF573F /* UIStackView+LoadingImages.swift */,
 				8AABA961221B466300E24505 /* UITabBarController+Extensions.swift */,
+				8A3E63BB21EF877600E17543 /* UIImage+Icons.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -279,7 +280,6 @@
 				8A13FCF721EC9A4F00D216C6 /* App */,
 				8A3E63CE21F0D45100E17543 /* Models */,
 				8A13FCF821EC9A5A00D216C6 /* User Story */,
-				8A3E63C621F0B12A00E17543 /* Extensions */,
 				8A13FCDE21EC95D900D216C6 /* Assets.xcassets */,
 				8A13FCE321EC95D900D216C6 /* Info.plist */,
 			);
@@ -403,14 +403,6 @@
 				8A108D1421F223DE0080ADEB /* Date+Extensions.swift */,
 				8A0525B221FBA7A90029E385 /* Range+Extensions.swift */,
 				8A7559A721FF06AA002187EA /* NSAttributedString+Extensions.swift */,
-			);
-			path = Extensions;
-			sourceTree = "<group>";
-		};
-		8A3E63C621F0B12A00E17543 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				8A3E63BB21EF877600E17543 /* UIImage+Icons.swift */,
 				8A3573D421F76A25009EB9D7 /* URL+ImageRequest.swift */,
 			);
 			path = Extensions;
@@ -421,6 +413,7 @@
 			children = (
 				8A3E63CA21F0B63600E17543 /* ActivityFeed.storyboard */,
 				8A3573D221F74636009EB9D7 /* ActivityFeedBuilder.swift */,
+				8A0DE445220478910042A0FF /* ActivityRouter.swift */,
 				8A3E63C821F0B45300E17543 /* FlatFeedViewController.swift */,
 				8A0DE43C220461B20042A0FF /* Edit */,
 				8A0DE43A220460840042A0FF /* PostDetailTableViewController.swift */,
@@ -528,7 +521,6 @@
 			children = (
 				8A0DE43E220463DC0042A0FF /* ActivityPresenter.swift */,
 				8A0DE440220465520042A0FF /* ActivityPresenter+Activity.swift */,
-				8A0DE445220478910042A0FF /* ActivityRouter.swift */,
 			);
 			path = Activity;
 			sourceTree = "<group>";
