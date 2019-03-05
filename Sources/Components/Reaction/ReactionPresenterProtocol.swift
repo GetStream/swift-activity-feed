@@ -10,22 +10,31 @@ import Result
 import GetStream
 
 public protocol ReactionPresenterProtocol {
-    typealias Completion<T: ActivityLikable> = (_ result: Result<T, ClientError>) -> Void
+    typealias Completion<T: ActivityProtocol> = (_ result: Result<T, ClientError>) -> Void
     
-    func addReaction<T: ActivityLikable>(for activity: T,
-                                         kindOf kind: ReactionKind,
-                                         parentReaction: Reaction?,
-                                         targetsFeedIds: [FeedId],
-                                         _ completion: @escaping Completion<T>)
+    func addReaction<T: ActivityProtocol,
+        E: ReactionExtraDataProtocol,
+        U: UserProtocol>(for activity: T,
+                         kindOf kind: ReactionKind,
+                         parentReaction: GetStream.Reaction<E, U>?,
+                         targetsFeedIds: [FeedId],
+                         extraData: E,
+                         userTypeOf userType: U.Type,
+                         _ completion: @escaping Completion<T>) where T.ReactionType == GetStream.Reaction<E, U>
     
-    func addComment<T: ActivityLikable>(for activity: T,
-                                        text: String,
-                                        parentReaction: Reaction?,
-                                        _ completion: @escaping Completion<T>)
+    func addComment<T: ActivityProtocol,
+        E: ReactionExtraDataProtocol,
+        U: UserProtocol>(for activity: T,
+                         parentReaction: T.ReactionType?,
+                         extraData: E,
+                         userTypeOf userType: U.Type,
+                         _ completion: @escaping Completion<T>) where T.ReactionType == GetStream.Reaction<E, U>
     
-    func remove<T: ActivityLikable>(reaction: Reaction, activity: T, _ completion: @escaping Completion<T>)
+    func remove<T: ActivityProtocol>(reaction: T.ReactionType,
+                                     activity: T,
+                                     _ completion: @escaping Completion<T>) where T.ReactionType: ReactionProtocol
     
-    func remove(reaction: Reaction,
-                parentReaction: Reaction,
-                _ completion: @escaping (_ result: Result<Reaction, ClientError>) -> Void)
+    func remove<T: ReactionProtocol>(reaction: T,
+                                     parentReaction: T,
+                                     _ completion: @escaping (_ result: Result<T, ClientError>) -> Void)
 }

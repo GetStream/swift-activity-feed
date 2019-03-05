@@ -12,17 +12,18 @@ import Result
 
 /// A base class for reaction buttons.
 open class ReactionButton: UIButton {
-    public typealias Completion<T: ActivityLikable> = (_ result: Result<(activity: T, button: UIButton), ClientError>) -> Void
+    public typealias Completion<T: ActivityProtocol> = (_ result: Result<(activity: T, button: UIButton), ClientError>) -> Void
     public typealias ErrorCompletion = (_ error: Error?) -> Void
     
-    open func react<T: ActivityLikable>(with presenter: ReactionPresenterProtocol,
-                                        activity: T,
-                                        reaction: T.ReactionType?,
-                                        parentReaction: T.ReactionType?,
-                                        kindOf kind: ReactionKind,
-                                        targetsFeedIds: [FeedId] = [],
-                                        _ completion: @escaping Completion<T>) {
-        if isSelected {
+    open func react<T: ActivityProtocol, U: UserProtocol>(with presenter: ReactionPresenterProtocol,
+                                                          activity: T,
+                                                          reaction: T.ReactionType?,
+                                                          parentReaction: T.ReactionType?,
+                                                          kindOf kind: ReactionKind,
+                                                          targetsFeedIds: [FeedId] = [],
+                                                          _ completion: @escaping Completion<T>)
+        where T.ReactionType == GetStream.Reaction<ReactionExtraData, U> {
+            if isSelected {
             isEnabled = false
             
             if let reaction = reaction {
@@ -42,7 +43,7 @@ open class ReactionButton: UIButton {
                         }
                     }
                 } else {
-                    presenter.remove(reaction: reaction, activity: activity.originalActivity) { [weak self] in
+                    presenter.remove(reaction: reaction, activity: activity.original) { [weak self] in
                         self?.parse($0, isSelected: false, completion)
                     }
                 }
@@ -51,18 +52,20 @@ open class ReactionButton: UIButton {
             }
         } else {
             isEnabled = false
-            presenter.addReaction(for: activity.originalActivity,
+            presenter.addReaction(for: activity.original,
                                   kindOf: kind,
                                   parentReaction: parentReaction,
-                                  targetsFeedIds: targetsFeedIds) { [weak self] in
-                self?.parse($0, isSelected: true, completion)
+                                  targetsFeedIds: targetsFeedIds,
+                                  extraData: ReactionExtraData.empty,
+                                  userTypeOf: U.self) { [weak self] in
+                                    self?.parse($0, isSelected: true, completion)
             }
         }
     }
     
-    private func parse<T: ActivityLikable>(_ result: Result<T, ClientError>,
-                                           isSelected: Bool,
-                                           _ completion: @escaping Completion<T>) {
+    private func parse<T: ActivityProtocol>(_ result: Result<T, ClientError>,
+                                            isSelected: Bool,
+                                            _ completion: @escaping Completion<T>) where T.ReactionType: ReactionProtocol {
         isEnabled = true
         
         if let activity = try? result.get() {

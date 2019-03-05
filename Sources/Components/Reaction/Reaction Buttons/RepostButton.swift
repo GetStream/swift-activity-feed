@@ -10,18 +10,19 @@ import UIKit
 import GetStream
 
 open class RepostButton: ReactionButton {
-    open func react<T: ActivityLikable>(with presenter: ReactionPresenterProtocol,
+    open func react<T: ActivityProtocol, U: UserProtocol>(with presenter: ReactionPresenterProtocol,
                                         activity: T,
                                         targetsFeedIds: [FeedId],
-                                        _ completion: @escaping ErrorCompletion) {
+                                        _ completion: @escaping ErrorCompletion)
+        where T.ReactionType == GetStream.Reaction<ReactionExtraData, U> {
         super.react(with: presenter,
                     activity: activity,
-                    reaction: activity.repostReaction,
+                    reaction: activity.original.userRepostReaction,
                     parentReaction: nil,
                     kindOf: .repost,
                     targetsFeedIds: targetsFeedIds) {
                         if let result = try? $0.get() {
-                            result.button.setTitle(String(result.activity.repostsCount), for: .normal)
+                            result.button.setTitle(String(result.activity.original.repostsCount), for: .normal)
                             completion(nil)
                         } else {
                             completion($0.error)

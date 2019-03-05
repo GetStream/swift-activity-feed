@@ -11,29 +11,37 @@ import Result
 
 open class ReactionPresenter: ReactionPresenterProtocol {
     
-    public func addReaction<T: ActivityProtocol>(for activity: T,
-                                                 kindOf kind: ReactionKind,
-                                                 parentReaction: T.ReactionType? = nil,
-                                                 targetsFeedIds: [FeedId],
-                                                 _ completion: @escaping Completion<T>) {
+    public func addReaction<T: ActivityProtocol,
+        E: ReactionExtraDataProtocol,
+        U: UserProtocol>(for activity: T,
+                         kindOf kind: ReactionKind,
+                         parentReaction: GetStream.Reaction<E, U>? = nil,
+                         targetsFeedIds: [FeedId],
+                         extraData: E,
+                         userTypeOf userType: U.Type,
+                         _ completion: @escaping Completion<T>) where T.ReactionType == GetStream.Reaction<E, U> {
         Client.shared.add(reactionTo: activity.id,
                           parentReactionId: parentReaction?.id,
                           kindOf: kind,
-                          extraData: ReactionExtraData.empty,
-                          userTypeOf: User.self) {
+                          extraData: extraData,
+                          userTypeOf: userType,
+                          targetsFeedIds: targetsFeedIds) {
                             self.parse($0, for: activity, parentReaction, completion)
         }
     }
     
-    public func addComment<T: ActivityProtocol>(for activity: T,
-                                                text: String,
-                                                parentReaction: T.ReactionType? = nil,
-                                                _ completion: @escaping Completion<T>) {
+    public func addComment<T: ActivityProtocol,
+        E: ReactionExtraDataProtocol,
+        U: UserProtocol>(for activity: T,
+                         parentReaction: T.ReactionType? = nil,
+                         extraData: E,
+                         userTypeOf userType: U.Type,
+                         _ completion: @escaping Completion<T>) where T.ReactionType == GetStream.Reaction<E, U> {
         Client.shared.add(reactionTo: activity.id,
                           parentReactionId: parentReaction?.id,
                           kindOf: .comment,
-                          extraData: ReactionExtraData.comment(text),
-                          userTypeOf: User.self) {
+                          extraData: extraData,
+                          userTypeOf: userType) {
                             self.parse($0, for: activity, parentReaction, completion)
         }
     }
@@ -41,7 +49,7 @@ open class ReactionPresenter: ReactionPresenterProtocol {
     private func parse<T: ActivityProtocol>(_ result: Result<T.ReactionType, ClientError>,
                                             for activity: T,
                                             _ parentReaction: T.ReactionType?,
-                                            _ completion: @escaping Completion<T>) {
+                                            _ completion: @escaping Completion<T>) where T.ReactionType: ReactionProtocol {
         if let reaction = try? result.get() {
             var activity = activity
             
@@ -59,16 +67,17 @@ open class ReactionPresenter: ReactionPresenterProtocol {
         }
     }
     
-    public func remove<T: ActivityProtocol>(reaction: T.ReactionType, activity: T, _ completion: @escaping Completion<T>) {
-        Client.shared.delete(reactionId: reaction.id) {
-            if $0.error == nil {
-                var activity = activity
-                activity.removeUserOwnReaction(reaction)
-                completion(.success(activity))
-            } else if let error = $0.error {
-                completion(.failure(error))
+    public func remove<T: ActivityProtocol>(reaction: T.ReactionType, activity: T, _ completion: @escaping Completion<T>)
+        where T.ReactionType: ReactionProtocol {
+            Client.shared.delete(reactionId: reaction.id) {
+                if $0.error == nil {
+                    var activity = activity
+                    activity.removeUserOwnReaction(reaction)
+                    completion(.success(activity))
+                } else if let error = $0.error {
+                    completion(.failure(error))
+                }
             }
-        }
     }
     
     public func remove<T: ReactionProtocol>(reaction: T,

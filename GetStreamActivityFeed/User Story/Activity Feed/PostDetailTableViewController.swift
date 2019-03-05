@@ -86,12 +86,12 @@ extension PostDetailTableViewController: UITableViewDataSource, UITableViewDeleg
             return 0
         }
         
-        let activity = activityPresenter.activity.originalActivity
+        let originalActivity = activityPresenter.activity.original
         
         switch section {
         case 0: return activityPresenter.cellsCount - 1
-        case 1: return activity.likesCount > 0 ? 1 : 0
-        case 2: return activity.repostsCount
+        case 1: return originalActivity.likesCount > 0 ? 1 : 0
+        case 2: return originalActivity.repostsCount
         default: break
         }
         
@@ -128,14 +128,14 @@ extension PostDetailTableViewController: UITableViewDataSource, UITableViewDeleg
     }
     
     private func sectionHeader(in section: Int) -> String? {
-        guard let activity = activityPresenter?.activity.originalActivity else {
+        guard let originalActivity = activityPresenter?.activity.original else {
             return nil
         }
         
         switch section {
-        case 1: return activity.likesCount > 0 ? "Liked (\(activity.likesCount))" : nil
-        case 2: return activity.repostsCount > 0 ? "Reposts (\(activity.repostsCount))" : nil
-        case 3: return activity.commentsCount > 0 ? "Comments (\(activity.commentsCount))" : nil
+        case 1: return originalActivity.likesCount > 0 ? "Liked (\(originalActivity.likesCount))" : nil
+        case 2: return originalActivity.repostsCount > 0 ? "Reposts (\(originalActivity.repostsCount))" : nil
+        case 3: return originalActivity.commentsCount > 0 ? "Comments (\(originalActivity.commentsCount))" : nil
         default: return nil
         }
     }
@@ -359,8 +359,9 @@ extension PostDetailTableViewController: UITextViewDelegate {
         textToolBar.textView.isEditable = false
         
         activityPresenter.reactionPresenter.addComment(for: activityPresenter.activity,
-                                                       text: text,
-                                                       parentReaction: parentReaction) { [weak self] in
+                                                       parentReaction: parentReaction,
+                                                       extraData: ReactionExtraData.comment(text),
+                                                       userTypeOf: User.self) { [weak self] in
             if let self = self {
                 self.textToolBar.textView.isEditable = true
                 

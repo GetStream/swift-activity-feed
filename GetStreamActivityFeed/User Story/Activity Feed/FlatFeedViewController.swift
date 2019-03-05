@@ -23,7 +23,19 @@ open class FlatFeedViewController: UITableViewController, BundledStoryboardLoada
         didSet {
             subscriptionId = presenter?.subscriptionPresenter.subscribe { [weak self] in
                 if let self = self, let response = try? $0.get() {
-                    self.bannerView.textLabel.text = "You have \(response.newActivities.count) new activities"
+                    let newCount = response.newActivities.count
+                    let removedCount = response.deletedActivitiesIds.count
+                    let text: String
+                    
+                    if newCount > 0 {
+                        text = "You have \(newCount) new activities"
+                    } else if removedCount > 0 {
+                        text = "You have \(removedCount) deleted activities"
+                    } else {
+                        return
+                    }
+                    
+                    self.bannerView.textLabel.text = text
                     self.bannerView.present(in: self)
                 }
             }
@@ -78,7 +90,7 @@ open class FlatFeedViewController: UITableViewController, BundledStoryboardLoada
         
         guard let postDetailTableViewController = segue.destination as? PostDetailTableViewController,
             let activityPresenter = sender as? ActivityPresenter<Activity> else {
-            return
+                return
         }
         
         postDetailTableViewController.activityPresenter = activityPresenter
@@ -132,12 +144,12 @@ extension FlatFeedViewController {
                                           in: self,
                                           presenter: activityPresenter,
                                           feedId: FeedId(feedSlug: "user")) else {
-                if let presenter = presenter, presenter.hasNext {
-                    presenter.loadNext(completion: dataLoaded)
-                    return tableView.dequeueReusableCell(for: indexPath) as PaginationTableViewCell
-                }
-                
-                return .unused
+                                            if let presenter = presenter, presenter.hasNext {
+                                                presenter.loadNext(completion: dataLoaded)
+                                                return tableView.dequeueReusableCell(for: indexPath) as PaginationTableViewCell
+                                            }
+                                            
+                                            return .unused
         }
         
         let activity = activityPresenter.activity
@@ -221,7 +233,9 @@ extension FlatFeedViewController {
         
         notificationsSubscriptionId = notificationsPresenter.subscriptionPresenter.subscribe { [weak bellButton] in
             if let response = try? $0.get() {
-                bellButton?.count += response.newActivities.count
+                let newCount = response.newActivities.count
+                let removedCount = response.deletedActivitiesIds.count
+                bellButton?.count += newCount > 0 ? newCount : (removedCount > 0 ? removedCount : 0)
             } else {
                 bellButton?.count = 0
             }
@@ -233,7 +247,7 @@ extension FlatFeedViewController {
     func updateBellCounter() {
         guard let notificationsViewController = tabBarController?.find(viewControllerType: NotificationsViewController.self),
             let bellButton = navigationItem.leftBarButtonItem?.customView as? BellButton else {
-            return
+                return
         }
         
         bellButton.count = notificationsViewController.badgeValue

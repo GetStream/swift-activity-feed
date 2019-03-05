@@ -71,12 +71,12 @@ extension UITableView {
             let cell = dequeueReusableCell(for: indexPath) as PostActionsTableViewCell
             
             // Reply.
-            cell.updateReply(commentsCount: presenter.activity.commentsCount)
+            cell.updateReply(commentsCount: presenter.activity.original.commentsCount)
             
             // Repost.
             if let feedId = feedId {
-                cell.updateRepost(isReposted: presenter.activity.isReposted,
-                                  repostsCount: presenter.activity.repostsCount) { [weak viewController] in
+                cell.updateRepost(isReposted: presenter.activity.original.isUserReposted,
+                                  repostsCount: presenter.activity.original.repostsCount) { [weak viewController] in
                                     if let button = $0 as? RepostButton,
                                         let viewController = viewController {
                                         button.react(with: presenter.reactionPresenter,
@@ -88,8 +88,8 @@ extension UITableView {
             }
             
             // Like.
-            cell.updateLike(isLiked: presenter.activity.isLiked,
-                            likesCount: presenter.activity.likesCount) { [weak viewController] in
+            cell.updateLike(isLiked: presenter.activity.original.isUserLiked,
+                            likesCount: presenter.activity.original.likesCount) { [weak viewController] in
                 if let button = $0 as? LikeButton, let viewController = viewController {
                     button.react(with: presenter.reactionPresenter,
                                  activity: presenter.activity,
