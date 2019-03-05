@@ -10,22 +10,23 @@ import GetStream
 
 public typealias Reaction = GetStream.Reaction<ReactionExtraData, User>
 
-public final class Activity: EnrichedActivity<User, ActivityObject, String, Reaction>, ActivityLikable {
+public final class Activity: EnrichedActivity<User, ActivityObject, String, Reaction>, AttachmentPresentable {
     
     private enum CodingKeys: String, CodingKey {
         case text
         case attachments
     }
     
-    var text: String?
-    var attachment: ActivityAttachment?
+    public var text: String?
+    public var attachment: ActivityAttachment?
     
-    public var originalActivity: Activity {
-        if case .repost(let originalActivity) = object {
-            return originalActivity
+    public var original: Activity {
+        switch object {
+        case .repost(let activity):
+            return activity
+        default:
+            return self
         }
-        
-        return self
     }
     
     public init(actor: User, verb: Verb, object: ActivityObject, target: TargetType? = nil, feedIds: FeedIds? = nil) {
@@ -45,26 +46,4 @@ public final class Activity: EnrichedActivity<User, ActivityObject, String, Reac
         try container.encodeIfPresent(attachment, forKey: .attachments)
         try super.encode(to: encoder)
     }
-}
-
-// MARK: - Activity Attachment
-
-final class ActivityAttachment: Codable {
-    private enum CodingKeys: String, CodingKey {
-        case imageURLs = "images"
-        case openGraphData = "og"
-        case files
-    }
-    
-    var imageURLs: [URL]?
-    var openGraphData: OGResponse?
-    var files: [ActivityAttachmentFile]?
-}
-
-// MARK: - Activity Attachment File
-
-final class ActivityAttachmentFile: Codable {
-    var name: String
-    var url: URL
-    var mimeType: String
 }

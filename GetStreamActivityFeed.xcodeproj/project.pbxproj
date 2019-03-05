@@ -36,9 +36,7 @@
 		8A13FD1121ECF6C800D216C6 /* UIApplication+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A13FD1021ECF6C800D216C6 /* UIApplication+Extensions.swift */; };
 		8A13FD1421ECF8A700D216C6 /* RootRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A13FD1321ECF8A700D216C6 /* RootRouter.swift */; };
 		8A2DE1C821F9E768009E2469 /* ReactionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2DE1C721F9E768009E2469 /* ReactionButton.swift */; };
-		8A2DE1CA21F9E819009E2469 /* ActivityRepostable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2DE1C921F9E819009E2469 /* ActivityRepostable.swift */; };
 		8A2DE1CD21F9F56E009E2469 /* LikeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2DE1CC21F9F56E009E2469 /* LikeButton.swift */; };
-		8A2DE1CF21F9F675009E2469 /* ActivityLikable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2DE1CE21F9F675009E2469 /* ActivityLikable.swift */; };
 		8A2DE1D121F9F7B5009E2469 /* RepostButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2DE1D021F9F7B5009E2469 /* RepostButton.swift */; };
 		8A2DE1D321FA2DAF009E2469 /* ReactionPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2DE1D221FA2DAF009E2469 /* ReactionPresenterProtocol.swift */; };
 		8A3573CF21F72D9D009EB9D7 /* ActivityObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3573CE21F72D9D009EB9D7 /* ActivityObject.swift */; };
@@ -62,6 +60,8 @@
 		8A420A31220B2E8300AF573F /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A420A2F220B2E8300AF573F /* CommentTableViewCell.swift */; };
 		8A420A32220B2E8300AF573F /* CommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A420A30220B2E8300AF573F /* CommentTableViewCell.xib */; };
 		8A420A34220C904500AF573F /* TextToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A420A33220C904500AF573F /* TextToolBar.swift */; };
+		8A45F547222E904D00D54EE2 /* ActivityAttachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A45F546222E904D00D54EE2 /* ActivityAttachment.swift */; };
+		8A45F549222E909000D54EE2 /* AttachmentPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A45F548222E909000D54EE2 /* AttachmentPresentable.swift */; };
 		8A571A1D21FB0D53004949B2 /* ReactionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A571A1C21FB0D53004949B2 /* ReactionPresenter.swift */; };
 		8A571A2121FB26CC004949B2 /* UIButton+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A571A2021FB26CC004949B2 /* UIButton+Extensions.swift */; };
 		8A571A2321FB3BE1004949B2 /* EditPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A571A2221FB3BE1004949B2 /* EditPostViewController.swift */; };
@@ -70,6 +70,7 @@
 		8A6801DC22033B3600B77352 /* PostActionsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6801DA22033B3600B77352 /* PostActionsTableViewCell.swift */; };
 		8A6801DD22033B3600B77352 /* PostActionsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A6801DB22033B3600B77352 /* PostActionsTableViewCell.xib */; };
 		8A68395521FB7A170003C19B /* DataDetectorWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A68395421FB7A170003C19B /* DataDetectorWorker.swift */; };
+		8A7256E3222E89D800B06FA6 /* UserNamePresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7256E2222E89D800B06FA6 /* UserNamePresentable.swift */; };
 		8A7559A821FF06AA002187EA /* NSAttributedString+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7559A721FF06AA002187EA /* NSAttributedString+Extensions.swift */; };
 		8A7559AB21FF15B6002187EA /* OpenGraphWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7559AA21FF15B6002187EA /* OpenGraphWorker.swift */; };
 		8A7559AD21FF18D3002187EA /* EditPostPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7559AC21FF18D3002187EA /* EditPostPresenter.swift */; };
@@ -136,9 +137,7 @@
 		8A13FD1321ECF8A700D216C6 /* RootRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootRouter.swift; sourceTree = "<group>"; };
 		8A2D83FC2226C6CA00795FAE /* GetStreamActivityFeed.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = GetStreamActivityFeed.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		8A2DE1C721F9E768009E2469 /* ReactionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionButton.swift; sourceTree = "<group>"; };
-		8A2DE1C921F9E819009E2469 /* ActivityRepostable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityRepostable.swift; sourceTree = "<group>"; };
 		8A2DE1CC21F9F56E009E2469 /* LikeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeButton.swift; sourceTree = "<group>"; };
-		8A2DE1CE21F9F675009E2469 /* ActivityLikable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityLikable.swift; sourceTree = "<group>"; };
 		8A2DE1D021F9F7B5009E2469 /* RepostButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepostButton.swift; sourceTree = "<group>"; };
 		8A2DE1D221FA2DAF009E2469 /* ReactionPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionPresenterProtocol.swift; sourceTree = "<group>"; };
 		8A3573CE21F72D9D009EB9D7 /* ActivityObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityObject.swift; sourceTree = "<group>"; };
@@ -162,6 +161,8 @@
 		8A420A2F220B2E8300AF573F /* CommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
 		8A420A30220B2E8300AF573F /* CommentTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommentTableViewCell.xib; sourceTree = "<group>"; };
 		8A420A33220C904500AF573F /* TextToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextToolBar.swift; sourceTree = "<group>"; };
+		8A45F546222E904D00D54EE2 /* ActivityAttachment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityAttachment.swift; sourceTree = "<group>"; };
+		8A45F548222E909000D54EE2 /* AttachmentPresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentPresentable.swift; sourceTree = "<group>"; };
 		8A571A1C21FB0D53004949B2 /* ReactionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionPresenter.swift; sourceTree = "<group>"; };
 		8A571A2021FB26CC004949B2 /* UIButton+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extensions.swift"; sourceTree = "<group>"; };
 		8A571A2221FB3BE1004949B2 /* EditPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPostViewController.swift; sourceTree = "<group>"; };
@@ -170,6 +171,7 @@
 		8A6801DA22033B3600B77352 /* PostActionsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostActionsTableViewCell.swift; sourceTree = "<group>"; };
 		8A6801DB22033B3600B77352 /* PostActionsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostActionsTableViewCell.xib; sourceTree = "<group>"; };
 		8A68395421FB7A170003C19B /* DataDetectorWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataDetectorWorker.swift; sourceTree = "<group>"; };
+		8A7256E2222E89D800B06FA6 /* UserNamePresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNamePresentable.swift; sourceTree = "<group>"; };
 		8A7559A721FF06AA002187EA /* NSAttributedString+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+Extensions.swift"; sourceTree = "<group>"; };
 		8A7559AA21FF15B6002187EA /* OpenGraphWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenGraphWorker.swift; sourceTree = "<group>"; };
 		8A7559AC21FF18D3002187EA /* EditPostPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPostPresenter.swift; sourceTree = "<group>"; };
@@ -278,7 +280,6 @@
 			isa = PBXGroup;
 			children = (
 				8A13FCF721EC9A4F00D216C6 /* App */,
-				8A3E63CE21F0D45100E17543 /* Models */,
 				8A13FCF821EC9A5A00D216C6 /* User Story */,
 				8A13FCDE21EC95D900D216C6 /* Assets.xcassets */,
 				8A13FCE321EC95D900D216C6 /* Info.plist */,
@@ -335,6 +336,7 @@
 				8A13FD0521ECD86700D216C6 /* User.swift */,
 				8A3E63CF21F0D45E00E17543 /* Activity.swift */,
 				8A3573CE21F72D9D009EB9D7 /* ActivityObject.swift */,
+				8A45F546222E904D00D54EE2 /* ActivityAttachment.swift */,
 				8A3573D021F72DE2009EB9D7 /* Verb+Extensions.swift */,
 			);
 			path = Models;
@@ -363,9 +365,10 @@
 		8A2D842122295D6800795FAE /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				8A2DE1C921F9E819009E2469 /* ActivityRepostable.swift */,
-				8A2DE1CE21F9F675009E2469 /* ActivityLikable.swift */,
+				8A7256E2222E89D800B06FA6 /* UserNamePresentable.swift */,
+				8AC40FB721EE57570073B749 /* AvatarPresentable.swift */,
 				8A0759282211BF90009C11FB /* PaginatorProtocol.swift */,
+				8A45F548222E909000D54EE2 /* AttachmentPresentable.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -419,13 +422,6 @@
 				8A0DE43A220460840042A0FF /* PostDetailTableViewController.swift */,
 			);
 			path = "Activity Feed";
-			sourceTree = "<group>";
-		};
-		8A3E63CE21F0D45100E17543 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		8A571A1E21FB15CE004949B2 /* Components */ = {
@@ -570,7 +566,6 @@
 		8AC40FB621EE55A50073B749 /* Avatar */ = {
 			isa = PBXGroup;
 			children = (
-				8AC40FB721EE57570073B749 /* AvatarPresentable.swift */,
 				8AC40FB921EE57D80073B749 /* AvatarView.swift */,
 			);
 			path = Avatar;
@@ -735,7 +730,6 @@
 				8A0DE43B220460840042A0FF /* PostDetailTableViewController.swift in Sources */,
 				8AC40FB021EE2C8D0073B749 /* ProfileViewController.swift in Sources */,
 				8AC40FBA21EE57D80073B749 /* AvatarView.swift in Sources */,
-				8A2DE1CA21F9E819009E2469 /* ActivityRepostable.swift in Sources */,
 				8A2DE1C821F9E768009E2469 /* ReactionButton.swift in Sources */,
 				8A7559BC22005AE8002187EA /* WebViewController.swift in Sources */,
 				8A3E63C121F08C2400E17543 /* Appearance.swift in Sources */,
@@ -751,6 +745,7 @@
 				8A3573D521F76A25009EB9D7 /* URL+ImageRequest.swift in Sources */,
 				8A571A2321FB3BE1004949B2 /* EditPostViewController.swift in Sources */,
 				8A0DE44B2204990A0042A0FF /* ActionUsersTableViewCell.swift in Sources */,
+				8A45F549222E909000D54EE2 /* AttachmentPresentable.swift in Sources */,
 				8A2DE1CD21F9F56E009E2469 /* LikeButton.swift in Sources */,
 				8A3E63B821EF65D400E17543 /* UIControl+Extensions.swift in Sources */,
 				8A0DE446220478910042A0FF /* ActivityRouter.swift in Sources */,
@@ -777,7 +772,6 @@
 				8AAEE3F6221AF3DA00327FCB /* BellButton.swift in Sources */,
 				8A3E63BC21EF877600E17543 /* UIImage+Icons.swift in Sources */,
 				8A0759262211B061009C11FB /* PaginationTableViewCell.swift in Sources */,
-				8A2DE1CF21F9F675009E2469 /* ActivityLikable.swift in Sources */,
 				8A420A31220B2E8300AF573F /* CommentTableViewCell.swift in Sources */,
 				8AC40FB821EE57570073B749 /* AvatarPresentable.swift in Sources */,
 				8A6801D42200B3E600B77352 /* AddingImageCollectionViewCell.swift in Sources */,
@@ -788,7 +782,9 @@
 				8A0525B321FBA7A90029E385 /* Range+Extensions.swift in Sources */,
 				8A3E63D021F0D45E00E17543 /* Activity.swift in Sources */,
 				8A3E63B121EF455100E17543 /* UINavigationController+Extensions.swift in Sources */,
+				8A45F547222E904D00D54EE2 /* ActivityAttachment.swift in Sources */,
 				8AABA962221B466300E24505 /* UITabBarController+Extensions.swift in Sources */,
+				8A7256E3222E89D800B06FA6 /* UserNamePresentable.swift in Sources */,
 				8A3E63C521F08DC300E17543 /* UIColor+Extensions.swift in Sources */,
 				8A2DE1D121F9F7B5009E2469 /* RepostButton.swift in Sources */,
 				8AD370A522145DF500182834 /* ImageGalleryViewController.swift in Sources */,

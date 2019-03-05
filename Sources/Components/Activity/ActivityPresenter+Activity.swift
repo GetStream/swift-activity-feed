@@ -8,28 +8,16 @@
 
 import GetStream
 
-extension ActivityPresenter where T == Activity {
+extension ActivityPresenter where T: (ActivityProtocol & AttachmentPresentable) {
     
     public var ogData: OGResponse? {
-        return activity.originalActivity.attachment?.openGraphData
+        return activity.original.attachment?.openGraphData
     }
     
     public func attachmentImageURLs(withObjectImage: Bool = false) -> [URL]? {
-        let activity: T
+        let originalActivity = activity.original
         
-        if case .repost = self.activity.object {
-            activity = self.activity.originalActivity
-        } else {
-            activity = self.activity
-        }
-
-        if let imageURLs = activity.attachment?.imageURLs, imageURLs.count > 0 {
-            var imageURLs = imageURLs
-            
-            if withObjectImage, case .image(let url) = activity.object {
-                imageURLs.insert(url, at: 0)
-            }
-            
+        if let imageURLs = originalActivity.attachment?.imageURLs, imageURLs.count > 0 {
             return imageURLs
         }
         
@@ -53,11 +41,13 @@ extension ActivityPresenter where T == Activity {
 
 // MARK: - Reactions
 
-extension ActivityPresenter where T == Activity {
+extension ActivityPresenter where T: ActivityProtocol,
+                                  T.ReactionType: ReactionProtocol,
+                                  T.ReactionType.UserType: (UserNamePresentable & AvatarPresentable) {
     
     func reactionTitle(kindOf reactionKind: ReactionKind, suffix: String) -> String? {
-        guard let reactions: [Reaction] = activity.originalActivity.latestReactions?[reactionKind],
-            let count: Int = activity.originalActivity.reactionCounts?[reactionKind],
+        guard let reactions = activity.original.latestReactions?[reactionKind],
+            let count: Int = activity.original.reactionCounts?[reactionKind],
             let first = reactions.first else {
             return nil
         }
@@ -70,15 +60,15 @@ extension ActivityPresenter where T == Activity {
     }
     
     func reactionUserAvatarURLs(kindOf reactionKind: ReactionKind) -> [URL] {
-        guard let reactions = activity.originalActivity.latestReactions?[reactionKind] else {
+        guard let reactions = activity.original.latestReactions?[reactionKind] else {
             return []
         }
         
         return reactions.map { $0.user.avatarURL }.compactMap { $0 }
     }
     
-    func comment(at index: Int) -> Reaction? {
-        guard let reactions = activity.originalActivity.latestReactions?[.comment] else {
+    func comment(at index: Int) -> T.ReactionType? {
+        guard let reactions = activity.original.latestReactions?[.comment] else {
             return nil
         }
         
