@@ -69,7 +69,7 @@ extension UITableView {
                                     if let button = $0 as? RepostButton,
                                         let viewController = viewController {
                                         button.react(with: presenter.reactionPresenter,
-                                                     activity: presenter.activity,
+                                                     activity: presenter.activity.original,
                                                      targetsFeedIds: [feedId],
                                                      viewController.showErrorAlertIfNeeded)
                                     }
@@ -81,7 +81,7 @@ extension UITableView {
                             likesCount: presenter.activity.original.likesCount) { [weak viewController] in
                 if let button = $0 as? LikeButton, let viewController = viewController {
                     button.react(with: presenter.reactionPresenter,
-                                 activity: presenter.activity,
+                                 activity: presenter.activity.original,
                                  viewController.showErrorAlertIfNeeded)
                 }
             }
