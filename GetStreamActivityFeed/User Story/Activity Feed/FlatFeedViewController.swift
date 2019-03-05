@@ -72,7 +72,6 @@ open class FlatFeedViewController: UITableViewController, BundledStoryboardLoada
         
         if parent == nil || parent is UINavigationController {
             navigationController?.restoreDefaultNavigationBar(animated: animated)
-            reloadData()
         }
     }
     
@@ -155,7 +154,7 @@ extension FlatFeedViewController {
         let activity = activityPresenter.activity
         
         if let cell = cell as? PostHeaderTableViewCell {
-            cell.updateAvatar(with: activity) { [weak self, weak activity] _ in
+            cell.updateAvatar(with: activity.original) { [weak self, weak activity] _ in
                 if let self = self,
                     let activity = activity,
                     let profileViewCotroller = self.profileBuilder?.profileViewController(user: activity.actor) {
@@ -177,7 +176,7 @@ extension FlatFeedViewController {
         
         if indexPath.row != 0 {
             if indexPath.row == (cellsCount - 4) {
-                activityRouter?.show(attachmentImageURLs: activityPresenter.attachmentImageURLs(withObjectImage: true))
+                activityRouter?.show(attachmentImageURLs: activityPresenter.attachmentImageURLs())
                 return
             }
             
@@ -185,7 +184,7 @@ extension FlatFeedViewController {
                 if let ogData = activityPresenter.ogData {
                     activityRouter?.show(ogData: ogData)
                 } else {
-                    activityRouter?.show(attachmentImageURLs: activityPresenter.attachmentImageURLs(withObjectImage: true))
+                    activityRouter?.show(attachmentImageURLs: activityPresenter.attachmentImageURLs())
                 }
                 return
             }

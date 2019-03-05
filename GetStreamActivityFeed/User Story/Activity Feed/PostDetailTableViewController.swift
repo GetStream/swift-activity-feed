@@ -40,7 +40,9 @@ open class PostDetailTableViewController: UIViewController {
         }
         
         if let activityPresenter = activityPresenter {
-            reactionPaginator = activityPresenter.reactionPaginator(reactionKind: .comment)
+            reactionPaginator = activityPresenter.reactionPaginator(activityId: activityPresenter.activity.original.id,
+                                                                    reactionKind: .comment)
+            
             reactionPaginator?.load(completion: commentsLoaded)
         }
     }
@@ -151,27 +153,35 @@ extension PostDetailTableViewController: UITableViewDataSource, UITableViewDeleg
         
         switch indexPath.section {
         case 0:
-            if let cell = tableView.postCell(at: indexPath,
-                                             in: self,
-                                             type: .detail,
-                                             presenter: activityPresenter,
-                                             feedId: feedId) {
+            if let cell = tableView.postCell(at: indexPath, in: self, presenter: activityPresenter, feedId: feedId) {
                 if let cell = cell as? PostHeaderTableViewCell {
-                    cell.updateAvatar(with: activityPresenter.activity)
+                    cell.updateAvatar(with: activityPresenter.activity.original) { [weak self] _ in
+                        self?.activityRouter?.show(user: activityPresenter.activity.actor)
+                    }
                 }
                 
                 return cell
             }
         case 1:
             let cell = tableView.dequeueReusableCell(for: indexPath) as ActionUsersTableViewCell
-            cell.titleLabel.text = activityPresenter.reactionTitle(kindOf: .like, suffix: "liked the post")
-            cell.avatarsStackView.loadImages(with: activityPresenter.reactionUserAvatarURLs(kindOf: .like))
+            cell.titleLabel.text = activityPresenter.reactionTitle(for: activityPresenter.activity.original,
+                                                                   kindOf: .like,
+                                                                   suffix: "liked the post")
+            
+            cell.avatarsStackView.loadImages(with:
+                activityPresenter.reactionUserAvatarURLs(for: activityPresenter.activity.original, kindOf: .like))
+            
             return cell
             
         case 2:
             let cell = tableView.dequeueReusableCell(for: indexPath) as ActionUsersTableViewCell
-            cell.titleLabel.text = activityPresenter.reactionTitle(kindOf: .repost, suffix: "reposted the post")
-            cell.avatarsStackView.loadImages(with: activityPresenter.reactionUserAvatarURLs(kindOf: .repost))
+            cell.titleLabel.text = activityPresenter.reactionTitle(for: activityPresenter.activity.original,
+                                                                   kindOf: .repost,
+                                                                   suffix: "reposted the post")
+            
+            cell.avatarsStackView.loadImages(with:
+                activityPresenter.reactionUserAvatarURLs(for: activityPresenter.activity.original, kindOf: .repost))
+            
             return cell
             
         default: break
@@ -204,7 +214,11 @@ extension PostDetailTableViewController: UITableViewDataSource, UITableViewDeleg
         
         let cellsCount = activityPresenter.cellsCount
         
-        return indexPath.row == 0 || indexPath.row == (cellsCount - 4) || indexPath.row == (cellsCount - 3)
+        if indexPath.row == 0, case .image = activityPresenter.activity.object {
+            return true
+        }
+        
+        return indexPath.row == (cellsCount - 4) || indexPath.row == (cellsCount - 3)
     }
     
     open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -212,15 +226,22 @@ extension PostDetailTableViewController: UITableViewDataSource, UITableViewDeleg
             return
         }
         
-        if indexPath.row == 0 {
-            activityRouter?.show(user: activityPresenter.activity.actor)
+        if indexPath.row == 0, case .image(let url) = activityPresenter.activity.object {
+            var urls = [url]
+            
+            if let attachmentURLs = activityPresenter.attachmentImageURLs() {
+                urls.append(contentsOf: attachmentURLs)
+            }
+            
+            activityRouter?.show(attachmentImageURLs: urls)
+            
             return
         }
         
         let cellsCount = activityPresenter.cellsCount
         
         if indexPath.row == (cellsCount - 4) {
-            activityRouter?.show(attachmentImageURLs: activityPresenter.attachmentImageURLs(withObjectImage: true))
+            activityRouter?.show(attachmentImageURLs: activityPresenter.attachmentImageURLs())
             return
         }
         
@@ -228,7 +249,7 @@ extension PostDetailTableViewController: UITableViewDataSource, UITableViewDeleg
             if let ogData = activityPresenter.ogData {
                 activityRouter?.show(ogData: ogData)
             } else {
-                activityRouter?.show(attachmentImageURLs: activityPresenter.attachmentImageURLs(withObjectImage: true))
+                activityRouter?.show(attachmentImageURLs: activityPresenter.attachmentImageURLs())
             }
             return
         }

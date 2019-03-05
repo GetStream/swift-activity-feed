@@ -74,35 +74,26 @@ open class PostHeaderTableViewCell: BaseTableViewCell {
 
 extension PostHeaderTableViewCell {
     
-    func update(with activity: Activity, skipImageObject: Bool = false) {
-        nameLabel.text = activity.actor.name
-        messageLabel.text = activity.text
-        var repostActivity: Activity?
+    func update(with activity: Activity) {
+        let originalActivity = activity.original
+        nameLabel.text = originalActivity.actor.name
+        messageLabel.text = originalActivity.text
         
-        switch activity.object {
+        switch originalActivity.object {
         case .text(let text):
             messageLabel.text = text
         case .image(let url):
-            if !skipImageObject {
-                updatePhoto(with: url)
-            }
-        case .repost(let activity):
-            repostActivity = activity
-            
-            switch activity.object {
-            case .text(let text):
-                messageLabel.text = text
-            default:
-                break
-            }
+            updatePhoto(with: url)
         case .following(let user):
             messageLabel.text = "Follow to \(user.name)"
+        default:
+            return
         }
         
         dateLabel.text = activity.time?.relative
         
         if activity.verb == .repost {
-            repost = "repost of \(repostActivity?.actor.name ?? "")"
+            repost = "reposted by \(activity.actor.name)"
         }
     }
     

@@ -14,7 +14,7 @@ extension ActivityPresenter where T: (ActivityProtocol & AttachmentPresentable) 
         return activity.original.attachment?.openGraphData
     }
     
-    public func attachmentImageURLs(withObjectImage: Bool = false) -> [URL]? {
+    public func attachmentImageURLs() -> [URL]? {
         let originalActivity = activity.original
         
         if let imageURLs = originalActivity.attachment?.imageURLs, imageURLs.count > 0 {
@@ -45,9 +45,9 @@ extension ActivityPresenter where T: ActivityProtocol,
                                   T.ReactionType: ReactionProtocol,
                                   T.ReactionType.UserType: (UserNamePresentable & AvatarPresentable) {
     
-    func reactionTitle(kindOf reactionKind: ReactionKind, suffix: String) -> String? {
-        guard let reactions = activity.original.latestReactions?[reactionKind],
-            let count: Int = activity.original.reactionCounts?[reactionKind],
+    func reactionTitle(for activity: T, kindOf reactionKind: ReactionKind, suffix: String) -> String? {
+        guard let reactions = activity.latestReactions?[reactionKind],
+            let count: Int = activity.reactionCounts?[reactionKind],
             let first = reactions.first else {
             return nil
         }
@@ -59,16 +59,16 @@ extension ActivityPresenter where T: ActivityProtocol,
         return "\(first.user.name) and \(count - 1) others \(suffix)"
     }
     
-    func reactionUserAvatarURLs(kindOf reactionKind: ReactionKind) -> [URL] {
-        guard let reactions = activity.original.latestReactions?[reactionKind] else {
+    func reactionUserAvatarURLs(for activity: T, kindOf reactionKind: ReactionKind) -> [URL] {
+        guard let reactions = activity.latestReactions?[reactionKind] else {
             return []
         }
         
         return reactions.map { $0.user.avatarURL }.compactMap { $0 }
     }
     
-    func comment(at index: Int) -> T.ReactionType? {
-        guard let reactions = activity.original.latestReactions?[.comment] else {
+    func comment(for activity: T, at index: Int) -> T.ReactionType? {
+        guard let reactions = activity.latestReactions?[.comment] else {
             return nil
         }
         

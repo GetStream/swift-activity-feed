@@ -26,35 +26,24 @@ extension UITableView {
 
 // MARK: - Cells
 
-public enum PostCellType {
-    case feed
-    case detail
-}
-
 extension UITableView {
     public func postCell(at indexPath: IndexPath,
                          in viewController: UIViewController,
-                         type: PostCellType = .feed,
                          presenter: ActivityPresenter<Activity>,
                          feedId: FeedId?) -> UITableViewCell? {
         let cellsCount = presenter.cellsCount
-        var skipImageObject = false
-        
-        if type == .detail {
-            skipImageObject = presenter.attachmentImageURLs() != nil
-        }
         
         switch indexPath.row {
         case 0:
             // Header with Text and/or Image.
             let cell = dequeueReusableCell(for: indexPath) as PostHeaderTableViewCell
-            cell.update(with: presenter.activity, skipImageObject: skipImageObject)
+            cell.update(with: presenter.activity)
             return cell
             
         case (cellsCount - 4):
             // Images.
             if presenter.attachmentImageURLs() != nil {
-                return postAttachmentImagesTableViewCell(presenter, at: indexPath, type: type)
+                return postAttachmentImagesTableViewCell(presenter, at: indexPath)
             }
             
         case (cellsCount - 3): // Open Graph Data or Images.
@@ -65,7 +54,7 @@ extension UITableView {
                 
             } else if presenter.attachmentImageURLs() != nil {
                 // Images.
-                return postAttachmentImagesTableViewCell(presenter, at: indexPath, type: type)
+                return postAttachmentImagesTableViewCell(presenter, at: indexPath)
             }
         case (cellsCount - 2): // Activities.
             let cell = dequeueReusableCell(for: indexPath) as PostActionsTableViewCell
@@ -109,17 +98,10 @@ extension UITableView {
     }
     
     private func postAttachmentImagesTableViewCell(_ presenter: ActivityPresenter<Activity>,
-                                                   at indexPath: IndexPath,
-                                                   type: PostCellType) -> UITableViewCell {
+                                                   at indexPath: IndexPath) -> UITableViewCell {
         let cell = dequeueReusableCell(for: indexPath) as PostAttachmentImagesTableViewCell
         
         if let imageURLs = presenter.attachmentImageURLs() {
-            var imageURLs = imageURLs
-            
-            if type == .detail, case .image(let url) = presenter.activity.object {
-                imageURLs.insert(url, at: 0)
-            }
-            
             cell.stackView.loadImages(with: imageURLs)
         }
         
