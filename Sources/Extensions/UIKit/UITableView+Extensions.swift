@@ -68,10 +68,10 @@ extension UITableView {
                                   repostsCount: presenter.activity.original.repostsCount) { [weak viewController] in
                                     if let button = $0 as? RepostButton,
                                         let viewController = viewController {
-                                        button.react(with: presenter.reactionPresenter,
-                                                     activity: presenter.activity.original,
-                                                     targetsFeedIds: [feedId],
-                                                     viewController.showErrorAlertIfNeeded)
+                                        button.repost(presenter.activity.original,
+                                                      presenter: presenter.reactionPresenter,
+                                                      targetsFeedIds: [feedId],
+                                                      viewController.showErrorAlertIfNeeded)
                                     }
                 }
             }
@@ -79,11 +79,11 @@ extension UITableView {
             // Like.
             cell.updateLike(isLiked: presenter.activity.original.isUserLiked,
                             likesCount: presenter.activity.original.likesCount) { [weak viewController] in
-                if let button = $0 as? LikeButton, let viewController = viewController {
-                    button.react(with: presenter.reactionPresenter,
-                                 activity: presenter.activity.original,
-                                 viewController.showErrorAlertIfNeeded)
-                }
+                                if let button = $0 as? LikeButton, let viewController = viewController {
+                                    button.like(presenter.activity.original,
+                                                presenter: presenter.reactionPresenter,
+                                                viewController.showErrorAlertIfNeeded)
+                                }
             }
             
             return cell

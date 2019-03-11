@@ -14,8 +14,8 @@ DESC
   spec.swift_version = "4.2"
   spec.platform = :ios, "11.0"
   spec.source = { :git => "https://github.com/GetStream/swift-activity-feed.git", :tag => "#{spec.version}" }
-  spec.source_files  = "Sources/**/*.{swift}"
-  spec.resources = "Sources/**/*.{xib}"
+  spec.source_files  = "Sources/**/*.swift"
+  spec.resources = ["Sources/**/*.xib", "Sources/Icons.xcassets"]
   spec.framework = "Foundation", "UIKit"
   spec.dependency "GetStream", "~> 1.1"
   spec.dependency "Nuke", "~> 7.5"

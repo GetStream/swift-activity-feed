@@ -10,18 +10,18 @@ import Foundation
 import GetStream
 import Result
 
-final class FlatFeedPresenter<T: ActivityProtocol>: PaginatorProtocol {
+public final class FlatFeedPresenter<T: ActivityProtocol>: PaginatorProtocol {
     public typealias Completion = (_ error: Error?) -> Void
     
-    let flatFeed: FlatFeed
-    let reactionPresenter: ReactionPresenter
-    var includeReactions: FeedReactionsOptions = [.counts, .own, .latest]
+    public let flatFeed: FlatFeed
+    public let reactionPresenter: ReactionPresenter
+    public var includeReactions: FeedReactionsOptions = [.counts, .own, .latest]
     
     public private(set) var items: [ActivityPresenter<T>] = []
     public var next: Pagination = .none
     public let subscriptionPresenter: SubscriptionPresenter<T>
     
-    init(flatFeed: FlatFeed) {
+    public init(flatFeed: FlatFeed) {
         self.flatFeed = flatFeed
         flatFeed.callbackQueue = DispatchQueue.init(label: "io.getstream.FlatFeedPresenter", qos: .userInitiated)
         reactionPresenter = ReactionPresenter()
@@ -60,7 +60,7 @@ final class FlatFeedPresenter<T: ActivityProtocol>: PaginatorProtocol {
 // MARK: - Activities
 
 extension FlatFeedPresenter {
-    func remove(activity: Activity, _ completion: @escaping Completion) {
+    public func remove(activity: Activity, _ completion: @escaping Completion) {
         flatFeed.remove(activityId: activity.id) { result in
             completion(result.error)
         }
@@ -71,11 +71,11 @@ extension FlatFeedPresenter {
 
 extension FlatFeedPresenter {
     
-    func follow(toTarget target: FeedId, activityCopyLimit: Int = 10, _ completion: @escaping Completion) {
+    public func follow(toTarget target: FeedId, activityCopyLimit: Int = 10, _ completion: @escaping Completion) {
         flatFeed.follow(toTarget: target, activityCopyLimit: activityCopyLimit) { completion($0.error) }
     }
     
-    func unfollow(fromTarget target: FeedId, keepHistory: Bool = false, _ completion: @escaping Completion) {
+    public func unfollow(fromTarget target: FeedId, keepHistory: Bool = false, _ completion: @escaping Completion) {
         flatFeed.unfollow(fromTarget: target, keepHistory: keepHistory) { completion($0.error) }
     }
 }

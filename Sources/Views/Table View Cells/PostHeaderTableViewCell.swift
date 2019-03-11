@@ -74,7 +74,7 @@ open class PostHeaderTableViewCell: BaseTableViewCell {
 
 extension PostHeaderTableViewCell {
     
-    func update(with activity: Activity) {
+    public func update(with activity: Activity) {
         let originalActivity = activity.original
         nameLabel.text = originalActivity.actor.name
         messageLabel.text = originalActivity.text
@@ -97,7 +97,7 @@ extension PostHeaderTableViewCell {
         }
     }
     
-    func updateAvatar(with activity: Activity, action: UIControl.Action? = nil) {
+    public func updateAvatar(with activity: Activity, action: UIControl.Action? = nil) {
         if let action = action {
             avatarButton.addTap(action)
         } else {

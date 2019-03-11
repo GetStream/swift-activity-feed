@@ -340,12 +340,10 @@ extension PostDetailTableViewController {
         
         cell.likeButton.addTap { [weak self] in
             if let activityPresenter = self?.activityPresenter, let button = $0 as? LikeButton {
-                button.react(with: activityPresenter.reactionPresenter,
-                             activity: activityPresenter.activity,
-                             reaction: comment.userOwnChildReaction(.like),
-                             parentReaction: comment) { _ in
-                                
-                }
+                button.like(activityPresenter.activity,
+                            presenter: activityPresenter.reactionPresenter,
+                            likedReaction: comment.userOwnChildReaction(.like),
+                            parentReaction: comment) { _ in }
             }
         }
     }

@@ -63,7 +63,10 @@ extension PostActionsTableViewCell {
             repostButton.addTap(action)
         }
         
-        repostButton.setTitle(String(repostsCount), for: .normal)
+        if repostsCount > 0 {
+            repostButton.setTitle(String(repostsCount), for: .normal)
+        }
+        
         repostButton.isSelected = isReposted
         repostButton.isHidden = false
     }
@@ -73,7 +76,10 @@ extension PostActionsTableViewCell {
             likeButton.addTap(action)
         }
         
-        likeButton.setTitle(String(likesCount), for: .normal)
+        if likesCount > 0 {
+            likeButton.setTitle(String(likesCount), for: .normal)
+        }
+        
         likeButton.isSelected = isLiked
         likeButton.isHidden = false
     }
