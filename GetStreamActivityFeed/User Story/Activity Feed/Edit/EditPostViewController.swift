@@ -86,11 +86,9 @@ class EditPostViewController: UIViewController {
     }
     
     private func loadAvatar() {
-        if let user = Client.shared.currentUser as? User {
-            user.loadAvatar { [weak self] image in
-                if let image = image, let avatarView = self?.avatarView {
-                    avatarView.image = image.square(with: avatarView.bounds.width)
-                }
+        User.current?.loadAvatar { [weak self] image in
+            if let image = image, let avatarView = self?.avatarView {
+                avatarView.image = image.square(with: avatarView.bounds.width)
             }
         }
     }

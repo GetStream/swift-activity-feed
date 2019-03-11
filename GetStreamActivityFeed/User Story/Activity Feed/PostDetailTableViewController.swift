@@ -34,10 +34,7 @@ open class PostDetailTableViewController: UIViewController {
         super.viewDidLoad()
         hideBackButtonTitle()
         setupTableView()
-        
-        if let user = Client.shared.currentUser as? User {
-            user.loadAvatar { [weak self] in self?.setupCommentTextField(avatarImage: $0) }
-        }
+        User.current?.loadAvatar { [weak self] in self?.setupCommentTextField(avatarImage: $0) }
         
         if let activityPresenter = activityPresenter {
             reactionPaginator = activityPresenter.reactionPaginator(activityId: activityPresenter.activity.original.id,
@@ -261,8 +258,7 @@ extension PostDetailTableViewController: UITableViewDataSource, UITableViewDeleg
 extension PostDetailTableViewController {
     
     open func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        guard let comment = comment(at: indexPath),
-            let currentUser = Client.shared.currentUser as? User else {
+        guard let comment = comment(at: indexPath), let currentUser = User.current else {
             return false
         }
         

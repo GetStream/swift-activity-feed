@@ -38,7 +38,7 @@ final class RootBuilder {
         
         tabBar.viewControllers = [flatFeed,
                                   notifications,
-                                  profileBuilder.profileNavigationController(user: Client.shared.currentUser as? User)]
+                                  profileBuilder.profileNavigationController(user: User.current)]
         return tabBar
     }
 }

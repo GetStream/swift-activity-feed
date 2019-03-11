@@ -42,7 +42,7 @@ public final class EditPostPresenter {
     }
     
     public func save(_ text: String?, completion: @escaping (_ error: Error?) -> Void) {
-        guard Client.shared.currentUser != nil else {
+        guard User.current != nil else {
             completion(nil)
             return
         }
@@ -67,8 +67,7 @@ public final class EditPostPresenter {
     }
     
     private func saveActivity(text: String?, imageURLs: [URL] = [], completion: @escaping (_ error: Error?) -> Void) {
-        guard let user = Client.shared.currentUser as? User,
-            (text != nil || imageURLs.count > 0) else {
+        guard let user = User.current, (text != nil || imageURLs.count > 0) else {
             completion(nil)
             return
         }

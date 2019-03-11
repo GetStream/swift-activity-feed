@@ -203,15 +203,13 @@ extension ProfileViewController {
         // Update the current state.
         button.isEnabled = false
         
-        if let user = Client.shared.currentUser as? User {
-            user.isFollow(toTarget: flatFeedPresenter.flatFeed.feedId) { [weak self] in
-                button.isEnabled = true
-                
-                if let error = $2 {
-                    self?.showErrorAlert(error)
-                } else {
-                    button.isSelected = $0
-                }
+        User.current?.isFollow(toTarget: flatFeedPresenter.flatFeed.feedId) { [weak self] in
+            button.isEnabled = true
+            
+            if let error = $2 {
+                self?.showErrorAlert(error)
+            } else {
+                button.isSelected = $0
             }
         }
     }

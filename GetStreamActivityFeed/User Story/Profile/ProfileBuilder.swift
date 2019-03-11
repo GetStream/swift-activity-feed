@@ -32,7 +32,7 @@ final class ProfileBuilder {
                                                                                 bundle: Bundle.main)
         
         if let viewController = navigationController.viewControllers.first as? EditProfileViewController {
-            viewController.user = Client.shared.currentUser as? User
+            viewController.user = User.current
             setup(viewController)
         }
         
