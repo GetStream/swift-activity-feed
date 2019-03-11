@@ -10,7 +10,7 @@ import GetStream
 
 public typealias Reaction = GetStream.Reaction<ReactionExtraData, User>
 
-public final class Activity: EnrichedActivity<User, ActivityObject, String, Reaction>, AttachmentPresentable {
+public final class Activity: EnrichedActivity<User, ActivityObject, Reaction>, AttachmentPresentable {
     
     private enum CodingKeys: String, CodingKey {
         case text
@@ -29,8 +29,8 @@ public final class Activity: EnrichedActivity<User, ActivityObject, String, Reac
         }
     }
     
-    public init(actor: User, verb: Verb, object: ActivityObject, target: TargetType? = nil, feedIds: FeedIds? = nil) {
-        super.init(actor: actor, verb: verb, object: object, target: target, feedIds: feedIds)
+    public init(actor: User, verb: Verb, object: ActivityObject, feedIds: FeedIds? = nil) {
+        super.init(actor: actor, verb: verb, object: object, feedIds: feedIds)
     }
     
     required public init(from decoder: Decoder) throws {
