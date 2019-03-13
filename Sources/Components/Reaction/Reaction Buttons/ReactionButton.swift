@@ -20,47 +20,52 @@ open class ReactionButton: UIButton {
                                                           reaction: T.ReactionType?,
                                                           parentReaction: T.ReactionType?,
                                                           kindOf kind: ReactionKind,
+                                                          userTypeOf userType: U.Type,
                                                           targetsFeedIds: [FeedId] = [],
                                                           _ completion: @escaping Completion<T>)
         where T.ReactionType == GetStream.Reaction<ReactionExtraData, U> {
-            if isSelected {
             isEnabled = false
             
-            if let reaction = reaction {
-                if let parentReaction = parentReaction {
-                    presenter.remove(reaction: reaction, parentReaction: parentReaction) { [weak self] in
-                        guard let self = self else {
-                            return
-                        }
-                        
-                        self.isEnabled = true
-                        
-                        if let error = $0.error {
-                            completion(.failure(error))
-                        } else {
-                            self.isSelected = false
-                            completion(.success((activity, self)))
-                        }
-                    }
-                } else {
-                    presenter.remove(reaction: reaction, activity: activity.original) { [weak self] in
-                        self?.parse($0, isSelected: false, completion)
-                    }
+            guard isSelected else {
+                presenter.addReaction(for: activity,
+                                      kindOf: kind,
+                                      parentReaction: parentReaction,
+                                      targetsFeedIds: targetsFeedIds,
+                                      extraData: ReactionExtraData.empty,
+                                      userTypeOf: userType) { [weak self] in
+                                        self?.parse($0, isSelected: true, completion)
                 }
-            } else {
+                
+                return
+            }
+            
+            guard let reaction = reaction else {
                 isSelected = false
+                return
             }
-        } else {
-            isEnabled = false
-            presenter.addReaction(for: activity.original,
-                                  kindOf: kind,
-                                  parentReaction: parentReaction,
-                                  targetsFeedIds: targetsFeedIds,
-                                  extraData: ReactionExtraData.empty,
-                                  userTypeOf: U.self) { [weak self] in
-                                    self?.parse($0, isSelected: true, completion)
+            
+            guard let parentReaction = parentReaction else {
+                presenter.remove(reaction: reaction, activity: activity) { [weak self] in
+                    self?.parse($0, isSelected: false, completion)
+                }
+                
+                return
             }
-        }
+            
+            presenter.remove(reaction: reaction, parentReaction: parentReaction) { [weak self] in
+                guard let self = self else {
+                    return
+                }
+                
+                self.isEnabled = true
+                
+                if let error = $0.error {
+                    completion(.failure(error))
+                } else {
+                    self.isSelected = false
+                    completion(.success((activity, self)))
+                }
+            }
     }
     
     private func parse<T: ActivityProtocol>(_ result: Result<T, ClientError>,

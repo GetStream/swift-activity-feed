@@ -11,7 +11,7 @@ import Reusable
 import GetStream
 
 open class PostActionsTableViewCell: UITableViewCell, NibReusable {
-
+    
     @IBOutlet public weak var replyButton: UIButton!
     @IBOutlet public weak var repostButton: RepostButton!
     @IBOutlet public weak var likeButton: LikeButton!
@@ -54,7 +54,10 @@ extension PostActionsTableViewCell {
             replyButton.addTap(action)
         }
         
-        replyButton.setTitle(String(commentsCount), for: .normal)
+        if commentsCount > 0 {
+            replyButton.setTitle(String(commentsCount), for: .normal)
+        }
+        
         replyButton.isHidden = false
     }
     
@@ -82,5 +85,42 @@ extension PostActionsTableViewCell {
         
         likeButton.isSelected = isLiked
         likeButton.isHidden = false
+    }
+}
+
+// MARK: - Update For ActivityPresenter
+
+extension PostActionsTableViewCell {
+    
+    public func updateRepost<T: ActivityProtocol, U: UserProtocol>(presenter: ActivityPresenter<T>,
+                                                                   targetFeedId feedId: FeedId,
+                                                                   userTypeOf userType: U.Type,
+                                                                   _ completion: @escaping ReactionButton.ErrorCompletion)
+        where T.ReactionType == GetStream.Reaction<ReactionExtraData, U> {
+            updateRepost(isReposted: presenter.originalActivity.isUserReposted,
+                         repostsCount: presenter.originalActivity.repostsCount) {
+                            if let button = $0 as? RepostButton {
+                                button.repost(presenter.originalActivity,
+                                              presenter: presenter.reactionPresenter,
+                                              userTypeOf: userType,
+                                              targetsFeedIds: [feedId],
+                                              completion)
+                            }
+            }
+    }
+    
+    public func updateLike<T: ActivityProtocol, U: UserProtocol>(presenter: ActivityPresenter<T>,
+                                                                 userTypeOf userType: U.Type,
+                                                                 _ completion: @escaping ReactionButton.ErrorCompletion)
+        where T.ReactionType == GetStream.Reaction<ReactionExtraData, U> {
+            updateLike(isLiked: presenter.originalActivity.isUserLiked,
+                       likesCount: presenter.originalActivity.likesCount) {
+                        if let button = $0 as? LikeButton {
+                            button.like(presenter.originalActivity,
+                                        presenter: presenter.reactionPresenter,
+                                        userTypeOf: userType,
+                                        completion)
+                        }
+            }
     }
 }

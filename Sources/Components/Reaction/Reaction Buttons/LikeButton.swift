@@ -24,13 +24,15 @@ open class LikeButton: ReactionButton {
                                                          presenter: ReactionPresenterProtocol,
                                                          likedReaction: T.ReactionType? = nil,
                                                          parentReaction: T.ReactionType? = nil,
+                                                         userTypeOf userType: U.Type,
                                                          _ completion: @escaping ErrorCompletion)
         where T.ReactionType == GetStream.Reaction<ReactionExtraData, U> {
             react(with: presenter,
                   activity: activity.original,
                   reaction: likedReaction ?? activity.original.userLikedReaction,
                   parentReaction: parentReaction,
-                  kindOf: .like) {
+                  kindOf: .like,
+                  userTypeOf: T.ReactionType.UserType.self) {
                     if let result = try? $0.get() {
                         let title: String
                         

@@ -1,5 +1,5 @@
 //
-//  AttachmentPresentable.swift
+//  UserNamePresentable.swift
 //  GetStreamActivityFeed
 //
 //  Created by Alexey Bukhtin on 05/03/2019.
@@ -8,6 +8,6 @@
 
 import GetStream
 
-public protocol AttachmentPresentable: ActivityProtocol {
-    var attachment: ActivityAttachment? { get }
+public protocol UserNameRepresentable {
+    var name: String { get }
 }

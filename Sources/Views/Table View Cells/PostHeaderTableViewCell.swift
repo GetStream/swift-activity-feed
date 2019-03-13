@@ -74,20 +74,25 @@ open class PostHeaderTableViewCell: BaseTableViewCell {
 
 extension PostHeaderTableViewCell {
     
-    public func update(with activity: Activity) {
-        let originalActivity = activity.original
+    public func update<T: ActivityProtocol>(with activity: T, originalActivity: T? = nil) where T.ActorType: UserNameRepresentable {
+        let originalActivity = originalActivity ?? activity
         nameLabel.text = originalActivity.actor.name
-        messageLabel.text = originalActivity.text
         
-        switch originalActivity.object {
-        case .text(let text):
-            messageLabel.text = text
-        case .image(let url):
-            updatePhoto(with: url)
-        case .following(let user):
-            messageLabel.text = "Follow to \(user.name)"
-        default:
-            return
+        if let textRepresentable = originalActivity as? TextRepresentable {
+            messageLabel.text = textRepresentable.text
+        }
+        
+        if let object = originalActivity.object as? ActivityObject {
+            switch object {
+            case .text(let text):
+                messageLabel.text = text
+            case .image(let url):
+                updatePhoto(with: url)
+            case .following(let user):
+                messageLabel.text = "Follow to \(user.name)"
+            default:
+                return
+            }
         }
         
         dateLabel.text = activity.time?.relative
@@ -97,14 +102,14 @@ extension PostHeaderTableViewCell {
         }
     }
     
-    public func updateAvatar(with activity: Activity, action: UIControl.Action? = nil) {
+    public func updateAvatar<T: AvatarRepresentable>(with avatar: T, action: UIControl.Action? = nil) {
         if let action = action {
             avatarButton.addTap(action)
         } else {
             avatarButton.isUserInteractionEnabled = false
         }
         
-        if let avatarURL = activity.actor.avatarURL {
+        if let avatarURL = avatar.avatarURL {
             ImagePipeline.shared.loadImage(with: avatarURL.imageRequest(in: avatarButton)) { [weak self] response, error in
                 self?.updateAvatar(with: response?.image)
             }

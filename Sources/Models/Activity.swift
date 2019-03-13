@@ -10,7 +10,7 @@ import GetStream
 
 public typealias Reaction = GetStream.Reaction<ReactionExtraData, User>
 
-public final class Activity: EnrichedActivity<User, ActivityObject, Reaction>, AttachmentPresentable {
+public final class Activity: EnrichedActivity<User, ActivityObject, Reaction>, TextRepresentable, AttachmentRepresentable {
     
     private enum CodingKeys: String, CodingKey {
         case text

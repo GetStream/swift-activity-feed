@@ -15,7 +15,6 @@
 		8A0759292211BF90009C11FB /* PaginatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0759282211BF90009C11FB /* PaginatorProtocol.swift */; };
 		8A0DE43B220460840042A0FF /* PostDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0DE43A220460840042A0FF /* PostDetailTableViewController.swift */; };
 		8A0DE43F220463DC0042A0FF /* ActivityPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0DE43E220463DC0042A0FF /* ActivityPresenter.swift */; };
-		8A0DE441220465520042A0FF /* ActivityPresenter+Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0DE440220465520042A0FF /* ActivityPresenter+Activity.swift */; };
 		8A0DE444220476300042A0FF /* UITableView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0DE443220476300042A0FF /* UITableView+Extensions.swift */; };
 		8A0DE446220478910042A0FF /* ActivityRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0DE445220478910042A0FF /* ActivityRouter.swift */; };
 		8A0DE44822047DA60042A0FF /* UITableViewCell+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0DE44722047DA60042A0FF /* UITableViewCell+Extensions.swift */; };
@@ -61,7 +60,7 @@
 		8A420A32220B2E8300AF573F /* CommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A420A30220B2E8300AF573F /* CommentTableViewCell.xib */; };
 		8A420A34220C904500AF573F /* TextToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A420A33220C904500AF573F /* TextToolBar.swift */; };
 		8A45F547222E904D00D54EE2 /* ActivityAttachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A45F546222E904D00D54EE2 /* ActivityAttachment.swift */; };
-		8A45F549222E909000D54EE2 /* AttachmentPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A45F548222E909000D54EE2 /* AttachmentPresentable.swift */; };
+		8A45F549222E909000D54EE2 /* AttachmentRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A45F548222E909000D54EE2 /* AttachmentRepresentable.swift */; };
 		8A45F54D22314C2E00D54EE2 /* Icons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8A45F54C22314C2E00D54EE2 /* Icons.xcassets */; };
 		8A571A1D21FB0D53004949B2 /* ReactionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A571A1C21FB0D53004949B2 /* ReactionPresenter.swift */; };
 		8A571A2121FB26CC004949B2 /* UIButton+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A571A2021FB26CC004949B2 /* UIButton+Extensions.swift */; };
@@ -71,7 +70,7 @@
 		8A6801DC22033B3600B77352 /* PostActionsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6801DA22033B3600B77352 /* PostActionsTableViewCell.swift */; };
 		8A6801DD22033B3600B77352 /* PostActionsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A6801DB22033B3600B77352 /* PostActionsTableViewCell.xib */; };
 		8A68395521FB7A170003C19B /* DataDetectorWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A68395421FB7A170003C19B /* DataDetectorWorker.swift */; };
-		8A7256E3222E89D800B06FA6 /* UserNamePresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7256E2222E89D800B06FA6 /* UserNamePresentable.swift */; };
+		8A7256E3222E89D800B06FA6 /* UserNameRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7256E2222E89D800B06FA6 /* UserNameRepresentable.swift */; };
 		8A7559A821FF06AA002187EA /* NSAttributedString+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7559A721FF06AA002187EA /* NSAttributedString+Extensions.swift */; };
 		8A7559AB21FF15B6002187EA /* OpenGraphWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7559AA21FF15B6002187EA /* OpenGraphWorker.swift */; };
 		8A7559AD21FF18D3002187EA /* EditPostPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7559AC21FF18D3002187EA /* EditPostPresenter.swift */; };
@@ -81,6 +80,8 @@
 		8A7559B821FF5C1D002187EA /* SeparatorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7559B621FF5C1D002187EA /* SeparatorTableViewCell.swift */; };
 		8A7559B921FF5C1D002187EA /* SeparatorTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A7559B721FF5C1D002187EA /* SeparatorTableViewCell.xib */; };
 		8A7559BC22005AE8002187EA /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7559BB22005AE8002187EA /* WebViewController.swift */; };
+		8A9A71542236D91C004E6607 /* ActivityFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9A71532236D91C004E6607 /* ActivityFeedViewController.swift */; };
+		8A9A71582237E2A6004E6607 /* TextRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9A71572237E2A6004E6607 /* TextRepresentable.swift */; };
 		8A9DFC4322034DDC002F8700 /* PostAttachmentImagesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9DFC4122034DDC002F8700 /* PostAttachmentImagesTableViewCell.swift */; };
 		8A9DFC4422034DDC002F8700 /* PostAttachmentImagesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A9DFC4222034DDC002F8700 /* PostAttachmentImagesTableViewCell.xib */; };
 		8A9E4BA12215BBE200BF8A10 /* Notifications.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A9E4BA02215BBE200BF8A10 /* Notifications.storyboard */; };
@@ -97,7 +98,7 @@
 		8AC40FB021EE2C8D0073B749 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC40FAF21EE2C8D0073B749 /* ProfileViewController.swift */; };
 		8AC40FB221EE2CB10073B749 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8AC40FB121EE2CB10073B749 /* Profile.storyboard */; };
 		8AC40FB421EE3A120073B749 /* BundledStoryboardLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC40FB321EE3A120073B749 /* BundledStoryboardLoadable.swift */; };
-		8AC40FB821EE57570073B749 /* AvatarPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC40FB721EE57570073B749 /* AvatarPresentable.swift */; };
+		8AC40FB821EE57570073B749 /* AvatarRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC40FB721EE57570073B749 /* AvatarRepresentable.swift */; };
 		8AC40FBA21EE57D80073B749 /* AvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC40FB921EE57D80073B749 /* AvatarView.swift */; };
 		8AC40FBC21EF356F0073B749 /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC40FBB21EF356F0073B749 /* UIImage+Extensions.swift */; };
 		8AD370A522145DF500182834 /* ImageGalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD370A422145DF500182834 /* ImageGalleryViewController.swift */; };
@@ -112,7 +113,6 @@
 		8A0759282211BF90009C11FB /* PaginatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginatorProtocol.swift; sourceTree = "<group>"; };
 		8A0DE43A220460840042A0FF /* PostDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailTableViewController.swift; sourceTree = "<group>"; };
 		8A0DE43E220463DC0042A0FF /* ActivityPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityPresenter.swift; sourceTree = "<group>"; };
-		8A0DE440220465520042A0FF /* ActivityPresenter+Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ActivityPresenter+Activity.swift"; sourceTree = "<group>"; };
 		8A0DE443220476300042A0FF /* UITableView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extensions.swift"; sourceTree = "<group>"; };
 		8A0DE445220478910042A0FF /* ActivityRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityRouter.swift; sourceTree = "<group>"; };
 		8A0DE44722047DA60042A0FF /* UITableViewCell+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Extensions.swift"; sourceTree = "<group>"; };
@@ -163,7 +163,7 @@
 		8A420A30220B2E8300AF573F /* CommentTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommentTableViewCell.xib; sourceTree = "<group>"; };
 		8A420A33220C904500AF573F /* TextToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextToolBar.swift; sourceTree = "<group>"; };
 		8A45F546222E904D00D54EE2 /* ActivityAttachment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityAttachment.swift; sourceTree = "<group>"; };
-		8A45F548222E909000D54EE2 /* AttachmentPresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentPresentable.swift; sourceTree = "<group>"; };
+		8A45F548222E909000D54EE2 /* AttachmentRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentRepresentable.swift; sourceTree = "<group>"; };
 		8A45F54C22314C2E00D54EE2 /* Icons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Icons.xcassets; sourceTree = "<group>"; };
 		8A571A1C21FB0D53004949B2 /* ReactionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionPresenter.swift; sourceTree = "<group>"; };
 		8A571A2021FB26CC004949B2 /* UIButton+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extensions.swift"; sourceTree = "<group>"; };
@@ -173,7 +173,7 @@
 		8A6801DA22033B3600B77352 /* PostActionsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostActionsTableViewCell.swift; sourceTree = "<group>"; };
 		8A6801DB22033B3600B77352 /* PostActionsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostActionsTableViewCell.xib; sourceTree = "<group>"; };
 		8A68395421FB7A170003C19B /* DataDetectorWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataDetectorWorker.swift; sourceTree = "<group>"; };
-		8A7256E2222E89D800B06FA6 /* UserNamePresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNamePresentable.swift; sourceTree = "<group>"; };
+		8A7256E2222E89D800B06FA6 /* UserNameRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNameRepresentable.swift; sourceTree = "<group>"; };
 		8A7559A721FF06AA002187EA /* NSAttributedString+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+Extensions.swift"; sourceTree = "<group>"; };
 		8A7559AA21FF15B6002187EA /* OpenGraphWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenGraphWorker.swift; sourceTree = "<group>"; };
 		8A7559AC21FF18D3002187EA /* EditPostPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPostPresenter.swift; sourceTree = "<group>"; };
@@ -183,6 +183,8 @@
 		8A7559B621FF5C1D002187EA /* SeparatorTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeparatorTableViewCell.swift; sourceTree = "<group>"; };
 		8A7559B721FF5C1D002187EA /* SeparatorTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SeparatorTableViewCell.xib; sourceTree = "<group>"; };
 		8A7559BB22005AE8002187EA /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		8A9A71532236D91C004E6607 /* ActivityFeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityFeedViewController.swift; sourceTree = "<group>"; };
+		8A9A71572237E2A6004E6607 /* TextRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRepresentable.swift; sourceTree = "<group>"; };
 		8A9DFC4122034DDC002F8700 /* PostAttachmentImagesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostAttachmentImagesTableViewCell.swift; sourceTree = "<group>"; };
 		8A9DFC4222034DDC002F8700 /* PostAttachmentImagesTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostAttachmentImagesTableViewCell.xib; sourceTree = "<group>"; };
 		8A9E4BA02215BBE200BF8A10 /* Notifications.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Notifications.storyboard; sourceTree = "<group>"; };
@@ -199,7 +201,7 @@
 		8AC40FAF21EE2C8D0073B749 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		8AC40FB121EE2CB10073B749 /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		8AC40FB321EE3A120073B749 /* BundledStoryboardLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundledStoryboardLoadable.swift; sourceTree = "<group>"; };
-		8AC40FB721EE57570073B749 /* AvatarPresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarPresentable.swift; sourceTree = "<group>"; };
+		8AC40FB721EE57570073B749 /* AvatarRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarRepresentable.swift; sourceTree = "<group>"; };
 		8AC40FB921EE57D80073B749 /* AvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarView.swift; sourceTree = "<group>"; };
 		8AC40FBB21EF356F0073B749 /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
 		8AD370A422145DF500182834 /* ImageGalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageGalleryViewController.swift; sourceTree = "<group>"; };
@@ -327,6 +329,7 @@
 		8A13FD0321ECD83A00D216C6 /* Flat Feed */ = {
 			isa = PBXGroup;
 			children = (
+				8A3E63C821F0B45300E17543 /* FlatFeedViewController.swift */,
 				8A3E63CC21F0CFE200E17543 /* FlatFeedPresenter.swift */,
 			);
 			path = "Flat Feed";
@@ -368,10 +371,11 @@
 		8A2D842122295D6800795FAE /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				8A7256E2222E89D800B06FA6 /* UserNamePresentable.swift */,
-				8AC40FB721EE57570073B749 /* AvatarPresentable.swift */,
 				8A0759282211BF90009C11FB /* PaginatorProtocol.swift */,
-				8A45F548222E909000D54EE2 /* AttachmentPresentable.swift */,
+				8AC40FB721EE57570073B749 /* AvatarRepresentable.swift */,
+				8A45F548222E909000D54EE2 /* AttachmentRepresentable.swift */,
+				8A7256E2222E89D800B06FA6 /* UserNameRepresentable.swift */,
+				8A9A71572237E2A6004E6607 /* TextRepresentable.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -420,9 +424,9 @@
 				8A3E63CA21F0B63600E17543 /* ActivityFeed.storyboard */,
 				8A3573D221F74636009EB9D7 /* ActivityFeedBuilder.swift */,
 				8A0DE445220478910042A0FF /* ActivityRouter.swift */,
-				8A3E63C821F0B45300E17543 /* FlatFeedViewController.swift */,
-				8A0DE43C220461B20042A0FF /* Edit */,
+				8A9A71532236D91C004E6607 /* ActivityFeedViewController.swift */,
 				8A0DE43A220460840042A0FF /* PostDetailTableViewController.swift */,
+				8A0DE43C220461B20042A0FF /* Edit */,
 			);
 			path = "Activity Feed";
 			sourceTree = "<group>";
@@ -519,7 +523,6 @@
 			isa = PBXGroup;
 			children = (
 				8A0DE43E220463DC0042A0FF /* ActivityPresenter.swift */,
-				8A0DE440220465520042A0FF /* ActivityPresenter+Activity.swift */,
 			);
 			path = Activity;
 			sourceTree = "<group>";
@@ -749,7 +752,7 @@
 				8A3573D521F76A25009EB9D7 /* URL+ImageRequest.swift in Sources */,
 				8A571A2321FB3BE1004949B2 /* EditPostViewController.swift in Sources */,
 				8A0DE44B2204990A0042A0FF /* ActionUsersTableViewCell.swift in Sources */,
-				8A45F549222E909000D54EE2 /* AttachmentPresentable.swift in Sources */,
+				8A45F549222E909000D54EE2 /* AttachmentRepresentable.swift in Sources */,
 				8A2DE1CD21F9F56E009E2469 /* LikeButton.swift in Sources */,
 				8A3E63B821EF65D400E17543 /* UIControl+Extensions.swift in Sources */,
 				8A0DE446220478910042A0FF /* ActivityRouter.swift in Sources */,
@@ -774,13 +777,13 @@
 				8A3573D321F74636009EB9D7 /* ActivityFeedBuilder.swift in Sources */,
 				8A7559B021FF2F70002187EA /* OpenGraphTableViewCell.swift in Sources */,
 				8AAEE3F6221AF3DA00327FCB /* BellButton.swift in Sources */,
+				8A9A71542236D91C004E6607 /* ActivityFeedViewController.swift in Sources */,
 				8A3E63BC21EF877600E17543 /* UIImage+Icons.swift in Sources */,
 				8A0759262211B061009C11FB /* PaginationTableViewCell.swift in Sources */,
 				8A420A31220B2E8300AF573F /* CommentTableViewCell.swift in Sources */,
-				8AC40FB821EE57570073B749 /* AvatarPresentable.swift in Sources */,
+				8AC40FB821EE57570073B749 /* AvatarRepresentable.swift in Sources */,
 				8A6801D42200B3E600B77352 /* AddingImageCollectionViewCell.swift in Sources */,
 				8A68395521FB7A170003C19B /* DataDetectorWorker.swift in Sources */,
-				8A0DE441220465520042A0FF /* ActivityPresenter+Activity.swift in Sources */,
 				8A571A1D21FB0D53004949B2 /* ReactionPresenter.swift in Sources */,
 				8A3E63BF21EF92A000E17543 /* UIViewController+ImagePicker.swift in Sources */,
 				8A0525B321FBA7A90029E385 /* Range+Extensions.swift in Sources */,
@@ -788,7 +791,8 @@
 				8A3E63B121EF455100E17543 /* UINavigationController+Extensions.swift in Sources */,
 				8A45F547222E904D00D54EE2 /* ActivityAttachment.swift in Sources */,
 				8AABA962221B466300E24505 /* UITabBarController+Extensions.swift in Sources */,
-				8A7256E3222E89D800B06FA6 /* UserNamePresentable.swift in Sources */,
+				8A7256E3222E89D800B06FA6 /* UserNameRepresentable.swift in Sources */,
+				8A9A71582237E2A6004E6607 /* TextRepresentable.swift in Sources */,
 				8A3E63C521F08DC300E17543 /* UIColor+Extensions.swift in Sources */,
 				8A2DE1D121F9F7B5009E2469 /* RepostButton.swift in Sources */,
 				8AD370A522145DF500182834 /* ImageGalleryViewController.swift in Sources */,

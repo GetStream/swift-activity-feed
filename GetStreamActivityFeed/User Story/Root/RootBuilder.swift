@@ -31,7 +31,7 @@ final class RootBuilder {
         let flatFeed = activityFeedBuilder.flatFeedNavigationController(feedSlug: "timeline")
         let notifications = notificationsBuilder.notificationsNavigationController(feedSlug: "notification")
         
-        if  let flatFeedViewController = flatFeed.findFirst(viewControllerType: FlatFeedViewController.self),
+        if  let flatFeedViewController = flatFeed.findFirst(viewControllerType: ActivityFeedViewController.self),
             let notificationsViewController = notifications.findFirst(viewControllerType: NotificationsViewController.self) {
             flatFeedViewController.notificationsPresenter = notificationsViewController.presenter
         }

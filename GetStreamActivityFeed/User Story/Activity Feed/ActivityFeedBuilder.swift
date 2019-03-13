@@ -14,10 +14,10 @@ final class ActivityFeedBuilder {
     weak var profileBuilder: ProfileBuilder?
     
     func flatFeedNavigationController(feedSlug: String) -> UINavigationController {
-        let navigationController = UINavigationController.fromBundledStoryboard(name: FlatFeedViewController.storyboardName,
+        let navigationController = UINavigationController.fromBundledStoryboard(name: ActivityFeedViewController.storyboardName,
                                                                                 bundle: Bundle.main)
         
-        if let flatFeedViewController = navigationController.viewControllers.first as? FlatFeedViewController,
+        if let flatFeedViewController = navigationController.viewControllers.first as? ActivityFeedViewController,
             let flatFeed = Client.shared.flatFeed(feedSlug: feedSlug) {
             flatFeedViewController.presenter = FlatFeedPresenter<Activity>(flatFeed: flatFeed)
             flatFeedViewController.profileBuilder = profileBuilder
@@ -26,9 +26,9 @@ final class ActivityFeedBuilder {
         return navigationController
     }
     
-    func flatFeedViewController(feedId: FeedId) -> FlatFeedViewController {
+    func activityFeedViewController(feedId: FeedId) -> ActivityFeedViewController {
         let flatFeed = Client.shared.flatFeed(feedId)
-        let flatFeedViewController = FlatFeedViewController.fromBundledStoryboard()
+        let flatFeedViewController = ActivityFeedViewController.fromBundledStoryboard()
         flatFeedViewController.presenter = FlatFeedPresenter<Activity>(flatFeed: flatFeed)
         flatFeedViewController.profileBuilder = profileBuilder
         

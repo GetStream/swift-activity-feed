@@ -37,7 +37,7 @@ open class PostDetailTableViewController: UIViewController {
         User.current?.loadAvatar { [weak self] in self?.setupCommentTextField(avatarImage: $0) }
         
         if let activityPresenter = activityPresenter {
-            reactionPaginator = activityPresenter.reactionPaginator(activityId: activityPresenter.activity.original.id,
+            reactionPaginator = activityPresenter.reactionPaginator(activityId: activityPresenter.originalActivity.id,
                                                                     reactionKind: .comment)
             
             reactionPaginator?.load(completion: commentsLoaded)
@@ -85,7 +85,7 @@ extension PostDetailTableViewController: UITableViewDataSource, UITableViewDeleg
             return 0
         }
         
-        let originalActivity = activityPresenter.activity.original
+        let originalActivity = activityPresenter.originalActivity
         
         switch section {
         case 0: return activityPresenter.cellsCount - 1
@@ -127,7 +127,7 @@ extension PostDetailTableViewController: UITableViewDataSource, UITableViewDeleg
     }
     
     private func sectionHeader(in section: Int) -> String? {
-        guard let originalActivity = activityPresenter?.activity.original else {
+        guard let originalActivity = activityPresenter?.originalActivity else {
             return nil
         }
         
@@ -150,10 +150,16 @@ extension PostDetailTableViewController: UITableViewDataSource, UITableViewDeleg
         
         switch indexPath.section {
         case 0:
-            if let cell = tableView.postCell(at: indexPath, in: self, presenter: activityPresenter, feedId: feedId) {
-                if let cell = cell as? PostHeaderTableViewCell {
-                    cell.updateAvatar(with: activityPresenter.activity.original) { [weak self] _ in
-                        self?.activityRouter?.show(user: activityPresenter.activity.actor)
+            if let cell = tableView.postCell(at: indexPath, presenter: activityPresenter) {
+                if let cell = cell as? PostActionsTableViewCell {
+                    cell.updateReply(commentsCount: activityPresenter.originalActivity.commentsCount)
+                    cell.updateLike(presenter: activityPresenter, userTypeOf: User.self, showErrorAlertIfNeeded)
+                    
+                    if let feedId = feedId {
+                        cell.updateRepost(presenter: activityPresenter,
+                                          targetFeedId: feedId,
+                                          userTypeOf: User.self,
+                                          showErrorAlertIfNeeded)
                     }
                 }
                 
@@ -161,23 +167,23 @@ extension PostDetailTableViewController: UITableViewDataSource, UITableViewDeleg
             }
         case 1:
             let cell = tableView.dequeueReusableCell(for: indexPath) as ActionUsersTableViewCell
-            cell.titleLabel.text = activityPresenter.reactionTitle(for: activityPresenter.activity.original,
+            cell.titleLabel.text = activityPresenter.reactionTitle(for: activityPresenter.originalActivity,
                                                                    kindOf: .like,
                                                                    suffix: "liked the post")
             
             cell.avatarsStackView.loadImages(with:
-                activityPresenter.reactionUserAvatarURLs(for: activityPresenter.activity.original, kindOf: .like))
+                activityPresenter.reactionUserAvatarURLs(for: activityPresenter.originalActivity, kindOf: .like))
             
             return cell
             
         case 2:
             let cell = tableView.dequeueReusableCell(for: indexPath) as ActionUsersTableViewCell
-            cell.titleLabel.text = activityPresenter.reactionTitle(for: activityPresenter.activity.original,
+            cell.titleLabel.text = activityPresenter.reactionTitle(for: activityPresenter.originalActivity,
                                                                    kindOf: .repost,
                                                                    suffix: "reposted the post")
             
             cell.avatarsStackView.loadImages(with:
-                activityPresenter.reactionUserAvatarURLs(for: activityPresenter.activity.original, kindOf: .repost))
+                activityPresenter.reactionUserAvatarURLs(for: activityPresenter.originalActivity, kindOf: .repost))
             
             return cell
             
@@ -226,7 +232,7 @@ extension PostDetailTableViewController: UITableViewDataSource, UITableViewDeleg
         if indexPath.row == 0, case .image(let url) = activityPresenter.activity.object {
             var urls = [url]
             
-            if let attachmentURLs = activityPresenter.attachmentImageURLs() {
+            if let attachmentURLs = activityPresenter.originalActivity.attachmentImageURLs() {
                 urls.append(contentsOf: attachmentURLs)
             }
             
@@ -238,15 +244,15 @@ extension PostDetailTableViewController: UITableViewDataSource, UITableViewDeleg
         let cellsCount = activityPresenter.cellsCount
         
         if indexPath.row == (cellsCount - 4) {
-            activityRouter?.show(attachmentImageURLs: activityPresenter.attachmentImageURLs())
+            activityRouter?.show(attachmentImageURLs: activityPresenter.originalActivity.attachmentImageURLs())
             return
         }
         
         if indexPath.row == (cellsCount - 3) {
-            if let ogData = activityPresenter.ogData {
+            if let ogData = activityPresenter.originalActivity.ogData {
                 activityRouter?.show(ogData: ogData)
             } else {
-                activityRouter?.show(attachmentImageURLs: activityPresenter.attachmentImageURLs())
+                activityRouter?.show(attachmentImageURLs: activityPresenter.originalActivity.attachmentImageURLs())
             }
             return
         }
@@ -339,7 +345,8 @@ extension PostDetailTableViewController {
                 button.like(activityPresenter.activity,
                             presenter: activityPresenter.reactionPresenter,
                             likedReaction: comment.userOwnChildReaction(.like),
-                            parentReaction: comment) { _ in }
+                            parentReaction: comment,
+                            userTypeOf: User.self) { _ in }
             }
         }
     }

@@ -27,84 +27,57 @@ extension UITableView {
 // MARK: - Cells
 
 extension UITableView {
-    public func postCell(at indexPath: IndexPath,
-                         in viewController: UIViewController,
-                         presenter: ActivityPresenter<Activity>,
-                         feedId: FeedId?) -> UITableViewCell? {
-        let cellsCount = presenter.cellsCount
-        
-        switch indexPath.row {
-        case 0:
-            // Header with Text and/or Image.
-            let cell = dequeueReusableCell(for: indexPath) as PostHeaderTableViewCell
-            cell.update(with: presenter.activity)
-            return cell
+    public func postCell<T: ActivityProtocol>(at indexPath: IndexPath,
+                                              presenter: ActivityPresenter<T>) -> UITableViewCell?
+        where T.ActorType: UserNameRepresentable, T.ReactionType: ReactionProtocol {
+            let cellsCount = presenter.cellsCount
+            let originalActivity = presenter.originalActivity
+            let attachmentActivity = originalActivity as? AttachmentRepresentable
             
-        case (cellsCount - 4):
-            // Images.
-            if presenter.attachmentImageURLs() != nil {
-                return postAttachmentImagesTableViewCell(presenter, at: indexPath)
-            }
-            
-        case (cellsCount - 3): // Open Graph Data or Images.
-            if let ogData = presenter.ogData {
-                let cell = dequeueReusableCell(for: indexPath) as OpenGraphTableViewCell
-                cell.update(with: ogData)
+            switch indexPath.row {
+            case 0:
+                // Header with Text and/or Image.
+                let cell = dequeueReusableCell(for: indexPath) as PostHeaderTableViewCell
+                cell.update(with: presenter.activity, originalActivity: originalActivity)
                 return cell
                 
-            } else if presenter.attachmentImageURLs() != nil {
+            case (cellsCount - 4):
                 // Images.
-                return postAttachmentImagesTableViewCell(presenter, at: indexPath)
-            }
-        case (cellsCount - 2): // Activities.
-            let cell = dequeueReusableCell(for: indexPath) as PostActionsTableViewCell
-            
-            // Reply.
-            cell.updateReply(commentsCount: presenter.activity.original.commentsCount)
-            
-            // Repost.
-            if let feedId = feedId {
-                cell.updateRepost(isReposted: presenter.activity.original.isUserReposted,
-                                  repostsCount: presenter.activity.original.repostsCount) { [weak viewController] in
-                                    if let button = $0 as? RepostButton,
-                                        let viewController = viewController {
-                                        button.repost(presenter.activity.original,
-                                                      presenter: presenter.reactionPresenter,
-                                                      targetsFeedIds: [feedId],
-                                                      viewController.showErrorAlertIfNeeded)
-                                    }
+                if let cell = postAttachmentImagesTableViewCell(attachmentActivity, at: indexPath) {
+                    return cell
                 }
+                
+            case (cellsCount - 3): // Open Graph Data or Images.
+                if let ogData = attachmentActivity?.ogData {
+                    let cell = dequeueReusableCell(for: indexPath) as OpenGraphTableViewCell
+                    cell.update(with: ogData)
+                    return cell
+                    
+                } else if let cell = postAttachmentImagesTableViewCell(attachmentActivity, at: indexPath) {
+                    return cell
+                }
+                
+            case (cellsCount - 2): // Activities.
+                return dequeueReusableCell(for: indexPath) as PostActionsTableViewCell
+                
+            case (cellsCount - 1): // Separator.
+                return dequeueReusableCell(for: indexPath) as SeparatorTableViewCell
+            default:
+                break
             }
             
-            // Like.
-            cell.updateLike(isLiked: presenter.activity.original.isUserLiked,
-                            likesCount: presenter.activity.original.likesCount) { [weak viewController] in
-                                if let button = $0 as? LikeButton, let viewController = viewController {
-                                    button.like(presenter.activity.original,
-                                                presenter: presenter.reactionPresenter,
-                                                viewController.showErrorAlertIfNeeded)
-                                }
-            }
-            
-            return cell
-            
-        case (cellsCount - 1): // Separator.
-            return dequeueReusableCell(for: indexPath) as SeparatorTableViewCell
-        default:
-            break
-        }
-        
-        return nil
+            return nil
     }
     
-    private func postAttachmentImagesTableViewCell(_ presenter: ActivityPresenter<Activity>,
-                                                   at indexPath: IndexPath) -> UITableViewCell {
-        let cell = dequeueReusableCell(for: indexPath) as PostAttachmentImagesTableViewCell
-        
-        if let imageURLs = presenter.attachmentImageURLs() {
-            cell.stackView.loadImages(with: imageURLs)
+    private func postAttachmentImagesTableViewCell(_ attachmentRepresentable: AttachmentRepresentable?,
+                                                   at indexPath: IndexPath) -> UITableViewCell? {
+        guard let attachmentRepresentable = attachmentRepresentable,
+            let imageURLs = attachmentRepresentable.attachmentImageURLs() else {
+                return nil
         }
         
+        let cell = dequeueReusableCell(for: indexPath) as PostAttachmentImagesTableViewCell
+        cell.stackView.loadImages(with: imageURLs)
         return cell
     }
 }

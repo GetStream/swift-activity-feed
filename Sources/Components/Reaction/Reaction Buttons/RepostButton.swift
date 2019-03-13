@@ -19,6 +19,7 @@ open class RepostButton: ReactionButton {
     
     open func repost<T: ActivityProtocol, U: UserProtocol>(_ activity: T,
                                                            presenter: ReactionPresenterProtocol,
+                                                           userTypeOf userType: U.Type,
                                                            targetsFeedIds: [FeedId] = [],
                                                            _ completion: @escaping ErrorCompletion)
         where T.ReactionType == GetStream.Reaction<ReactionExtraData, U> {
@@ -27,6 +28,7 @@ open class RepostButton: ReactionButton {
                   reaction: activity.original.userRepostReaction,
                   parentReaction: nil,
                   kindOf: .repost,
+                  userTypeOf: U.self,
                   targetsFeedIds: targetsFeedIds) {
                     if let result = try? $0.get() {
                         result.button.setTitle(String(result.activity.original.repostsCount), for: .normal)

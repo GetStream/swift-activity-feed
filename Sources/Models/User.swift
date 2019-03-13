@@ -10,7 +10,7 @@ import Foundation
 import GetStream
 import Nuke
 
-public final class User: GetStream.User, UserNamePresentable, AvatarPresentable {
+public final class User: GetStream.User, UserNameRepresentable, AvatarRepresentable {
     private enum CodingKeys: String, CodingKey {
         case name
         case avatarURL = "profileImage"

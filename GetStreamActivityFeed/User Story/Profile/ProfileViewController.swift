@@ -34,7 +34,7 @@ class ProfileViewController: UIViewController, BundledStoryboardLoadable {
     var user: User?
     var isCurrentUser: Bool = false
     var builder: ProfileBuilder?
-    private var flatFeedViewController: FlatFeedViewController?
+    private var flatFeedViewController: ActivityFeedViewController?
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -74,7 +74,7 @@ class ProfileViewController: UIViewController, BundledStoryboardLoadable {
         }
         
         let feedId = FeedId(feedSlug: "user", userId: userId)
-        flatFeedViewController = builder?.activityFeedBuilder?.flatFeedViewController(feedId: feedId)
+        flatFeedViewController = builder?.activityFeedBuilder?.activityFeedViewController(feedId: feedId)
         
         guard let flatFeedViewController = flatFeedViewController else {
             return
