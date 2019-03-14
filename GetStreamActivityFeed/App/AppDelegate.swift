@@ -39,9 +39,8 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
             Client.config = .init(apiKey: $0, appId: $1, token: $2, logsEnabled: true)
         }
         
-        if let timelineFeed = Client.shared.flatFeed(feedSlug: "timeline"),
-            let userFeed = Client.shared.flatFeed(feedSlug: "user") {
-            timelineFeed.follow(toTarget: userFeed.feedId) { _ in }
+        if let timelineFeedId = FeedId.timeline, let userFeedId = FeedId.user {
+            Client.shared.flatFeed(timelineFeedId).follow(toTarget: userFeedId) { _ in }
         }
     }
 }

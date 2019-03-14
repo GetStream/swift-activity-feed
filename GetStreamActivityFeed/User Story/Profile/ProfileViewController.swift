@@ -73,7 +73,7 @@ class ProfileViewController: UIViewController, BundledStoryboardLoadable {
             return
         }
         
-        let feedId = FeedId(feedSlug: "user", userId: userId)
+        let feedId = FeedId.user(with: userId)
         flatFeedViewController = builder?.activityFeedBuilder?.activityFeedViewController(feedId: feedId)
         
         guard let flatFeedViewController = flatFeedViewController else {
@@ -182,7 +182,8 @@ extension ProfileViewController {
         button.addTap { [weak flatFeedPresenter]  in
             if let button = $0 as? BarButton,
                 let feedId = flatFeedPresenter?.flatFeed.feedId,
-                let userFeed = Client.shared.flatFeed(feedSlug: "user") {
+                let userFeedId = FeedId.user {
+                let userFeed = Client.shared.flatFeed(userFeedId)
                 let isFollowing = button.isSelected
                 button.isEnabled = false
                 

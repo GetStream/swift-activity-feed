@@ -60,7 +60,7 @@ final class ActivityFeedViewController: FlatFeedViewController<Activity>, Bundle
         }
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let activityPresenter = activityPresenter(in: indexPath.section) else {
             return
         }
@@ -89,8 +89,9 @@ final class ActivityFeedViewController: FlatFeedViewController<Activity>, Bundle
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let editPostnavigationController = segue.destination as? UINavigationController,
             let editPostViewController = editPostnavigationController.viewControllers.first as? EditPostViewController,
-            let presenter = presenter {
-            editPostViewController.presenter = EditPostPresenter(flatFeed: presenter.flatFeed, view: editPostViewController)
+            let userFeedId = FeedId.user {
+            editPostViewController.presenter = EditPostPresenter(flatFeed: Client.shared.flatFeed(userFeedId),
+                                                                 view: editPostViewController)
             return
         }
         
@@ -101,7 +102,7 @@ final class ActivityFeedViewController: FlatFeedViewController<Activity>, Bundle
         
         postDetailTableViewController.activityPresenter = activityPresenter
         postDetailTableViewController.profileBuilder = profileBuilder
-        postDetailTableViewController.feedId = FeedId(feedSlug: "user")
+        postDetailTableViewController.feedId = FeedId.user
     }
 }
 

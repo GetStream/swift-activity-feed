@@ -64,13 +64,13 @@ extension User {
 extension User {
     public func isFollow(toTarget target: FeedId,
                          completion: @escaping (_ isFollow: Bool, _ following: Follower?, _ error: Error?) -> Void) {
-        guard let userFeed = Client.shared.flatFeed(feedSlug: "user") else {
-            print("⚠️", #function, "UserFeed is nil")
+        guard let userFeedId = FeedId.user else {
+            print("⚠️", #function, "userId not found in the Token")
             completion(false, nil, nil)
             return
         }
         
-        userFeed.following(filter: [target]) {
+        Client.shared.flatFeed(userFeedId).following(filter: [target]) {
             if let response = try? $0.get() {
                 completion(response.results.first != nil, response.results.first, nil)
             } else {

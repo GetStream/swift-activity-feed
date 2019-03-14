@@ -21,7 +21,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="JAH-pc-eOh" kind="relationship" relationship="rootViewController" id="0uh-Pk-Bnl"/>
+                        <segue destination="PEt-yD-taj" kind="relationship" relationship="rootViewController" id="MNa-UY-D9A"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="C7r-cn-tHY" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -29,48 +29,24 @@
             <point key="canvasLocation" x="312.80000000000001" y="-239.73013493253376"/>
         </scene>
         <!--HOME-->
-        <scene sceneID="T62-Ky-q0E">
+        <scene sceneID="Tjh-9f-wCb">
             <objects>
-                <tableViewController storyboardIdentifier="ActivityFeedViewController" id="JAH-pc-eOh" customClass="ActivityFeedViewController" customModule="GetStreamActivityFeed" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" keyboardDismissMode="interactive" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="120" sectionHeaderHeight="-1" sectionFooterHeight="-1" id="jgP-s8-82R">
+                <viewController storyboardIdentifier="ActivityFeedViewController" id="PEt-yD-taj" customClass="ActivityFeedViewController" customModule="GetStreamActivityFeed" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="xWb-xC-gUN">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <view key="tableFooterView" contentMode="scaleToFill" id="BmE-nL-cKN">
-                            <rect key="frame" x="0.0" y="72" width="375" height="1"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        </view>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="unused" id="Rr2-hc-LD2">
-                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Rr2-hc-LD2" id="4Hp-WD-uPd">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="JAH-pc-eOh" id="uLp-GQ-68Z"/>
-                            <outlet property="delegate" destination="JAH-pc-eOh" id="5DF-P2-UcF"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" title="HOME" id="SNg-9X-Wnu">
-                        <barButtonItem key="rightBarButtonItem" image="compose_icon" id="twQ-lT-V2u">
-                            <connections>
-                                <action selector="showEditPost:" destination="JAH-pc-eOh" id="tjM-1x-pCS"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                        <viewLayoutGuide key="safeArea" id="EYm-aa-5Ca"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="HOME" id="Iun-wq-1u5"/>
                     <connections>
-                        <segue destination="BLY-u4-gAI" kind="show" identifier="PostDetailTableViewController" id="InL-zd-Sv7"/>
-                        <segue destination="ibm-wW-ZPp" kind="presentation" identifier="EditPostViewController" id="O7l-Mp-nlv"/>
+                        <segue destination="BLY-u4-gAI" kind="show" identifier="PostDetailTableViewController" id="Vq8-9B-cEd"/>
+                        <segue destination="ibm-wW-ZPp" kind="presentation" identifier="EditPostViewController" id="WSX-k6-HPX"/>
                     </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="O0o-pa-2Qs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="U9R-9Y-D9G" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1114" y="-243"/>
+            <point key="canvasLocation" x="1113" y="-240"/>
         </scene>
         <!--POST DETAIL-->
         <scene sceneID="mb5-HH-uRU">
@@ -287,7 +263,6 @@
     </scenes>
     <resources>
         <image name="close_icon" width="23" height="23"/>
-        <image name="compose_icon" width="24" height="24"/>
         <image name="image_icon" width="25" height="18"/>
         <image name="user_icon" width="24" height="24"/>
     </resources>
