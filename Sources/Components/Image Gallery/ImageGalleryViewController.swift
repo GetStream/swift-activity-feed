@@ -173,3 +173,17 @@ public final class ImageGalleryCollectionViewCell: UICollectionViewCell, Reusabl
         }
     }
 }
+
+// MARK: - Routing to the Gallery
+
+extension UIViewController {
+    public func showImageGallery(with imageURLs: [URL]?, animated: Bool = true) {
+        guard let imageURLs = imageURLs else {
+            return
+        }
+        
+        let imageGalleryViewController = ImageGalleryViewController()
+        imageGalleryViewController.imageURLs = imageURLs
+        present(imageGalleryViewController, animated: animated)
+    }
+}

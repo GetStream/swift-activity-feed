@@ -25,25 +25,4 @@ public struct ActivityRouter {
             viewController.navigationController?.pushViewController(profileViewCotroller, animated: true)
         }
     }
-    
-    public func show(ogData: OGResponse?) {
-        guard let ogData = ogData else {
-            return
-        }
-        
-        let webViewController = WebViewController()
-        webViewController.url = ogData.url
-        webViewController.title = ogData.title
-        viewController.present(UINavigationController(rootViewController: webViewController), animated: true)
-    }
-    
-    public func show(attachmentImageURLs: [URL]?) {
-        guard let attachmentImageURLs = attachmentImageURLs else {
-            return
-        }
-        
-        let imageGalleryViewController = ImageGalleryViewController()
-        imageGalleryViewController.imageURLs = attachmentImageURLs
-        viewController.present(imageGalleryViewController, animated: true)
-    }
 }

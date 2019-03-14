@@ -56,6 +56,14 @@ open class FlatFeedViewController<T: ActivityProtocol>: UIViewController, UITabl
         reloadData()
     }
     
+    open override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if let indexPathForSelectedRow = tableView.indexPathForSelectedRow {
+            tableView.deselectRow(at: indexPathForSelectedRow, animated: animated)
+        }
+    }
+    
     public func activityPresenter(in section: Int) -> ActivityPresenter<T>? {
         if let presenter = presenter, section < presenter.count {
             return presenter.items[section]
@@ -84,12 +92,12 @@ open class FlatFeedViewController<T: ActivityProtocol>: UIViewController, UITabl
     
     open func setupTableView() {
         view.addSubview(tableView)
-        tableView.registerPostCells()
+        tableView.snp.makeConstraints { $0.edges.equalToSuperview() }
         tableView.separatorStyle = .none
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.snp.makeConstraints { $0.edges.equalToSuperview() }
-        
+        tableView.registerPostCells()
+
         // Add RefreshController.
         tableView.refreshControl = refreshControl
         refreshControl.addValueChangedAction { [weak self] _ in self?.reloadData() }
@@ -164,6 +172,30 @@ open class FlatFeedViewController<T: ActivityProtocol>: UIViewController, UITabl
         
         if editingStyle == .delete, let removeActivityAction = removeActivityAction {
             removeActivityAction(activityPresenter.activity)
+        }
+    }
+    
+    open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let activityPresenter = activityPresenter(in: indexPath.section),
+            let originalActivity = activityPresenter.originalActivity as? AttachmentRepresentable else {
+            return
+        }
+        
+        let cellsCount = activityPresenter.cellsCount
+        
+        if indexPath.row != 0 {
+            if indexPath.row == (cellsCount - 4) {
+                showImageGallery(with: originalActivity.attachmentImageURLs())
+                return
+            }
+            
+            if indexPath.row == (cellsCount - 3) {
+                if let ogData = originalActivity.ogData {
+                    showOpenGraphData(with: ogData)
+                } else {
+                    showImageGallery(with: originalActivity.attachmentImageURLs())
+                }
+            }
         }
     }
 }

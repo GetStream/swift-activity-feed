@@ -71,6 +71,8 @@
 		8A6801DD22033B3600B77352 /* PostActionsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A6801DB22033B3600B77352 /* PostActionsTableViewCell.xib */; };
 		8A68395521FB7A170003C19B /* DataDetectorWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A68395421FB7A170003C19B /* DataDetectorWorker.swift */; };
 		8A7256E3222E89D800B06FA6 /* UserNameRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7256E2222E89D800B06FA6 /* UserNameRepresentable.swift */; };
+		8A73F341223AA2F300FB4F25 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A73F340223AA2F300FB4F25 /* DetailViewController.swift */; };
+		8A73F343223AB1BC00FB4F25 /* UIViewController+OpenGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A73F342223AB1BC00FB4F25 /* UIViewController+OpenGraph.swift */; };
 		8A7559A821FF06AA002187EA /* NSAttributedString+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7559A721FF06AA002187EA /* NSAttributedString+Extensions.swift */; };
 		8A7559AB21FF15B6002187EA /* OpenGraphWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7559AA21FF15B6002187EA /* OpenGraphWorker.swift */; };
 		8A7559AD21FF18D3002187EA /* EditPostPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7559AC21FF18D3002187EA /* EditPostPresenter.swift */; };
@@ -174,6 +176,8 @@
 		8A6801DB22033B3600B77352 /* PostActionsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostActionsTableViewCell.xib; sourceTree = "<group>"; };
 		8A68395421FB7A170003C19B /* DataDetectorWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataDetectorWorker.swift; sourceTree = "<group>"; };
 		8A7256E2222E89D800B06FA6 /* UserNameRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNameRepresentable.swift; sourceTree = "<group>"; };
+		8A73F340223AA2F300FB4F25 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		8A73F342223AB1BC00FB4F25 /* UIViewController+OpenGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+OpenGraph.swift"; sourceTree = "<group>"; };
 		8A7559A721FF06AA002187EA /* NSAttributedString+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+Extensions.swift"; sourceTree = "<group>"; };
 		8A7559AA21FF15B6002187EA /* OpenGraphWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenGraphWorker.swift; sourceTree = "<group>"; };
 		8A7559AC21FF18D3002187EA /* EditPostPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPostPresenter.swift; sourceTree = "<group>"; };
@@ -331,6 +335,7 @@
 			children = (
 				8A3E63C821F0B45300E17543 /* FlatFeedViewController.swift */,
 				8A3E63CC21F0CFE200E17543 /* FlatFeedPresenter.swift */,
+				8A73F340223AA2F300FB4F25 /* DetailViewController.swift */,
 			);
 			path = "Flat Feed";
 			sourceTree = "<group>";
@@ -497,6 +502,7 @@
 			isa = PBXGroup;
 			children = (
 				8A7559BB22005AE8002187EA /* WebViewController.swift */,
+				8A73F342223AB1BC00FB4F25 /* UIViewController+OpenGraph.swift */,
 			);
 			path = "Web View";
 			sourceTree = "<group>";
@@ -763,6 +769,7 @@
 				8A9E4BAC2217052200BF8A10 /* NotificationTableViewCell.swift in Sources */,
 				8A6801DC22033B3600B77352 /* PostActionsTableViewCell.swift in Sources */,
 				8A3E63B621EF63BB00E17543 /* EditProfileViewController.swift in Sources */,
+				8A73F341223AA2F300FB4F25 /* DetailViewController.swift in Sources */,
 				8A0EC25D221C572F008B8E9D /* BannerView.swift in Sources */,
 				8A7559B321FF55E3002187EA /* OpenGraphTableViewCell+Update.swift in Sources */,
 				8AC40FAD21EE0FBB0073B749 /* RootBuilder.swift in Sources */,
@@ -776,6 +783,7 @@
 				8A3E63CD21F0CFE200E17543 /* FlatFeedPresenter.swift in Sources */,
 				8A3573D321F74636009EB9D7 /* ActivityFeedBuilder.swift in Sources */,
 				8A7559B021FF2F70002187EA /* OpenGraphTableViewCell.swift in Sources */,
+				8A73F343223AB1BC00FB4F25 /* UIViewController+OpenGraph.swift in Sources */,
 				8AAEE3F6221AF3DA00327FCB /* BellButton.swift in Sources */,
 				8A9A71542236D91C004E6607 /* ActivityFeedViewController.swift in Sources */,
 				8A3E63BC21EF877600E17543 /* UIImage+Icons.swift in Sources */,

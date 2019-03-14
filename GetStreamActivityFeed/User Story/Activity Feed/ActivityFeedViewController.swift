@@ -60,30 +60,12 @@ final class ActivityFeedViewController: FlatFeedViewController<Activity>, Bundle
         }
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let activityPresenter = activityPresenter(in: indexPath.section) else {
-            return
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row == 0, let activityPresenter = activityPresenter(in: indexPath.section) {
+            performSegue(show: PostDetailTableViewController.self, sender: activityPresenter)
+        } else {
+            super.tableView(tableView, didSelectRowAt: indexPath)
         }
-        
-        let cellsCount = activityPresenter.cellsCount
-        
-        if indexPath.row != 0 {
-            if indexPath.row == (cellsCount - 4) {
-                activityRouter?.show(attachmentImageURLs: activityPresenter.originalActivity.attachmentImageURLs())
-                return
-            }
-            
-            if indexPath.row == (cellsCount - 3) {
-                if let ogData = activityPresenter.originalActivity.ogData {
-                    activityRouter?.show(ogData: ogData)
-                } else {
-                    activityRouter?.show(attachmentImageURLs: activityPresenter.originalActivity.attachmentImageURLs())
-                }
-                return
-            }
-        }
-        
-        performSegue(show: PostDetailTableViewController.self, sender: activityPresenter)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -95,14 +77,12 @@ final class ActivityFeedViewController: FlatFeedViewController<Activity>, Bundle
             return
         }
         
-        guard let postDetailTableViewController = segue.destination as? PostDetailTableViewController,
+        guard let activityDetailTableViewController = segue.destination as? PostDetailTableViewController,
             let activityPresenter = sender as? ActivityPresenter<Activity> else {
                 return
         }
         
-        postDetailTableViewController.activityPresenter = activityPresenter
-        postDetailTableViewController.profileBuilder = profileBuilder
-        postDetailTableViewController.feedId = FeedId.user
+        activityDetailTableViewController.activityPresenter = activityPresenter
     }
 }
 
