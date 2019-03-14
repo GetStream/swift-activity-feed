@@ -20,7 +20,7 @@ open class FlatFeedViewController<T: ActivityProtocol>: UIViewController, UITabl
     
     public let tableView = UITableView(frame: .zero, style: .plain)
     public let refreshControl = UIRefreshControl(frame: .zero)
-    public let bannerView = BannerView()
+    public var bannerView: UIView & BannerViewProtocol = BannerView()
     private var subscriptionId: SubscriptionId?
     
     public var presenter: FlatFeedPresenter<T>? {
@@ -53,7 +53,6 @@ open class FlatFeedViewController<T: ActivityProtocol>: UIViewController, UITabl
     open override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
-        setupRefreshControl()
         reloadData()
     }
     
@@ -71,7 +70,7 @@ open class FlatFeedViewController<T: ActivityProtocol>: UIViewController, UITabl
     
     open func dataLoaded(_ error: Error?) {
         refreshControl.endRefreshing()
-        bannerView.hide()
+        bannerView.hide(from: nil)
         tabBarItem.badgeValue = nil
         
         if let error = error {
@@ -86,11 +85,14 @@ open class FlatFeedViewController<T: ActivityProtocol>: UIViewController, UITabl
     open func setupTableView() {
         view.addSubview(tableView)
         tableView.registerPostCells()
-        tableView.refreshControl = refreshControl
         tableView.separatorStyle = .none
         tableView.dataSource = self
         tableView.delegate = self
         tableView.snp.makeConstraints { $0.edges.equalToSuperview() }
+        
+        // Add RefreshController.
+        tableView.refreshControl = refreshControl
+        refreshControl.addValueChangedAction { [weak self] _ in self?.reloadData() }
     }
     
     open func numberOfSections(in tableView: UITableView) -> Int {
@@ -163,14 +165,6 @@ open class FlatFeedViewController<T: ActivityProtocol>: UIViewController, UITabl
         if editingStyle == .delete, let removeActivityAction = removeActivityAction {
             removeActivityAction(activityPresenter.activity)
         }
-    }
-}
-
-// MARK: - Refresh Control
-
-extension FlatFeedViewController {
-    func setupRefreshControl() {
-        refreshControl.addValueChangedAction { [weak self] _ in self?.reloadData() }
     }
 }
 

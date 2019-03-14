@@ -9,7 +9,32 @@
 import UIKit
 import SnapKit
 
-public final class BannerView: UIView {
+/// A banner view protocol to show realtime updates.
+public protocol BannerViewProtocol where Self: UIView {
+    var textLabel: UILabel { get }
+    
+    /// Present the banner view in a view controller.
+    ///
+    /// - Parameter viewController: a view controller where needs to present the banner.
+    func present(in viewController: UIViewController)
+
+    /// Present the banner view in a view controller.
+    ///
+    /// - Parameters:
+    ///     - viewController: a view controller where needs to present the banner.
+    ///     - forceToAnimate: if it's true, then the banner will be hidden before presenting.
+    ///     - timeout: a time interval after that needs to hide the banner.
+    func present(in viewController: UIViewController, forceToAnimate: Bool, timeout: DispatchTimeInterval?)
+    
+    /// Hide the banner.
+    ///
+    /// - Parameter tableViewController: if the banner was shown in the table view controller,
+    ///             then it needs to be cleared from table view header.
+    func hide(from tableViewController: UITableViewController?)
+}
+
+public final class BannerView: UIView, BannerViewProtocol {
+    
     private static let height: CGFloat = 48
     
     private var needsToClearTableViewHeader: Bool = false
@@ -39,11 +64,18 @@ extension BannerView {
     
     /// Present the banner view in a view controller.
     ///
+    /// - Parameter viewController: a view controller where needs to present the banner.
+    public func present(in viewController: UIViewController) {
+        present(in: viewController, forceToAnimate: true, timeout: nil)
+    }
+    
+    /// Present the banner view in a view controller.
+    ///
     /// - Parameters:
     ///     - viewController: a view controller where needs to present the banner.
     ///     - forceToAnimate: if it's true, then the banner will be hidden before presenting.
     ///     - timeout: a time interval after that needs to hide the banner.
-    public func present(in viewController: UIViewController, forceToAnimate: Bool = true, timeout: DispatchTimeInterval? = nil) {
+    public func present(in viewController: UIViewController, forceToAnimate: Bool, timeout: DispatchTimeInterval?) {
         dispatchWorkItem?.cancel()
         dispatchWorkItem = nil
         
@@ -64,7 +96,7 @@ extension BannerView {
             if let navigationController = tableViewController.navigationController {
                 if tableViewController.tableView.tableHeaderView == nil {
                     if tableViewController.tableView.contentOffset.y > BannerView.height {
-                        present(in: navigationController, forceToAnimate: true)
+                        present(in: navigationController, forceToAnimate: true, timeout: nil)
                         let navigationControllerBannerTimeout = timeout
                         timeout = nil
                         
@@ -84,7 +116,7 @@ extension BannerView {
                         present(in: tableViewController)
                     }
                 } else {
-                    present(in: navigationController, forceToAnimate: forceToAnimate)
+                    present(in: navigationController, forceToAnimate: forceToAnimate, timeout: nil)
                 }
             } else {
                 present(in: tableViewController)

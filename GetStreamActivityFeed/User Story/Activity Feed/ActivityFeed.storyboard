@@ -38,7 +38,13 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="EYm-aa-5Ca"/>
                     </view>
-                    <navigationItem key="navigationItem" title="HOME" id="Iun-wq-1u5"/>
+                    <navigationItem key="navigationItem" title="HOME" id="Iun-wq-1u5">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="pnu-yS-1zx">
+                            <connections>
+                                <action selector="showEditPost:" destination="PEt-yD-taj" id="XGd-45-QSz"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <segue destination="BLY-u4-gAI" kind="show" identifier="PostDetailTableViewController" id="Vq8-9B-cEd"/>
                         <segue destination="ibm-wW-ZPp" kind="presentation" identifier="EditPostViewController" id="WSX-k6-HPX"/>
