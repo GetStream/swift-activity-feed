@@ -17,7 +17,6 @@ public final class SubscriptionPresenter<T: ActivityProtocol> {
     
     public init(feed: Feed) {
         self.feed = feed
-        Faye.Client.logsEnabled = true
     }
 }
 
