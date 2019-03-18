@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import GetStream
 
-class PostDetailTableViewController: DetailViewController {
+class PostDetailTableViewController: DetailViewController<Activity> {
     
     open override func viewDidLoad() {
         super.viewDidLoad()

@@ -17,14 +17,13 @@ public final class User: GetStream.User, UserNameRepresentable, AvatarRepresenta
     }
     
     public var name: String
+    
     public var avatarURL: URL? {
-        didSet {
-            avatarImage = nil
-        }
+        didSet { avatarImage = nil }
     }
     
     private let dispatchQueue = DispatchQueue(label: "io.getstream.User")
-    private var avatarImage: UIImage?
+    public var avatarImage: UIImage?
     
     init(name: String, id: String) {
         self.name = name
@@ -75,59 +74,6 @@ extension User {
                 completion(response.results.first != nil, response.results.first, nil)
             } else {
                 completion(false, nil, $0.error)
-            }
-        }
-    }
-}
-
-// MARK: - Avatar
-
-extension User {
-    public func loadAvatar(completion: @escaping (_ image: UIImage?) -> Void) {
-        guard let avatarURL = avatarURL else {
-            completion(nil)
-            return
-        }
-        
-        if let image = avatarImage {
-            completion(image)
-            return
-        }
-        
-        ImagePipeline.shared.loadImage(with: avatarURL) { [weak self] response, error in
-            guard let self = self else {
-                return
-            }
-            
-            if let response = response {
-                self.avatarImage = response.image
-                completion(response.image)
-            } else {
-                self.avatarURL = nil
-                self.avatarImage = nil
-                completion(nil)
-            }
-        }
-    }
-    
-    public func updateAvatarURL(image: UIImage, completion: @escaping (_ error: Error?) -> Void) {
-        guard let file = File(name: name, jpegImage: image) else {
-            completion(nil)
-            return
-        }
-        
-        Client.shared.upload(image: file) { [weak self] result in
-            guard let self = self else {
-                return
-            }
-            
-            do {
-                self.avatarURL = try result.get()
-                self.avatarImage = image
-                completion(nil)
-            } catch {
-                print("❌", #function, error.localizedDescription)
-                completion(error)
             }
         }
     }

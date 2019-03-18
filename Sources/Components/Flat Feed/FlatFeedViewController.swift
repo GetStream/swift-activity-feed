@@ -12,14 +12,11 @@ import Reusable
 import Result
 import SnapKit
 
-open class FlatFeedViewController<T: ActivityProtocol>: UIViewController, UITableViewDelegate, UITableViewDataSource
+open class FlatFeedViewController<T: ActivityProtocol>: BaseFlatFeedViewController<T>, UITableViewDelegate
     where T.ActorType: UserProtocol & UserNameRepresentable & AvatarRepresentable,
     T.ReactionType == GetStream.Reaction<ReactionExtraData, T.ActorType> {
     
     public typealias RemoveActivityAction = (_ activity: T) -> Void
-    
-    public let tableView = UITableView(frame: .zero, style: .plain)
-    public let refreshControl = UIRefreshControl(frame: .zero)
     public var bannerView: UIView & BannerViewProtocol = BannerView()
     private var subscriptionId: SubscriptionId?
     
@@ -52,7 +49,7 @@ open class FlatFeedViewController<T: ActivityProtocol>: UIViewController, UITabl
     
     open override func viewDidLoad() {
         super.viewDidLoad()
-        setupTableView()
+        tableView.delegate = self
         reloadData()
     }
     
@@ -72,38 +69,17 @@ open class FlatFeedViewController<T: ActivityProtocol>: UIViewController, UITabl
         return nil
     }
     
-    public func reloadData() {
+    open override func reloadData() {
         presenter?.load(completion: dataLoaded)
     }
     
-    open func dataLoaded(_ error: Error?) {
-        refreshControl.endRefreshing()
+    open override func dataLoaded(_ error: Error?) {
         bannerView.hide(from: nil)
         tabBarItem.badgeValue = nil
-        
-        if let error = error {
-            print("❌", error)
-        } else {
-            tableView.reloadData()
-        }
+        super.dataLoaded(error)
     }
     
-    // MARK: - Table View
-    
-    open func setupTableView() {
-        view.addSubview(tableView)
-        tableView.snp.makeConstraints { $0.edges.equalToSuperview() }
-        tableView.separatorStyle = .none
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.registerPostCells()
-
-        // Add RefreshController.
-        tableView.refreshControl = refreshControl
-        refreshControl.addValueChangedAction { [weak self] _ in self?.reloadData() }
-    }
-    
-    open func numberOfSections(in tableView: UITableView) -> Int {
+    open override func numberOfSections(in tableView: UITableView) -> Int {
         guard let presenter = presenter else {
             return 0
         }
@@ -111,11 +87,11 @@ open class FlatFeedViewController<T: ActivityProtocol>: UIViewController, UITabl
         return presenter.count + (presenter.hasNext ? 1 : 0)
     }
     
-    open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    open override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return activityPresenter(in: section)?.cellsCount ?? 1
     }
     
-    open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    open override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let activityPresenter = activityPresenter(in: indexPath.section),
             let cell = tableView.postCell(at: indexPath, presenter: activityPresenter) else {
                 if let presenter = presenter, presenter.hasNext {
@@ -137,35 +113,13 @@ open class FlatFeedViewController<T: ActivityProtocol>: UIViewController, UITabl
         return cell
     }
     
-    open func updateAvatar(in cell: PostHeaderTableViewCell, activity: T) {
-        cell.updateAvatar(with: activity.actor)
-    }
-    
-    open func updateActions(in cell: PostActionsTableViewCell, activityPresenter: ActivityPresenter<T>) {
-        cell.updateReply(commentsCount: activityPresenter.originalActivity.commentsCount)
-        
-        cell.updateLike(presenter: activityPresenter, userTypeOf: T.ActorType.self) {
-            if let error = $0 {
-                print("❌", error)
-            }
-        }
-        
-        if let feedId = FeedId.user {
-            cell.updateRepost(presenter: activityPresenter, targetFeedId: feedId, userTypeOf: T.ActorType.self) {
-                if let error = $0 {
-                    print("❌", error)
-                }
-            }
-        }
-    }
-    
-    open func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+    open override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return removeActivityAction != nil && indexPath.row == 0
     }
     
-    open func tableView(_ tableView: UITableView,
-                        commit editingStyle: UITableViewCell.EditingStyle,
-                        forRowAt indexPath: IndexPath) {
+    open override func tableView(_ tableView: UITableView,
+                                 commit editingStyle: UITableViewCell.EditingStyle,
+                                 forRowAt indexPath: IndexPath) {
         guard let activityPresenter = activityPresenter(in: indexPath.section) else {
             return
         }

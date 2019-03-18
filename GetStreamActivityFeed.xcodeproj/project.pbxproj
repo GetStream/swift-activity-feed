@@ -34,6 +34,7 @@
 		8A13FD0F21ECF66C00D216C6 /* RootPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A13FD0E21ECF66C00D216C6 /* RootPresenter.swift */; };
 		8A13FD1121ECF6C800D216C6 /* UIApplication+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A13FD1021ECF6C800D216C6 /* UIApplication+Extensions.swift */; };
 		8A13FD1421ECF8A700D216C6 /* RootRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A13FD1321ECF8A700D216C6 /* RootRouter.swift */; };
+		8A2455A9223FF04500FD269F /* BaseFlatFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2455A8223FF04500FD269F /* BaseFlatFeedViewController.swift */; };
 		8A2DE1C821F9E768009E2469 /* ReactionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2DE1C721F9E768009E2469 /* ReactionButton.swift */; };
 		8A2DE1CD21F9F56E009E2469 /* LikeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2DE1CC21F9F56E009E2469 /* LikeButton.swift */; };
 		8A2DE1D121F9F7B5009E2469 /* RepostButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2DE1D021F9F7B5009E2469 /* RepostButton.swift */; };
@@ -138,6 +139,7 @@
 		8A13FD0E21ECF66C00D216C6 /* RootPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootPresenter.swift; sourceTree = "<group>"; };
 		8A13FD1021ECF6C800D216C6 /* UIApplication+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Extensions.swift"; sourceTree = "<group>"; };
 		8A13FD1321ECF8A700D216C6 /* RootRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootRouter.swift; sourceTree = "<group>"; };
+		8A2455A8223FF04500FD269F /* BaseFlatFeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseFlatFeedViewController.swift; sourceTree = "<group>"; };
 		8A2D83FC2226C6CA00795FAE /* GetStreamActivityFeed.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = GetStreamActivityFeed.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		8A2DE1C721F9E768009E2469 /* ReactionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionButton.swift; sourceTree = "<group>"; };
 		8A2DE1CC21F9F56E009E2469 /* LikeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeButton.swift; sourceTree = "<group>"; };
@@ -333,6 +335,7 @@
 		8A13FD0321ECD83A00D216C6 /* Flat Feed */ = {
 			isa = PBXGroup;
 			children = (
+				8A2455A8223FF04500FD269F /* BaseFlatFeedViewController.swift */,
 				8A3E63C821F0B45300E17543 /* FlatFeedViewController.swift */,
 				8A3E63CC21F0CFE200E17543 /* FlatFeedPresenter.swift */,
 				8A73F340223AA2F300FB4F25 /* DetailViewController.swift */,
@@ -730,6 +733,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8A2455A9223FF04500FD269F /* BaseFlatFeedViewController.swift in Sources */,
 				8AC40FB421EE3A120073B749 /* BundledStoryboardLoadable.swift in Sources */,
 				8A13FD0D21ECF51D00D216C6 /* RootViewController.swift in Sources */,
 				8A13FD0621ECD86700D216C6 /* User.swift in Sources */,
@@ -966,7 +970,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -Xfrontend -warn-long-function-bodies=150 -Xfrontend -warn-long-expression-type-checking=150";
+				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS";
 				PRODUCT_BUNDLE_IDENTIFIER = io.getstream.GetStreamActivityFeed;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -987,7 +991,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -Xfrontend -warn-long-function-bodies=150 -Xfrontend -warn-long-expression-type-checking=150";
+				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS";
 				PRODUCT_BUNDLE_IDENTIFIER = io.getstream.GetStreamActivityFeed;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;

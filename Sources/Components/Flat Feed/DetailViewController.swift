@@ -10,36 +10,43 @@ import UIKit
 import SnapKit
 import GetStream
 
-open class DetailViewController: UIViewController {
-    public struct SectionTypes: OptionSet, Equatable {
-        public let rawValue: Int
-        
-        public init(rawValue: Int) {
-            self.rawValue = rawValue
-        }
-        
-        public static let activity = SectionTypes(rawValue: 1 << 0)
-        public static let likes = SectionTypes(rawValue: 1 << 1)
-        public static let reposts = SectionTypes(rawValue: 1 << 2)
-        public static let comments = SectionTypes(rawValue: 1 << 3)
+// MARK: - Detail View Controller Section Type
+
+public struct DetailViewControllerSectionTypes: OptionSet, Equatable {
+    public let rawValue: Int
+    
+    public init(rawValue: Int) {
+        self.rawValue = rawValue
     }
     
-    public struct Section {
-        let section: SectionTypes
-        let title: String?
-        let count: Int
-    }
+    public static let activity = DetailViewControllerSectionTypes(rawValue: 1 << 0)
+    public static let likes = DetailViewControllerSectionTypes(rawValue: 1 << 1)
+    public static let reposts = DetailViewControllerSectionTypes(rawValue: 1 << 2)
+    public static let comments = DetailViewControllerSectionTypes(rawValue: 1 << 3)
+}
+
+// MARK: - Detail View Controller Section
+
+public struct DetailViewControllerSection {
+    let section: DetailViewControllerSectionTypes
+    let title: String?
+    let count: Int
+}
+
+// MARK: - Detail View Controller
+
+open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController<T>, UITableViewDelegate, UITextViewDelegate
+    where T.ActorType: UserProtocol & UserNameRepresentable & AvatarRepresentable,
+          T.ReactionType == GetStream.Reaction<ReactionExtraData, T.ActorType> {
     
-    public let tableView: UITableView = UITableView(frame: .zero, style: .plain)
-    public let refreshControl  = UIRefreshControl(frame: .zero)
     public let textToolBar = TextToolBar.textToolBar
-    public var reactionPaginator: ReactionPaginator<ReactionExtraData, User>?
-    private var replyToComment: Reaction?
-    public private(set) var sectionsData: [Section] = []
-    public var sections: SectionTypes = [.activity, .likes, .reposts, .comments]
+    public var reactionPaginator: ReactionPaginator<ReactionExtraData, T.ActorType>?
+    private var replyToComment: T.ReactionType?
+    public private(set) var sectionsData: [DetailViewControllerSection] = []
+    public var sections: DetailViewControllerSectionTypes = [.activity, .likes, .reposts, .comments]
     public var childCommentsCount = 0
     
-    public var activityPresenter: ActivityPresenter<Activity>? {
+    public var activityPresenter: ActivityPresenter<T>? {
         didSet {
             if let activityPresenter = activityPresenter {
                 reactionPaginator = activityPresenter.reactionPaginator(activityId: activityPresenter.originalActivity.id,
@@ -50,21 +57,14 @@ open class DetailViewController: UIViewController {
     
     open override func viewDidLoad() {
         super.viewDidLoad()
-        setupTableView()
         updateSectionsIndex()
         
         if sections.contains(.comments) {
             User.current?.loadAvatar { [weak self] in self?.setupCommentTextField(avatarImage: $0) }
             reactionPaginator?.load(completion: commentsLoaded)
         }
-    }
-    
-    open override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         
-        if let indexPathForSelectedRow = tableView.indexPathForSelectedRow {
-            tableView.deselectRow(at: indexPathForSelectedRow, animated: animated)
-        }
+        reloadData()
     }
     
     private func updateSectionsIndex() {
@@ -74,31 +74,31 @@ open class DetailViewController: UIViewController {
         }
         
         let originalActivity = activityPresenter.originalActivity
-        var sectionsData: [Section] = []
+        var sectionsData: [DetailViewControllerSection] = []
         
         if sections.contains(.activity) {
-            sectionsData.append(Section(section: .activity, title: nil, count: activityPresenter.cellsCount - 1))
+            sectionsData.append(DetailViewControllerSection(section: .activity, title: nil, count: activityPresenter.cellsCount - 1))
         }
         
         if sections.contains(.likes), originalActivity.likesCount > 0 {
             let title = sectionTitle(for: .likes, count: originalActivity.likesCount)
-            sectionsData.append(Section(section: .likes, title: title, count: 1))
+            sectionsData.append(DetailViewControllerSection(section: .likes, title: title, count: 1))
         }
         
         if sections.contains(.reposts), originalActivity.repostsCount > 0 {
             let title = sectionTitle(for: .reposts, count: originalActivity.repostsCount)
-            sectionsData.append(Section(section: .reposts, title: title, count: originalActivity.repostsCount))
+            sectionsData.append(DetailViewControllerSection(section: .reposts, title: title, count: originalActivity.repostsCount))
         }
         
         if sections.contains(.comments), let reactionPaginator = reactionPaginator {
             let title = sectionTitle(for: .comments, count: reactionPaginator.count)
-            sectionsData.append(Section(section: .comments, title: title, count: reactionPaginator.count))
+            sectionsData.append(DetailViewControllerSection(section: .comments, title: title, count: reactionPaginator.count))
         }
         
         self.sectionsData = sectionsData
     }
     
-    open func sectionTitle(for type: SectionTypes, count: Int) -> String? {
+    open func sectionTitle(for type: DetailViewControllerSectionTypes, count: Int) -> String? {
         if type == .likes {
             return "Liked (\(count))"
         }
@@ -117,19 +117,14 @@ open class DetailViewController: UIViewController {
     public func sectionTitle(in section: Int) -> String? {
         return section < sectionsData.count ? sectionsData[section].title : nil
     }
-}
-
-// MARK: - Table View Data Source
-
-extension DetailViewController: UITableViewDataSource, UITableViewDelegate {
     
-    open func setupTableView() {
-        view.addSubview(tableView)
-        tableView.separatorStyle = .none
+    // MARK: - Table View Data Source
+    
+    open override func setupTableView() {
         tableView.delegate = self
-        tableView.dataSource = self
-        tableView.registerPostCells()
-        
+    }
+    
+    open override func setupRefreshControl() {
         if sections.contains(.comments) {
             tableView.snp.makeConstraints { $0.left.top.right.equalToSuperview() }
             tableView.refreshControl = refreshControl
@@ -144,7 +139,7 @@ extension DetailViewController: UITableViewDataSource, UITableViewDelegate {
         }
     }
     
-    open func numberOfSections(in tableView: UITableView) -> Int {
+    open override func numberOfSections(in tableView: UITableView) -> Int {
         guard sectionsData.count > 0 else {
             return 0
         }
@@ -159,7 +154,7 @@ extension DetailViewController: UITableViewDataSource, UITableViewDelegate {
         return count
     }
     
-    open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    open override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section < sectionsData.count, sectionsData[section].section != .comments {
             return sectionsData[section].count
         }
@@ -183,11 +178,11 @@ extension DetailViewController: UITableViewDataSource, UITableViewDelegate {
         return 1
     }
     
-    public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    open override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return section < sectionsData.count ? sectionsData[section].title : nil
     }
     
-    open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    open override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let activityPresenter = activityPresenter, let reactionPaginator = reactionPaginator else {
             return .unused
         }
@@ -196,16 +191,12 @@ extension DetailViewController: UITableViewDataSource, UITableViewDelegate {
             let section = sectionsData[indexPath.section]
             
             if section.section == .activity, let cell = tableView.postCell(at: indexPath, presenter: activityPresenter) {
+                if let cell = cell as? PostHeaderTableViewCell {
+                    updateAvatar(in: cell, activity: activityPresenter.originalActivity)
+                }
+                
                 if let cell = cell as? PostActionsTableViewCell {
-                    cell.updateReply(commentsCount: activityPresenter.originalActivity.commentsCount)
-                    cell.updateLike(presenter: activityPresenter, userTypeOf: User.self, showErrorAlertIfNeeded)
-                    
-                    if let feedId = FeedId.user {
-                        cell.updateRepost(presenter: activityPresenter,
-                                          targetFeedId: feedId,
-                                          userTypeOf: User.self,
-                                          showErrorAlertIfNeeded)
-                    }
+                    updateActions(in: cell, activityPresenter: activityPresenter)
                 }
                 
                 return cell
@@ -263,11 +254,8 @@ extension DetailViewController: UITableViewDataSource, UITableViewDelegate {
     open func moreCommentsTitle(with count: Int) -> String {
         return "\(count) more replies"
     }
-}
-
-// MARK: - Table View - Select Cell
-
-extension DetailViewController {
+    
+    // MARK: - Table View - Select Cell
     
     open func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
         guard let activityPresenter = activityPresenter,
@@ -278,7 +266,7 @@ extension DetailViewController {
         
         let cellsCount = activityPresenter.cellsCount
         
-        if indexPath.row == 0, case .image = activityPresenter.activity.object {
+        if indexPath.row == 0, (activityPresenter.originalActivity.object as? ActivityObjectProtocol)?.imageURL != nil {
             return true
         }
         
@@ -286,14 +274,15 @@ extension DetailViewController {
     }
     
     open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let activityPresenter = activityPresenter else {
-            return
+        guard let activityPresenter = activityPresenter,
+            let originalActivity = activityPresenter.originalActivity as? AttachmentRepresentable else {
+                return
         }
         
-        if case .image(let url) = activityPresenter.originalActivity.object {
+        if let object = activityPresenter.originalActivity.object as? ActivityObjectProtocol, let url = object.imageURL {
             var urls = [url]
             
-            if let attachmentURLs = activityPresenter.originalActivity.attachmentImageURLs() {
+            if let attachmentURLs = originalActivity.attachmentImageURLs() {
                 urls.append(contentsOf: attachmentURLs)
             }
             
@@ -304,22 +293,19 @@ extension DetailViewController {
         let cellsCount = activityPresenter.cellsCount
         
         if indexPath.row == (cellsCount - 4) {
-            showImageGallery(with: activityPresenter.originalActivity.attachmentImageURLs())
+            showImageGallery(with: originalActivity.attachmentImageURLs())
         } else if indexPath.row == (cellsCount - 3) {
-            if let ogData = activityPresenter.originalActivity.ogData {
+            if let ogData = originalActivity.ogData {
                 showOpenGraphData(with: ogData)
             } else {
-                showImageGallery(with: activityPresenter.originalActivity.attachmentImageURLs())
+                showImageGallery(with: originalActivity.attachmentImageURLs())
             }
         }
     }
-}
-
-// MARK: - Table View - Comments
-
-extension DetailViewController {
     
-    open func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+    // MARK: - Table View - Comments
+    
+    open override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         guard sections.contains(.comments), let currentUser = User.current, let comment = comment(at: indexPath) else {
             return false
         }
@@ -327,9 +313,9 @@ extension DetailViewController {
         return comment.user.id == currentUser.id
     }
     
-    open func tableView(_ tableView: UITableView,
-                        commit editingStyle: UITableViewCell.EditingStyle,
-                        forRowAt indexPath: IndexPath) {
+    open override func tableView(_ tableView: UITableView,
+                                 commit editingStyle: UITableViewCell.EditingStyle,
+                                 forRowAt indexPath: IndexPath) {
         if editingStyle == .delete,
             let activityPresenter = activityPresenter,
             let comment = comment(at: indexPath),
@@ -362,7 +348,7 @@ extension DetailViewController {
         return section - (sectionsData.count > 0 ? (sectionsData.count - 1) : 0)
     }
     
-    private func comment(at indexPath: IndexPath) -> Reaction? {
+    private func comment(at indexPath: IndexPath) -> GetStream.Reaction<ReactionExtraData, T.ActorType>? {
         let commentIndex = self.commentIndex(in: indexPath.section)
         
         guard commentIndex >= 0, let reactionPaginator = reactionPaginator, commentIndex < reactionPaginator.count else {
@@ -379,7 +365,7 @@ extension DetailViewController {
         return comment
     }
     
-    private func update(cell: CommentTableViewCell, with comment: Reaction) {
+    private func update(cell: CommentTableViewCell, with comment: GetStream.Reaction<ReactionExtraData, T.ActorType>) {
         guard case .comment(let text) = comment.data else {
             return
         }
@@ -407,15 +393,24 @@ extension DetailViewController {
                             presenter: activityPresenter.reactionPresenter,
                             likedReaction: comment.userOwnChildReaction(.like),
                             parentReaction: comment,
-                            userTypeOf: User.self) { _ in }
+                            userTypeOf: T.ActorType.self) { _ in }
             }
         }
     }
-}
-
-// MARK: - Comment Text Field
-
-extension DetailViewController: UITextViewDelegate {
+    
+    private func commentsLoaded(_ error: Error?) {
+        refreshControl.endRefreshing()
+        
+        if let error = error {
+            showErrorAlert(error)
+        } else {
+            updateSectionsIndex()
+            tableView.reloadData()
+        }
+    }
+    
+    // MARK: - Comment Text Field
+    
     private func setupCommentTextField(avatarImage: UIImage?) {
         textToolBar.placeholderText = "Leave reply"
         textToolBar.addToSuperview(view)
@@ -429,7 +424,7 @@ extension DetailViewController: UITextViewDelegate {
     }
     
     @objc func send(_ button: UIButton) {
-        let parentReaction: Reaction? = textToolBar.replyText == nil ? nil : replyToComment
+        let parentReaction = textToolBar.replyText == nil ? nil : replyToComment
         view.endEditing(true)
         textToolBar.clearPlaceholder()
         
@@ -444,7 +439,7 @@ extension DetailViewController: UITextViewDelegate {
         activityPresenter.reactionPresenter.addComment(for: activityPresenter.activity,
                                                        parentReaction: parentReaction,
                                                        extraData: ReactionExtraData.comment(text),
-                                                       userTypeOf: User.self) { [weak self] in
+                                                       userTypeOf: T.ActorType.self) { [weak self] in
                                                         if let self = self {
                                                             self.textToolBar.textView.isEditable = true
                                                             
@@ -470,20 +465,5 @@ extension DetailViewController: UITextViewDelegate {
     public func textViewDidChange(_ textView: UITextView) {
         textToolBar.updateSendButton()
         textToolBar.updateTextHeightIfNeeded()
-    }
-}
-
-// MARK: - Comments Pagination
-
-extension DetailViewController {
-    private func commentsLoaded(_ error: Error?) {
-        refreshControl.endRefreshing()
-        
-        if let error = error {
-            showErrorAlert(error)
-        } else {
-            updateSectionsIndex()
-            tableView.reloadData()
-        }
     }
 }

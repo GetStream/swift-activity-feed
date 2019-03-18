@@ -8,7 +8,13 @@
 
 import GetStream
 
-public enum ActivityObject: Enrichable {
+public protocol ActivityObjectProtocol: Enrichable {
+    var text: String? { get }
+    var imageURL: URL? { get }
+}
+
+public enum ActivityObject: ActivityObjectProtocol {
+    
     case text(_ value: String)
     case image(_ url: URL)
     case repost(_ activity: Activity)
@@ -56,5 +62,24 @@ public enum ActivityObject: Enrichable {
         } else {
             self = .following(try container.decode(User.self))
         }
+    }
+}
+
+extension ActivityObject {
+    
+    public var text: String? {
+        if case .text(let value) = self {
+            return value
+        }
+        
+        return nil
+    }
+    
+    public var imageURL: URL? {
+        if case .image(let url) = self {
+            return url
+        }
+        
+        return nil
     }
 }
