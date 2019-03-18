@@ -37,6 +37,7 @@ open class DetailViewController: UIViewController {
     private var replyToComment: Reaction?
     public private(set) var sectionsData: [Section] = []
     public var sections: SectionTypes = [.activity, .likes, .reposts, .comments]
+    public var childCommentsCount = 0
     
     public var activityPresenter: ActivityPresenter<Activity>? {
         didSet {
@@ -167,15 +168,19 @@ extension DetailViewController: UITableViewDataSource, UITableViewDelegate {
             return 0
         }
         
+        guard childCommentsCount > 0 else {
+            return 1
+        }
+        
         let commentIndex = self.commentIndex(in: section)
         
         if commentIndex < reactionPaginator.items.count {
             let comment = reactionPaginator.items[commentIndex]
-            let childCommentsCount = (comment.childrenCounts[.comment] ?? 0) > 0 ? 1 : 0
-            return childCommentsCount + 1
+            let childCommentsCount = comment.childrenCounts[.comment] ?? 0
+            return min(childCommentsCount, self.childCommentsCount) + 1
         }
         
-        return 0
+        return 1
     }
     
     public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -243,12 +248,20 @@ extension DetailViewController: UITableViewDataSource, UITableViewDelegate {
             cell.withIndent = true
             
             if let parentComment = self.comment(at: IndexPath(row: 0, section: indexPath.section)),
-                let count = parentComment.childrenCounts[.comment], count > 1 {
-                cell.moreReplies = "\(count - 1) more replies"
+                let count = parentComment.childrenCounts[.comment],
+                count > childCommentsCount,
+                indexPath.row == childCommentsCount {
+                cell.moreReplies = moreCommentsTitle(with: count - childCommentsCount)
             }
+        } else if childCommentsCount == 0, let childCount = comment.childrenCounts[.comment], childCount > 0 {
+            cell.moreReplies = moreCommentsTitle(with: childCount)
         }
         
         return cell
+    }
+    
+    open func moreCommentsTitle(with count: Int) -> String {
+        return "\(count) more replies"
     }
 }
 
@@ -307,7 +320,7 @@ extension DetailViewController {
 extension DetailViewController {
     
     open func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        guard let comment = comment(at: indexPath), let currentUser = User.current else {
+        guard sections.contains(.comments), let currentUser = User.current, let comment = comment(at: indexPath) else {
             return false
         }
         
@@ -341,6 +354,14 @@ extension DetailViewController {
         }
     }
     
+    private func commentIndex(in section: Int) -> Int {
+        if section < sectionsData.count, sectionsData[section].section != .comments {
+            return -1
+        }
+        
+        return section - (sectionsData.count > 0 ? (sectionsData.count - 1) : 0)
+    }
+    
     private func comment(at indexPath: IndexPath) -> Reaction? {
         let commentIndex = self.commentIndex(in: indexPath.section)
         
@@ -349,20 +370,13 @@ extension DetailViewController {
         }
         
         let comment = reactionPaginator.items[commentIndex]
+        let childCommentIndex = indexPath.row - 1
         
-        if indexPath.row > 0, let childComment = comment.latestChildren[.comment]?.first {
-            return childComment
+        if childCommentIndex >= 0, let childComments = comment.latestChildren[.comment], childCommentIndex < childComments.count {
+            return childComments[childCommentIndex]
         }
         
         return comment
-    }
-    
-    private func commentIndex(in section: Int) -> Int {
-        if section < sectionsData.count, sectionsData[section].section != .comments {
-            return -1
-        }
-        
-        return section - (sectionsData.count > 0 ? (sectionsData.count - 1) : 0)
     }
     
     private func update(cell: CommentTableViewCell, with comment: Reaction) {
