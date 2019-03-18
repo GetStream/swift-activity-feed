@@ -23,7 +23,7 @@ class PostDetailTableViewController: DetailViewController {
 extension PostDetailTableViewController {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let title = sectionHeader(in: section) else {
+        guard let title = sectionTitle(in: section) else {
             return nil
         }
         
@@ -44,6 +44,6 @@ extension PostDetailTableViewController {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return section == 0 || sectionHeader(in: section) == nil ? 0 : 30
+        return section == 0 || sectionTitle(in: section) == nil ? 0 : 30
     }
 }

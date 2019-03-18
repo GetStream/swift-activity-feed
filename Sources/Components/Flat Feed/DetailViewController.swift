@@ -11,7 +11,7 @@ import SnapKit
 import GetStream
 
 open class DetailViewController: UIViewController {
-    public struct SectionTypes: OptionSet {
+    public struct SectionTypes: OptionSet, Equatable {
         public let rawValue: Int
         
         public init(rawValue: Int) {
@@ -24,31 +24,36 @@ open class DetailViewController: UIViewController {
         public static let comments = SectionTypes(rawValue: 1 << 3)
     }
     
-    fileprivate struct Section {
+    public struct Section {
         let section: SectionTypes
+        let title: String?
         let count: Int
     }
     
     public let tableView: UITableView = UITableView(frame: .zero, style: .plain)
     public let refreshControl  = UIRefreshControl(frame: .zero)
     public let textToolBar = TextToolBar.textToolBar
-    public var activityPresenter: ActivityPresenter<Activity>?
     public var reactionPaginator: ReactionPaginator<ReactionExtraData, User>?
     private var replyToComment: Reaction?
-    private var sectionsIndex: [Int: Section] = [:]
+    public private(set) var sectionsData: [Section] = []
     public var sections: SectionTypes = [.activity, .likes, .reposts, .comments]
+    
+    public var activityPresenter: ActivityPresenter<Activity>? {
+        didSet {
+            if let activityPresenter = activityPresenter {
+                reactionPaginator = activityPresenter.reactionPaginator(activityId: activityPresenter.originalActivity.id,
+                                                                        reactionKind: .comment)
+            }
+        }
+    }
     
     open override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
         updateSectionsIndex()
-        tableView.reloadData()
-        User.current?.loadAvatar { [weak self] in self?.setupCommentTextField(avatarImage: $0) }
         
-        if let activityPresenter = activityPresenter {
-            reactionPaginator = activityPresenter.reactionPaginator(activityId: activityPresenter.originalActivity.id,
-                                                                    reactionKind: .comment)
-            
+        if sections.contains(.comments) {
+            User.current?.loadAvatar { [weak self] in self?.setupCommentTextField(avatarImage: $0) }
             reactionPaginator?.load(completion: commentsLoaded)
         }
     }
@@ -63,35 +68,53 @@ open class DetailViewController: UIViewController {
     
     private func updateSectionsIndex() {
         guard let activityPresenter = activityPresenter else {
-            self.sectionsIndex = [:]
+            self.sectionsData = []
             return
         }
         
         let originalActivity = activityPresenter.originalActivity
-        var sectionsIndex: [Int: Section] = [:]
-        var index = 0
+        var sectionsData: [Section] = []
         
         if sections.contains(.activity) {
-            sectionsIndex[index] = Section(section: .activity, count: activityPresenter.cellsCount - 1)
-            index += 1
+            sectionsData.append(Section(section: .activity, title: nil, count: activityPresenter.cellsCount - 1))
         }
         
         if sections.contains(.likes), originalActivity.likesCount > 0 {
-            sectionsIndex[index] = Section(section: .likes, count: 1)
-            index += 1
+            let title = sectionTitle(for: .likes, count: originalActivity.likesCount)
+            sectionsData.append(Section(section: .likes, title: title, count: 1))
         }
         
         if sections.contains(.reposts), originalActivity.repostsCount > 0 {
-            sectionsIndex[index] = Section(section: .reposts, count: originalActivity.repostsCount)
-            index += 1
+            let title = sectionTitle(for: .reposts, count: originalActivity.repostsCount)
+            sectionsData.append(Section(section: .reposts, title: title, count: originalActivity.repostsCount))
         }
         
         if sections.contains(.comments), let reactionPaginator = reactionPaginator {
-            let count = reactionPaginator.count + (reactionPaginator.hasNext ? 1 : 0)
-            sectionsIndex[index] = Section(section: .comments, count: count)
+            let title = sectionTitle(for: .comments, count: reactionPaginator.count)
+            sectionsData.append(Section(section: .comments, title: title, count: reactionPaginator.count))
         }
         
-        self.sectionsIndex = sectionsIndex
+        self.sectionsData = sectionsData
+    }
+    
+    open func sectionTitle(for type: SectionTypes, count: Int) -> String? {
+        if type == .likes {
+            return "Liked (\(count))"
+        }
+        
+        if type == .reposts {
+            return "Reposts (\(count))"
+        }
+        
+        if type == .comments {
+            return "Comments (\(count))"
+        }
+        
+        return nil
+    }
+    
+    public func sectionTitle(in section: Int) -> String? {
+        return section < sectionsData.count ? sectionsData[section].title : nil
     }
 }
 
@@ -101,67 +124,62 @@ extension DetailViewController: UITableViewDataSource, UITableViewDelegate {
     
     open func setupTableView() {
         view.addSubview(tableView)
-        tableView.snp.makeConstraints { $0.edges.equalToSuperview() }
         tableView.separatorStyle = .none
         tableView.delegate = self
         tableView.dataSource = self
         tableView.registerPostCells()
         
-        // Add RefreshController.
-        tableView.refreshControl = refreshControl
-        
-        refreshControl.addValueChangedAction { [weak self] _ in
-            if let self = self {
-                self.reactionPaginator?.load(completion: self.commentsLoaded)
+        if sections.contains(.comments) {
+            tableView.snp.makeConstraints { $0.left.top.right.equalToSuperview() }
+            tableView.refreshControl = refreshControl
+            
+            refreshControl.addValueChangedAction { [weak self] _ in
+                if let self = self, let reactionPaginator = self.reactionPaginator {
+                    reactionPaginator.load(completion: self.commentsLoaded)
+                }
             }
+        } else {
+            tableView.snp.makeConstraints { $0.edges.equalToSuperview() }
         }
     }
     
     open func numberOfSections(in tableView: UITableView) -> Int {
-        return sectionsIndex.count
+        guard sectionsData.count > 0 else {
+            return 0
+        }
+        
+        var count = sectionsData.count
+        
+        if sections.contains(.comments), let reactionPaginator = reactionPaginator {
+            count -= 1 // remove the comments section from sectionsData, the rest of the sections are comments.
+            count += reactionPaginator.count + (reactionPaginator.hasNext ? 1 : 0)
+        }
+        
+        return count
     }
     
     open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sectionsIndex[section]?.count ?? 0
-//        guard let activityPresenter = activityPresenter, let reactionPaginator = reactionPaginator else {
-//            return 0
-//        }
-//
-//        let originalActivity = activityPresenter.originalActivity
-//
-//        switch section {
-//        case 0: return activityPresenter.cellsCount - 1
-//        case 1: return originalActivity.likesCount > 0 ? 1 : 0
-//        case 2: return originalActivity.repostsCount
-//        default: break
-//        }
-//
-//        let commentIndex = section - 3
-//
-//        if commentIndex < reactionPaginator.items.count {
-//            let reaction = reactionPaginator.items[commentIndex]
-//            let childCommentsCount = (reaction.childrenCounts[.comment] ?? 0) > 0 ? 1 : 0
-//            return 1 + childCommentsCount
-//        }
-//
-//        return 1
+        if section < sectionsData.count, sectionsData[section].section != .comments {
+            return sectionsData[section].count
+        }
+        
+        guard sections.contains(.comments), let reactionPaginator = reactionPaginator else {
+            return 0
+        }
+        
+        let commentIndex = self.commentIndex(in: section)
+        
+        if commentIndex < reactionPaginator.items.count {
+            let comment = reactionPaginator.items[commentIndex]
+            let childCommentsCount = (comment.childrenCounts[.comment] ?? 0) > 0 ? 1 : 0
+            return childCommentsCount + 1
+        }
+        
+        return 0
     }
     
     public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return sectionHeader(in: section)
-    }
-    
-    open func sectionHeader(in section: Int) -> String? {
-        guard let originalActivity = activityPresenter?.originalActivity else {
-            return nil
-        }
-        
-        switch section {
-        case 1: return originalActivity.likesCount > 0 ? "Liked (\(originalActivity.likesCount))" : nil
-        case 2: return originalActivity.repostsCount > 0 ? "Reposts (\(originalActivity.repostsCount))" : nil
-        case 3: return originalActivity.commentsCount > 0 ? "Comments (\(originalActivity.commentsCount))" : nil
-        default: return nil
-        }
+        return section < sectionsData.count ? sectionsData[section].title : nil
     }
     
     open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -169,9 +187,10 @@ extension DetailViewController: UITableViewDataSource, UITableViewDelegate {
             return .unused
         }
         
-        switch indexPath.section {
-        case 0:
-            if let cell = tableView.postCell(at: indexPath, presenter: activityPresenter) {
+        if indexPath.section < sectionsData.count {
+            let section = sectionsData[indexPath.section]
+            
+            if section.section == .activity, let cell = tableView.postCell(at: indexPath, presenter: activityPresenter) {
                 if let cell = cell as? PostActionsTableViewCell {
                     cell.updateReply(commentsCount: activityPresenter.originalActivity.commentsCount)
                     cell.updateLike(presenter: activityPresenter, userTypeOf: User.self, showErrorAlertIfNeeded)
@@ -186,29 +205,30 @@ extension DetailViewController: UITableViewDataSource, UITableViewDelegate {
                 
                 return cell
             }
-        case 1:
-            let cell = tableView.dequeueReusableCell(for: indexPath) as ActionUsersTableViewCell
-            cell.titleLabel.text = activityPresenter.reactionTitle(for: activityPresenter.originalActivity,
-                                                                   kindOf: .like,
-                                                                   suffix: "liked the post")
             
-            cell.avatarsStackView.loadImages(with:
-                activityPresenter.reactionUserAvatarURLs(for: activityPresenter.originalActivity, kindOf: .like))
+            if section.section == .likes {
+                let cell = tableView.dequeueReusableCell(for: indexPath) as ActionUsersTableViewCell
+                cell.titleLabel.text = activityPresenter.reactionTitle(for: activityPresenter.originalActivity,
+                                                                       kindOf: .like,
+                                                                       suffix: "liked the post")
+                
+                cell.avatarsStackView.loadImages(with:
+                    activityPresenter.reactionUserAvatarURLs(for: activityPresenter.originalActivity, kindOf: .like))
+                
+                return cell
+            }
             
-            return cell
-            
-        case 2:
-            let cell = tableView.dequeueReusableCell(for: indexPath) as ActionUsersTableViewCell
-            cell.titleLabel.text = activityPresenter.reactionTitle(for: activityPresenter.originalActivity,
-                                                                   kindOf: .repost,
-                                                                   suffix: "reposted the post")
-            
-            cell.avatarsStackView.loadImages(with:
-                activityPresenter.reactionUserAvatarURLs(for: activityPresenter.originalActivity, kindOf: .repost))
-            
-            return cell
-            
-        default: break
+            if section.section == .reposts {
+                let cell = tableView.dequeueReusableCell(for: indexPath) as ActionUsersTableViewCell
+                cell.titleLabel.text = activityPresenter.reactionTitle(for: activityPresenter.originalActivity,
+                                                                       kindOf: .repost,
+                                                                       suffix: "reposted the post")
+                
+                cell.avatarsStackView.loadImages(with:
+                    activityPresenter.reactionUserAvatarURLs(for: activityPresenter.originalActivity, kindOf: .repost))
+                
+                return cell
+            }
         }
         
         guard let comment = comment(at: indexPath) else {
@@ -230,10 +250,17 @@ extension DetailViewController: UITableViewDataSource, UITableViewDelegate {
         
         return cell
     }
+}
+
+// MARK: - Table View - Select Cell
+
+extension DetailViewController {
     
     open func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
-        guard indexPath.section == 0, let activityPresenter = activityPresenter else {
-            return false
+        guard let activityPresenter = activityPresenter,
+            indexPath.section < sectionsData.count,
+            sectionsData[indexPath.section].section == .activity else {
+                return false
         }
         
         let cellsCount = activityPresenter.cellsCount
@@ -250,7 +277,7 @@ extension DetailViewController: UITableViewDataSource, UITableViewDelegate {
             return
         }
         
-        if indexPath.row == 0, case .image(let url) = activityPresenter.activity.object {
+        if case .image(let url) = activityPresenter.originalActivity.object {
             var urls = [url]
             
             if let attachmentURLs = activityPresenter.originalActivity.attachmentImageURLs() {
@@ -258,7 +285,6 @@ extension DetailViewController: UITableViewDataSource, UITableViewDelegate {
             }
             
             showImageGallery(with: urls)
-            
             return
         }
         
@@ -266,16 +292,12 @@ extension DetailViewController: UITableViewDataSource, UITableViewDelegate {
         
         if indexPath.row == (cellsCount - 4) {
             showImageGallery(with: activityPresenter.originalActivity.attachmentImageURLs())
-            return
-        }
-        
-        if indexPath.row == (cellsCount - 3) {
+        } else if indexPath.row == (cellsCount - 3) {
             if let ogData = activityPresenter.originalActivity.ogData {
                 showOpenGraphData(with: ogData)
             } else {
                 showImageGallery(with: activityPresenter.originalActivity.attachmentImageURLs())
             }
-            return
         }
     }
 }
@@ -320,13 +342,9 @@ extension DetailViewController {
     }
     
     private func comment(at indexPath: IndexPath) -> Reaction? {
-        guard indexPath.section > 2 else {
-            return nil
-        }
+        let commentIndex = self.commentIndex(in: indexPath.section)
         
-        let commentIndex = indexPath.section - 3
-        
-        guard let reactionPaginator = reactionPaginator, commentIndex < reactionPaginator.count else {
+        guard commentIndex >= 0, let reactionPaginator = reactionPaginator, commentIndex < reactionPaginator.count else {
             return nil
         }
         
@@ -337,6 +355,14 @@ extension DetailViewController {
         }
         
         return comment
+    }
+    
+    private func commentIndex(in section: Int) -> Int {
+        if section < sectionsData.count, sectionsData[section].section != .comments {
+            return -1
+        }
+        
+        return section - (sectionsData.count > 0 ? (sectionsData.count - 1) : 0)
     }
     
     private func update(cell: CommentTableViewCell, with comment: Reaction) {
@@ -363,7 +389,7 @@ extension DetailViewController {
         
         cell.likeButton.addTap { [weak self] in
             if let activityPresenter = self?.activityPresenter, let button = $0 as? LikeButton {
-                button.like(activityPresenter.activity,
+                button.like(activityPresenter.originalActivity,
                             presenter: activityPresenter.reactionPresenter,
                             likedReaction: comment.userOwnChildReaction(.like),
                             parentReaction: comment,
@@ -442,6 +468,7 @@ extension DetailViewController {
         if let error = error {
             showErrorAlert(error)
         } else {
+            updateSectionsIndex()
             tableView.reloadData()
         }
     }
