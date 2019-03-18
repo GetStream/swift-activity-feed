@@ -19,32 +19,7 @@ open class FlatFeedViewController<T: ActivityProtocol>: BaseFlatFeedViewControll
     public typealias RemoveActivityAction = (_ activity: T) -> Void
     public var bannerView: UIView & BannerViewProtocol = BannerView()
     private var subscriptionId: SubscriptionId?
-    
-    public var presenter: FlatFeedPresenter<T>? {
-        didSet {
-            subscriptionId = presenter?.subscriptionPresenter.subscribe { [weak self] in
-                if let self = self, let response = try? $0.get() {
-                    let newCount = response.newActivities.count
-                    let deletedCount = response.deletedActivitiesIds.count
-                    let text: String
-                    
-                    if newCount > 0 {
-                        text = self.subscriptionNewItemsTitle(with: newCount)
-                        self.tabBarItem.badgeValue = String(newCount)
-                    } else if deletedCount > 0 {
-                        text = self.subscriptionDeletedItemsTitle(with: deletedCount)
-                        self.tabBarItem.badgeValue = String(deletedCount)
-                    } else {
-                        return
-                    }
-                    
-                    self.bannerView.textLabel.text = text
-                    self.bannerView.present(in: self)
-                }
-            }
-        }
-    }
-    
+    public var presenter: FlatFeedPresenter<T>?
     public var removeActivityAction: RemoveActivityAction?
     
     open override func viewDidLoad() {
@@ -157,6 +132,34 @@ open class FlatFeedViewController<T: ActivityProtocol>: BaseFlatFeedViewControll
 // MARK: - Subscription for Updates
 
 extension FlatFeedViewController {
+    
+    open func subsribeForUpdates() {
+        subscriptionId = presenter?.subscriptionPresenter.subscribe { [weak self] in
+            if let self = self, let response = try? $0.get() {
+                let newCount = response.newActivities.count
+                let deletedCount = response.deletedActivitiesIds.count
+                let text: String
+                
+                if newCount > 0 {
+                    text = self.subscriptionNewItemsTitle(with: newCount)
+                    self.tabBarItem.badgeValue = String(newCount)
+                } else if deletedCount > 0 {
+                    text = self.subscriptionDeletedItemsTitle(with: deletedCount)
+                    self.tabBarItem.badgeValue = String(deletedCount)
+                } else {
+                    return
+                }
+                
+                self.bannerView.textLabel.text = text
+                self.bannerView.present(in: self)
+            }
+        }
+    }
+    
+    public func unsibscribeFromUpdates() {
+        subscriptionId = nil
+    }
+    
     open func subscriptionNewItemsTitle(with count: Int) -> String {
         return "You have \(count) new activities"
     }
