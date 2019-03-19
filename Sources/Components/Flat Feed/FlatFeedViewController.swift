@@ -117,7 +117,7 @@ open class FlatFeedViewController<T: ActivityProtocol>: BaseFlatFeedViewControll
 
 extension FlatFeedViewController {
     
-    open func subsribeForUpdates() {
+    open func subscribeForUpdates() {
         subscriptionId = presenter?.subscriptionPresenter.subscribe { [weak self] in
             if let self = self, let response = try? $0.get() {
                 let newCount = response.newActivities.count
@@ -140,7 +140,7 @@ extension FlatFeedViewController {
         }
     }
     
-    public func unsibscribeFromUpdates() {
+    public func unsubscribeFromUpdates() {
         subscriptionId = nil
     }
     
