@@ -65,6 +65,10 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
         }
         
         reloadData()
+        
+        if isModal {
+            setupNavigationBarForModallyPresented()
+        }
     }
     
     private func updateSectionsIndex() {
@@ -449,5 +453,23 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
     public func textViewDidChange(_ textView: UITextView) {
         textToolBar.updateSendButton()
         textToolBar.updateTextHeightIfNeeded()
+    }
+}
+
+// MARK: - Modally presented
+
+extension DetailViewController {
+    open func setupNavigationBarForModallyPresented() {
+        guard navigationController != nil else {
+            return
+        }
+        
+        let closeButton = UIButton(type: .custom)
+        closeButton.setImage(.closeIcon, for: .normal)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: closeButton)
+        
+        closeButton.addTap { [weak self] _ in
+            self?.dismiss(animated: true)
+        }
     }
 }

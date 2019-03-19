@@ -51,6 +51,17 @@ extension UIView {
     }
 }
 
+// MARK: - Modal
+
+extension UIViewController {
+    /// Return true if the view controller was presented modally.
+    public var isModal: Bool {
+        return presentingViewController != nil
+            || navigationController?.presentingViewController?.presentedViewController === navigationController
+            || tabBarController?.presentingViewController is UITabBarController
+    }
+}
+
 // MARK: - Segue
 
 extension UIViewController {
