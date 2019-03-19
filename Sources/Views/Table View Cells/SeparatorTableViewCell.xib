@@ -13,14 +13,14 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <tableViewCell userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="1" id="KGk-i7-Jjw" customClass="SeparatorTableViewCell" customModule="GetStreamActivityFeed" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="1"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="9"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="0.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="8.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8YF-Uj-PK1">
-                        <rect key="frame" x="16" y="0.0" width="304" height="1.5"/>
+                        <rect key="frame" x="16" y="8.5" width="304" height="1"/>
                         <color key="backgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="1" id="r7r-H8-QEb"/>
@@ -30,7 +30,7 @@
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="8YF-Uj-PK1" secondAttribute="trailing" id="3IS-Xl-Zp6"/>
                     <constraint firstItem="8YF-Uj-PK1" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="bottom" id="6CR-NQ-MYA"/>
-                    <constraint firstItem="8YF-Uj-PK1" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="SbX-M6-Jzn"/>
+                    <constraint firstItem="8YF-Uj-PK1" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="SbX-M6-Jzn"/>
                     <constraint firstItem="8YF-Uj-PK1" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="sbc-ly-ZiI"/>
                 </constraints>
             </tableViewCellContentView>

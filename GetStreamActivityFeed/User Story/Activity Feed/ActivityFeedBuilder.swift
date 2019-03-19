@@ -19,7 +19,8 @@ final class ActivityFeedBuilder {
         
         if let flatFeedViewController = navigationController.viewControllers.first as? ActivityFeedViewController,
             let flatFeed = Client.shared.flatFeed(feedSlug: feedSlug) {
-            flatFeedViewController.presenter = FlatFeedPresenter<Activity>(flatFeed: flatFeed)
+            flatFeedViewController.presenter = FlatFeedPresenter<Activity>(flatFeed: flatFeed,
+                                                                           reactionTypes: [.comments, .reposts, .likes])
             flatFeedViewController.profileBuilder = profileBuilder
         }
         

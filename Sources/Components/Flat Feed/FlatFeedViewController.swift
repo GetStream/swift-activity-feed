@@ -79,9 +79,7 @@ open class FlatFeedViewController<T: ActivityProtocol>: BaseFlatFeedViewControll
         
         if let cell = cell as? PostHeaderTableViewCell {
             updateAvatar(in: cell, activity: activityPresenter.originalActivity)
-        }
-        
-        if let cell = cell as? PostActionsTableViewCell {
+        } else if let cell = cell as? PostActionsTableViewCell {
             updateActions(in: cell, activityPresenter: activityPresenter)
         }
         
@@ -95,36 +93,22 @@ open class FlatFeedViewController<T: ActivityProtocol>: BaseFlatFeedViewControll
     open override func tableView(_ tableView: UITableView,
                                  commit editingStyle: UITableViewCell.EditingStyle,
                                  forRowAt indexPath: IndexPath) {
-        guard let activityPresenter = activityPresenter(in: indexPath.section) else {
-            return
-        }
-        
-        if editingStyle == .delete, let removeActivityAction = removeActivityAction {
+        if editingStyle == .delete,
+            let removeActivityAction = removeActivityAction,
+            let activityPresenter = activityPresenter(in: indexPath.section) {
             removeActivityAction(activityPresenter.activity)
         }
     }
     
     open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let activityPresenter = activityPresenter(in: indexPath.section),
-            let originalActivity = activityPresenter.originalActivity as? AttachmentRepresentable else {
+        guard let cellType = activityPresenter(in: indexPath.section)?.cellType(at: indexPath) else {
             return
         }
         
-        let cellsCount = activityPresenter.cellsCount
-        
-        if indexPath.row != 0 {
-            if indexPath.row == (cellsCount - 4) {
-                showImageGallery(with: originalActivity.attachmentImageURLs())
-                return
-            }
-            
-            if indexPath.row == (cellsCount - 3) {
-                if let ogData = originalActivity.ogData {
-                    showOpenGraphData(with: ogData)
-                } else {
-                    showImageGallery(with: originalActivity.attachmentImageURLs())
-                }
-            }
+        if case .attachmentImages(let urls) = cellType {
+            showImageGallery(with: urls)
+        } else if case .attachmentOpenGraphData(let ogData) = cellType {
+            showOpenGraphData(with: ogData)
         }
     }
 }

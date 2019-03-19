@@ -62,7 +62,18 @@ final class ActivityFeedViewController: FlatFeedViewController<Activity>, Bundle
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == 0, let activityPresenter = activityPresenter(in: indexPath.section) {
+        guard let activityPresenter = activityPresenter(in: indexPath.section),
+            let cellType = activityPresenter.cellType(at: indexPath) else {
+            return
+        }
+        
+        var showDetail = indexPath.row == 0
+        
+        if !showDetail, case .actions = cellType {
+            showDetail = true
+        }
+        
+        if showDetail {
             performSegue(show: PostDetailTableViewController.self, sender: activityPresenter)
         } else {
             super.tableView(tableView, didSelectRowAt: indexPath)

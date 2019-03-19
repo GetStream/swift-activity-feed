@@ -27,57 +27,29 @@ extension UITableView {
 // MARK: - Cells
 
 extension UITableView {
-    public func postCell<T: ActivityProtocol>(at indexPath: IndexPath,
-                                              presenter: ActivityPresenter<T>) -> UITableViewCell?
+    public func postCell<T: ActivityProtocol>(at indexPath: IndexPath, presenter: ActivityPresenter<T>) -> UITableViewCell?
         where T.ActorType: UserNameRepresentable, T.ReactionType: ReactionProtocol {
-            let cellsCount = presenter.cellsCount
-            let originalActivity = presenter.originalActivity
-            let attachmentActivity = originalActivity as? AttachmentRepresentable
-            
-            switch indexPath.row {
-            case 0:
-                // Header with Text and/or Image.
-                let cell = dequeueReusableCell(for: indexPath) as PostHeaderTableViewCell
-                cell.update(with: presenter.activity, originalActivity: originalActivity)
-                return cell
-                
-            case (cellsCount - 4):
-                // Images.
-                if let cell = postAttachmentImagesTableViewCell(attachmentActivity, at: indexPath) {
-                    return cell
-                }
-                
-            case (cellsCount - 3): // Open Graph Data or Images.
-                if let ogData = attachmentActivity?.ogData {
-                    let cell = dequeueReusableCell(for: indexPath) as OpenGraphTableViewCell
-                    cell.update(with: ogData)
-                    return cell
-                    
-                } else if let cell = postAttachmentImagesTableViewCell(attachmentActivity, at: indexPath) {
-                    return cell
-                }
-                
-            case (cellsCount - 2): // Activities.
-                return dequeueReusableCell(for: indexPath) as PostActionsTableViewCell
-                
-            case (cellsCount - 1): // Separator.
-                return dequeueReusableCell(for: indexPath) as SeparatorTableViewCell
-            default:
-                break
+            guard let cellType = presenter.cellType(at: indexPath) else {
+                return nil
             }
             
-            return nil
-    }
-    
-    private func postAttachmentImagesTableViewCell(_ attachmentRepresentable: AttachmentRepresentable?,
-                                                   at indexPath: IndexPath) -> UITableViewCell? {
-        guard let attachmentRepresentable = attachmentRepresentable,
-            let imageURLs = attachmentRepresentable.attachmentImageURLs() else {
-                return nil
-        }
-        
-        let cell = dequeueReusableCell(for: indexPath) as PostAttachmentImagesTableViewCell
-        cell.stackView.loadImages(with: imageURLs)
-        return cell
+            switch cellType {
+            case .activity:
+                let cell = dequeueReusableCell(for: indexPath) as PostHeaderTableViewCell
+                cell.update(with: presenter.activity, originalActivity: presenter.originalActivity)
+                return cell
+            case .attachmentImages(let urls):
+                let cell = dequeueReusableCell(for: indexPath) as PostAttachmentImagesTableViewCell
+                cell.stackView.loadImages(with: urls)
+                return cell
+            case .attachmentOpenGraphData(let ogData):
+                let cell = dequeueReusableCell(for: indexPath) as OpenGraphTableViewCell
+                cell.update(with: ogData)
+                return cell
+            case .actions:
+                return dequeueReusableCell(for: indexPath) as PostActionsTableViewCell
+            case .separator:
+                return dequeueReusableCell(for: indexPath) as SeparatorTableViewCell
+            }
     }
 }

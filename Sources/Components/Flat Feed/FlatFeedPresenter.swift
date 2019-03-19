@@ -20,9 +20,11 @@ public final class FlatFeedPresenter<T: ActivityProtocol>: PaginatorProtocol {
     public private(set) var items: [ActivityPresenter<T>] = []
     public var next: Pagination = .none
     public let subscriptionPresenter: SubscriptionPresenter<T>
+    public var reactionTypes: ActivityPresenterReactionTypes = []
     
-    public init(flatFeed: FlatFeed) {
+    public init(flatFeed: FlatFeed, reactionTypes: ActivityPresenterReactionTypes = []) {
         self.flatFeed = flatFeed
+        self.reactionTypes = reactionTypes
         flatFeed.callbackQueue = DispatchQueue.init(label: "io.getstream.FlatFeedPresenter", qos: .userInitiated)
         reactionPresenter = ReactionPresenter()
         subscriptionPresenter = SubscriptionPresenter(feed: flatFeed)
@@ -45,7 +47,9 @@ public final class FlatFeedPresenter<T: ActivityProtocol>: PaginatorProtocol {
                 let response = try result.get()
                 
                 self.items.append(contentsOf: response.results
-                    .map({ ActivityPresenter(activity: $0, reactionPresenter: self.reactionPresenter) }))
+                    .map({ ActivityPresenter(activity: $0,
+                                             reactionPresenter: self.reactionPresenter,
+                                             reactionTypes: self.reactionTypes) }))
                 
                 self.next = response.next ?? .none
             } catch let responseError {

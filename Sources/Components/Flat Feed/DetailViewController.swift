@@ -43,7 +43,7 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
     public var reactionPaginator: ReactionPaginator<ReactionExtraData, T.ActorType>?
     private var replyToComment: T.ReactionType?
     public private(set) var sectionsData: [DetailViewControllerSection] = []
-    public var sections: DetailViewControllerSectionTypes = [.activity, .likes, .reposts, .comments]
+    public var sections: DetailViewControllerSectionTypes = .activity
     public var childCommentsCount = 0
     
     public var activityPresenter: ActivityPresenter<T>? {
@@ -179,7 +179,7 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
     }
     
     open override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return section < sectionsData.count ? sectionsData[section].title : nil
+        return section < sectionsData.count && sectionsData.count != 1 ? sectionsData[section].title : nil
     }
     
     open override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -260,46 +260,30 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
     open func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
         guard let activityPresenter = activityPresenter,
             indexPath.section < sectionsData.count,
-            sectionsData[indexPath.section].section == .activity else {
+            sectionsData[indexPath.section].section == .activity,
+            let cellType = activityPresenter.cellType(at: indexPath) else {
                 return false
         }
         
-        let cellsCount = activityPresenter.cellsCount
-        
-        if indexPath.row == 0, (activityPresenter.originalActivity.object as? ActivityObjectProtocol)?.imageURL != nil {
+        if case .attachmentImages = cellType {
+            return true
+        } else if case .attachmentOpenGraphData = cellType {
             return true
         }
         
-        return indexPath.row == (cellsCount - 4) || indexPath.row == (cellsCount - 3)
+        return false
     }
     
     open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let activityPresenter = activityPresenter,
-            let originalActivity = activityPresenter.originalActivity as? AttachmentRepresentable else {
+            let cellType = activityPresenter.cellType(at: indexPath) else {
                 return
         }
         
-        if let object = activityPresenter.originalActivity.object as? ActivityObjectProtocol, let url = object.imageURL {
-            var urls = [url]
-            
-            if let attachmentURLs = originalActivity.attachmentImageURLs() {
-                urls.append(contentsOf: attachmentURLs)
-            }
-            
+        if case .attachmentImages(let urls) = cellType {
             showImageGallery(with: urls)
-            return
-        }
-        
-        let cellsCount = activityPresenter.cellsCount
-        
-        if indexPath.row == (cellsCount - 4) {
-            showImageGallery(with: originalActivity.attachmentImageURLs())
-        } else if indexPath.row == (cellsCount - 3) {
-            if let ogData = originalActivity.ogData {
-                showOpenGraphData(with: ogData)
-            } else {
-                showImageGallery(with: originalActivity.attachmentImageURLs())
-            }
+        } else if case .attachmentOpenGraphData(let ogData) = cellType {
+            showOpenGraphData(with: ogData)
         }
     }
     

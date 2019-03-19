@@ -102,15 +102,19 @@ open class BaseFlatFeedViewController<T: ActivityProtocol>: UIViewController, UI
     }
     
     open func updateActions(in cell: PostActionsTableViewCell, activityPresenter: ActivityPresenter<T>) {
-        cell.updateReply(commentsCount: activityPresenter.originalActivity.commentsCount)
+        if activityPresenter.reactionTypes.contains(.comments) {
+            cell.updateReply(commentsCount: activityPresenter.originalActivity.commentsCount)
+        }
         
-        cell.updateLike(presenter: activityPresenter, userTypeOf: T.ActorType.self) {
-            if let error = $0 {
-                print("❌", error)
+        if activityPresenter.reactionTypes.contains(.likes) {
+            cell.updateLike(presenter: activityPresenter, userTypeOf: T.ActorType.self) {
+                if let error = $0 {
+                    print("❌", error)
+                }
             }
         }
         
-        if let feedId = FeedId.user {
+        if activityPresenter.reactionTypes.contains(.reposts), let feedId = FeedId.user {
             cell.updateRepost(presenter: activityPresenter, targetFeedId: feedId, userTypeOf: T.ActorType.self) {
                 if let error = $0 {
                     print("❌", error)
