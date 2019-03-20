@@ -18,6 +18,8 @@ public final class TextToolBar: UIView {
         return TextToolBar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: TextToolBar.height))
     }
     
+    private var textViewToAvatarConstraint: Constraint?
+    
     public private(set) lazy var avatarView: AvatarView = {
         let avatarView = AvatarView()
         avatarView.shadowRadius = 6
@@ -25,6 +27,7 @@ public final class TextToolBar: UIView {
         avatarView.placeholder = .userIcon
         avatarView.tintColor = .gray
         avatarView.alpha = 0.8
+        avatarView.isHidden = true
         addSubview(avatarView)
         
         avatarView.snp.makeConstraints({ make in
@@ -47,7 +50,8 @@ public final class TextToolBar: UIView {
             make.top.equalTo(TextToolBar.height / 2 - 17)
             make.bottom.equalToSuperview().offset(-8)
             make.right.equalTo(sendButton.snp.left).offset(-8)
-            make.left.equalTo(avatarView.snp.right).offset(16)
+            make.left.equalToSuperview().offset(16).priority(749)
+            textViewToAvatarConstraint = make.left.equalTo(avatarView.snp.right).offset(16).priority(.low).constraint
         })
         
         return textView
@@ -94,6 +98,15 @@ public final class TextToolBar: UIView {
         set {
             textView.text = newValue
             updatePlaceholder()
+        }
+    }
+    
+    public var showAvatar: Bool {
+        get { return !avatarView.isHidden }
+        set {
+            avatarView.isHidden = !newValue
+            textViewToAvatarConstraint?.update(priority: newValue ? ConstraintPriority.high : ConstraintPriority.low)
+            setNeedsLayout()
         }
     }
     

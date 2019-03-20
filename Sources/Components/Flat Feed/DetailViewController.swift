@@ -409,6 +409,7 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
     private func setupCommentTextField(avatarImage: UIImage?) {
         textToolBar.placeholderText = "Leave reply"
         textToolBar.addToSuperview(view)
+        textToolBar.showAvatar = true
         textToolBar.avatarView.image = avatarImage
         textToolBar.sendButton.addTarget(self, action: #selector(send(_:)), for: .touchUpInside)
         
