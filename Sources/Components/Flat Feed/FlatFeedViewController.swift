@@ -26,6 +26,11 @@ open class FlatFeedViewController<T: ActivityProtocol>: BaseFlatFeedViewControll
         super.viewDidLoad()
         tableView.delegate = self
         reloadData()
+        
+        bannerView.addTap { [weak self] in
+            $0.hide(from: nil)
+            self?.reloadData()
+        }
     }
     
     open override func viewWillAppear(_ animated: Bool) {

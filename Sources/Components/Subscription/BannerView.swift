@@ -11,6 +11,8 @@ import SnapKit
 
 /// A banner view protocol to show realtime updates.
 public protocol BannerViewProtocol where Self: UIView {
+    typealias Action = (_ view: BannerView) -> Void
+    
     var textLabel: UILabel { get }
     
     /// Present the banner view in a view controller.
@@ -31,6 +33,12 @@ public protocol BannerViewProtocol where Self: UIView {
     /// - Parameter tableViewController: if the banner was shown in the table view controller,
     ///             then it needs to be cleared from table view header.
     func hide(from tableViewController: UITableViewController?)
+    
+    /// Add a tap action to the banner.
+    func addTap(_ action: @escaping Action)
+    
+    /// Remove the tap action from the banner.
+    func removeTap()
 }
 
 public final class BannerView: UIView, BannerViewProtocol {
@@ -39,6 +47,8 @@ public final class BannerView: UIView, BannerViewProtocol {
     
     private var needsToClearTableViewHeader: Bool = false
     private var dispatchWorkItem: DispatchWorkItem? = nil
+    private var tapGestureRecognizer: UITapGestureRecognizer?
+    private var tapAction: Action?
     
     public private(set) lazy var textLabel: UILabel = {
         let label = UILabel(frame: .zero)
@@ -47,7 +57,6 @@ public final class BannerView: UIView, BannerViewProtocol {
         label.font = .systemFont(ofSize: 12, weight: .bold)
         addSubview(label)
         backgroundColor = Appearance.Color.blue
-        isUserInteractionEnabled = false
         
         label.snp.makeConstraints { make in
             make.left.top.equalToSuperview().offset(16)
@@ -56,6 +65,30 @@ public final class BannerView: UIView, BannerViewProtocol {
         
         return label
     }()
+    
+    public func addTap(_ action: @escaping Action) {
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tap))
+        tapGestureRecognizer.numberOfTapsRequired = 1
+        tapGestureRecognizer.numberOfTouchesRequired = 1
+        addGestureRecognizer(tapGestureRecognizer)
+        self.tapGestureRecognizer = tapGestureRecognizer
+        tapAction = action
+    }
+    
+    public func removeTap() {
+        tapAction = nil
+        
+        if let tap = tapGestureRecognizer {
+            removeGestureRecognizer(tap)
+            tapGestureRecognizer = nil
+        }
+    }
+    
+    @objc func tap() {
+        if let tapAction = tapAction {
+            tapAction(self)
+        }
+    }
 }
 
 // MARK: - Presenting
@@ -101,10 +134,12 @@ extension BannerView {
                         timeout = nil
                         
                         let dispatchWorkItem = DispatchWorkItem {
-                            self.hide()
-                            
-                            if navigationControllerBannerTimeout == nil {
-                                self.present(in: tableViewController)
+                            if self.superview != nil {
+                                self.hide()
+                                
+                                if navigationControllerBannerTimeout == nil {
+                                    self.present(in: tableViewController)
+                                }
                             }
                         }
                         
