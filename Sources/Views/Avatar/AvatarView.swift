@@ -57,6 +57,14 @@ public class AvatarView: UIView {
         }
     }
     
+    public var isPlaceholder: Bool {
+        if let currentImage = imageView.image, let currentPlaceholder = placeholder {
+            return currentImage === currentPlaceholder
+        }
+        
+        return true
+    }
+    
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView(frame: .zero)
         imageView.contentMode = .scaleAspectFill

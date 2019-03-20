@@ -39,12 +39,13 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
     where T.ActorType: UserProtocol & UserNameRepresentable & AvatarRepresentable,
           T.ReactionType == GetStream.Reaction<ReactionExtraData, T.ActorType> {
     
-    public let textToolBar = TextToolBar.textToolBar
+    public let textToolBar = TextToolBar.make()
     public var reactionPaginator: ReactionPaginator<ReactionExtraData, T.ActorType>?
     private var replyToComment: T.ReactionType?
     public private(set) var sectionsData: [DetailViewControllerSection] = []
     public var sections: DetailViewControllerSectionTypes = .activity
     public var childCommentsCount = 0
+    public var canAddComment = true
     
     public var activityPresenter: ActivityPresenter<T>? {
         didSet {
@@ -60,8 +61,11 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
         updateSectionsIndex()
         
         if sections.contains(.comments) {
-            User.current?.loadAvatar { [weak self] in self?.setupCommentTextField(avatarImage: $0) }
             reactionPaginator?.load(completion: commentsLoaded)
+            
+            if canAddComment {
+                User.current?.loadAvatar { [weak self] in self?.setupCommentTextField(avatarImage: $0) }
+            }
         }
         
         reloadData()
@@ -126,11 +130,16 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
     
     open override func setupTableView() {
         tableView.delegate = self
+        
+        if canAddComment, sections.contains(.comments) {
+            tableView.snp.makeConstraints { $0.left.top.right.equalToSuperview() }
+        } else {
+            tableView.snp.makeConstraints { $0.edges.equalToSuperview() }
+        }
     }
     
     open override func setupRefreshControl() {
         if sections.contains(.comments) {
-            tableView.snp.makeConstraints { $0.left.top.right.equalToSuperview() }
             tableView.refreshControl = refreshControl
             
             refreshControl.addValueChangedAction { [weak self] _ in
@@ -138,8 +147,6 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
                     reactionPaginator.load(completion: self.commentsLoaded)
                 }
             }
-        } else {
-            tableView.snp.makeConstraints { $0.edges.equalToSuperview() }
         }
     }
     
@@ -402,7 +409,6 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
     private func setupCommentTextField(avatarImage: UIImage?) {
         textToolBar.placeholderText = "Leave reply"
         textToolBar.addToSuperview(view)
-        textToolBar.textView.delegate = self
         textToolBar.avatarView.image = avatarImage
         textToolBar.sendButton.addTarget(self, action: #selector(send(_:)), for: .touchUpInside)
         
@@ -414,21 +420,19 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
     @objc func send(_ button: UIButton) {
         let parentReaction = textToolBar.replyText == nil ? nil : replyToComment
         view.endEditing(true)
-        textToolBar.clearPlaceholder()
         
-        guard let text = textToolBar.textView.text, !text.isEmpty, let activityPresenter = activityPresenter else {
+        guard !textToolBar.text.isEmpty, let activityPresenter = activityPresenter else {
             return
         }
         
-        textToolBar.textView.text = nil
-        textToolBar.addPlaceholder()
         textToolBar.textView.isEditable = false
         
         activityPresenter.reactionPresenter.addComment(for: activityPresenter.activity,
                                                        parentReaction: parentReaction,
-                                                       extraData: ReactionExtraData.comment(text),
+                                                       extraData: ReactionExtraData.comment(textToolBar.text),
                                                        userTypeOf: T.ActorType.self) { [weak self] in
                                                         if let self = self {
+                                                            self.textToolBar.text = ""
                                                             self.textToolBar.textView.isEditable = true
                                                             
                                                             if let error = $0.error {
@@ -438,21 +442,6 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
                                                             }
                                                         }
         }
-    }
-    
-    public func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
-        textToolBar.clearPlaceholder()
-        return true
-    }
-    
-    public func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
-        textToolBar.addPlaceholder()
-        return true
-    }
-    
-    public func textViewDidChange(_ textView: UITextView) {
-        textToolBar.updateSendButton()
-        textToolBar.updateTextHeightIfNeeded()
     }
 }
 

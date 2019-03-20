@@ -14,7 +14,7 @@ public final class TextToolBar: UIView {
     public static let maxHeight: CGFloat = 200
     public static let avatarWidth: CGFloat = 50
     
-    public static var textToolBar: TextToolBar {
+    public static func make() -> TextToolBar {
         return TextToolBar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: TextToolBar.height))
     }
     
@@ -38,7 +38,9 @@ public final class TextToolBar: UIView {
     
     public private(set) lazy var textView: UITextView = {
         let textView = UITextView(frame: .zero)
+        textView.font = .systemFont(ofSize: 15)
         textView.backgroundColor = .clear
+        textView.delegate = self
         addSubview(textView)
         
         textView.snp.makeConstraints({ make in
@@ -49,6 +51,22 @@ public final class TextToolBar: UIView {
         })
         
         return textView
+    }()
+    
+    public private(set) lazy var placeholderLabel: UILabel = {
+        let label = UILabel(frame: .zero)
+        label.textColor = .lightGray
+        label.font = textView.font
+        label.backgroundColor = .clear
+        textView.addSubview(label)
+        
+        label.snp.makeConstraints { make in
+            make.left.equalTo(textView.textContainer.lineFragmentPadding)
+            make.top.equalTo(textView.textContainerInset.top)
+            make.right.equalToSuperview()
+        }
+        
+        return label
     }()
     
     public private(set) lazy var sendButton: UIButton = {
@@ -71,11 +89,20 @@ public final class TextToolBar: UIView {
         return button
     }()
     
+    public var text: String {
+        get { return textView.text ?? "" }
+        set {
+            textView.text = newValue
+            updatePlaceholder()
+        }
+    }
+    
     public var sendTitle: String = "Send"
     public var cancelTitle: String = "Cancel"
     
-    public var placeholderText = "" {
-        didSet { addPlaceholder() }
+    public var placeholderText: String {
+        get { return placeholderLabel.text ?? "" }
+        set { placeholderLabel.text = newValue }
     }
     
     private weak var heightConstraint: NSLayoutConstraint?
@@ -118,7 +145,7 @@ public final class TextToolBar: UIView {
             replyContainer.isHidden = newValue == nil
         }
     }
-
+    
     public override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
@@ -131,7 +158,7 @@ public final class TextToolBar: UIView {
     
     private func setup() {
         backgroundColor = UIColor(white: 0.97, alpha: 1)
-        textView.font = .systemFont(ofSize: 15)
+        placeholderText = "Leave a message"
         
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(keyboardUpdated(_:)),
@@ -155,23 +182,8 @@ public final class TextToolBar: UIView {
         }
     }
     
-    public func addPlaceholder() {
-        if textView.text.isEmpty {
-            textView.text = placeholderText
-            textView.textColor = .lightGray
-        } else {
-            textView.textColor = .black
-        }
-        
-        DispatchQueue.main.async { self.updateSendButton() }
-    }
-    
-    public func clearPlaceholder() {
-        if textView.text == placeholderText {
-            textView.text = ""
-            textView.textColor = .black
-        }
-        
+    public func updatePlaceholder() {
+        placeholderLabel.isHidden = !textView.text.isEmpty
         DispatchQueue.main.async { self.updateSendButton() }
     }
     
@@ -195,8 +207,8 @@ extension TextToolBar {
         
         if baseTextHeight == .greatestFiniteMagnitude {
             let text = textView.text
-            textView.text = ""
-            baseTextHeight = textView.contentSize.height.rounded()
+            textView.text = "T"
+            baseTextHeight = textViewContentSize.height.rounded()
             textView.text = text
             
             if textView.contentSize.height <= baseTextHeight {
@@ -209,8 +221,11 @@ extension TextToolBar {
             return
         }
         
-        let size = textView.sizeThatFits(CGSize(width: textView.frame.width, height: .greatestFiniteMagnitude))
-        updateTextHeight(size.height.rounded())
+        updateTextHeight(textViewContentSize.height.rounded())
+    }
+    
+    private var textViewContentSize: CGSize {
+        return textView.sizeThatFits(CGSize(width: textView.frame.width, height: .greatestFiniteMagnitude))
     }
     
     private func updateTextHeight(_ height: CGFloat) {
@@ -223,6 +238,26 @@ extension TextToolBar {
     }
 }
 
+// MARK: - Text View Delegate
+
+extension TextToolBar: UITextViewDelegate {
+    
+    public func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+        DispatchQueue.main.async { self.updateSendButton() }
+        return true
+    }
+    
+    public func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
+        updatePlaceholder()
+        return true
+    }
+    
+    public func textViewDidChange(_ textView: UITextView) {
+        updatePlaceholder()
+        updateTextHeightIfNeeded()
+    }
+}
+
 // MARK: - Keyboard Events
 
 extension TextToolBar {
@@ -230,7 +265,7 @@ extension TextToolBar {
         guard let userInfo = notification.userInfo,
             let value = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue,
             let view = superview else {
-            return
+                return
         }
         
         let willHide = notification.name == UIResponder.keyboardWillHideNotification

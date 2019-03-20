@@ -9,5 +9,5 @@
 import Foundation
 
 public protocol TextRepresentable {
-    var text: String? { get }
+    var text: String? { get set }
 }

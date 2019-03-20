@@ -29,7 +29,7 @@ final class ActivityFeedViewController: FlatFeedViewController<Activity>, Bundle
         super.viewDidLoad()
         tabBarItem = UITabBarItem(title: "Home", image: .homeIcon, tag: 0)
         hideBackButtonTitle()
-        subsribeForUpdates()
+        subscribeForUpdates()
         setupBellButton()
     }
     
@@ -95,6 +95,7 @@ final class ActivityFeedViewController: FlatFeedViewController<Activity>, Bundle
         }
         
         activityDetailTableViewController.activityPresenter = activityPresenter
+        activityDetailTableViewController.sections = [.activity, .comments]
     }
 }
 
