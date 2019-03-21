@@ -9,13 +9,15 @@
 import GetStream
 
 public class ReactionPaginator<T: ReactionExtraDataProtocol, U: UserProtocol>: PaginatorProtocol {
+    
     public typealias Completion = (_ error: Error?) -> Void
     
-    let activityId: String
-    let reactionKind: ReactionKind
+    public let activityId: String
+    public let reactionKind: ReactionKind
     
     public private(set) var items: [GetStream.Reaction<T, U>] = []
     public var next: Pagination = .none
+    public private(set) var total: Int = 0
     
     init(activityId: String, reactionKind: ReactionKind) {
         self.activityId = activityId

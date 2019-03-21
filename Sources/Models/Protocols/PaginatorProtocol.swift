@@ -16,6 +16,7 @@ protocol PaginatorProtocol {
     var next: Pagination { get }
     var hasNext: Bool { get }
     var count: Int { get }
+    var total: Int { get }
     
     func load(_ pagination: Pagination, completion: @escaping Completion)
     

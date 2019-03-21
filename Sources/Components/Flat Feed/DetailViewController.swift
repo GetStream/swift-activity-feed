@@ -46,6 +46,7 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
     public var sections: DetailViewControllerSectionTypes = .activity
     public var childCommentsCount = 0
     public var canAddComment = true
+    public var showZeroSectionTitle = true
     
     public var activityPresenter: ActivityPresenter<T>? {
         didSet {
@@ -85,38 +86,41 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
         var sectionsData: [DetailViewControllerSection] = []
         
         if sections.contains(.activity) {
-            sectionsData.append(DetailViewControllerSection(section: .activity, title: nil, count: activityPresenter.cellsCount - 1))
+            sectionsData.append(DetailViewControllerSection(section: .activity,
+                                                            title: nil,
+                                                            count: activityPresenter.cellsCount - 1))
         }
         
-        if sections.contains(.likes), originalActivity.likesCount > 0 {
-            let title = sectionTitle(for: .likes, count: originalActivity.likesCount)
-            sectionsData.append(DetailViewControllerSection(section: .likes, title: title, count: 1))
+        if sections.contains(.likes), (originalActivity.likesCount > 0 || showZeroSectionTitle) {
+            let title = sectionTitle(for: .likes)
+            let count = originalActivity.likesCount > 0 ? 1 : 0
+            sectionsData.append(DetailViewControllerSection(section: .likes, title: title, count: count))
         }
         
-        if sections.contains(.reposts), originalActivity.repostsCount > 0 {
-            let title = sectionTitle(for: .reposts, count: originalActivity.repostsCount)
+        if sections.contains(.reposts), (originalActivity.repostsCount > 0 || showZeroSectionTitle) {
+            let title = sectionTitle(for: .reposts)
             sectionsData.append(DetailViewControllerSection(section: .reposts, title: title, count: originalActivity.repostsCount))
         }
         
         if sections.contains(.comments), let reactionPaginator = reactionPaginator {
-            let title = sectionTitle(for: .comments, count: reactionPaginator.count)
+            let title = sectionTitle(for: .comments)
             sectionsData.append(DetailViewControllerSection(section: .comments, title: title, count: reactionPaginator.count))
         }
         
         self.sectionsData = sectionsData
     }
     
-    open func sectionTitle(for type: DetailViewControllerSectionTypes, count: Int) -> String? {
+    open func sectionTitle(for type: DetailViewControllerSectionTypes) -> String? {
         if type == .likes {
-            return "Liked (\(count))"
+            return "Liked"
         }
         
         if type == .reposts {
-            return "Reposts (\(count))"
+            return "Reposts"
         }
         
         if type == .comments {
-            return "Comments (\(count))"
+            return "Comments"
         }
         
         return nil
@@ -159,7 +163,12 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
         
         if sections.contains(.comments), let reactionPaginator = reactionPaginator {
             count -= 1 // remove the comments section from sectionsData, the rest of the sections are comments.
-            count += reactionPaginator.count + (reactionPaginator.hasNext ? 1 : 0)
+            let commentsCount = reactionPaginator.count + (reactionPaginator.hasNext ? 1 : 0)
+            count += commentsCount
+            
+            if showZeroSectionTitle, commentsCount == 0 {
+                count += 1
+            }
         }
         
         return count
@@ -167,7 +176,7 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
     
     open override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section < sectionsData.count, sectionsData[section].section != .comments {
-            return sectionsData[section].count
+            return max(sectionsData[section].count, showZeroSectionTitle ? 1 : 0)
         }
         
         guard sections.contains(.comments), let reactionPaginator = reactionPaginator else {
@@ -183,6 +192,7 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
         if commentIndex < reactionPaginator.items.count {
             let comment = reactionPaginator.items[commentIndex]
             let childCommentsCount = comment.childrenCounts[.comment] ?? 0
+            
             return min(childCommentsCount, self.childCommentsCount) + 1
         }
         
@@ -213,7 +223,7 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
                 return cell
             }
             
-            if section.section == .likes {
+            if section.section == .likes, section.count > 0 {
                 let cell = tableView.dequeueReusableCell(for: indexPath) as ActionUsersTableViewCell
                 cell.titleLabel.text = activityPresenter.reactionTitle(for: activityPresenter.originalActivity,
                                                                        kindOf: .like,
@@ -225,8 +235,9 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
                 return cell
             }
             
-            if section.section == .reposts {
+            if section.section == .reposts, section.count > 0 {
                 let cell = tableView.dequeueReusableCell(for: indexPath) as ActionUsersTableViewCell
+                
                 cell.titleLabel.text = activityPresenter.reactionTitle(for: activityPresenter.originalActivity,
                                                                        kindOf: .repost,
                                                                        suffix: "reposted the post")
@@ -236,11 +247,19 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
                 
                 return cell
             }
+            
+            if section.section != .comments {
+                return .unused
+            }
         }
         
         guard let comment = comment(at: indexPath) else {
-            reactionPaginator.loadNext(completion: commentsLoaded)
-            return tableView.dequeueReusableCell(for: indexPath) as PaginationTableViewCell
+            if reactionPaginator.hasNext {
+                reactionPaginator.loadNext(completion: commentsLoaded)
+                return tableView.dequeueReusableCell(for: indexPath) as PaginationTableViewCell
+            }
+            
+            return .unused
         }
         
         let cell = tableView.dequeueReusableCell(for: indexPath) as CommentTableViewCell

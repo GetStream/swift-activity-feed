@@ -15,6 +15,7 @@ public final class NotificationsPresenter<T: ActivityProtocol>: PaginatorProtoco
     public let notificationFeed: NotificationFeed
     public private(set) var items: [NotificationGroup<T>] = []
     public var next: Pagination = .none
+    public private(set) var total: Int = 0
     public var markOption: FeedMarkOption = .none
     
     public private(set) var unseenCount: Int = 0

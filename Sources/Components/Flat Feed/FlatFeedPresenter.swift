@@ -11,6 +11,7 @@ import GetStream
 import Result
 
 public final class FlatFeedPresenter<T: ActivityProtocol>: PaginatorProtocol {
+    
     public typealias Completion = (_ error: Error?) -> Void
     
     public let flatFeed: FlatFeed
@@ -19,6 +20,7 @@ public final class FlatFeedPresenter<T: ActivityProtocol>: PaginatorProtocol {
     
     public private(set) var items: [ActivityPresenter<T>] = []
     public var next: Pagination = .none
+    public private(set) var total: Int = 0
     public let subscriptionPresenter: SubscriptionPresenter<T>
     public var reactionTypes: ActivityPresenterReactionTypes = []
     
