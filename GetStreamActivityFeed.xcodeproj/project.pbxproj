@@ -39,6 +39,7 @@
 		8A2DE1CD21F9F56E009E2469 /* LikeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2DE1CC21F9F56E009E2469 /* LikeButton.swift */; };
 		8A2DE1D121F9F7B5009E2469 /* RepostButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2DE1D021F9F7B5009E2469 /* RepostButton.swift */; };
 		8A2DE1D321FA2DAF009E2469 /* ReactionPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2DE1D221FA2DAF009E2469 /* ReactionPresenterProtocol.swift */; };
+		8A2EEF3022451F9300822B9F /* OpenGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2EEF2F22451F9300822B9F /* OpenGraphView.swift */; };
 		8A3573CF21F72D9D009EB9D7 /* ActivityObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3573CE21F72D9D009EB9D7 /* ActivityObject.swift */; };
 		8A3573D121F72DE2009EB9D7 /* Verb+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3573D021F72DE2009EB9D7 /* Verb+Extensions.swift */; };
 		8A3573D321F74636009EB9D7 /* ActivityFeedBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3573D221F74636009EB9D7 /* ActivityFeedBuilder.swift */; };
@@ -145,6 +146,7 @@
 		8A2DE1CC21F9F56E009E2469 /* LikeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeButton.swift; sourceTree = "<group>"; };
 		8A2DE1D021F9F7B5009E2469 /* RepostButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepostButton.swift; sourceTree = "<group>"; };
 		8A2DE1D221FA2DAF009E2469 /* ReactionPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionPresenterProtocol.swift; sourceTree = "<group>"; };
+		8A2EEF2F22451F9300822B9F /* OpenGraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenGraphView.swift; sourceTree = "<group>"; };
 		8A3573CE21F72D9D009EB9D7 /* ActivityObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityObject.swift; sourceTree = "<group>"; };
 		8A3573D021F72DE2009EB9D7 /* Verb+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Verb+Extensions.swift"; sourceTree = "<group>"; };
 		8A3573D221F74636009EB9D7 /* ActivityFeedBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityFeedBuilder.swift; sourceTree = "<group>"; };
@@ -497,6 +499,7 @@
 				8A7559AE21FF2F70002187EA /* OpenGraphTableViewCell.swift */,
 				8A7559AF21FF2F70002187EA /* OpenGraphTableViewCell.xib */,
 				8A7559B221FF55E3002187EA /* OpenGraphTableViewCell+Update.swift */,
+				8A2EEF2F22451F9300822B9F /* OpenGraphView.swift */,
 			);
 			path = "Open Graph";
 			sourceTree = "<group>";
@@ -805,6 +808,7 @@
 				8AABA962221B466300E24505 /* UITabBarController+Extensions.swift in Sources */,
 				8A7256E3222E89D800B06FA6 /* UserNameRepresentable.swift in Sources */,
 				8A9A71582237E2A6004E6607 /* TextRepresentable.swift in Sources */,
+				8A2EEF3022451F9300822B9F /* OpenGraphView.swift in Sources */,
 				8A3E63C521F08DC300E17543 /* UIColor+Extensions.swift in Sources */,
 				8A2DE1D121F9F7B5009E2469 /* RepostButton.swift in Sources */,
 				8AD370A522145DF500182834 /* ImageGalleryViewController.swift in Sources */,

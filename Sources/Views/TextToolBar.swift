@@ -8,12 +8,14 @@
 
 import UIKit
 import SnapKit
+import GetStream
 
 public final class TextToolBar: UIView {
     public static let textContainerHeight: CGFloat = 80
     public static let textContainerMaxHeight: CGFloat = 200
     public static let avatarWidth: CGFloat = 50
     public static let replyContainerHeight: CGFloat = 30
+    public static let openGraphPreviewContainerHeight: CGFloat = 116
     
     public static func make() -> TextToolBar {
         return TextToolBar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: TextToolBar.textContainerHeight))
@@ -21,7 +23,7 @@ public final class TextToolBar: UIView {
     
     /// A stack view for containers.
     private lazy var stackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [replyContainer, textStackView])
+        let stackView = UIStackView(arrangedSubviews: [openGraphPreviewContainer, replyContainer, textStackView])
         stackView.axis = .vertical
         stackView.backgroundColor = backgroundColor
         
@@ -29,6 +31,7 @@ public final class TextToolBar: UIView {
     }()
     
     // MARK: - Text View Container
+    
     private lazy var textStackView: UIStackView = {
         // 1. Avatar View
         let avatarContainer = UIView(frame: .zero)
@@ -139,6 +142,8 @@ public final class TextToolBar: UIView {
     private weak var bottomConstraint: Constraint?
     private var baseTextHeight = CGFloat.greatestFiniteMagnitude
     
+    // MARK: - Reply Container
+    
     private lazy var replyContainer: UIView = {
         let view = UIView(frame: .zero)
         view.backgroundColor = backgroundColor
@@ -170,6 +175,38 @@ public final class TextToolBar: UIView {
             updateTextHeightIfNeeded()
         }
     }
+    
+    // MARK: - Open Graph Container
+    
+    private var detectedURL: URL?
+    public private(set) var ogData: OGResponse?
+    
+    private lazy var dataDetectorWorker: DataDetectorWorker? = try? DataDetectorWorker(types: .link) { [weak self]  in
+        self?.updateOpenGraph($0)
+    }
+    
+    private lazy var openGraphWorker = OpenGraphWorker() { [weak self] in
+        if let self = self {
+            self.detectedURL = $0
+            self.ogData = $1
+            self.updateOpenGraphPreview()
+        }
+    }
+    
+    private lazy var openGraphPreviewContainer: UIView = {
+        let view = UIView(frame: .zero)
+        view.isHidden = true
+        view.backgroundColor = backgroundColor
+        view.addSubview(openGraphPreview)
+        view.snp.makeConstraints { $0.height.equalTo(TextToolBar.openGraphPreviewContainerHeight) }
+        openGraphPreview.snp.makeConstraints { $0.edges.equalToSuperview() }
+        
+        return view
+    }()
+    
+    private let openGraphPreview = OpenGraphView(frame: .zero)
+    
+    // MARK: -
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -259,6 +296,10 @@ extension TextToolBar {
             height += TextToolBar.replyContainerHeight
         }
         
+        if !openGraphPreviewContainer.isHidden {
+            height += TextToolBar.openGraphPreviewContainerHeight
+        }
+        
         if let heightConstraint = heightConstraint, heightConstraint.layoutConstraints.first?.constant != height {
             heightConstraint.update(offset: height)
             layoutIfNeeded()
@@ -283,6 +324,13 @@ extension TextToolBar: UITextViewDelegate {
     public func textViewDidChange(_ textView: UITextView) {
         updatePlaceholder()
         updateTextHeightIfNeeded()
+        
+        if !text.isEmpty {
+            dataDetectorWorker?.match(text)
+        } else {
+            ogData = nil
+            updateOpenGraphPreview()
+        }
     }
 }
 
@@ -305,5 +353,55 @@ extension TextToolBar {
         }
         
         layoutIfNeeded()
+    }
+}
+
+// MARK: - Open Graph Data
+
+extension TextToolBar {
+    
+    private func updateOpenGraph(_ dataDetectorURLItems: [DataDetectorURLItem]) {
+        //view?.underlineLinks(with: dataDetectorURLItems)
+        
+        var dataDetectorURLItem: DataDetectorURLItem?
+        
+        for item in dataDetectorURLItems {
+            if !openGraphWorker.isBadURL(item.url) {
+                dataDetectorURLItem = item
+                break
+            }
+        }
+        
+        guard let item = dataDetectorURLItem else {
+            detectedURL = nil
+            ogData = nil
+            openGraphWorker.cancel()
+            updateOpenGraphPreview()
+            return
+        }
+        
+        if let detectedURL = detectedURL, detectedURL == item.url {
+            return
+        }
+        
+        detectedURL = nil
+        ogData = nil
+        updateOpenGraphPreview()
+        openGraphWorker.dispatch(item.url)
+    }
+    
+    private func updateOpenGraphPreview() {
+        if let ogData = ogData {
+            openGraphPreview.update(with: ogData)
+        } else {
+            if openGraphPreviewContainer.isHidden {
+                return
+            }
+            
+            openGraphPreview.reset()
+        }
+        
+        openGraphPreviewContainer.isHidden = ogData == nil
+        updateTextHeightIfNeeded()
     }
 }
