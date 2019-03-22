@@ -10,15 +10,57 @@ import UIKit
 import SnapKit
 
 public final class TextToolBar: UIView {
-    public static let height: CGFloat = 80
-    public static let maxHeight: CGFloat = 200
+    public static let textContainerHeight: CGFloat = 80
+    public static let textContainerMaxHeight: CGFloat = 200
     public static let avatarWidth: CGFloat = 50
+    public static let replyContainerHeight: CGFloat = 30
     
     public static func make() -> TextToolBar {
-        return TextToolBar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: TextToolBar.height))
+        return TextToolBar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: TextToolBar.textContainerHeight))
     }
     
-    private var textViewToAvatarConstraint: Constraint?
+    /// A stack view for containers.
+    private lazy var stackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [replyContainer, textStackView])
+        stackView.axis = .vertical
+        stackView.backgroundColor = backgroundColor
+        
+        return stackView
+    }()
+    
+    // MARK: - Text View Container
+    private lazy var textStackView: UIStackView = {
+        // 1. Avatar View
+        let avatarContainer = UIView(frame: .zero)
+        avatarContainer.snp.makeConstraints { $0.width.equalTo(TextToolBar.avatarWidth) }
+        avatarContainer.addSubview(avatarView)
+        avatarContainer.backgroundColor = backgroundColor
+        
+        avatarView.snp.makeConstraints({ make in
+            make.left.equalToSuperview()
+            make.top.equalToSuperview().offset((TextToolBar.textContainerHeight - TextToolBar.avatarWidth) / 2)
+            make.width.height.equalTo(TextToolBar.avatarWidth)
+        })
+        
+        // 2. Text View
+        let textViewContainer = UIView(frame: .zero)
+        textViewContainer.addSubview(textView)
+        textViewContainer.backgroundColor = backgroundColor
+        
+        textView.snp.makeConstraints { make in
+            make.top.equalTo(TextToolBar.textContainerHeight / 2 - 17)
+            make.bottom.equalToSuperview().offset(-8)
+            make.left.right.equalToSuperview()
+        }
+        
+        let stackView = UIStackView(arrangedSubviews: [avatarContainer, textViewContainer, sendButton])
+        stackView.isLayoutMarginsRelativeArrangement = true
+        stackView.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16)
+        stackView.axis = .horizontal
+        stackView.spacing = 8
+        
+        return stackView
+    }()
     
     public private(set) lazy var avatarView: AvatarView = {
         let avatarView = AvatarView()
@@ -26,34 +68,15 @@ public final class TextToolBar: UIView {
         avatarView.cornerRadius = TextToolBar.avatarWidth / 2
         avatarView.placeholder = .userIcon
         avatarView.tintColor = .gray
-        avatarView.alpha = 0.8
-        avatarView.isHidden = true
-        addSubview(avatarView)
-        
-        avatarView.snp.makeConstraints({ make in
-            make.left.equalToSuperview().offset(16)
-            make.top.equalToSuperview().offset((TextToolBar.height - TextToolBar.avatarWidth) / 2)
-            make.width.height.equalTo(TextToolBar.avatarWidth)
-        })
-        
+        avatarView.alpha = 0.9
         return avatarView
     }()
     
     public private(set) lazy var textView: UITextView = {
         let textView = UITextView(frame: .zero)
         textView.font = .systemFont(ofSize: 15)
-        textView.backgroundColor = .clear
+        textView.backgroundColor = backgroundColor
         textView.delegate = self
-        addSubview(textView)
-        
-        textView.snp.makeConstraints({ make in
-            make.top.equalTo(TextToolBar.height / 2 - 17)
-            make.bottom.equalToSuperview().offset(-8)
-            make.right.equalTo(sendButton.snp.left).offset(-8)
-            make.left.equalToSuperview().offset(16).priority(749)
-            textViewToAvatarConstraint = make.left.equalTo(avatarView.snp.right).offset(16).priority(.low).constraint
-        })
-        
         return textView
     }()
     
@@ -61,7 +84,7 @@ public final class TextToolBar: UIView {
         let label = UILabel(frame: .zero)
         label.textColor = .lightGray
         label.font = textView.font
-        label.backgroundColor = .clear
+        label.backgroundColor = backgroundColor
         textView.addSubview(label)
         
         label.snp.makeConstraints { make in
@@ -79,17 +102,7 @@ public final class TextToolBar: UIView {
         button.setTitleColor(Appearance.Color.blue, for: .normal)
         button.setTitleColor(.lightGray, for: .disabled)
         button.titleLabel?.font = .systemFont(ofSize: 15, weight: .medium)
-        button.sizeToFit()
-        addSubview(button)
-        
-        button.snp.makeConstraints { make in
-            make.right.equalToSuperview().offset(-8)
-            make.top.bottom.equalToSuperview()
-            make.width.equalTo(button.frame.size.width + 16)
-        }
-        
-        button.isHidden = true
-        
+        button.backgroundColor = backgroundColor
         return button
     }()
     
@@ -102,11 +115,15 @@ public final class TextToolBar: UIView {
     }
     
     public var showAvatar: Bool {
-        get { return !avatarView.isHidden }
+        get {
+            if let container = avatarView.superview {
+                return !container.isHidden
+            }
+            
+            return false
+        }
         set {
-            avatarView.isHidden = !newValue
-            textViewToAvatarConstraint?.update(priority: newValue ? ConstraintPriority.high : ConstraintPriority.low)
-            setNeedsLayout()
+            avatarView.superview?.isHidden = !newValue
         }
     }
     
@@ -118,20 +135,15 @@ public final class TextToolBar: UIView {
         set { placeholderLabel.text = newValue }
     }
     
-    private weak var heightConstraint: NSLayoutConstraint?
+    private weak var heightConstraint: Constraint?
+    private weak var bottomConstraint: Constraint?
     private var baseTextHeight = CGFloat.greatestFiniteMagnitude
     
     private lazy var replyContainer: UIView = {
         let view = UIView(frame: .zero)
         view.backgroundColor = backgroundColor
-        addSubview(view)
-        
-        view.snp.makeConstraints { make in
-            make.bottom.equalTo(snp.top)
-            make.left.right.equalToSuperview()
-            make.height.equalTo(30)
-        }
-        
+        view.snp.makeConstraints { $0.height.equalTo(TextToolBar.replyContainerHeight) }
+        view.isHidden = true
         return view
     }()
     
@@ -139,7 +151,7 @@ public final class TextToolBar: UIView {
         let label = UILabel(frame: .zero)
         label.font = UIFont.systemFont(ofSize: 12)
         label.textColor = .gray
-        label.backgroundColor = backgroundColor
+        label.backgroundColor = .clear
         replyContainer.addSubview(label)
         
         label.snp.makeConstraints { make in
@@ -152,10 +164,10 @@ public final class TextToolBar: UIView {
     }()
     
     public var replyText: String? {
-        get { return replyLabel.text }
-        set {
-            replyLabel.text = newValue
-            replyContainer.isHidden = newValue == nil
+        didSet {
+            replyLabel.text = replyText
+            replyContainer.isHidden = replyText == nil
+            updateTextHeightIfNeeded()
         }
     }
     
@@ -171,8 +183,10 @@ public final class TextToolBar: UIView {
     
     private func setup() {
         backgroundColor = UIColor(white: 0.97, alpha: 1)
+        addSubview(stackView)
+        stackView.snp.makeConstraints { $0.edges.equalToSuperview() }
         placeholderText = "Leave a message"
-        
+
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(keyboardUpdated(_:)),
                                                name: UIResponder.keyboardWillChangeFrameNotification,
@@ -190,8 +204,8 @@ public final class TextToolBar: UIView {
         snp.makeConstraints { make in
             make.left.right.equalToSuperview()
             make.width.equalTo(UIScreen.main.bounds.width)
-            heightConstraint = make.height.equalTo(TextToolBar.height).constraint.layoutConstraints.first
-            make.bottom.equalTo(view)
+            heightConstraint = make.height.equalTo(TextToolBar.textContainerHeight).constraint
+            bottomConstraint = make.bottom.equalTo(view).constraint
         }
     }
     
@@ -223,10 +237,6 @@ extension TextToolBar {
             textView.text = "T"
             baseTextHeight = textViewContentSize.height.rounded()
             textView.text = text
-            
-            if textView.contentSize.height <= baseTextHeight {
-                return
-            }
         }
         
         guard textView.text.count > 0 else {
@@ -242,11 +252,16 @@ extension TextToolBar {
     }
     
     private func updateTextHeight(_ height: CGFloat) {
-        let height = min(max(height + (TextToolBar.height - baseTextHeight), TextToolBar.height), TextToolBar.maxHeight)
+        var height = min(max(height + (TextToolBar.textContainerHeight - baseTextHeight), TextToolBar.textContainerHeight),
+                         TextToolBar.textContainerMaxHeight)
         
-        if let heightConstraint = heightConstraint, heightConstraint.constant != height {
-            heightConstraint.constant = height
-            animateConstraints()
+        if !replyContainer.isHidden {
+            height += TextToolBar.replyContainerHeight
+        }
+        
+        if let heightConstraint = heightConstraint, heightConstraint.layoutConstraints.first?.constant != height {
+            heightConstraint.update(offset: height)
+            layoutIfNeeded()
         }
     }
 }
@@ -277,38 +292,18 @@ extension TextToolBar {
     @objc func keyboardUpdated(_ notification: NSNotification) {
         guard let userInfo = notification.userInfo,
             let value = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue,
-            let view = superview else {
+            superview != nil else {
                 return
         }
         
         let willHide = notification.name == UIResponder.keyboardWillHideNotification
         let offset: CGFloat = willHide ? 0 : -value.cgRectValue.height
-        
-        snp.updateConstraints { make in
-            make.bottom.equalTo(view).offset(offset)
-        }
+        bottomConstraint?.update(offset: offset)
         
         if willHide {
             replyText = nil
         }
         
-        if let durationNumber = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber {
-            animateConstraints(duration: durationNumber.doubleValue)
-        } else {
-            layoutIfNeeded()
-        }
-    }
-}
-
-// MARK: - Animations
-
-extension TextToolBar {
-    private func animateConstraints(duration: Double = 0.3) {
-        UIView.animate(withDuration: duration,
-                       delay: 0,
-                       usingSpringWithDamping: 1,
-                       initialSpringVelocity: 0,
-                       options: [],
-                       animations: { self.layoutIfNeeded() })
+        layoutIfNeeded()
     }
 }

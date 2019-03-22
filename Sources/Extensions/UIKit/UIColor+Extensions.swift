@@ -14,7 +14,7 @@ extension UIColor {
     /// - Note: `let textColor: UIColor = backgroundColor.isDark ? .white : .black`
     ///
     /// - Returns: true if the color is dark.
-    var isDark: Bool {
+    public var isDark: Bool {
         var white: CGFloat = 0
         getWhite(&white, alpha: nil)
         return white < 0.5
@@ -25,7 +25,16 @@ extension UIColor {
 
 extension UIColor {
     /// Create an image 1x1 with the color.
-    var image: UIImage {
+    public var image: UIImage {
         return UIImage(color: self)
+    }
+}
+
+// MARK: - Debug
+
+extension UIColor {
+    /// Create a random transparent color.
+    static var debug: UIColor {
+        return UIColor(hue: CGFloat.random(in: 0...10) / 10, saturation: 1, brightness: 1, alpha: 0.2)
     }
 }
