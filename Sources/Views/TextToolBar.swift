@@ -11,6 +11,8 @@ import SnapKit
 import GetStream
 
 public final class TextToolBar: UIView {
+    
+    public static let safeAreaBottom: CGFloat = (UIApplication.shared.delegate?.window as? UIWindow)?.safeAreaInsets.bottom ?? 0
     public static let textContainerHeight: CGFloat = 80
     public static let textContainerMaxHeight: CGFloat = 200
     public static let avatarWidth: CGFloat = 50
@@ -31,7 +33,18 @@ public final class TextToolBar: UIView {
         stackView.axis = .vertical
         stackView.backgroundColor = backgroundColor
         
+        if TextToolBar.safeAreaBottom > 0, let bottomView = bottomView {
+            stackView.addArrangedSubview(bottomView)
+        }
+        
         return stackView
+    }()
+    
+    private lazy var bottomView: UIView? = {
+        let view = UIView(frame: .zero)
+        view.backgroundColor = backgroundColor
+        view.snp.makeConstraints { $0.height.equalTo(TextToolBar.safeAreaBottom) }
+        return view
     }()
     
     // MARK: - Text View Container
@@ -178,12 +191,13 @@ public final class TextToolBar: UIView {
     
     // MARK: - Open Graph Container
     
-    private var detectedURL: URL?
+    public var linkDetectorEnabled = false
     public private(set) var ogData: OGResponse?
-    
-    private lazy var dataDetectorWorker: DataDetectorWorker? = try? DataDetectorWorker(types: .link) { [weak self]  in
-        self?.updateOpenGraph($0)
-    }
+    private var detectedURL: URL?
+
+    private lazy var dataDetectorWorker: DataDetectorWorker? = linkDetectorEnabled
+        ? (try? DataDetectorWorker(types: .link) { [weak self] in self?.updateOpenGraph($0) })
+        : nil
     
     private lazy var openGraphWorker = OpenGraphWorker() { [weak self] in
         if let self = self {
@@ -276,7 +290,7 @@ public final class TextToolBar: UIView {
         snp.makeConstraints { make in
             make.left.right.equalToSuperview()
             make.width.equalTo(UIScreen.main.bounds.width)
-            heightConstraint = make.height.equalTo(TextToolBar.textContainerHeight).constraint
+            heightConstraint = make.height.equalTo(TextToolBar.textContainerHeight + TextToolBar.safeAreaBottom).constraint
             bottomConstraint = make.bottom.equalTo(view).constraint
         }
         
@@ -337,6 +351,8 @@ extension TextToolBar {
         var height = min(max(height + (TextToolBar.textContainerHeight - baseTextHeight), TextToolBar.textContainerHeight),
                          TextToolBar.textContainerMaxHeight)
         
+        height += textView.isFirstResponder ? 0 : TextToolBar.safeAreaBottom
+        
         if !replyContainer.isHidden {
             height += TextToolBar.replyContainerHeight
         }
@@ -362,14 +378,16 @@ extension TextToolBar {
 
 extension TextToolBar: UITextViewDelegate {
     
-    public func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
-        DispatchQueue.main.async { self.updateSendButton() }
-        return true
+    public func textViewDidBeginEditing(_ textView: UITextView) {
+        updateTextHeightIfNeeded()
+        updateSendButton()
+        bottomView?.isHidden = true
     }
     
-    public func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
+    public func textViewDidEndEditing(_ textView: UITextView) {
+        updateTextHeightIfNeeded()
         updatePlaceholder()
-        return true
+        bottomView?.isHidden = false
     }
     
     public func textViewDidChange(_ textView: UITextView) {
