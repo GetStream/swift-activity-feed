@@ -15,6 +15,7 @@ public final class TextToolBar: UIView {
     public static let textContainerMaxHeight: CGFloat = 200
     public static let avatarWidth: CGFloat = 50
     public static let replyContainerHeight: CGFloat = 30
+    public static let imagesCollectionHeight: CGFloat = 106
     public static let openGraphPreviewContainerHeight: CGFloat = 116
     
     public static func make() -> TextToolBar {
@@ -23,7 +24,10 @@ public final class TextToolBar: UIView {
     
     /// A stack view for containers.
     private lazy var stackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [openGraphPreviewContainer, replyContainer, textStackView])
+        let stackView = UIStackView(arrangedSubviews: [openGraphPreviewContainer,
+                                                       imagesCollectionView,
+                                                       replyContainer,
+                                                       textStackView])
         stackView.axis = .vertical
         stackView.backgroundColor = backgroundColor
         
@@ -56,7 +60,11 @@ public final class TextToolBar: UIView {
             make.left.right.equalToSuperview()
         }
         
-        let stackView = UIStackView(arrangedSubviews: [avatarContainer, textViewContainer, sendButton])
+        let buttonsStackView = UIStackView(arrangedSubviews: [imagePickerButton, sendButton])
+        buttonsStackView.axis = .horizontal
+        buttonsStackView.isHidden = true
+        
+        let stackView = UIStackView(arrangedSubviews: [avatarContainer, textViewContainer, buttonsStackView])
         stackView.isLayoutMarginsRelativeArrangement = true
         stackView.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16)
         stackView.axis = .horizontal
@@ -206,6 +214,41 @@ public final class TextToolBar: UIView {
     
     private let openGraphPreview = OpenGraphView(frame: .zero)
     
+    // MARK: - Images Collection View
+    
+    public var images: [UIImage] = []
+    
+    private lazy var imagesCollectionView: UICollectionView = {
+        let collectionViewLayout = UICollectionViewFlowLayout()
+        collectionViewLayout.scrollDirection = .horizontal
+        collectionViewLayout.itemSize = CGSize(width: 90, height: 90)
+        collectionViewLayout.minimumLineSpacing = 1
+        collectionViewLayout.minimumInteritemSpacing = 0
+        collectionViewLayout.sectionInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+        
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
+        collectionView.isHidden = true
+        collectionView.backgroundColor = backgroundColor
+        collectionView.showsVerticalScrollIndicator = false
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.alwaysBounceHorizontal = true
+        collectionView.dataSource = self
+        collectionView.register(cellType: AddingImageCollectionViewCell.self)
+        collectionView.snp.makeConstraints { $0.height.equalTo(TextToolBar.imagesCollectionHeight) }
+        
+        return collectionView
+    }()
+    
+    private lazy var imagePickerButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.setImage(.imageIcon, for: .normal)
+        button.isHidden = true
+        button.backgroundColor = backgroundColor
+        button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 16)
+        
+        return button
+    }()
+    
     // MARK: -
     
     public override init(frame: CGRect) {
@@ -223,7 +266,7 @@ public final class TextToolBar: UIView {
         addSubview(stackView)
         stackView.snp.makeConstraints { $0.edges.equalToSuperview() }
         placeholderText = "Leave a message"
-
+        
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(keyboardUpdated(_:)),
                                                name: UIResponder.keyboardWillChangeFrameNotification,
@@ -244,6 +287,8 @@ public final class TextToolBar: UIView {
             heightConstraint = make.height.equalTo(TextToolBar.textContainerHeight).constraint
             bottomConstraint = make.bottom.equalTo(view).constraint
         }
+        
+        updateTextHeightIfNeeded()
     }
     
     public func updatePlaceholder() {
@@ -252,9 +297,13 @@ public final class TextToolBar: UIView {
     }
     
     public func updateSendButton() {
-        sendButton.isHidden = !textView.isFirstResponder
+        guard let container = sendButton.superview else {
+            return
+        }
         
-        if !sendButton.isHidden {
+        container.isHidden = !textView.isFirstResponder
+        
+        if !container.isHidden {
             sendButton.setTitle(textView.text.isEmpty ? cancelTitle : sendTitle, for: .normal)
         }
     }
@@ -298,6 +347,12 @@ extension TextToolBar {
         
         if !openGraphPreviewContainer.isHidden {
             height += TextToolBar.openGraphPreviewContainerHeight
+        }
+        
+        imagesCollectionView.isHidden = images.count == 0
+        
+        if !imagesCollectionView.isHidden {
+            height += TextToolBar.imagesCollectionHeight
         }
         
         if let heightConstraint = heightConstraint, heightConstraint.layoutConstraints.first?.constant != height {
@@ -353,6 +408,59 @@ extension TextToolBar {
         }
         
         layoutIfNeeded()
+    }
+}
+
+// MARK: - Images Collection View
+
+extension TextToolBar: UICollectionViewDataSource {
+    
+    public func enableImagePicking(with viewController: UIViewController) {
+        imagePickerButton.isHidden = false
+        
+        imagePickerButton.addTap { [weak self, weak viewController] _ in
+            if let self = self, let viewController = viewController {
+                viewController.view.endEditing(true)
+                self.imagePickerButton.isEnabled = false
+                
+                viewController.pickImage { info, authorizationStatus, removed in
+                    if let image = info[.originalImage] as? UIImage {
+                        self.images.insert(image, at: 0)
+                        self.imagesCollectionView.reloadData()
+                        self.updateTextHeightIfNeeded()
+                    } else if authorizationStatus != .authorized {
+                        print("❌ Photos authorization status: ", authorizationStatus)
+                    }
+                    
+                    if !self.textView.isFirstResponder {
+                        self.textView.becomeFirstResponder()
+                    }
+                    
+                    if authorizationStatus == .authorized || authorizationStatus == .notDetermined {
+                        self.imagePickerButton.isEnabled = true
+                    }
+                }
+            }
+        }
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return images.count
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(for: indexPath) as AddingImageCollectionViewCell
+        cell.imageView.image = images[indexPath.item]
+        
+        cell.removeButton.addTap { [weak self] _ in
+            if let self = self {
+                self.images.remove(at: indexPath.item)
+                self.imagesCollectionView.reloadData()
+                self.updateTextHeightIfNeeded()
+            }
+        }
+        
+        return cell
     }
 }
 

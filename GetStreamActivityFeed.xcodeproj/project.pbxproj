@@ -496,10 +496,10 @@
 			children = (
 				8A68395421FB7A170003C19B /* DataDetectorWorker.swift */,
 				8A7559AA21FF15B6002187EA /* OpenGraphWorker.swift */,
+				8A2EEF2F22451F9300822B9F /* OpenGraphView.swift */,
 				8A7559AE21FF2F70002187EA /* OpenGraphTableViewCell.swift */,
 				8A7559AF21FF2F70002187EA /* OpenGraphTableViewCell.xib */,
 				8A7559B221FF55E3002187EA /* OpenGraphTableViewCell+Update.swift */,
-				8A2EEF2F22451F9300822B9F /* OpenGraphView.swift */,
 			);
 			path = "Open Graph";
 			sourceTree = "<group>";

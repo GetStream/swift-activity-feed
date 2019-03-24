@@ -428,13 +428,11 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
     private func setupCommentTextField(avatarImage: UIImage?) {
         textToolBar.placeholderText = "Leave reply"
         textToolBar.addToSuperview(view)
+        tableView.snp.makeConstraints { $0.bottom.equalTo(textToolBar.snp.top) }
         textToolBar.showAvatar = true
         textToolBar.avatarView.image = avatarImage
         textToolBar.sendButton.addTarget(self, action: #selector(send(_:)), for: .touchUpInside)
-        
-        tableView.snp.makeConstraints { make in
-            make.bottom.equalTo(textToolBar.snp.top)
-        }
+        textToolBar.enableImagePicking(with: self)
     }
     
     @objc func send(_ button: UIButton) {

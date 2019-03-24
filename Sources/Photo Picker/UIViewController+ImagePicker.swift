@@ -11,7 +11,8 @@ import Photos.PHPhotoLibrary
 
 extension UIViewController {
     public typealias ImagePickerCompletion = (_ imagePickerInfo: [UIImagePickerController.InfoKey : Any],
-        _ authorizationStatus: PHAuthorizationStatus, _ removed: Bool) -> Void
+        _ authorizationStatus: PHAuthorizationStatus,
+        _ removed: Bool) -> Void
     
     /// Pick an image.
     public func pickImage(title: String? = "Add a photo",
@@ -21,17 +22,23 @@ extension UIViewController {
                           completion: @escaping ImagePickerCompletion) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
         
-        alert.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: { _ in
-            self.authorizeImagePicker(sourceType: .photoLibrary, completion)
-        }))
+        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+            alert.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: { _ in
+                self.authorizeImagePicker(sourceType: .photoLibrary, completion)
+            }))
+        }
         
-        alert.addAction(UIAlertAction(title: "Saved Photos Album", style: .default, handler: { _ in
-            self.authorizeImagePicker(sourceType: .savedPhotosAlbum, completion)
-        }))
+        if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum) {
+            alert.addAction(UIAlertAction(title: "Saved Photos Album", style: .default, handler: { _ in
+                self.authorizeImagePicker(sourceType: .savedPhotosAlbum, completion)
+            }))
+        }
         
-        alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { _ in
-            self.authorizeImagePicker(sourceType: .camera, completion)
-        }))
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { _ in
+                self.authorizeImagePicker(sourceType: .camera, completion)
+            }))
+        }
         
         if let removeTitle = removeTitle {
             alert.addAction(UIAlertAction(title: removeTitle, style: .destructive, handler: { _ in
@@ -39,7 +46,9 @@ extension UIViewController {
             }))
         }
 
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { _ in
+            completion([:], .notDetermined, false)
+        }))
         
         popoverSetup?(alert)
         present(alert, animated: true)
@@ -85,6 +94,7 @@ extension UIViewController {
         
         let delegate = ImagePickerDelegate(completion) {
             objc_setAssociatedObject(self, delegateKey, nil, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN)
+            completion([:], .notDetermined, false)
         }
         
         imagePickerViewController.delegate = delegate
