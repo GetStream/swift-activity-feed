@@ -42,6 +42,7 @@ public final class TextToolBar: UIView {
         avatarContainer.snp.makeConstraints { $0.width.equalTo(TextToolBar.avatarWidth) }
         avatarContainer.addSubview(avatarView)
         avatarContainer.backgroundColor = backgroundColor
+        avatarContainer.isHidden = !showAvatar
         
         avatarView.snp.makeConstraints({ make in
             make.left.equalToSuperview()
@@ -125,17 +126,8 @@ public final class TextToolBar: UIView {
         }
     }
     
-    public var showAvatar: Bool {
-        get {
-            if let container = avatarView.superview {
-                return !container.isHidden
-            }
-            
-            return false
-        }
-        set {
-            avatarView.superview?.isHidden = !newValue
-        }
+    public var showAvatar: Bool = false {
+        didSet { avatarView.superview?.isHidden = !showAvatar }
     }
     
     public var sendTitle: String = "Send"
@@ -291,12 +283,16 @@ public final class TextToolBar: UIView {
         updateTextHeightIfNeeded()
     }
     
+    public var isValidContent: Bool {
+        return !textView.text.isEmpty || !images.isEmpty
+    }
+    
     public func updatePlaceholder() {
         placeholderLabel.isHidden = !textView.text.isEmpty
         DispatchQueue.main.async { self.updateSendButton() }
     }
     
-    public func updateSendButton() {
+    private func updateSendButton() {
         guard let container = sendButton.superview else {
             return
         }
@@ -304,7 +300,7 @@ public final class TextToolBar: UIView {
         container.isHidden = !textView.isFirstResponder
         
         if !container.isHidden {
-            sendButton.setTitle(textView.text.isEmpty ? cancelTitle : sendTitle, for: .normal)
+            sendButton.setTitle(isValidContent ? sendTitle : cancelTitle, for: .normal)
         }
     }
 }

@@ -432,14 +432,13 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
         textToolBar.showAvatar = true
         textToolBar.avatarView.image = avatarImage
         textToolBar.sendButton.addTarget(self, action: #selector(send(_:)), for: .touchUpInside)
-        textToolBar.enableImagePicking(with: self)
     }
     
     @objc func send(_ button: UIButton) {
         let parentReaction = textToolBar.replyText == nil ? nil : replyToComment
         view.endEditing(true)
         
-        guard !textToolBar.text.isEmpty, let activityPresenter = activityPresenter else {
+        guard textToolBar.isValidContent, let activityPresenter = activityPresenter else {
             return
         }
         
