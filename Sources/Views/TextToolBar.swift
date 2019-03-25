@@ -99,16 +99,21 @@ public final class TextToolBar: UIView {
     
     public private(set) lazy var textView: UITextView = {
         let textView = UITextView(frame: .zero)
-        textView.font = .systemFont(ofSize: 15)
+        textView.attributedText = NSAttributedString(string: "", attributes: textViewTextAttributes)
         textView.backgroundColor = backgroundColor
         textView.delegate = self
         return textView
     }()
     
+    public var textViewTextAttributes: [NSAttributedString.Key: Any] = {
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineHeightMultiple = 1.1
+        return [.font: UIFont.systemFont(ofSize: 15), .paragraphStyle: paragraphStyle]
+    }()
+    
     public private(set) lazy var placeholderLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.textColor = .lightGray
-        label.font = textView.font
         label.backgroundColor = backgroundColor
         textView.addSubview(label)
         
@@ -134,9 +139,9 @@ public final class TextToolBar: UIView {
     public private(set) lazy var activityIndicatorView = UIActivityIndicatorView(style: .gray)
     
     public var text: String {
-        get { return textView.text ?? "" }
+        get { return textView.attributedText.string }
         set {
-            textView.text = newValue
+            textView.attributedText = NSAttributedString(string: newValue)
             updatePlaceholder()
         }
     }
@@ -149,8 +154,8 @@ public final class TextToolBar: UIView {
     public var cancelTitle: String = "Cancel"
     
     public var placeholderText: String {
-        get { return placeholderLabel.text ?? "" }
-        set { placeholderLabel.text = newValue }
+        get { return placeholderLabel.attributedText?.string ?? "" }
+        set { placeholderLabel.attributedText = NSAttributedString(string: newValue, attributes: textViewTextAttributes) }
     }
     
     private weak var heightConstraint: Constraint?
@@ -171,7 +176,7 @@ public final class TextToolBar: UIView {
         let label = UILabel(frame: .zero)
         label.font = UIFont.systemFont(ofSize: 12)
         label.textColor = .gray
-        label.backgroundColor = .clear
+        label.backgroundColor = backgroundColor
         replyContainer.addSubview(label)
         
         label.snp.makeConstraints { make in
@@ -193,19 +198,24 @@ public final class TextToolBar: UIView {
     
     // MARK: - Open Graph Container
     
-    public var linkDetectorEnabled = false
+    public var linksDetectorEnabled = false
+    public var linksHighlightColor: UIColor = Appearance.Color.blue
     public private(set) var openGraphData: OGResponse?
     private var detectedURL: URL?
-
-    private lazy var dataDetectorWorker: DataDetectorWorker? = linkDetectorEnabled
+    
+    private lazy var dataDetectorWorker: DataDetectorWorker? = linksDetectorEnabled
         ? (try? DataDetectorWorker(types: .link) { [weak self] in self?.updateOpenGraph($0) })
         : nil
     
-    private lazy var openGraphWorker = OpenGraphWorker() { [weak self] in
+    private lazy var openGraphWorker = OpenGraphWorker() { [weak self] url, openGraphData, error in
         if let self = self {
-            self.detectedURL = $0
-            self.openGraphData = $1
-            self.updateOpenGraphPreview()
+            if let error = error {
+                self.dataDetectorWorker?.match(self.text)
+            } else if let openGraphData = openGraphData {
+                self.detectedURL = url
+                self.openGraphData = openGraphData
+                self.updateOpenGraphPreview()
+            }
         }
     }
     
@@ -301,11 +311,11 @@ public final class TextToolBar: UIView {
     }
     
     public var isValidContent: Bool {
-        return !textView.text.isEmpty || !images.isEmpty
+        return !textView.attributedText.string.isEmpty || !images.isEmpty
     }
     
     public func reset() {
-        textView.text = ""
+        textView.attributedText = NSAttributedString(string: "")
         images = []
         openGraphData = nil
         updateOpenGraphPreview()
@@ -333,7 +343,7 @@ public final class TextToolBar: UIView {
     }
     
     public func updatePlaceholder() {
-        placeholderLabel.isHidden = !textView.text.isEmpty
+        placeholderLabel.isHidden = !textView.attributedText.string.isEmpty
         DispatchQueue.main.async { self.updateSendButton() }
     }
     
@@ -360,13 +370,13 @@ extension TextToolBar {
         }
         
         if baseTextHeight == .greatestFiniteMagnitude {
-            let text = textView.text
-            textView.text = "T"
+            let text = textView.attributedText
+            textView.attributedText = NSAttributedString(string: "T", attributes: textViewTextAttributes)
             baseTextHeight = textViewContentSize.height.rounded()
-            textView.text = text
+            textView.attributedText = text
         }
         
-        guard textView.text.count > 0 else {
+        guard textView.attributedText.length > 0 else {
             updateTextHeight(baseTextHeight)
             return
         }
@@ -527,18 +537,9 @@ extension TextToolBar: UICollectionViewDataSource {
 extension TextToolBar {
     
     private func updateOpenGraph(_ dataDetectorURLItems: [DataDetectorURLItem]) {
-        //view?.underlineLinks(with: dataDetectorURLItems)
+        underlineLinks(with: dataDetectorURLItems)
         
-        var dataDetectorURLItem: DataDetectorURLItem?
-        
-        for item in dataDetectorURLItems {
-            if !openGraphWorker.isBadURL(item.url) {
-                dataDetectorURLItem = item
-                break
-            }
-        }
-        
-        guard let item = dataDetectorURLItem else {
+        guard let item = dataDetectorURLItems.first(where: { !openGraphWorker.isBadURL($0.url) }) else {
             detectedURL = nil
             openGraphData = nil
             openGraphWorker.cancel()
@@ -554,6 +555,20 @@ extension TextToolBar {
         openGraphData = nil
         updateOpenGraphPreview()
         openGraphWorker.dispatch(item.url)
+    }
+    
+    private func underlineLinks(with dataDetectorURLItems: [DataDetectorURLItem]) {
+        let text = NSMutableAttributedString(string: textView.attributedText.string, attributes: textViewTextAttributes)
+        
+        dataDetectorURLItems.forEach { item in
+            if !openGraphWorker.isBadURL(item.url) {
+                text.addAttributes([.underlineStyle: NSUnderlineStyle.thick.rawValue,
+                                    .underlineColor: linksHighlightColor],
+                                   range: item.range.range)
+            }
+        }
+        
+        textView.attributedText = NSAttributedString(attributedString: text)
     }
     
     private func updateOpenGraphPreview() {

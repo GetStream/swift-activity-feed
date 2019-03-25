@@ -27,10 +27,10 @@ public final class EditPostPresenter {
         self?.updateOpenGraph($0)
     }
     
-    private(set) lazy var openGraphWorker = OpenGraphWorker() { [weak self] in
-        if let self = self {
-            self.detectedURL = $0
-            self.ogData = $1
+    private(set) lazy var openGraphWorker = OpenGraphWorker() { [weak self] url, openGraphData, error in
+        if let self = self, error == nil {
+            self.detectedURL = url
+            self.ogData = openGraphData
             self.view?.updateOpenGraphData()
         }
     }
@@ -105,16 +105,7 @@ extension EditPostPresenter {
     private func updateOpenGraph(_ dataDetectorURLItems: [DataDetectorURLItem]) {
         view?.underlineLinks(with: dataDetectorURLItems)
         
-        var dataDetectorURLItem: DataDetectorURLItem?
-        
-        for item in dataDetectorURLItems {
-            if !openGraphWorker.isBadURL(item.url) {
-                dataDetectorURLItem = item
-                break
-            }
-        }
-        
-        guard let item = dataDetectorURLItem else {
+        guard let item = dataDetectorURLItems.first(where: { !openGraphWorker.isBadURL($0.url) }) else {
             detectedURL = nil
             ogData = nil
             openGraphWorker.cancel()

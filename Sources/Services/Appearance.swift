@@ -16,8 +16,8 @@ struct Appearance {
         static let gray = UIColor(red: 0.21, green: 0.25, blue: 0.28, alpha: 1)
         static let lightGray = UIColor(white: 0.95, alpha: 1)
         static let transparentWhite = UIColor(white: 1, alpha: 0.7)
-        static let transparentBlue = UIColor(red: 0, green: 0.48, blue: 1, alpha: 0.7)
-        static let transparentBlue2 = UIColor(red: 0, green: 0.48, blue: 1, alpha: 0.15)
+        static let transparentBlue = blue.withAlphaComponent(0.7)
+        static let transparentBlue2 = blue.withAlphaComponent(0.15)
     }
     
     static func setup() {

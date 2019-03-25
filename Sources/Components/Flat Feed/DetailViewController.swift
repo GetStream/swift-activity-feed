@@ -426,8 +426,7 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
     // MARK: - Comment Text Field
     
     private func setupCommentTextField(avatarImage: UIImage?) {
-        textToolBar.placeholderText = "Leave reply"
-        textToolBar.addToSuperview(view)
+        textToolBar.addToSuperview(view, placeholderText: "Leave reply")
         tableView.snp.makeConstraints { $0.bottom.equalTo(textToolBar.snp.top) }
         textToolBar.showAvatar = true
         textToolBar.avatarView.image = avatarImage

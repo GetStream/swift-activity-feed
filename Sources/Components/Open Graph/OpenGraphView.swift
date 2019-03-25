@@ -28,15 +28,15 @@ public final class OpenGraphView: UIView {
 
         titleLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(8)
-            make.right.equalToSuperview().offset(-8)
+            make.right.equalToSuperview().offset(-16)
             previewImageToTitleConstraint = make.left.equalTo(previewImageView.snp.right).offset(8).priority(751).constraint
-            make.left.equalToSuperview().offset(8).priority(.high)
+            make.left.equalToSuperview().offset(16).priority(.high)
         }
         
         descriptionLabel.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(8)
             make.left.equalTo(titleLabel)
-            make.right.equalToSuperview().offset(-8)
+            make.right.equalTo(titleLabel)
             make.bottom.lessThanOrEqualToSuperview().offset(-8)
         }
         

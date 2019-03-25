@@ -10,14 +10,14 @@ import Foundation
 import GetStream
 
 public final class OpenGraphWorker {
-    public typealias Completion = (_ url: URL, _ response: OGResponse) -> Void
+    public typealias Completion = (_ url: URL, _ response: OGResponse?, _ error: Error?) -> Void
     
     private let completion: Completion
     private let dispatchQueue = DispatchQueue(label: "io.getstream.OpenGraphWorker")
     private var dispatchWorkItem: DispatchWorkItem?
     private let callbackQueue: DispatchQueue
     private var cache: [URL: OGResponse] = [:]
-    private var cacheBad: [URL] = []
+    private var cacheBadURLs: [URL] = []
     
     public init(callbackQueue: DispatchQueue = .main, completion: @escaping Completion) {
         self.completion = completion
@@ -33,7 +33,7 @@ public final class OpenGraphWorker {
     }
     
     public func isBadURL(_ url: URL) -> Bool {
-        return cacheBad.contains(url)
+        return cacheBadURLs.contains(url)
     }
 }
 
@@ -45,7 +45,7 @@ extension OpenGraphWorker {
         self.cancelWork()
         
         if let response = cache[url] {
-            completion(url, response)
+            completion(url, response, nil)
             return
         }
         
@@ -68,11 +68,12 @@ extension OpenGraphWorker {
                 
                 if let response = try? result.get() {
                     self.cache[url] = response
-                    self.completion(url, response)
+                    self.completion(url, response, nil)
                     
                 } else if let error = result.error {
                     print("ℹ️ OpenGraph failed to retrieve \(url): \(error)")
-                    self.cacheBad.append(url)
+                    self.cacheBadURLs.append(url)
+                    self.completion(url, nil, error)
                 }
             }
         }
