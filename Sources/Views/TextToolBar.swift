@@ -192,7 +192,7 @@ public final class TextToolBar: UIView {
     // MARK: - Open Graph Container
     
     public var linkDetectorEnabled = false
-    public private(set) var ogData: OGResponse?
+    public private(set) var openGraphData: OGResponse?
     private var detectedURL: URL?
 
     private lazy var dataDetectorWorker: DataDetectorWorker? = linkDetectorEnabled
@@ -202,7 +202,7 @@ public final class TextToolBar: UIView {
     private lazy var openGraphWorker = OpenGraphWorker() { [weak self] in
         if let self = self {
             self.detectedURL = $0
-            self.ogData = $1
+            self.openGraphData = $1
             self.updateOpenGraphPreview()
         }
     }
@@ -257,21 +257,14 @@ public final class TextToolBar: UIView {
     
     // MARK: -
     
-    public override init(frame: CGRect) {
-        super.init(frame: frame)
-        setup()
-    }
-    
-    required public init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        setup()
-    }
-    
     private func setup() {
+        guard subviews.count == 0 else {
+            return
+        }
+        
         backgroundColor = UIColor(white: 0.97, alpha: 1)
         addSubview(stackView)
         stackView.snp.makeConstraints { $0.edges.equalToSuperview() }
-        placeholderText = "Leave a message"
         
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(keyboardUpdated(_:)),
@@ -284,7 +277,11 @@ public final class TextToolBar: UIView {
                                                object: nil)
     }
     
-    public func addToSuperview(_ view: UIView) {
+    public func addToSuperview(_ view: UIView,
+                               placeholderText: String = "Leave a message",
+                               sendButtonAction: UIControl.Action? = nil) {
+        setup()
+        self.placeholderText = placeholderText
         view.addSubview(self)
         
         snp.makeConstraints { make in
@@ -295,10 +292,25 @@ public final class TextToolBar: UIView {
         }
         
         updateTextHeightIfNeeded()
+        
+        if let sendButtonAction = sendButtonAction {
+            sendButton.addTap(sendButtonAction)
+        }
     }
     
     public var isValidContent: Bool {
         return !textView.text.isEmpty || !images.isEmpty
+    }
+    
+    public func reset() {
+        textView.text = ""
+        images = []
+        openGraphData = nil
+        updateOpenGraphPreview()
+        imagesCollectionView.reloadData()
+        imagesCollectionView.isHidden = true
+        updatePlaceholder()
+        updateTextHeightIfNeeded()
     }
     
     public func updatePlaceholder() {
@@ -323,7 +335,7 @@ public final class TextToolBar: UIView {
 
 extension TextToolBar {
     /// Update the height of the text view for a big text length.
-    public func updateTextHeightIfNeeded() {
+    private func updateTextHeightIfNeeded() {
         guard heightConstraint != nil  else {
             return
         }
@@ -397,7 +409,7 @@ extension TextToolBar: UITextViewDelegate {
         if !text.isEmpty {
             dataDetectorWorker?.match(text)
         } else {
-            ogData = nil
+            openGraphData = nil
             updateOpenGraphPreview()
         }
     }
@@ -476,6 +488,19 @@ extension TextToolBar: UICollectionViewDataSource {
         
         return cell
     }
+    
+    public func uploadImages(imagePrefixFileName: String = "image",
+                             _ completion: @escaping (_ imageURLs: [URL]?, _ error: Error?) -> Void) {
+        File.files(from: images, process: { File(name: imagePrefixFileName.appending(String($0)), jpegImage: $1) }) { files in
+            Client.shared.upload(images: files) { result in
+                if let imageURLs = try? result.get() {
+                    completion(imageURLs, nil)
+                } else if let error = result.error {
+                    completion(nil, error)
+                }
+            }
+        }
+    }
 }
 
 // MARK: - Open Graph Data
@@ -496,7 +521,7 @@ extension TextToolBar {
         
         guard let item = dataDetectorURLItem else {
             detectedURL = nil
-            ogData = nil
+            openGraphData = nil
             openGraphWorker.cancel()
             updateOpenGraphPreview()
             return
@@ -507,13 +532,13 @@ extension TextToolBar {
         }
         
         detectedURL = nil
-        ogData = nil
+        openGraphData = nil
         updateOpenGraphPreview()
         openGraphWorker.dispatch(item.url)
     }
     
     private func updateOpenGraphPreview() {
-        if let ogData = ogData {
+        if let ogData = openGraphData {
             openGraphPreview.update(with: ogData)
         } else {
             if openGraphPreviewContainer.isHidden {
@@ -523,7 +548,7 @@ extension TextToolBar {
             openGraphPreview.reset()
         }
         
-        openGraphPreviewContainer.isHidden = ogData == nil
+        openGraphPreviewContainer.isHidden = openGraphData == nil
         updateTextHeightIfNeeded()
     }
 }

@@ -16,15 +16,19 @@ public final class ActivityAttachment: Codable {
         case files
     }
     
-    var imageURLs: [URL]?
-    var openGraphData: OGResponse?
-    var files: [ActivityAttachmentFile]?
+    public static func make() -> ActivityAttachment {
+        return ActivityAttachment()
+    }
+    
+    public var imageURLs: [URL]?
+    public var openGraphData: OGResponse?
+    public var files: [ActivityAttachmentFile]?
 }
 
 // MARK: - Activity Attachment File
 
 public final class ActivityAttachmentFile: Codable {
-    var name: String
-    var url: URL
-    var mimeType: String
+    public var name: String
+    public var url: URL
+    public var mimeType: String
 }
