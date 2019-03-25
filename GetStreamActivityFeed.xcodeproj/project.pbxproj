@@ -64,6 +64,9 @@
 		8A45F547222E904D00D54EE2 /* ActivityAttachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A45F546222E904D00D54EE2 /* ActivityAttachment.swift */; };
 		8A45F549222E909000D54EE2 /* AttachmentRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A45F548222E909000D54EE2 /* AttachmentRepresentable.swift */; };
 		8A45F54D22314C2E00D54EE2 /* Icons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8A45F54C22314C2E00D54EE2 /* Icons.xcassets */; };
+		8A51022C22490DF3004FB136 /* TextToolBar+Upload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A51022B22490DF3004FB136 /* TextToolBar+Upload.swift */; };
+		8A51022E22490E2D004FB136 /* TextToolBar+OpenGraphData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A51022D22490E2D004FB136 /* TextToolBar+OpenGraphData.swift */; };
+		8A51023022490ECF004FB136 /* TextToolBar+Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A51022F22490ECF004FB136 /* TextToolBar+Activity.swift */; };
 		8A571A1D21FB0D53004949B2 /* ReactionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A571A1C21FB0D53004949B2 /* ReactionPresenter.swift */; };
 		8A571A2121FB26CC004949B2 /* UIButton+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A571A2021FB26CC004949B2 /* UIButton+Extensions.swift */; };
 		8A571A2321FB3BE1004949B2 /* EditPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A571A2221FB3BE1004949B2 /* EditPostViewController.swift */; };
@@ -171,6 +174,9 @@
 		8A45F546222E904D00D54EE2 /* ActivityAttachment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityAttachment.swift; sourceTree = "<group>"; };
 		8A45F548222E909000D54EE2 /* AttachmentRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentRepresentable.swift; sourceTree = "<group>"; };
 		8A45F54C22314C2E00D54EE2 /* Icons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Icons.xcassets; sourceTree = "<group>"; };
+		8A51022B22490DF3004FB136 /* TextToolBar+Upload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextToolBar+Upload.swift"; sourceTree = "<group>"; };
+		8A51022D22490E2D004FB136 /* TextToolBar+OpenGraphData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextToolBar+OpenGraphData.swift"; sourceTree = "<group>"; };
+		8A51022F22490ECF004FB136 /* TextToolBar+Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextToolBar+Activity.swift"; sourceTree = "<group>"; };
 		8A571A1C21FB0D53004949B2 /* ReactionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionPresenter.swift; sourceTree = "<group>"; };
 		8A571A2021FB26CC004949B2 /* UIButton+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extensions.swift"; sourceTree = "<group>"; };
 		8A571A2221FB3BE1004949B2 /* EditPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPostViewController.swift; sourceTree = "<group>"; };
@@ -441,6 +447,17 @@
 			path = "Activity Feed";
 			sourceTree = "<group>";
 		};
+		8A51022A22490DC9004FB136 /* Text Tool Bar */ = {
+			isa = PBXGroup;
+			children = (
+				8A420A33220C904500AF573F /* TextToolBar.swift */,
+				8A51022B22490DF3004FB136 /* TextToolBar+Upload.swift */,
+				8A51022D22490E2D004FB136 /* TextToolBar+OpenGraphData.swift */,
+				8A51022F22490ECF004FB136 /* TextToolBar+Activity.swift */,
+			);
+			path = "Text Tool Bar";
+			sourceTree = "<group>";
+		};
 		8A571A1E21FB15CE004949B2 /* Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -576,7 +593,7 @@
 				8A9E4BA92216C77E00BF8A10 /* Collection View Cells */,
 				8A3E63B221EF497B00E17543 /* Button */,
 				8AC40FB621EE55A50073B749 /* Avatar */,
-				8A420A33220C904500AF573F /* TextToolBar.swift */,
+				8A51022A22490DC9004FB136 /* Text Tool Bar */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -763,6 +780,7 @@
 				8A3E63BA21EF6DFA00E17543 /* ProfileBuilder.swift in Sources */,
 				8A7559B821FF5C1D002187EA /* SeparatorTableViewCell.swift in Sources */,
 				8A3573D521F76A25009EB9D7 /* URL+ImageRequest.swift in Sources */,
+				8A51022C22490DF3004FB136 /* TextToolBar+Upload.swift in Sources */,
 				8A571A2321FB3BE1004949B2 /* EditPostViewController.swift in Sources */,
 				8A0DE44B2204990A0042A0FF /* ActionUsersTableViewCell.swift in Sources */,
 				8A45F549222E909000D54EE2 /* AttachmentRepresentable.swift in Sources */,
@@ -787,6 +805,7 @@
 				8A3573CF21F72D9D009EB9D7 /* ActivityObject.swift in Sources */,
 				8A420A2E220B275E00AF573F /* UIStackView+LoadingImages.swift in Sources */,
 				8A7559A821FF06AA002187EA /* NSAttributedString+Extensions.swift in Sources */,
+				8A51022E22490E2D004FB136 /* TextToolBar+OpenGraphData.swift in Sources */,
 				8A3E63CD21F0CFE200E17543 /* FlatFeedPresenter.swift in Sources */,
 				8A3573D321F74636009EB9D7 /* ActivityFeedBuilder.swift in Sources */,
 				8A7559B021FF2F70002187EA /* OpenGraphTableViewCell.swift in Sources */,
@@ -815,6 +834,7 @@
 				8A3E63C921F0B45300E17543 /* FlatFeedViewController.swift in Sources */,
 				8A13FD0F21ECF66C00D216C6 /* RootPresenter.swift in Sources */,
 				8A420A34220C904500AF573F /* TextToolBar.swift in Sources */,
+				8A51023022490ECF004FB136 /* TextToolBar+Activity.swift in Sources */,
 				8A571A2121FB26CC004949B2 /* UIButton+Extensions.swift in Sources */,
 				8A108D1221F20E8E0080ADEB /* PostHeaderTableViewCell.swift in Sources */,
 			);

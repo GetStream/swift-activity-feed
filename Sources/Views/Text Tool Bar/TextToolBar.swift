@@ -200,14 +200,14 @@ public final class TextToolBar: UIView {
     
     public var linksDetectorEnabled = false
     public var linksHighlightColor: UIColor = Appearance.Color.blue
-    public private(set) var openGraphData: OGResponse?
-    private var detectedURL: URL?
+    public internal(set) var openGraphData: OGResponse?
+    var detectedURL: URL?
     
     private lazy var dataDetectorWorker: DataDetectorWorker? = linksDetectorEnabled
         ? (try? DataDetectorWorker(types: .link) { [weak self] in self?.updateOpenGraph($0) })
         : nil
     
-    private lazy var openGraphWorker = OpenGraphWorker() { [weak self] url, openGraphData, error in
+    lazy var openGraphWorker = OpenGraphWorker() { [weak self] url, openGraphData, error in
         if let self = self {
             if let error = error {
                 self.dataDetectorWorker?.match(self.text)
@@ -219,7 +219,7 @@ public final class TextToolBar: UIView {
         }
     }
     
-    private lazy var openGraphPreviewContainer: UIView = {
+    lazy var openGraphPreviewContainer: UIView = {
         let view = UIView(frame: .zero)
         view.isHidden = true
         view.backgroundColor = backgroundColor
@@ -230,7 +230,7 @@ public final class TextToolBar: UIView {
         return view
     }()
     
-    private let openGraphPreview = OpenGraphView(frame: .zero)
+    let openGraphPreview = OpenGraphView(frame: .zero)
     
     // MARK: - Images Collection View
     
@@ -364,7 +364,7 @@ public final class TextToolBar: UIView {
 
 extension TextToolBar {
     /// Update the height of the text view for a big text length.
-    private func updateTextHeightIfNeeded() {
+    func updateTextHeightIfNeeded() {
         guard heightConstraint != nil  else {
             return
         }
@@ -516,73 +516,5 @@ extension TextToolBar: UICollectionViewDataSource {
         }
         
         return cell
-    }
-    
-    public func uploadImages(imagePrefixFileName: String = "image",
-                             _ completion: @escaping (_ imageURLs: [URL]?, _ error: Error?) -> Void) {
-        File.files(from: images, process: { File(name: imagePrefixFileName.appending(String($0)), jpegImage: $1) }) { files in
-            Client.shared.upload(images: files) { result in
-                if let imageURLs = try? result.get() {
-                    completion(imageURLs, nil)
-                } else if let error = result.error {
-                    completion(nil, error)
-                }
-            }
-        }
-    }
-}
-
-// MARK: - Open Graph Data
-
-extension TextToolBar {
-    
-    private func updateOpenGraph(_ dataDetectorURLItems: [DataDetectorURLItem]) {
-        underlineLinks(with: dataDetectorURLItems)
-        
-        guard let item = dataDetectorURLItems.first(where: { !openGraphWorker.isBadURL($0.url) }) else {
-            detectedURL = nil
-            openGraphData = nil
-            openGraphWorker.cancel()
-            updateOpenGraphPreview()
-            return
-        }
-        
-        if let detectedURL = detectedURL, detectedURL == item.url {
-            return
-        }
-        
-        detectedURL = nil
-        openGraphData = nil
-        updateOpenGraphPreview()
-        openGraphWorker.dispatch(item.url)
-    }
-    
-    private func underlineLinks(with dataDetectorURLItems: [DataDetectorURLItem]) {
-        let text = NSMutableAttributedString(string: textView.attributedText.string, attributes: textViewTextAttributes)
-        
-        dataDetectorURLItems.forEach { item in
-            if !openGraphWorker.isBadURL(item.url) {
-                text.addAttributes([.underlineStyle: NSUnderlineStyle.thick.rawValue,
-                                    .underlineColor: linksHighlightColor],
-                                   range: item.range.range)
-            }
-        }
-        
-        textView.attributedText = NSAttributedString(attributedString: text)
-    }
-    
-    private func updateOpenGraphPreview() {
-        if let ogData = openGraphData {
-            openGraphPreview.update(with: ogData)
-        } else {
-            if openGraphPreviewContainer.isHidden {
-                return
-            }
-            
-            openGraphPreview.reset()
-        }
-        
-        openGraphPreviewContainer.isHidden = openGraphData == nil
-        updateTextHeightIfNeeded()
     }
 }
