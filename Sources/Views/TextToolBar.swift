@@ -309,8 +309,24 @@ public final class TextToolBar: UIView {
         updateOpenGraphPreview()
         imagesCollectionView.reloadData()
         imagesCollectionView.isHidden = true
+        isEnabled = true
         updatePlaceholder()
         updateTextHeightIfNeeded()
+    }
+    
+    public var isEnabled: Bool = true {
+        didSet {
+            textView.resignFirstResponder()
+            textView.isUserInteractionEnabled = isEnabled
+            sendButton.isEnabled = isEnabled
+            imagePickerButton.isEnabled = isEnabled
+            avatarView.isUserInteractionEnabled = isEnabled
+            avatarView.alpha = isEnabled ? 1 : 0.5
+            imagesCollectionView.isUserInteractionEnabled = isEnabled
+            imagesCollectionView.alpha = isEnabled ? 1 : 0.5
+            openGraphPreview.isUserInteractionEnabled = isEnabled
+            openGraphPreview.alpha = isEnabled ? 1 : 0.5
+        }
     }
     
     public func updatePlaceholder() {
