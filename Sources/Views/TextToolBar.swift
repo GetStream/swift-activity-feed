@@ -78,7 +78,7 @@ public final class TextToolBar: UIView {
         buttonsStackView.axis = .horizontal
         buttonsStackView.isHidden = true
         
-        let stackView = UIStackView(arrangedSubviews: [avatarContainer, textViewContainer, buttonsStackView])
+        let stackView = UIStackView(arrangedSubviews: [avatarContainer, textViewContainer, buttonsStackView, activityIndicatorView])
         stackView.isLayoutMarginsRelativeArrangement = true
         stackView.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16)
         stackView.axis = .horizontal
@@ -130,6 +130,8 @@ public final class TextToolBar: UIView {
         button.backgroundColor = backgroundColor
         return button
     }()
+    
+    public private(set) lazy var activityIndicatorView = UIActivityIndicatorView(style: .gray)
     
     public var text: String {
         get { return textView.text ?? "" }
@@ -310,6 +312,7 @@ public final class TextToolBar: UIView {
         imagesCollectionView.reloadData()
         imagesCollectionView.isHidden = true
         isEnabled = true
+        activityIndicatorView.stopAnimating()
         updatePlaceholder()
         updateTextHeightIfNeeded()
     }
