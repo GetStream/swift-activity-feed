@@ -11,31 +11,28 @@ import SnapKit
 
 /// A banner view protocol to show realtime updates.
 public protocol BannerViewProtocol where Self: UIView {
-    typealias Action = (_ view: BannerView) -> Void
+    typealias Completion = (_ view: BannerView) -> Void
     
     var textLabel: UILabel { get }
     
     /// Present the banner view in a view controller.
     ///
     /// - Parameter viewController: a view controller where needs to present the banner.
-    func present(in viewController: UIViewController)
-
-    /// Present the banner view in a view controller.
-    ///
-    /// - Parameters:
-    ///     - viewController: a view controller where needs to present the banner.
-    ///     - forceToAnimate: if it's true, then the banner will be hidden before presenting.
-    ///     - timeout: a time interval after that needs to hide the banner.
-    func present(in viewController: UIViewController, forceToAnimate: Bool, timeout: DispatchTimeInterval?)
+    @discardableResult
+    func show(_ text: String, in viewController: UIViewController) -> Self
     
     /// Hide the banner.
+    func hide()
+    
+    /// Hide the banner after a given time interval.
     ///
-    /// - Parameter tableViewController: if the banner was shown in the table view controller,
-    ///             then it needs to be cleared from table view header.
-    func hide(from tableViewController: UITableViewController?)
+    /// - Parameters:
+    ///     - timeInterval: an interval of the time after the banner will hide if needed.
+    ///     - completion: a block will call when the timer will be triggered to hide the banner.
+    func hide(after timeInterval: DispatchTimeInterval, _ completion: Completion?)
     
     /// Add a tap action to the banner.
-    func addTap(_ action: @escaping Action)
+    func addTap(_ action: @escaping Completion)
     
     /// Remove the tap action from the banner.
     func removeTap()
@@ -45,10 +42,22 @@ public final class BannerView: UIView, BannerViewProtocol {
     
     private static let height: CGFloat = 48
     
-    private var needsToClearTableViewHeader: Bool = false
     private var dispatchWorkItem: DispatchWorkItem? = nil
     private var tapGestureRecognizer: UITapGestureRecognizer?
-    private var tapAction: Action?
+    private var tapAction: Completion?
+    
+    private weak var presentedInTableView: UITableView?
+    
+    deinit {
+        dispatchWorkItem?.cancel()
+        dispatchWorkItem = nil
+    }
+    
+    public static func make() -> BannerView {
+        let bannerView = BannerView()
+        bannerView.snp.makeConstraints { $0.height.equalTo(BannerView.height) }
+        return bannerView
+    }
     
     public private(set) lazy var textLabel: UILabel = {
         let label = UILabel(frame: .zero)
@@ -66,7 +75,7 @@ public final class BannerView: UIView, BannerViewProtocol {
         return label
     }()
     
-    public func addTap(_ action: @escaping Action) {
+    public func addTap(_ action: @escaping Completion) {
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tap))
         tapGestureRecognizer.numberOfTapsRequired = 1
         tapGestureRecognizer.numberOfTouchesRequired = 1
@@ -98,102 +107,102 @@ extension BannerView {
     /// Present the banner view in a view controller.
     ///
     /// - Parameter viewController: a view controller where needs to present the banner.
-    public func present(in viewController: UIViewController) {
-        present(in: viewController, forceToAnimate: true, timeout: nil)
-    }
-    
-    /// Present the banner view in a view controller.
-    ///
-    /// - Parameters:
-    ///     - viewController: a view controller where needs to present the banner.
-    ///     - forceToAnimate: if it's true, then the banner will be hidden before presenting.
-    ///     - timeout: a time interval after that needs to hide the banner.
-    public func present(in viewController: UIViewController, forceToAnimate: Bool, timeout: DispatchTimeInterval?) {
-        dispatchWorkItem?.cancel()
-        dispatchWorkItem = nil
-        
-        guard (superview == nil || forceToAnimate), !(textLabel.text ?? "").isEmpty else {
-            return
+    @discardableResult
+    public func show(_ text: String, in viewController: UIViewController) -> BannerView {
+        if superview != nil {
+            hide()
         }
         
-        var timeout = timeout
-        
-        if superview != nil, forceToAnimate {
-            hide(from: viewController as? UITableViewController)
+        guard !text.isEmpty else {
+            return self
         }
+        
+        textLabel.text = text
         
         if let navigationController = viewController as? UINavigationController {
             add(to: navigationController.view, topOffset: navigationController.navigationBar.frame.height)
-            
-        } else if let tableViewController = viewController as? UITableViewController {
-            if let navigationController = tableViewController.navigationController {
-                if tableViewController.tableView.tableHeaderView == nil {
-                    if tableViewController.tableView.contentOffset.y > BannerView.height {
-                        present(in: navigationController, forceToAnimate: true, timeout: nil)
-                        let navigationControllerBannerTimeout = timeout
-                        timeout = nil
-                        
-                        let dispatchWorkItem = DispatchWorkItem {
-                            if self.superview != nil {
-                                self.hide()
-                                
-                                if navigationControllerBannerTimeout == nil {
-                                    self.present(in: tableViewController)
-                                }
-                            }
-                        }
-                        
-                        self.dispatchWorkItem = dispatchWorkItem
-                        
-                        DispatchQueue.main.asyncAfter(deadline: .now() + (navigationControllerBannerTimeout ?? .seconds(3)),
-                                                      execute: dispatchWorkItem)
-                    } else {
-                        present(in: tableViewController)
-                    }
+            return self
+        }
+        
+        var tableView: UITableView?
+        
+        if let tableViewController = viewController as? UITableViewController {
+            tableView = tableViewController.tableView
+        } else if let subviewTableView = viewController.view.subviews.first as? UITableView {
+            tableView = subviewTableView
+        }
+        
+        if let tableView = tableView {
+            if tableView.tableHeaderView == nil {
+                if tableView.contentOffset.y <= (BannerView.height / 3) {
+                    add(to: tableView)
+                } else if let navigationController = viewController.navigationController {
+                    show(text, in: navigationController, thenIn: tableView)
                 } else {
-                    present(in: navigationController, forceToAnimate: forceToAnimate, timeout: nil)
+                    add(to: tableView)
                 }
-            } else {
-                present(in: tableViewController)
+                
+                return self
+                
+            } else if let navigationController = viewController.navigationController {
+                show(text, in: navigationController)
+                return self
             }
-        } else {
-            add(to: viewController.view)
         }
         
-        show()
+        add(to: viewController.view)
         
-        if let timeout = timeout {
-            let dispatchWorkItem = DispatchWorkItem { self.hide(from: viewController as? UITableViewController) }
-            self.dispatchWorkItem = dispatchWorkItem
-            DispatchQueue.main.asyncAfter(deadline: .now() + timeout, execute: dispatchWorkItem)
-        }
+        return self
     }
     
     /// Hide the banner.
     ///
-    /// - Parameter tableViewController: if the banner was shown in the table view controller,
-    ///             then it needs to be cleared from table view header.
-    public func hide(from tableViewController: UITableViewController? = nil) {
+    /// - Parameter animated: hide.
+    public func hide() {
         guard superview != nil else {
             return
         }
         
-        if needsToClearTableViewHeader {
-            tableViewController?.tableView.tableHeaderView = nil
-            needsToClearTableViewHeader = false
-        }
-        
+        dispatchWorkItem?.cancel()
+        dispatchWorkItem = nil
         removeFromSuperview()
+        
+        if let presentedInTableView = presentedInTableView {
+            presentedInTableView.tableHeaderView = nil
+        }
     }
     
-    private func present(in tableViewController: UITableViewController) {
-        let frame = CGRect(x: 0, y: 0, width: tableViewController.view.frame.width, height: BannerView.height)
+    public func hide(after timeInterval: DispatchTimeInterval, _ completion: Completion? = nil) {
+        guard superview != nil else {
+            return
+        }
+        
+        let dispatchWorkItem = DispatchWorkItem { [weak self] in
+            if let self = self {
+                self.hide()
+                completion?(self)
+            }
+        }
+        
+        self.dispatchWorkItem = dispatchWorkItem
+        DispatchQueue.main.asyncAfter(deadline: .now() + timeInterval, execute: dispatchWorkItem)
+    }
+    
+    private func show(_ text: String, in navigationController: UINavigationController, thenIn tableView: UITableView) {
+        show(text, in: navigationController).hide(after: .seconds(3)) { [weak self, weak tableView] _ in
+            if let self = self, let tableView = tableView {
+                self.add(to: tableView)
+            }
+        }
+    }
+    
+    private func add(to tableView: UITableView) {
+        let frame = CGRect(x: 0, y: 0, width: tableView.frame.width, height: BannerView.height)
         let containerView = UIView(frame: frame)
-        containerView.isUserInteractionEnabled = false
-        containerView.backgroundColor = tableViewController.tableView.backgroundColor
-        tableViewController.tableView.tableHeaderView = containerView
+        containerView.backgroundColor = tableView.backgroundColor
+        tableView.tableHeaderView = containerView
         add(to: containerView)
-        needsToClearTableViewHeader = true
+        presentedInTableView = tableView
     }
     
     private func add(to containerView: UIView, topOffset: CGFloat = 0) {
@@ -203,11 +212,13 @@ extension BannerView {
             make.left.right.equalToSuperview()
             make.top.equalTo(containerView.safeAreaLayoutGuide.snp.topMargin).offset(topOffset)
         }
+        
+        animate()
     }
     
-    private func show() {
+    private func animate() {
         alpha = 0
-        transform = CGAffineTransform(scaleX: 0.3, y: 0.3)
+        transform = CGAffineTransform(scaleX: 0.2, y: 0.2)
         
         UIView.animate(withDuration: 0.3,
                        delay: 0,

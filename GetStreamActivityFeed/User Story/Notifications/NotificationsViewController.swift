@@ -14,17 +14,16 @@ final class NotificationsViewController: UITableViewController, BundledStoryboar
     static var storyboardName = "Notifications"
     
     var subscriptionId: SubscriptionId?
-    let bannerView = BannerView()
+    let bannerView = BannerView.make()
     
     var badgeValue: Int = 0 {
         didSet {
             tabBarItem.badgeValue = badgeValue > 0 ? String(badgeValue) : nil
             
             if badgeValue > 0 {
-                bannerView.textLabel.text = "You have \(badgeValue) new notifications"
-                bannerView.present(in: self)
+                bannerView.show("You have \(badgeValue) new notifications", in: self)
             } else {
-                bannerView.hide(from: self)
+                bannerView.hide()
             }
         }
     }

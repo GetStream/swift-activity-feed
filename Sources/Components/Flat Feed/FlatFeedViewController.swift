@@ -17,7 +17,7 @@ open class FlatFeedViewController<T: ActivityProtocol>: BaseFlatFeedViewControll
     T.ReactionType == GetStream.Reaction<ReactionExtraData, T.ActorType> {
     
     public typealias RemoveActivityAction = (_ activity: T) -> Void
-    public var bannerView: UIView & BannerViewProtocol = BannerView()
+    public var bannerView: UIView & BannerViewProtocol = BannerView.make()
     private var subscriptionId: SubscriptionId?
     public var presenter: FlatFeedPresenter<T>?
     public var removeActivityAction: RemoveActivityAction?
@@ -28,7 +28,7 @@ open class FlatFeedViewController<T: ActivityProtocol>: BaseFlatFeedViewControll
         reloadData()
         
         bannerView.addTap { [weak self] in
-            $0.hide(from: nil)
+            $0.hide()
             self?.reloadData()
         }
     }
@@ -54,7 +54,7 @@ open class FlatFeedViewController<T: ActivityProtocol>: BaseFlatFeedViewControll
     }
     
     open override func dataLoaded(_ error: Error?) {
-        bannerView.hide(from: nil)
+        bannerView.hide()
         tabBarItem.badgeValue = nil
         super.dataLoaded(error)
     }
@@ -139,8 +139,7 @@ extension FlatFeedViewController {
                     return
                 }
                 
-                self.bannerView.textLabel.text = text
-                self.bannerView.present(in: self)
+                self.bannerView.show(text, in: self)
             }
         }
     }
