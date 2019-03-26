@@ -99,6 +99,7 @@ public final class TextToolBar: UIView {
     
     public private(set) lazy var textView: UITextView = {
         let textView = UITextView(frame: .zero)
+        textView.autocorrectionType = .no
         textView.attributedText = NSAttributedString(string: "", attributes: textViewTextAttributes)
         textView.backgroundColor = backgroundColor
         textView.delegate = self
