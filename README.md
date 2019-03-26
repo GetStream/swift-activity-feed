@@ -15,7 +15,7 @@ The official iOS and Swift integration library for Stream, a web service for bui
 
 ## Useful links
 
-[Get Started](https://getstream.io/react-native-activity-feed/tutorial/)
+[Tutorial](https://getstream.io/ios-activity-feed/tutorial/)
 
 [stream-swift API client](https://github.com/GetStream/stream-swift)
 
