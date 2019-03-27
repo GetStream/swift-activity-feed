@@ -8,21 +8,31 @@
 
 import GetStream
 
+/// A notifications presenter.
 public final class NotificationsPresenter<T: ActivityProtocol>: PaginatorProtocol {
-    
+    /// A completion block.
     public typealias Completion = (_ error: Error?) -> Void
     
+    /// A notification feed.
     public let notificationFeed: NotificationFeed
+    /// A notification items.
     public private(set) var items: [NotificationGroup<T>] = []
+    /// A pagination for the next page.
     public var next: Pagination = .none
+    /// A total number of reactions.
     public private(set) var total: Int = 0
+    /// A mark option. See `FeedMarkOption`.
     public var markOption: FeedMarkOption = .none
     
+    /// A number of unseen notifications.
     public private(set) var unseenCount: Int = 0
+    /// A number of unread notifications.
     public private(set) var unreadCount: Int = 0
     
+    /// A subscription presenter. See `SubscriptionPresenter`.
     public let subscriptionPresenter: SubscriptionPresenter<T>
     
+    /// Create an instance of notifications presenter.
     public init(_ notificationFeed: NotificationFeed) {
         self.notificationFeed = notificationFeed
         self.subscriptionPresenter = SubscriptionPresenter(feed: notificationFeed)
@@ -30,6 +40,7 @@ public final class NotificationsPresenter<T: ActivityProtocol>: PaginatorProtoco
 }
 
 extension NotificationsPresenter {
+    /// Load notifications with a given pagination options.
     public func load(_ pagination: Pagination = .none, completion: @escaping Completion) {
         notificationFeed.get(typeOf: T.self, markOption: markOption) { [weak self] result in
             guard let self = self else {

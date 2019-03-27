@@ -10,10 +10,10 @@ import UIKit
 
 public final class NotificationTableViewCell: BaseTableViewCell {
 
-    @IBOutlet weak var avatarImageView: UIImageView!
+    @IBOutlet public weak var avatarImageView: UIImageView!
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var unseenView: UIView!
-    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet public weak var dateLabel: UILabel!
     
     public var isUnseen: Bool = false {
         didSet { unseenView.isHidden = !isUnseen }

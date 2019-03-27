@@ -9,5 +9,6 @@
 import UIKit
 
 extension UITableViewCell {
+    /// A shortcut of an empty `UITableViewCell`.
     public static let unused = UITableViewCell(style: .default, reuseIdentifier: "unused")
 }

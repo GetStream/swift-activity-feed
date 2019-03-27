@@ -8,7 +8,10 @@
 
 import Foundation
 
+/// A data detector worker.
+/// It works in a background thread and returns the result in the completion block.
 public final class DataDetectorWorker {
+    /// A completion block.
     public typealias Completion = (_ urls: [DataDetectorURLItem]) -> Void
     
     private let detector: NSDataDetector
@@ -16,12 +19,15 @@ public final class DataDetectorWorker {
     private let completion: Completion
     private let callbackQueue: DispatchQueue
     
-    init(types: NSTextCheckingResult.CheckingType, callbackQueue: DispatchQueue = .main, completion: @escaping Completion) throws {
+    public init(types: NSTextCheckingResult.CheckingType,
+                callbackQueue: DispatchQueue = .main,
+                completion: @escaping Completion) throws {
         detector = try NSDataDetector(types: types.rawValue)
         self.completion = completion
         self.callbackQueue = callbackQueue
     }
     
+    /// Starts the matching in a given text.
     public func match(_ text: String) {
         dispatchQueue.async { [weak self] in self?.matchInBackground(text) }
     }
@@ -56,7 +62,10 @@ public final class DataDetectorWorker {
     }
 }
 
+/// A result item of the data detection.
 public struct DataDetectorURLItem {
-    let url: URL
-    let range: Range<String.Index>
+    /// A founded URL.
+    public let url: URL
+    /// A range of a text of the founded URL.
+    public let range: Range<String.Index>
 }

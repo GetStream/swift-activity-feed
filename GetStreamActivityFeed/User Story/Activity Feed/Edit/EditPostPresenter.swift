@@ -14,7 +14,7 @@ protocol EditPostViewable: class {
     func updateOpenGraphData()
 }
 
-public final class EditPostPresenter {
+final class EditPostPresenter {
     let flatFeed: FlatFeed
     let activity: Activity?
     private weak var view: EditPostViewable?
@@ -41,7 +41,7 @@ public final class EditPostPresenter {
         self.activity = activity
     }
     
-    public func save(_ text: String?, completion: @escaping (_ error: Error?) -> Void) {
+    func save(_ text: String?, completion: @escaping (_ error: Error?) -> Void) {
         guard User.current != nil else {
             completion(nil)
             return

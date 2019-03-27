@@ -124,7 +124,7 @@ class ProfileViewController: UIViewController, BundledStoryboardLoadable {
         }
     }
     
-    private func setupTabBarItem(image: UIImage? = .profileIcon) {
+    private func setupTabBarItem(image: UIImage? = .userIcon) {
         tabBarItem = UITabBarItem(title: "Profile", image: image, tag: 4)
     }
     
@@ -236,7 +236,7 @@ extension ProfileViewController {
             } else if !onlyTabBarItem {
                 self.avatarView.image = nil
                 self.backgroundImageView.image = nil
-                self.tabBarItem = UITabBarItem(title: "Profile", image: .profileIcon, tag: 4)
+                self.tabBarItem = UITabBarItem(title: "Profile", image: .userIcon, tag: 4)
             }
         }
     }

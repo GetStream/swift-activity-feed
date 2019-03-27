@@ -15,6 +15,7 @@ open class ReactionButton: UIButton {
     public typealias Completion<T: ActivityProtocol> = (_ result: Result<(activity: T, button: UIButton), ClientError>) -> Void
     public typealias ErrorCompletion = (_ error: Error?) -> Void
     
+    /// Add a reaction to an activity.
     open func react<T: ActivityProtocol, U: UserProtocol>(with presenter: ReactionPresenterProtocol,
                                                           activity: T,
                                                           reaction: T.ReactionType?,

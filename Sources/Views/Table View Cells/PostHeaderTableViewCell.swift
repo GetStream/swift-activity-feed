@@ -56,7 +56,7 @@ open class PostHeaderTableViewCell: BaseTableViewCell {
             avatarButton.contentHorizontalAlignment = .fill
             avatarButton.contentVerticalAlignment = .fill
         } else {
-            avatarButton.setImage(.profileIcon, for: .normal)
+            avatarButton.setImage(.userIcon, for: .normal)
             avatarButton.contentHorizontalAlignment = .center
             avatarButton.contentVerticalAlignment = .center
         }

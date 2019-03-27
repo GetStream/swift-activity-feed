@@ -9,8 +9,10 @@
 import UIKit
 import GetStream
 
+/// A like button.
 open class LikeButton: ReactionButton {
     
+    /// Creates an instance of the like button.
     public static func make(frame: CGRect = CGRect(x: 0, y: 0, width: 44, height: 44)) -> LikeButton {
         let button = LikeButton(frame: frame)
         button.setImage(.likeInactiveIcon, for: .normal)
@@ -20,6 +22,7 @@ open class LikeButton: ReactionButton {
         return button
     }
     
+    /// Likes an activity.
     open func like<T: ActivityProtocol, U: UserProtocol>(_ activity: T,
                                                          presenter: ReactionPresenterProtocol,
                                                          likedReaction: T.ReactionType? = nil,

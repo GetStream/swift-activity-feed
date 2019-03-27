@@ -10,8 +10,8 @@ import UIKit
 
 class ActionUsersTableViewCell: BaseTableViewCell {
 
-    @IBOutlet weak var avatarsStackView: UIStackView!
-    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet public weak var avatarsStackView: UIStackView!
+    @IBOutlet public weak var titleLabel: UILabel!
     
     open override func reset() {
         avatarsStackView.cancelImagesLoading()

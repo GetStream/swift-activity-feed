@@ -9,8 +9,10 @@
 import GetStream
 import Result
 
+/// A reaction presenter.
 open class ReactionPresenter: ReactionPresenterProtocol {
     
+    /// Add a reaction to an activity.
     public func addReaction<T: ActivityProtocol,
         E: ReactionExtraDataProtocol,
         U: UserProtocol>(for activity: T,
@@ -30,6 +32,7 @@ open class ReactionPresenter: ReactionPresenterProtocol {
         }
     }
     
+    /// Add a comment to an activity.
     public func addComment<T: ActivityProtocol,
         E: ReactionExtraDataProtocol,
         U: UserProtocol>(for activity: T,
@@ -67,6 +70,7 @@ open class ReactionPresenter: ReactionPresenterProtocol {
         }
     }
     
+    /// Remove a reaction from an activity.
     public func remove<T: ActivityProtocol>(reaction: T.ReactionType, activity: T, _ completion: @escaping Completion<T>)
         where T.ReactionType: ReactionProtocol {
             Client.shared.delete(reactionId: reaction.id) {
@@ -80,6 +84,7 @@ open class ReactionPresenter: ReactionPresenterProtocol {
             }
     }
     
+    /// Remove a reaction from a parent reaction.
     public func remove<T: ReactionProtocol>(reaction: T,
                                             parentReaction: T,
                                             _ completion: @escaping (_ result: Result<T, ClientError>) -> Void) {

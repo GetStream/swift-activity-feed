@@ -12,9 +12,9 @@ import GetStream
 final class ActivityFeedViewController: FlatFeedViewController<Activity>, BundledStoryboardLoadable {
     static var storyboardName = "ActivityFeed"
     
-    public var profileBuilder: ProfileBuilder?
-    public var notificationsPresenter: NotificationsPresenter<Activity>?
-    public var notificationsSubscriptionId: SubscriptionId?
+    var profileBuilder: ProfileBuilder?
+    var notificationsPresenter: NotificationsPresenter<Activity>?
+    var notificationsSubscriptionId: SubscriptionId?
     
     private lazy var activityRouter: ActivityRouter? = {
         if let profileBuilder = profileBuilder {

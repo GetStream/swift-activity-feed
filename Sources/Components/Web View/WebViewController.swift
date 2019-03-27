@@ -10,14 +10,19 @@ import UIKit
 import WebKit
 import SnapKit
 
+/// A siple web view controller with `WKWebView` and navigation buttons in the navigation bar.
 open class WebViewController: UIViewController {
     
+    /// An activity indicator.
     public private(set) lazy var activityIndicatorView = UIActivityIndicatorView(style: .gray)
+    /// A web view.
     public private(set) lazy var webView = WKWebView(frame: .zero, configuration: WKWebViewConfiguration())
-    private lazy var goBackButton = UIBarButtonItem(title: "←", style: .plain, target: self, action: #selector(goBack))
-    private lazy var goForwardButton = UIBarButtonItem(title: "→", style: .plain, target: self, action: #selector(goForward))
+    /// An URL to load in the web view.
     public var url: URL?
     
+    private lazy var goBackButton = UIBarButtonItem(title: "←", style: .plain, target: self, action: #selector(goBack))
+    private lazy var goForwardButton = UIBarButtonItem(title: "→", style: .plain, target: self, action: #selector(goForward))
+
     open override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -32,10 +37,12 @@ open class WebViewController: UIViewController {
         }
     }
     
+    /// Makes a request with a given `URL` to load the web view.
     public func open(_ url: URL) {
         open(URLRequest(url: url))
     }
     
+    /// Makes a request with a given `URLRequest` to load the web view.
     public func open(_ request: URLRequest) {
         activityIndicatorView.startAnimating()
         webView.load(request)
@@ -45,6 +52,7 @@ open class WebViewController: UIViewController {
         }
     }
     
+    /// Dismisses the view controller.
     @IBAction public func close(_ sender: Any) {
         dismiss(animated: true)
     }
@@ -53,6 +61,8 @@ open class WebViewController: UIViewController {
 // MARK: - WebView
 
 extension WebViewController: WKNavigationDelegate {
+    
+    /// Setup and layout the web view.
     open func setupWebView() {
         webView.navigationDelegate = self
         view.addSubview(webView)
@@ -80,12 +90,14 @@ extension WebViewController: WKNavigationDelegate {
         goForwardButton.isEnabled = webView.canGoForward
     }
     
+    /// Goes back in the web view navigation.
     @objc func goBack() {
         if let item = webView.backForwardList.backItem {
             webView.go(to: item)
         }
     }
     
+    /// Goes forward in the web view navigation.
     @objc func goForward() {
         if let item = webView.backForwardList.forwardItem {
             webView.go(to: item)

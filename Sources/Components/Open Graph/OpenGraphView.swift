@@ -11,7 +11,9 @@ import SnapKit
 import Nuke
 import GetStream
 
+/// A view of Open Graph data.
 public final class OpenGraphView: UIView {
+    /// The default height.
     public static let height: CGFloat = 116
     
     private lazy var containerView: UIView = {
@@ -53,7 +55,7 @@ public final class OpenGraphView: UIView {
         return imageView
     }()
     
-    let titleLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.numberOfLines = 2
         label.textColor = Appearance.Color.blue
@@ -61,7 +63,7 @@ public final class OpenGraphView: UIView {
         return label
     }()
     
-    let descriptionLabel: UILabel = {
+    private let descriptionLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.numberOfLines = 0
         label.font = UIFont.systemFont(ofSize: 12)
@@ -89,6 +91,7 @@ public final class OpenGraphView: UIView {
         }
     }
     
+    /// Resets states of all child views.
     public func reset() {
         previewImageView.image = .imageIcon
         previewImageView.contentMode = .center
@@ -101,6 +104,7 @@ public final class OpenGraphView: UIView {
 
 extension OpenGraphView {
     
+    /// Updates the view with a given Open Graph data.
     public func update(with ogData: OGResponse) {
         titleLabel.text = ogData.title
         descriptionLabel.text = ogData.description
@@ -116,7 +120,8 @@ extension OpenGraphView {
         }
     }
     
-    public func updatePreviewImage(with url: URL?) {
+    /// Loads the image with a given URL.
+    private func updatePreviewImage(with url: URL?) {
         guard let url = url else {
             return
         }

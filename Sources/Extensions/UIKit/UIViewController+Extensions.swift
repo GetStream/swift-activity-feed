@@ -13,6 +13,7 @@ import SnapKit
 
 extension UIViewController {
     
+    /// Adds a child view controller to a given container view or to the self view.
     public func add(viewController: UIViewController, to containerView: UIView? = nil) {
         addChild(viewController)
         let containerView: UIView = containerView ?? view
@@ -20,12 +21,14 @@ extension UIViewController {
         viewController.didMove(toParent: self)
     }
     
+    /// Removes a child view controller.
     public func remove(viewController: UIViewController) {
         viewController.willMove(toParent: nil)
         viewController.view.removeFromSuperview()
         viewController.removeFromParent()
     }
     
+    /// Replaces a child view controller with a new one.
     public func replace(viewController: UIViewController, with newViewController: UIViewController) {
         guard let containerView = viewController.view.superview else { return }
         viewController.willMove(toParent: nil)
@@ -65,6 +68,7 @@ extension UIViewController {
 // MARK: - Segue
 
 extension UIViewController {
+    /// Performs the segue with an identifier like the view controller class name.
     public func performSegue(show type: UIViewController.Type, sender: Any?) {
         performSegue(withIdentifier: String(describing: type), sender: sender)
     }

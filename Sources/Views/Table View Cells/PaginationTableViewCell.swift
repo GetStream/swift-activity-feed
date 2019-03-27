@@ -8,11 +8,11 @@
 
 import UIKit
 
-final class PaginationTableViewCell: BaseTableViewCell {
+public final class PaginationTableViewCell: BaseTableViewCell {
     
-    @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
+    @IBOutlet public weak var activityIndicatorView: UIActivityIndicatorView!
     
-    override func reset() {
+    public override func reset() {
         activityIndicatorView.stopAnimating()
         DispatchQueue.main.async { self.activityIndicatorView.startAnimating() }
     }

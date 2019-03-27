@@ -11,13 +11,17 @@ import SnapKit
 
 public class BarButton: UIButton {
     
-    convenience init(title: String, backgroundColor: UIColor) {
+    /// Create a rounded button with a given title and background image.
+    public convenience init(title: String,
+                            backgroundColor: UIColor,
+                            font: UIFont = .systemFont(ofSize: 12, weight: .medium),
+                            cornerRadius: CGFloat = 6) {
         self.init(type: .custom)
         setTitle(title, backgroundColor: backgroundColor, for: .normal)
+        titleLabel?.font = font
         clipsToBounds = true
-        layer.cornerRadius = 6
+        layer.cornerRadius = cornerRadius
         contentEdgeInsets = UIEdgeInsets(top: 8, left: 12, bottom: 8, right: 12)
-        titleLabel?.font = .systemFont(ofSize: 12, weight: .medium)
     }
     
     public override var isEnabled: Bool {

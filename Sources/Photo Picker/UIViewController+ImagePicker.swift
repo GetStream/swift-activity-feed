@@ -10,11 +10,24 @@ import UIKit
 import Photos.PHPhotoLibrary
 
 extension UIViewController {
+    /// A completion block of an image picking.
+    ///
+    /// - Parameters:
+    ///     - imagePickerInfo: the result of the image picking from `UIImagePickerController`.
+    ///     - authorizationStatus: the current authorization status. See `PHAuthorizationStatus`.
+    ///     - removed: true, if the user select the remove button from the action sheet of the source of the image.
     public typealias ImagePickerCompletion = (_ imagePickerInfo: [UIImagePickerController.InfoKey : Any],
         _ authorizationStatus: PHAuthorizationStatus,
         _ removed: Bool) -> Void
     
     /// Pick an image.
+    ///
+    /// - Parameters:
+    ///     - title: a title of the action sheet to select the source of the image.
+    ///     - message: a message of the action sheet to select the source of the image.
+    ///     - removeTitle: an optional title to add a button to the action sheet to perform the removing the the image.
+    ///     - popoverSetup: an additional setup of `UIAlertController` for proper presenting of it on different devices.
+    ///     - completion: a completion block with the picking/removing action result.
     public func pickImage(title: String? = "Add a photo",
                           message: String? = "Select a photo source",
                           removeTitle: String? = nil,

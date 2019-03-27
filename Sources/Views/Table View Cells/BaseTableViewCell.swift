@@ -21,5 +21,6 @@ open class BaseTableViewCell: UITableViewCell, NibReusable {
         super.prepareForReuse()
     }
     
+    /// Resets the cell for the reusing.
     open func reset() {}
 }

@@ -11,12 +11,16 @@ import Reusable
 import SnapKit
 import Nuke
 
+/// An simple image gallery. It loads the
 public final class ImageGalleryViewController: UIViewController {
     
-    let scrollView = UIScrollView(frame: .zero)
-    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-    var imageURLs: [URL] = []
-
+    /// A scroll view to dismiss the gellary by pull down.
+    public let scrollView = UIScrollView(frame: .zero)
+    /// A horizontal collection view with images.
+    public let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    /// An image URL's.
+    public var imageURLs: [URL] = []
+    
     public override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -29,7 +33,7 @@ public final class ImageGalleryViewController: UIViewController {
         return .lightContent
     }
     
-    public func addCloseButton() {
+    private func addCloseButton() {
         let closeButton = UIButton(frame: .zero)
         closeButton.setImage(.closeIcon, for: .normal)
         closeButton.tintColor = .white
@@ -71,6 +75,7 @@ extension ImageGalleryViewController: UIScrollViewDelegate {
 // MARK: - Collection View
 
 extension ImageGalleryViewController: UICollectionViewDataSource {
+    
     private func setupCollectionView() {
         collectionView.backgroundColor = .black
         collectionView.isPagingEnabled = true
@@ -122,10 +127,13 @@ extension ImageGalleryViewController: UICollectionViewDataSource {
 
 // MARK: - Cell
 
+/// An image gallery collection view cell.
 public final class ImageGalleryCollectionViewCell: UICollectionViewCell, Reusable {
-    let imageView = UIImageView(frame: .zero)
-    let activityIndicatorView = UIActivityIndicatorView(style: .white)
-    var imageTask: ImageTask?
+    /// An image view.
+    public let imageView = UIImageView(frame: .zero)
+    /// An activity indicator.
+    public let activityIndicatorView = UIActivityIndicatorView(style: .white)
+    private var imageTask: ImageTask?
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -151,7 +159,8 @@ public final class ImageGalleryCollectionViewCell: UICollectionViewCell, Reusabl
         imageTask = nil
     }
     
-    func loadImage(_ url: URL, completion: @escaping (_ error: Error?) -> Void) {
+    /// Loads the image by a given URL.
+    public func loadImage(_ url: URL, completion: @escaping (_ error: Error?) -> Void) {
         imageTask?.cancel()
         activityIndicatorView.startAnimating()
         
@@ -177,6 +186,8 @@ public final class ImageGalleryCollectionViewCell: UICollectionViewCell, Reusabl
 // MARK: - Routing to the Gallery
 
 extension UIViewController {
+    
+    /// Presents the image gallery with a given image URL's.
     public func showImageGallery(with imageURLs: [URL]?, animated: Bool = true) {
         guard let imageURLs = imageURLs else {
             return

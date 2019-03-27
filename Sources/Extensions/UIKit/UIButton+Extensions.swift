@@ -9,6 +9,8 @@
 import UIKit
 
 extension UIButton {
+    /// Set a button title with background color for a button state.
+    /// The background image of the button would be generated from the given background color.
     public func setTitle(_ title: String, backgroundColor: UIColor, for state: UIControl.State) {
         setTitle(title, for: state)
         setBackgroundImage(backgroundColor.image, for: state)

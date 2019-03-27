@@ -8,6 +8,7 @@
 
 import UIKit
 import Reusable
+import GetStream
 import Nuke
 
 public final class OpenGraphTableViewCell: UITableViewCell, NibReusable {
@@ -63,6 +64,26 @@ public final class OpenGraphTableViewCell: UITableViewCell, NibReusable {
                 self.previewImageWidthConstraint.constant = 0
                 self.previewImageView.isHidden = true
             }
+        }
+    }
+}
+
+// MARK: - Stream Open Graph Request
+
+extension OpenGraphTableViewCell {
+    /// Updates the cell with a given Open Graph data.
+    public func update(with ogData: OGResponse) {
+        titleLabel.text = ogData.title
+        descriptionLabel.text = ogData.description
+        
+        if let imageURLString = ogData.images?.first?.image {
+            var imageURLString = imageURLString
+            
+            if imageURLString.hasPrefix("//") {
+                imageURLString = "https:\(imageURLString)"
+            }
+            
+            updatePreviewImage(with: URL(string: imageURLString))
         }
     }
 }

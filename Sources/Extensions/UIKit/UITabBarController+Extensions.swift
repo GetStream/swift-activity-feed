@@ -11,7 +11,7 @@ import UIKit
 extension UITabBarController {
     
     /// Select a tab item matched with a given view controller type.
-    func selectTab(with viewControllerType: UIViewController.Type) {
+    public func selectTab(with viewControllerType: UIViewController.Type) {
         guard let viewControllers = viewControllers else {
             return
         }
@@ -38,7 +38,7 @@ extension UITabBarController {
     }
     
     /// Find the first view controller of the given type in the tabbar and in the tabbar/navigation controllers.
-    func find<T: UIViewController>(viewControllerType: T.Type) -> T? {
+    public func find<T: UIViewController>(viewControllerType: T.Type) -> T? {
         guard let viewControllers = viewControllers else {
             return nil
         }

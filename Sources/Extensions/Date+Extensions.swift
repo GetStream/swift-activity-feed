@@ -9,6 +9,8 @@
 import Foundation
 
 extension Date {
+    
+    /// A relative date from the current time in string.
     public var relative: String {
         let timeInterval = -self.timeIntervalSinceNow
         
@@ -26,6 +28,7 @@ extension Date {
 
 extension DateFormatter {
     
+    /// A short time formatter from the date.
     public static let time: DateFormatter = {
         let formatter = DateFormatter()
         formatter.timeStyle = .short
@@ -33,6 +36,7 @@ extension DateFormatter {
         return formatter
     }()
     
+    /// A short date and time formatter from the date.
     public static let short: DateFormatter = {
         let formatter = DateFormatter()
         formatter.timeStyle = .short
@@ -40,6 +44,7 @@ extension DateFormatter {
         return formatter
     }()
     
+    /// A week formatter from the date.
     public static let weekDay: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "EEEE"

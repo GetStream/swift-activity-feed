@@ -17,7 +17,7 @@ open class BaseFlatFeedViewController<T: ActivityProtocol>: UIViewController, UI
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.separatorStyle = .none
         tableView.dataSource = self
-        tableView.registerPostCells()
+        tableView.registerCells()
         view.addSubview(tableView)
         return tableView
     }()

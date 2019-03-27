@@ -12,7 +12,8 @@ import GetStream
 // MARK: - Setup Post Table View
 
 extension UITableView {
-    public func registerPostCells() {
+    /// The registration of all table view cells from Activity Feed Components.
+    public func registerCells() {
         register(cellType: PostHeaderTableViewCell.self)
         register(cellType: PostActionsTableViewCell.self)
         register(cellType: PostAttachmentImagesTableViewCell.self)
@@ -27,6 +28,11 @@ extension UITableView {
 // MARK: - Cells
 
 extension UITableView {
+    /// Dequeue reusable activity feed post cells with a given indexPath and activity presenter.
+    ///
+    /// - Parameters:
+    ///     - indexPath: the index path of the requested cell.
+    ///     - presenter: the `ActivityPresenter` for the requested cell.
     public func postCell<T: ActivityProtocol>(at indexPath: IndexPath, presenter: ActivityPresenter<T>) -> UITableViewCell?
         where T.ActorType: UserNameRepresentable, T.ReactionType: ReactionProtocol {
             guard let cellType = presenter.cellType(at: indexPath) else {

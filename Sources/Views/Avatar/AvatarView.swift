@@ -11,6 +11,7 @@ import UIKit
 @IBDesignable
 public class AvatarView: UIView {
     
+    /// A corner radius.
     @IBInspectable
     public var cornerRadius: CGFloat {
         get {
@@ -23,6 +24,7 @@ public class AvatarView: UIView {
         }
     }
     
+    /// A shadow radius.
     @IBInspectable
     public var shadowRadius: CGFloat {
         get {
@@ -36,16 +38,17 @@ public class AvatarView: UIView {
         }
     }
     
+    /// An avatar image placeholder.
     @IBInspectable
     public var placeholder: UIImage? {
-        didSet {
-            touchPlaceholder()
-        }
+        didSet { touchPlaceholder() }
     }
     
+    /// A default image background color.
     @IBInspectable
     public var defaultColor: UIColor?
     
+    /// An image.
     public var image: UIImage? {
         get {
             return imageView.image
@@ -57,6 +60,7 @@ public class AvatarView: UIView {
         }
     }
     
+    /// Check if the image of the avatar is the placeholder image.
     public var isPlaceholder: Bool {
         if let currentImage = imageView.image, let currentPlaceholder = placeholder {
             return currentImage === currentPlaceholder

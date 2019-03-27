@@ -143,7 +143,7 @@ extension UIImage {
     /// Create an Image 1x1 with a given color.
     ///
     /// - Parameter color: a `UIColor`. If the color has alpha 1, the image would be opaque.
-    convenience init(color: UIColor) {
+    public convenience init(color: UIColor) {
         if let cgImage = UIImage.colorsCGImages[color] {
             self.init(cgImage: cgImage)
             return

@@ -9,14 +9,17 @@
 import UIKit
 import GetStream
 
+/// A repost button.
 open class RepostButton: ReactionButton {
     
+    /// Creates an instance of the repost button.
     public static func make(frame: CGRect = CGRect(x: 0, y: 0, width: 44, height: 44)) -> RepostButton {
         let button = RepostButton(frame: frame)
         button.setImage(.repostIcon, for: .normal)
         return button
     }
     
+    /// Reposts an activity.
     open func repost<T: ActivityProtocol, U: UserProtocol>(_ activity: T,
                                                            presenter: ReactionPresenterProtocol,
                                                            userTypeOf userType: U.Type,

@@ -8,18 +8,25 @@
 
 import GetStream
 
-public class ReactionPaginator<T: ReactionExtraDataProtocol, U: UserProtocol>: PaginatorProtocol {
-    
+/// A reaction paginator.
+public final class ReactionPaginator<T: ReactionExtraDataProtocol, U: UserProtocol>: PaginatorProtocol {
+    /// A completion block.
     public typealias Completion = (_ error: Error?) -> Void
     
+    /// An activity id of reactions.
     public let activityId: String
+    /// A reaction kind.
     public let reactionKind: ReactionKind
     
+    /// Reaction items.
     public private(set) var items: [GetStream.Reaction<T, U>] = []
+    /// A pagination for the next page.
     public var next: Pagination = .none
+    /// A total number of reactions.
     public private(set) var total: Int = 0
     
-    init(activityId: String, reactionKind: ReactionKind) {
+    /// Create a reaction paginator for a given activity id and reaction kind.
+    public init(activityId: String, reactionKind: ReactionKind) {
         self.activityId = activityId
         self.reactionKind = reactionKind
     }
@@ -28,6 +35,7 @@ public class ReactionPaginator<T: ReactionExtraDataProtocol, U: UserProtocol>: P
 // MARK: - Pagiantion
 
 extension ReactionPaginator {
+    /// Load reactions with a given pagination options.
     public func load(_ pagination: Pagination = .none, completion: @escaping Completion) {
         Client.shared.reactions(forActivityId: activityId,
                                 kindOf: reactionKind,

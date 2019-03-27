@@ -10,7 +10,7 @@ import UIKit
 
 class PostAttachmentImagesTableViewCell: BaseTableViewCell {
     
-    @IBOutlet weak var stackView: UIStackView!
+    @IBOutlet public weak var stackView: UIStackView!
     
     open override func reset() {
         stackView.cancelImagesLoading()

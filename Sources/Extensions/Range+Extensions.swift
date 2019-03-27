@@ -9,6 +9,7 @@
 import Foundation
 
 extension NSRange {
+    /// Create a NSRange from Swift Range.
     public init(_ range: Range<String.Index>) {
         self.init(location: range.lowerBound.encodedOffset,
                   length: range.upperBound.encodedOffset - range.lowerBound.encodedOffset)
@@ -16,7 +17,9 @@ extension NSRange {
 }
 
 extension Range where Bound == String.Index {
-    var range: NSRange {
+    
+    /// Get the NSRange from the Swift Range.
+    public var range: NSRange {
         return NSRange(self)
     }
 }

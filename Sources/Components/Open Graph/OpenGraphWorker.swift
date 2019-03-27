@@ -9,7 +9,10 @@
 import Foundation
 import GetStream
 
+/// An open graph worker.
+/// Requests a given URL to scrape the Open Graph data.
 public final class OpenGraphWorker {
+    /// A Open Graph data completion block.
     public typealias Completion = (_ url: URL, _ response: OGResponse?, _ error: Error?) -> Void
     
     private let completion: Completion
@@ -19,19 +22,23 @@ public final class OpenGraphWorker {
     private var cache: [URL: OGResponse] = [:]
     private var cacheBadURLs: [URL] = []
     
+    /// Create a Open Graph worker with a given completion block.
     public init(callbackQueue: DispatchQueue = .main, completion: @escaping Completion) {
         self.completion = completion
         self.callbackQueue = callbackQueue
     }
     
+    /// Dispatch a given URL.
     public func dispatch(_ url: URL, delay: DispatchTimeInterval = .seconds(1)) {
         callbackQueue.async { [weak self] in self?.scheduleWork(for: url, delay: delay) }
     }
     
+    /// Cancel the work.
     public func cancel() {
         callbackQueue.async { [weak self] in self?.cancelWork() }
     }
     
+    /// Checks cache with bad URL's, which returned an error on request.
     public func isBadURL(_ url: URL) -> Bool {
         return cacheBadURLs.contains(url)
     }

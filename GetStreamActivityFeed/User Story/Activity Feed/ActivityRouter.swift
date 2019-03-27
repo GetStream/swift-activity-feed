@@ -9,7 +9,7 @@
 import UIKit
 import GetStream
 
-public struct ActivityRouter {
+struct ActivityRouter {
     
     let viewController: UIViewController
     var profileBuilder: ProfileBuilder?
@@ -19,7 +19,7 @@ public struct ActivityRouter {
         self.profileBuilder = profileBuilder
     }
     
-    public func show(user: User) {
+    func show(user: User) {
         if let profileViewCotroller = profileBuilder?.profileViewController(user: user) {
             profileViewCotroller.builder = profileBuilder
             viewController.navigationController?.pushViewController(profileViewCotroller, animated: true)

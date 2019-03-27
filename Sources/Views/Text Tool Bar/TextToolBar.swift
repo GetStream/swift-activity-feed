@@ -20,6 +20,7 @@ public final class TextToolBar: UIView {
     public static let imagesCollectionHeight: CGFloat = 106
     public static let openGraphPreviewContainerHeight: CGFloat = 116
     
+    /// Returns an instance of `TextToolBar`.
     public static func make() -> TextToolBar {
         return TextToolBar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: TextToolBar.textContainerHeight))
     }
@@ -87,6 +88,7 @@ public final class TextToolBar: UIView {
         return stackView
     }()
     
+    /// An `AvatarView`.
     public private(set) lazy var avatarView: AvatarView = {
         let avatarView = AvatarView()
         avatarView.shadowRadius = 6
@@ -97,6 +99,8 @@ public final class TextToolBar: UIView {
         return avatarView
     }()
     
+    /// An `UITextView`.
+    /// You have to use the `text` property to change the value of the text view.
     public private(set) lazy var textView: UITextView = {
         let textView = UITextView(frame: .zero)
         textView.autocorrectionType = .no
@@ -106,12 +110,15 @@ public final class TextToolBar: UIView {
         return textView
     }()
     
+    /// The default text view attributes.
     public var textViewTextAttributes: [NSAttributedString.Key: Any] = {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineHeightMultiple = 1.1
         return [.font: UIFont.systemFont(ofSize: 15), .paragraphStyle: paragraphStyle]
     }()
     
+    /// A placeholder label.
+    /// You have to use the `placeholderText` property to change the value of the placeholder label.
     public private(set) lazy var placeholderLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.textColor = .lightGray
@@ -127,6 +134,7 @@ public final class TextToolBar: UIView {
         return label
     }()
     
+    /// A send button.
     public private(set) lazy var sendButton: UIButton = {
         let button = UIButton(frame: .zero)
         button.setTitle(sendTitle, for: .normal)
@@ -137,8 +145,10 @@ public final class TextToolBar: UIView {
         return button
     }()
     
+    /// An `UIActivityIndicatorView`.
     public private(set) lazy var activityIndicatorView = UIActivityIndicatorView(style: .gray)
     
+    /// The text of the text view.
     public var text: String {
         get { return textView.attributedText.string }
         set {
@@ -147,13 +157,17 @@ public final class TextToolBar: UIView {
         }
     }
     
+    /// An option to show the avatar.
     public var showAvatar: Bool = false {
         didSet { avatarView.superview?.isHidden = !showAvatar }
     }
     
+    /// The send button title by default.
     public var sendTitle: String = "Send"
+    /// The cancel title of the send button by default.
     public var cancelTitle: String = "Cancel"
     
+    /// The placeholder text.
     public var placeholderText: String {
         get { return placeholderLabel.attributedText?.string ?? "" }
         set { placeholderLabel.attributedText = NSAttributedString(string: newValue, attributes: textViewTextAttributes) }
@@ -189,6 +203,7 @@ public final class TextToolBar: UIView {
         return label
     }()
     
+    /// A reply text.
     public var replyText: String? {
         didSet {
             replyLabel.text = replyText
@@ -199,8 +214,11 @@ public final class TextToolBar: UIView {
     
     // MARK: - Open Graph Container
     
+    /// Enables the detector of links in the text.
     public var linksDetectorEnabled = false
+    /// The color of underline that founded link in the text.
     public var linksHighlightColor: UIColor = Appearance.Color.blue
+    /// The Open Graph data of the founded link in the text.
     public internal(set) var openGraphData: OGResponse?
     var detectedURL: URL?
     
@@ -235,6 +253,7 @@ public final class TextToolBar: UIView {
     
     // MARK: - Images Collection View
     
+    /// Picked images.
     public var images: [UIImage] = []
     
     private lazy var imagesCollectionView: UICollectionView = {
@@ -290,6 +309,13 @@ public final class TextToolBar: UIView {
                                                object: nil)
     }
     
+    /// Add the `TextToolBar` to a view container.
+    /// Use this method to add `TextToolBar` to the view hierarchy and you no need to do any other layout actions.
+    ///
+    /// - Parameters:
+    ///     - view: the superview.
+    ///     - placeholderText: the placeholder text.
+    ///     - sendButtonAction: the send button action.
     public func addToSuperview(_ view: UIView,
                                placeholderText: String = "Leave a message",
                                sendButtonAction: UIControl.Action? = nil) {
@@ -311,10 +337,12 @@ public final class TextToolBar: UIView {
         }
     }
     
+    /// Check if the content is valid: text is not empty or at least one image was added.
     public var isValidContent: Bool {
         return !textView.attributedText.string.isEmpty || !images.isEmpty
     }
     
+    /// Reset states of all child views and clear all added/generated data.
     public func reset() {
         textView.attributedText = NSAttributedString(string: "")
         images = []
@@ -328,6 +356,7 @@ public final class TextToolBar: UIView {
         updateTextHeightIfNeeded()
     }
     
+    /// Toggle `isUserInteractionEnabled` states for all child views.
     public var isEnabled: Bool = true {
         didSet {
             textView.resignFirstResponder()
@@ -343,6 +372,7 @@ public final class TextToolBar: UIView {
         }
     }
     
+    /// Update the placeholder and send button visibility.
     public func updatePlaceholder() {
         placeholderLabel.isHidden = !textView.attributedText.string.isEmpty
         DispatchQueue.main.async { self.updateSendButton() }
@@ -471,6 +501,8 @@ extension TextToolBar {
 
 extension TextToolBar: UICollectionViewDataSource {
     
+    /// Enables the image picking with a given view controller.
+    /// The view controller will be used to present `UIImagePickerController`.
     public func enableImagePicking(with viewController: UIViewController) {
         imagePickerButton.isHidden = false
         

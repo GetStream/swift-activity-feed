@@ -11,14 +11,14 @@ import UIKit
 open class CommentTableViewCell: BaseTableViewCell {
     
     @IBOutlet weak var avatarLeadingConstraint: NSLayoutConstraint!
-    @IBOutlet weak var avatarImageView: UIImageView!
+    @IBOutlet public weak var avatarImageView: UIImageView!
     @IBOutlet private weak var commentLabel: UILabel!
-    @IBOutlet weak var replyButton: UIButton!
-    @IBOutlet weak var likeButton: LikeButton!
+    @IBOutlet public weak var replyButton: UIButton!
+    @IBOutlet public weak var likeButton: LikeButton!
     @IBOutlet weak var moreRepliesStackView: UIStackView!
     @IBOutlet weak var moreRepliesLabel: UILabel!
     
-    var withIndent: Bool {
+    public var withIndent: Bool {
         get { return avatarLeadingConstraint.constant != 0 }
         set {
             avatarLeadingConstraint.constant = newValue ? avatarImageView.bounds.width + 8 : 0
@@ -30,7 +30,7 @@ open class CommentTableViewCell: BaseTableViewCell {
         }
     }
     
-    var moreReplies: String {
+    public var moreReplies: String {
         get { return moreRepliesLabel.text ?? "" }
         set {
             moreRepliesStackView.isHidden = newValue.isEmpty

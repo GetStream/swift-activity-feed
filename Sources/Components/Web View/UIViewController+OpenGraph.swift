@@ -10,6 +10,8 @@ import UIKit
 import GetStream
 
 extension UIViewController {
+    
+    /// Presents the Open Graph data in a `WebViewController`.
     public func showOpenGraphData(with ogData: OGResponse?, animated: Bool = true) {
         guard let ogData = ogData else {
             return
