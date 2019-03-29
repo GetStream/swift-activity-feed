@@ -8,6 +8,8 @@
 
 import Foundation
 
+/// A text container protocol.
 public protocol TextRepresentable {
+    // A text.
     var text: String? { get set }
 }

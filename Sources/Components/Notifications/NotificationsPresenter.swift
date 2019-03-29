@@ -19,8 +19,6 @@ public final class NotificationsPresenter<T: ActivityProtocol>: PaginatorProtoco
     public private(set) var items: [NotificationGroup<T>] = []
     /// A pagination for the next page.
     public var next: Pagination = .none
-    /// A total number of reactions.
-    public private(set) var total: Int = 0
     /// A mark option. See `FeedMarkOption`.
     public var markOption: FeedMarkOption = .none
     

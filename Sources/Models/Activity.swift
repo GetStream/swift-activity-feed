@@ -8,8 +8,11 @@
 
 import GetStream
 
+/// A reaction with `ReactionExtraData` and `User`. See `ReactionExtraData`, `User`.
 public typealias Reaction = GetStream.Reaction<ReactionExtraData, User>
 
+/// An enriched activity with `User` type, `ActivityObject` as object type and `Reaction` as reation type.
+/// It has additional properties: text and attachment. See `AttachmentRepresentable`.
 public final class Activity: EnrichedActivity<User, ActivityObject, Reaction>, TextRepresentable, AttachmentRepresentable {
     
     private enum CodingKeys: String, CodingKey {

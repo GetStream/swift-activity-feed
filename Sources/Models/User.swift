@@ -10,6 +10,7 @@ import Foundation
 import GetStream
 import Nuke
 
+/// An advanced Stream user with a name and avatar.
 public final class User: GetStream.User, UserNameRepresentable, AvatarRepresentable {
     private enum CodingKeys: String, CodingKey {
         case name
@@ -51,6 +52,7 @@ public final class User: GetStream.User, UserNameRepresentable, AvatarRepresenta
 // MARK: - Refresh
 
 extension User {
+    /// Reloads the user data and returns in a completion block.
     public func refresh(completion: @escaping (_ user: User?) -> Void) {
         Client.shared.get(typeOf: User.self, userId: id, withFollowCounts: true) { result in
             completion(try? result.get())
@@ -61,6 +63,7 @@ extension User {
 // MARK: - Following
 
 extension User {
+    /// Checks if the user feed is following to a target.
     public func isFollow(toTarget target: FeedId,
                          completion: @escaping (_ isFollow: Bool, _ following: Follower?, _ error: Error?) -> Void) {
         guard let userFeedId = FeedId.user else {

@@ -8,7 +8,7 @@
 
 import GetStream
 
-protocol PaginatorProtocol {
+public protocol PaginatorProtocol {
     associatedtype ItemType
     typealias Completion = (_ error: Error?) -> Void
     
@@ -16,7 +16,6 @@ protocol PaginatorProtocol {
     var next: Pagination { get }
     var hasNext: Bool { get }
     var count: Int { get }
-    var total: Int { get }
     
     func load(_ pagination: Pagination, completion: @escaping Completion)
     

@@ -9,6 +9,8 @@
 import GetStream
 
 extension Verb {
+    /// A post verb aliase.
     public static let post: Verb = "post"
+    /// A follow verb aliase.
     public static let follow: Verb = "follow"
 }

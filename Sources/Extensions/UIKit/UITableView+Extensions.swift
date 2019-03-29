@@ -35,7 +35,7 @@ extension UITableView {
     ///     - presenter: the `ActivityPresenter` for the requested cell.
     public func postCell<T: ActivityProtocol>(at indexPath: IndexPath, presenter: ActivityPresenter<T>) -> UITableViewCell?
         where T.ActorType: UserNameRepresentable, T.ReactionType: ReactionProtocol {
-            guard let cellType = presenter.cellType(at: indexPath) else {
+            guard let cellType = presenter.cellType(at: indexPath.row) else {
                 return nil
             }
             

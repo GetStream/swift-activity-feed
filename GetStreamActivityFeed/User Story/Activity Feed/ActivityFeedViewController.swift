@@ -63,7 +63,7 @@ final class ActivityFeedViewController: FlatFeedViewController<Activity>, Bundle
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let activityPresenter = activityPresenter(in: indexPath.section),
-            let cellType = activityPresenter.cellType(at: indexPath) else {
+            let cellType = activityPresenter.cellType(at: indexPath.row) else {
             return
         }
         

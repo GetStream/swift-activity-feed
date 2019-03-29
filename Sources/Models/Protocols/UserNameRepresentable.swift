@@ -8,6 +8,8 @@
 
 import GetStream
 
+/// An user name container protocol.
 public protocol UserNameRepresentable {
+    /// A name of the user.
     var name: String { get }
 }

@@ -12,14 +12,19 @@ import Reusable
 import Result
 import SnapKit
 
+/// A flat feed view controller.
 open class FlatFeedViewController<T: ActivityProtocol>: BaseFlatFeedViewController<T>, UITableViewDelegate
     where T.ActorType: UserProtocol & UserNameRepresentable & AvatarRepresentable,
     T.ReactionType == GetStream.Reaction<ReactionExtraData, T.ActorType> {
     
+    /// A block type for the removing of an action.
     public typealias RemoveActivityAction = (_ activity: T) -> Void
+    /// A banner view to show realtime updates. See `BannerView`.
     public var bannerView: UIView & BannerViewProtocol = BannerView.make()
     private var subscriptionId: SubscriptionId?
+    /// A flat feed presenter for the presentation logic.
     public var presenter: FlatFeedPresenter<T>?
+    /// A block for the removing of an action.
     public var removeActivityAction: RemoveActivityAction?
     
     open override func viewDidLoad() {
@@ -41,6 +46,7 @@ open class FlatFeedViewController<T: ActivityProtocol>: BaseFlatFeedViewControll
         }
     }
     
+    /// Returns the activity presenter by the table section.
     public func activityPresenter(in section: Int) -> ActivityPresenter<T>? {
         if let presenter = presenter, section < presenter.count {
             return presenter.items[section]
@@ -106,7 +112,7 @@ open class FlatFeedViewController<T: ActivityProtocol>: BaseFlatFeedViewControll
     }
     
     open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let cellType = activityPresenter(in: indexPath.section)?.cellType(at: indexPath) else {
+        guard let cellType = activityPresenter(in: indexPath.section)?.cellType(at: indexPath.row) else {
             return
         }
         
@@ -122,6 +128,7 @@ open class FlatFeedViewController<T: ActivityProtocol>: BaseFlatFeedViewControll
 
 extension FlatFeedViewController {
     
+    /// Subscribes for the realtime updates.
     open func subscribeForUpdates() {
         subscriptionId = presenter?.subscriptionPresenter.subscribe { [weak self] in
             if let self = self, let response = try? $0.get() {
@@ -144,14 +151,17 @@ extension FlatFeedViewController {
         }
     }
     
+    /// Unsubscribes from the realtime updates.
     public func unsubscribeFromUpdates() {
         subscriptionId = nil
     }
     
+    /// Return a title of new activies for the banner view on updates.
     open func subscriptionNewItemsTitle(with count: Int) -> String {
         return "You have \(count) new activities"
     }
     
+    /// Return a title of removed activities for the banner view on updates.
     open func subscriptionDeletedItemsTitle(with count: Int) -> String {
         return "You have \(count) deleted activities"
     }

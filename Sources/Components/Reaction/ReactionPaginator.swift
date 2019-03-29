@@ -22,8 +22,6 @@ public final class ReactionPaginator<T: ReactionExtraDataProtocol, U: UserProtoc
     public private(set) var items: [GetStream.Reaction<T, U>] = []
     /// A pagination for the next page.
     public var next: Pagination = .none
-    /// A total number of reactions.
-    public private(set) var total: Int = 0
     
     /// Create a reaction paginator for a given activity id and reaction kind.
     public init(activityId: String, reactionKind: ReactionKind) {

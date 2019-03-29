@@ -9,10 +9,12 @@
 import UIKit
 import GetStream
 
+/// A base flat feed view controller with basic setup of a table view.
 open class BaseFlatFeedViewController<T: ActivityProtocol>: UIViewController, UITableViewDataSource
     where T.ActorType: UserProtocol & UserNameRepresentable & AvatarRepresentable,
           T.ReactionType == GetStream.Reaction<ReactionExtraData, T.ActorType> {
     
+    /// A table view of the flat feed.
     public private(set) lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.separatorStyle = .none
@@ -22,6 +24,7 @@ open class BaseFlatFeedViewController<T: ActivityProtocol>: UIViewController, UI
         return tableView
     }()
     
+    /// A refresh control.
     public let refreshControl = UIRefreshControl(frame: .zero)
     
     override open func viewDidLoad() {
@@ -38,17 +41,25 @@ open class BaseFlatFeedViewController<T: ActivityProtocol>: UIViewController, UI
         }
     }
     
+    /// Layout the table view to the view controller view.
+    /// Override this method for a custom layout.
     open func setupTableView() {
         tableView.snp.makeConstraints { $0.edges.equalToSuperview() }
     }
     
+    /// Setup the refresh control into the table view.
+    /// Handle value changes to reload table data.
+    /// Override this method for a custom action of the refresh control.
     open func setupRefreshControl() {
         tableView.refreshControl = refreshControl
         refreshControl.addValueChangedAction { [weak self] _ in self?.reloadData() }
     }
     
+    /// Override this method to reload data.
     open func reloadData() {}
     
+    /// A default callback when the data of a flat feed is loaded.
+    /// Override this method for a custom handling.
     open func dataLoaded(_ error: Error?) {
         refreshControl.endRefreshing()
         
@@ -97,10 +108,12 @@ open class BaseFlatFeedViewController<T: ActivityProtocol>: UIViewController, UI
     
     // MARK: - Cells
     
+    /// Updates the `PostHeaderTableViewCell` with an avatar from the activity.
     open func updateAvatar(in cell: PostHeaderTableViewCell, activity: T) {
         cell.updateAvatar(with: activity.actor)
     }
     
+    /// Updates actions of the `PostActionsTableViewCell` with the activity presenter.
     open func updateActions(in cell: PostActionsTableViewCell, activityPresenter: ActivityPresenter<T>) {
         if activityPresenter.reactionTypes.contains(.comments) {
             cell.updateReply(commentsCount: activityPresenter.originalActivity.commentsCount)

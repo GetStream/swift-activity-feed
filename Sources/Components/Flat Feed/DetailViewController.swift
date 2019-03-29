@@ -10,8 +10,7 @@ import UIKit
 import SnapKit
 import GetStream
 
-// MARK: - Detail View Controller Section Type
-
+/// Detail View Controller section types.
 public struct DetailViewControllerSectionTypes: OptionSet, Equatable {
     public let rawValue: Int
     
@@ -19,35 +18,56 @@ public struct DetailViewControllerSectionTypes: OptionSet, Equatable {
         self.rawValue = rawValue
     }
     
+    /// An activity section.
     public static let activity = DetailViewControllerSectionTypes(rawValue: 1 << 0)
+    /// A likes section.
     public static let likes = DetailViewControllerSectionTypes(rawValue: 1 << 1)
+    /// A reposts section.
     public static let reposts = DetailViewControllerSectionTypes(rawValue: 1 << 2)
+    /// A comments section.
     public static let comments = DetailViewControllerSectionTypes(rawValue: 1 << 3)
 }
 
-// MARK: - Detail View Controller Section
-
+/// Detail View Controller section data
 public struct DetailViewControllerSection {
-    let section: DetailViewControllerSectionTypes
-    let title: String?
-    let count: Int
+    /// A section type.
+    public let section: DetailViewControllerSectionTypes
+    /// A title of the section.
+    public let title: String?
+    /// A number of items in section.
+    public let count: Int
 }
 
-// MARK: - Detail View Controller
-
+/// Detail View Controller for an activity from `ActivityPresenter`.
+///
+/// It shows configurable sections of the activity details:
+/// - activity content
+/// - likes
+/// - reposts
+/// - comments
+///
+/// Contains `TextToolBar` for the adding of new comments.
 open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController<T>, UITableViewDelegate, UITextViewDelegate
     where T.ActorType: UserProtocol & UserNameRepresentable & AvatarRepresentable,
           T.ReactionType == GetStream.Reaction<ReactionExtraData, T.ActorType> {
     
+    /// An text view for new comments. See `TextToolBar`.
     public let textToolBar = TextToolBar.make()
+    /// A comments paginator. See `ReactionPaginator`.
     public var reactionPaginator: ReactionPaginator<ReactionExtraData, T.ActorType>?
     private var replyToComment: T.ReactionType?
-    public private(set) var sectionsData: [DetailViewControllerSection] = []
+    /// Section types in the table view.
     public var sections: DetailViewControllerSectionTypes = .activity
+    /// A list of section data for the table view.
+    public private(set) var sectionsData: [DetailViewControllerSection] = []
+    /// A number of reply comments for the top level comments.
     public var childCommentsCount = 0
+    /// Show the text view for the adding new comments.
     public var canAddComment = true
+    /// Show the section title even if it's empty.
     public var showZeroSectionTitle = true
     
+    /// An activity presenter. See `ActivityPresenter`.
     public var activityPresenter: ActivityPresenter<T>? {
         didSet {
             if let activityPresenter = activityPresenter {
@@ -110,6 +130,7 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
         self.sectionsData = sectionsData
     }
     
+    /// Return a title of the section by the section type.
     open func sectionTitle(for type: DetailViewControllerSectionTypes) -> String? {
         if type == .likes {
             return "Liked"
@@ -126,6 +147,7 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
         return nil
     }
     
+    /// Return a title of in the section by the section index.
     public func sectionTitle(in section: Int) -> String? {
         return section < sectionsData.count ? sectionsData[section].title : nil
     }
@@ -281,6 +303,7 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
         return cell
     }
     
+    /// A title for bottom comment note, that it has replies.
     open func moreCommentsTitle(with count: Int) -> String {
         return "\(count) more replies"
     }
@@ -291,7 +314,7 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
         guard let activityPresenter = activityPresenter,
             indexPath.section < sectionsData.count,
             sectionsData[indexPath.section].section == .activity,
-            let cellType = activityPresenter.cellType(at: indexPath) else {
+            let cellType = activityPresenter.cellType(at: indexPath.row) else {
                 return false
         }
         
@@ -306,7 +329,7 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
     
     open func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let activityPresenter = activityPresenter,
-            let cellType = activityPresenter.cellType(at: indexPath) else {
+            let cellType = activityPresenter.cellType(at: indexPath.row) else {
                 return
         }
         
@@ -464,6 +487,7 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
 // MARK: - Modally presented
 
 extension DetailViewController {
+    /// Setup the close button on the navigation bar, when the view controller modally presented.
     open func setupNavigationBarForModallyPresented() {
         guard navigationController != nil else {
             return

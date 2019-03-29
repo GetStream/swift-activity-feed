@@ -9,10 +9,14 @@
 import GetStream
 import Nuke
 
+/// An avatar container protocol.
 public protocol AvatarRepresentable: class, UserProtocol {
+    /// An avatar URL.
     var avatarURL: URL? { get set }
+    /// An avatar downloaded image.
     var avatarImage: UIImage? { get set }
     
+    /// Loads avatar by the avatar URL.
     func loadAvatar(completion: @escaping (_ image: UIImage?) -> Void)
 }
 
@@ -45,6 +49,7 @@ extension AvatarRepresentable {
         }
     }
     
+    /// Upload a new avatar image.
     public func updateAvatarURL(image: UIImage, name: String = "avatar", completion: @escaping (_ error: Error?) -> Void) {
         guard let file = File(name: name, jpegImage: image) else {
             completion(nil)

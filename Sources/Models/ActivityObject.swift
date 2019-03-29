@@ -8,11 +8,13 @@
 
 import GetStream
 
+/// An activity object protocol.
 public protocol ActivityObjectProtocol: Enrichable {
     var text: String? { get }
     var imageURL: URL? { get }
 }
 
+/// An activity object with several subtypes: text, image, reposted activity, following user.
 public enum ActivityObject: ActivityObjectProtocol {
     
     case text(_ value: String)
@@ -67,6 +69,7 @@ public enum ActivityObject: ActivityObjectProtocol {
 
 extension ActivityObject {
     
+    /// A text, if the object contains the text.
     public var text: String? {
         if case .text(let value) = self {
             return value
@@ -75,6 +78,7 @@ extension ActivityObject {
         return nil
     }
     
+    /// An image URL, if the object contains the image URL.
     public var imageURL: URL? {
         if case .image(let url) = self {
             return url
