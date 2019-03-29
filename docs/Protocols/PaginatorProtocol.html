@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>ActivityPresenter Structure Reference</title>
+    <title>PaginatorProtocol Protocol Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -10,8 +10,8 @@
     
   </head>
   <body>
-    <a name="//apple_ref/swift/Struct/ActivityPresenter" class="dashAnchor"></a>
-    <a title="ActivityPresenter Structure Reference"></a>
+    <a name="//apple_ref/swift/Protocol/PaginatorProtocol" class="dashAnchor"></a>
+    <a title="PaginatorProtocol Protocol Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html">GetStreamActivityFeed Docs</a> (65% documented)</p>
@@ -22,7 +22,7 @@
       <p id="breadcrumbs">
         <a href="../index.html">GetStreamActivityFeed Reference</a>
         <img id="carat" src="../img/carat.png" />
-        ActivityPresenter Structure Reference
+        PaginatorProtocol Protocol Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -273,14 +273,14 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>ActivityPresenter</h1>
+            <h1>PaginatorProtocol</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">ActivityPresenter</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">T</span> <span class="p">:</span> <span class="kt">ActivityProtocol</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">PaginatorProtocol</span></code></pre>
 
                 </div>
               </div>
-            <p>Activity Presenter for the managing events for the activity.</p>
+            <p>Undocumented</p>
 
           </section>
           <section class="section task-group-section">
@@ -289,9 +289,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:21GetStreamActivityFeed0C9PresenterV8activityxvp"></a>
-                    <a name="//apple_ref/swift/Property/activity" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21GetStreamActivityFeed0C9PresenterV8activityxvp">activity</a>
+                    <a name="/s:21GetStreamActivityFeed17PaginatorProtocolP8ItemTypeQa"></a>
+                    <a name="//apple_ref/swift/Alias/ItemType" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21GetStreamActivityFeed17PaginatorProtocolP8ItemTypeQa">ItemType</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -299,14 +299,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>An activity. See <code>ActivityProtocol</code>.</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">activity</span><span class="p">:</span> <span class="kt">T</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">associatedtype</span> <span class="kt">ItemType</span></code></pre>
 
                         </div>
                       </div>
@@ -316,9 +316,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:21GetStreamActivityFeed0C9PresenterV08reactionE0AA08ReactionE0Cvp"></a>
-                    <a name="//apple_ref/swift/Property/reactionPresenter" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21GetStreamActivityFeed0C9PresenterV08reactionE0AA08ReactionE0Cvp">reactionPresenter</a>
+                    <a name="/s:21GetStreamActivityFeed17PaginatorProtocolP10Completiona"></a>
+                    <a name="//apple_ref/swift/Alias/Completion" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21GetStreamActivityFeed17PaginatorProtocolP10Completiona">Completion</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -326,14 +326,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>A reaction presenter for the handling reactions. See <code><a href="../Classes/ReactionPresenter.html">ReactionPresenter</a></code>.</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">reactionPresenter</span><span class="p">:</span> <span class="kt"><a href="../Classes/ReactionPresenter.html">ReactionPresenter</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">typealias</span> <span class="kt">Completion</span> <span class="o">=</span> <span class="p">(</span><span class="n">_</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">Error</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span></code></pre>
 
                         </div>
                       </div>
@@ -343,9 +343,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:21GetStreamActivityFeed0C9PresenterV13reactionTypesAA0ce8ReactionG0Vvp"></a>
-                    <a name="//apple_ref/swift/Property/reactionTypes" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21GetStreamActivityFeed0C9PresenterV13reactionTypesAA0ce8ReactionG0Vvp">reactionTypes</a>
+                    <a name="/s:21GetStreamActivityFeed17PaginatorProtocolP5itemsSay8ItemTypeQzGvp"></a>
+                    <a name="//apple_ref/swift/Property/items" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21GetStreamActivityFeed17PaginatorProtocolP5itemsSay8ItemTypeQzGvp">items</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -353,14 +353,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Reaction types for the handling.</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">reactionTypes</span><span class="p">:</span> <span class="kt"><a href="../Structs/ActivityPresenterReactionTypes.html">ActivityPresenterReactionTypes</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">items</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Protocols/PaginatorProtocol.html#/s:21GetStreamActivityFeed17PaginatorProtocolP8ItemTypeQa">ItemType</a></span><span class="p">]</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -370,9 +370,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:21GetStreamActivityFeed0C9PresenterV08originalC0xvp"></a>
-                    <a name="//apple_ref/swift/Property/originalActivity" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21GetStreamActivityFeed0C9PresenterV08originalC0xvp">originalActivity</a>
+                    <a name="/s:21GetStreamActivityFeed17PaginatorProtocolP4next0aB010PaginationOvp"></a>
+                    <a name="//apple_ref/swift/Property/next" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21GetStreamActivityFeed17PaginatorProtocolP4next0aB010PaginationOvp">next</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -380,15 +380,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>An original activity, if the object is type of <code><a href="../Enums/ActivityObject.html">ActivityObject</a></code>.
-If the activity is a result of a repost, this property will contains the original activity.</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">originalActivity</span><span class="p">:</span> <span class="kt">T</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">next</span><span class="p">:</span> <span class="kt">Pagination</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -398,24 +397,32 @@ If the activity is a result of a repost, this property will contains the origina
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:21GetStreamActivityFeed0C9PresenterV08originalC10AttachmentAA0G13Representable_pSgvp"></a>
-                    <a name="//apple_ref/swift/Property/originalActivityAttachment" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21GetStreamActivityFeed0C9PresenterV08originalC10AttachmentAA0G13Representable_pSgvp">originalActivityAttachment</a>
+                    <a name="/s:21GetStreamActivityFeed17PaginatorProtocolP7hasNextSbvp"></a>
+                    <a name="//apple_ref/swift/Property/hasNext" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21GetStreamActivityFeed17PaginatorProtocolP7hasNextSbvp">hasNext</a>
                     </code>
+                      <span class="declaration-note">
+                        Default implementation
+                      </span>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>An attachment of the original activity. See <code><a href="../Protocols/AttachmentRepresentable.html">AttachmentRepresentable</a></code>.</p>
+                        <p>Undocumented</p>
+
+                      </div>
+                      <h4>Default Implementation</h4>
+                      <div class="default_impl abstract">
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">originalActivityAttachment</span><span class="p">:</span> <span class="kt"><a href="../Protocols/AttachmentRepresentable.html">AttachmentRepresentable</a></span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">hasNext</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -425,24 +432,32 @@ If the activity is a result of a repost, this property will contains the origina
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:21GetStreamActivityFeed0C9PresenterV8activity08reactionE00G5TypesACyxGx_AA08ReactionE0CAA0ceiH0Vtcfc"></a>
-                    <a name="//apple_ref/swift/Method/init(activity:reactionPresenter:reactionTypes:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21GetStreamActivityFeed0C9PresenterV8activity08reactionE00G5TypesACyxGx_AA08ReactionE0CAA0ceiH0Vtcfc">init(activity:reactionPresenter:reactionTypes:)</a>
+                    <a name="/s:21GetStreamActivityFeed17PaginatorProtocolP5countSivp"></a>
+                    <a name="//apple_ref/swift/Property/count" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21GetStreamActivityFeed17PaginatorProtocolP5countSivp">count</a>
                     </code>
+                      <span class="declaration-note">
+                        Default implementation
+                      </span>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Creates an activity presenter for an activity with a reaction presenter.</p>
+                        <p>Undocumented</p>
+
+                      </div>
+                      <h4>Default Implementation</h4>
+                      <div class="default_impl abstract">
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">activity</span><span class="p">:</span> <span class="kt">T</span><span class="p">,</span> <span class="nv">reactionPresenter</span><span class="p">:</span> <span class="kt"><a href="../Classes/ReactionPresenter.html">ReactionPresenter</a></span><span class="p">,</span> <span class="nv">reactionTypes</span><span class="p">:</span> <span class="kt"><a href="../Structs/ActivityPresenterReactionTypes.html">ActivityPresenterReactionTypes</a></span> <span class="o">=</span> <span class="p">[])</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">count</span><span class="p">:</span> <span class="kt">Int</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -452,9 +467,9 @@ If the activity is a result of a repost, this property will contains the origina
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:21GetStreamActivityFeed0C9PresenterV17reactionPaginator10activityId0F4KindAA08ReactionG0Cyqd__qd_0_GSS_SStSeRd__SERd__0aB012UserProtocolRd_0_AJ0K0Cyqd__qd_0_G0K4TypeRtzr0_lF"></a>
-                    <a name="//apple_ref/swift/Method/reactionPaginator(activityId:reactionKind:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21GetStreamActivityFeed0C9PresenterV17reactionPaginator10activityId0F4KindAA08ReactionG0Cyqd__qd_0_GSS_SStSeRd__SERd__0aB012UserProtocolRd_0_AJ0K0Cyqd__qd_0_G0K4TypeRtzr0_lF">reactionPaginator(activityId:reactionKind:)</a>
+                    <a name="/s:21GetStreamActivityFeed17PaginatorProtocolP4load_10completiony0aB010PaginationO_ys5Error_pSgctF"></a>
+                    <a name="//apple_ref/swift/Method/load(_:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21GetStreamActivityFeed17PaginatorProtocolP4load_10completiony0aB010PaginationO_ys5Error_pSgctF">load(_:completion:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -462,54 +477,14 @@ If the activity is a result of a repost, this property will contains the origina
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Creates a reaction paginator based on the activity id and a reaction kind.</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">reactionPaginator</span><span class="o">&lt;</span><span class="kt">E</span><span class="p">:</span> <span class="kt">ReactionExtraDataProtocol</span><span class="p">,</span>
-    <span class="kt">U</span><span class="p">:</span> <span class="kt">UserProtocol</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">activityId</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">reactionKind</span><span class="p">:</span> <span class="kt">ReactionKind</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Classes/ReactionPaginator.html">ReactionPaginator</a></span><span class="o">&lt;</span><span class="kt">E</span><span class="p">,</span> <span class="kt">U</span><span class="o">&gt;</span>
-    <span class="k">where</span> <span class="kt">T</span><span class="o">.</span><span class="kt">ReactionType</span> <span class="o">==</span> <span class="kt">GetStream</span><span class="o">.</span><span class="kt"><a href="../Typealiases.html#/s:21GetStreamActivityFeed8Reactiona">Reaction</a></span><span class="o">&lt;</span><span class="kt">E</span><span class="p">,</span> <span class="kt">U</span><span class="o">&gt;</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <div class="task-name-container">
-                <a name="/Activity%20Presenter%20for%20Table%20View"></a>
-                <a name="//apple_ref/swift/Section/Activity Presenter for Table View" class="dashAnchor"></a>
-                <a href="#/Activity%20Presenter%20for%20Table%20View">
-                  <h3 class="section-name">Activity Presenter for Table View</h3>
-                </a>
-              </div>
-              <ul>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:21GetStreamActivityFeed0C9PresenterV10cellsCountSivp"></a>
-                    <a name="//apple_ref/swift/Property/cellsCount" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21GetStreamActivityFeed0C9PresenterV10cellsCountSivp">cellsCount</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>A number of cells in the activity section.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">cellsCount</span><span class="p">:</span> <span class="kt">Int</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">load</span><span class="p">(</span><span class="n">_</span> <span class="nv">pagination</span><span class="p">:</span> <span class="kt">Pagination</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Protocols/PaginatorProtocol.html#/s:21GetStreamActivityFeed17PaginatorProtocolP10Completiona">Completion</a></span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -519,143 +494,32 @@ If the activity is a result of a repost, this property will contains the origina
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:21GetStreamActivityFeed0C9PresenterV8cellType2atAA0ce4CellG0OSgSi_tF"></a>
-                    <a name="//apple_ref/swift/Method/cellType(at:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21GetStreamActivityFeed0C9PresenterV8cellType2atAA0ce4CellG0OSgSi_tF">cellType(at:)</a>
+                    <a name="/s:21GetStreamActivityFeed17PaginatorProtocolP8loadNext10completionyys5Error_pSgc_tF"></a>
+                    <a name="//apple_ref/swift/Method/loadNext(completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21GetStreamActivityFeed17PaginatorProtocolP8loadNext10completionyys5Error_pSgc_tF">loadNext(completion:)</a>
                     </code>
+                      <span class="declaration-note">
+                        Default implementation
+                      </span>
                   </div>
                   <div class="height-container">
                     <div class="pointer-container"></div>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Returns the type of the cell at a row.</p>
+                        <p>Undocumented</p>
+
+                      </div>
+                      <h4>Default Implementation</h4>
+                      <div class="default_impl abstract">
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">cellType</span><span class="p">(</span><span class="n">at</span> <span class="nv">row</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Enums/ActivityPresenterCellType.html">ActivityPresenterCellType</a></span><span class="p">?</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:21GetStreamActivityFeed0C9PresenterV13withReactionsSbvp"></a>
-                    <a name="//apple_ref/swift/Property/withReactions" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21GetStreamActivityFeed0C9PresenterV13withReactionsSbvp">withReactions</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Check if activity table view section needs to show with reactions.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">withReactions</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <div class="task-name-container">
-                <a name="/Reactions"></a>
-                <a name="//apple_ref/swift/Section/Reactions" class="dashAnchor"></a>
-                <a href="#/Reactions">
-                  <h3 class="section-name">Reactions</h3>
-                </a>
-              </div>
-              <ul>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:21GetStreamActivityFeed0C9PresenterVAA0aB016ReactionProtocol0F4TypeRpzAA19AvatarRepresentableAF_04UserH0RPzAA0k4NameJ0AJRQrlE13reactionTitle3for6kindOf6suffixSSSgx_S2StF"></a>
-                    <a name="//apple_ref/swift/Method/reactionTitle(for:kindOf:suffix:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21GetStreamActivityFeed0C9PresenterVAA0aB016ReactionProtocol0F4TypeRpzAA19AvatarRepresentableAF_04UserH0RPzAA0k4NameJ0AJRQrlE13reactionTitle3for6kindOf6suffixSSSgx_S2StF">reactionTitle(for:kindOf:suffix:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Return a title for the activity reaction of a reaction kind.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">reactionTitle</span><span class="p">(</span><span class="k">for</span> <span class="nv">activity</span><span class="p">:</span> <span class="kt">T</span><span class="p">,</span> <span class="n">kindOf</span> <span class="nv">reactionKind</span><span class="p">:</span> <span class="kt">ReactionKind</span><span class="p">,</span> <span class="nv">suffix</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">String</span><span class="p">?</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:21GetStreamActivityFeed0C9PresenterVAA0aB016ReactionProtocol0F4TypeRpzAA19AvatarRepresentableAF_04UserH0RPzAA0k4NameJ0AJRQrlE08reactionkI4URLs3for6kindOfSay10Foundation3URLVGx_SStF"></a>
-                    <a name="//apple_ref/swift/Method/reactionUserAvatarURLs(for:kindOf:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21GetStreamActivityFeed0C9PresenterVAA0aB016ReactionProtocol0F4TypeRpzAA19AvatarRepresentableAF_04UserH0RPzAA0k4NameJ0AJRQrlE08reactionkI4URLs3for6kindOfSay10Foundation3URLVGx_SStF">reactionUserAvatarURLs(for:kindOf:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Returns a list of avatar URL&rsquo;s for the activity reactions of a reaction kind.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">reactionUserAvatarURLs</span><span class="p">(</span><span class="k">for</span> <span class="nv">activity</span><span class="p">:</span> <span class="kt">T</span><span class="p">,</span> <span class="n">kindOf</span> <span class="nv">reactionKind</span><span class="p">:</span> <span class="kt">ReactionKind</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">URL</span><span class="p">]</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:21GetStreamActivityFeed0C9PresenterVAA0aB016ReactionProtocol0F4TypeRpzAA19AvatarRepresentableAF_04UserH0RPzAA0k4NameJ0AJRQrlE7comment3for2atAGSgx_SitF"></a>
-                    <a name="//apple_ref/swift/Method/comment(for:at:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21GetStreamActivityFeed0C9PresenterVAA0aB016ReactionProtocol0F4TypeRpzAA19AvatarRepresentableAF_04UserH0RPzAA0k4NameJ0AJRQrlE7comment3for2atAGSgx_SitF">comment(for:at:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Returns a comment for the activity at an index.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">comment</span><span class="p">(</span><span class="k">for</span> <span class="nv">activity</span><span class="p">:</span> <span class="kt">T</span><span class="p">,</span> <span class="n">at</span> <span class="nv">index</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">T</span><span class="o">.</span><span class="kt">ReactionType</span><span class="p">?</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">loadNext</span><span class="p">(</span><span class="nv">completion</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="kt"><a href="../Protocols/PaginatorProtocol.html#/s:21GetStreamActivityFeed17PaginatorProtocolP10Completiona">Completion</a></span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>

@@ -14,7 +14,7 @@
     <a title="FlatFeedPresenter Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">GetStreamActivityFeed Docs</a> (42% documented)</p>
+        <p><a href="../index.html">GetStreamActivityFeed Docs</a> (65% documented)</p>
         <p class="header-right"><a href="https://github.com/GetStream/swift-activity-feed"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -125,7 +125,7 @@
                 <a href="../Classes/SeparatorTableViewCell.html">SeparatorTableViewCell</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes.html#/s:21GetStreamActivityFeed14SubscriptionIdC">SubscriptionId</a>
+                <a href="../Classes/SubscriptionId.html">SubscriptionId</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/SubscriptionPresenter.html">SubscriptionPresenter</a>
@@ -169,9 +169,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Extensions/NSRange.html">NSRange</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Extensions/PaginatorProtocol.html">PaginatorProtocol</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Extensions/Range.html">Range</a>
@@ -230,6 +227,9 @@
                 <a href="../Protocols/BannerViewProtocol.html">BannerViewProtocol</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Protocols/PaginatorProtocol.html">PaginatorProtocol</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Protocols/ReactionPresenterProtocol.html">ReactionPresenterProtocol</a>
               </li>
               <li class="nav-group-task">
@@ -253,7 +253,7 @@
                 <a href="../Structs/DataDetectorURLItem.html">DataDetectorURLItem</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Structs.html#/s:21GetStreamActivityFeed27DetailViewControllerSectionV">DetailViewControllerSection</a>
+                <a href="../Structs/DetailViewControllerSection.html">DetailViewControllerSection</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/DetailViewControllerSectionTypes.html">DetailViewControllerSectionTypes</a>
@@ -264,7 +264,7 @@
             <a href="../Typealiases.html">Type Aliases</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Typealiases.html#/Reaction">Reaction</a>
+                <a href="../Typealiases.html#/s:21GetStreamActivityFeed8Reactiona">Reaction</a>
               </li>
             </ul>
           </li>
@@ -276,11 +276,11 @@
             <h1>FlatFeedPresenter</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">FlatFeedPresenter</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt">PaginatorProtocol</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">FlatFeedPresenter</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/PaginatorProtocol.html">PaginatorProtocol</a></span> <span class="k">where</span> <span class="kt">T</span> <span class="p">:</span> <span class="kt">ActivityProtocol</span></code></pre>
 
                 </div>
               </div>
-            <p>Undocumented</p>
+            <p>A flat feed presenter.</p>
 
           </section>
           <section class="section task-group-section">
@@ -299,7 +299,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>A completion block type of feed requests.</p>
 
                       </div>
                       <div class="declaration">
@@ -316,9 +316,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:21GetStreamActivityFeed04FlatD9PresenterC04flatD00aB00eD0Cvp"></a>
                     <a name="//apple_ref/swift/Property/flatFeed" class="dashAnchor"></a>
-                    <a class="token" href="#/">flatFeed</a>
+                    <a class="token" href="#/s:21GetStreamActivityFeed04FlatD9PresenterC04flatD00aB00eD0Cvp">flatFeed</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -326,7 +326,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>A flat feed. See <code>FlatFeed</code>.</p>
 
                       </div>
                       <div class="declaration">
@@ -353,7 +353,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>A reaction presenter. See <code><a href="../Classes/ReactionPresenter.html">ReactionPresenter</a></code>.</p>
 
                       </div>
                       <div class="declaration">
@@ -370,9 +370,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:21GetStreamActivityFeed04FlatD9PresenterC16includeReactions0aB00dH7OptionsVvp"></a>
                     <a name="//apple_ref/swift/Property/includeReactions" class="dashAnchor"></a>
-                    <a class="token" href="#/">includeReactions</a>
+                    <a class="token" href="#/s:21GetStreamActivityFeed04FlatD9PresenterC16includeReactions0aB00dH7OptionsVvp">includeReactions</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -380,7 +380,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>An options of the aditional reactions in the feed. See <code>FeedReactionsOptions</code>.</p>
 
                       </div>
                       <div class="declaration">
@@ -407,14 +407,16 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Loaded <code><a href="../Structs/ActivityPresenter.html">ActivityPresenter</a></code> items of the feed.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">private(set)</span> <span class="k">var</span> <span class="nv">items</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Structs/ActivityPresenter.html">ActivityPresenter</a></span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">]</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">private(set)</span> <span class="k">var</span> <span class="nv">items</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Structs/ActivityPresenter.html">ActivityPresenter</a></span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">{</span>
+  <span class="k">get</span>
+  <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -424,9 +426,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:21GetStreamActivityFeed04FlatD9PresenterC4next0aB010PaginationOvp"></a>
                     <a name="//apple_ref/swift/Property/next" class="dashAnchor"></a>
-                    <a class="token" href="#/">next</a>
+                    <a class="token" href="#/s:21GetStreamActivityFeed04FlatD9PresenterC4next0aB010PaginationOvp">next</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -434,7 +436,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>A pagination for the next page of feed activities.</p>
 
                       </div>
                       <div class="declaration">
@@ -442,33 +444,6 @@
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">next</span><span class="p">:</span> <span class="kt">Pagination</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:21GetStreamActivityFeed04FlatD9PresenterC5totalSivp"></a>
-                    <a name="//apple_ref/swift/Property/total" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21GetStreamActivityFeed04FlatD9PresenterC5totalSivp">total</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">private(set)</span> <span class="k">var</span> <span class="nv">total</span><span class="p">:</span> <span class="kt">Int</span></code></pre>
 
                         </div>
                       </div>
@@ -488,7 +463,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>A subscription presenter. See <code><a href="../Classes/SubscriptionPresenter.html">SubscriptionPresenter</a></code>.</p>
 
                       </div>
                       <div class="declaration">
@@ -515,7 +490,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Reaction types for activities. See <code><a href="../Structs/ActivityPresenterReactionTypes.html">ActivityPresenterReactionTypes</a></code>.</p>
 
                       </div>
                       <div class="declaration">
@@ -532,9 +507,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:21GetStreamActivityFeed04FlatD9PresenterC04flatD013reactionTypesACyxG0aB00eD0C_AA0cf8ReactionI0Vtcfc"></a>
                     <a name="//apple_ref/swift/Method/init(flatFeed:reactionTypes:)" class="dashAnchor"></a>
-                    <a class="token" href="#/">init(flatFeed:reactionTypes:)</a>
+                    <a class="token" href="#/s:21GetStreamActivityFeed04FlatD9PresenterC04flatD013reactionTypesACyxG0aB00eD0C_AA0cf8ReactionI0Vtcfc">init(flatFeed:reactionTypes:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -559,9 +534,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:21GetStreamActivityFeed04FlatD9PresenterC4load_10completiony0aB010PaginationO_ys5Error_pSgctF"></a>
                     <a name="//apple_ref/swift/Method/load(_:completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/">load(_:completion:)</a>
+                    <a class="token" href="#/s:21GetStreamActivityFeed04FlatD9PresenterC4load_10completiony0aB010PaginationO_ys5Error_pSgctF">load(_:completion:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -569,7 +544,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Load feed with a pagination. See <code>Pagination</code>.</p>
 
                       </div>
                       <div class="declaration">
@@ -607,7 +582,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Remove an activity from the feed.</p>
 
                       </div>
                       <div class="declaration">
@@ -635,9 +610,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:21GetStreamActivityFeed04FlatD9PresenterC6follow8toTarget17activityCopyLimit_y0aB00D2IdV_Siys5Error_pSgctF"></a>
                     <a name="//apple_ref/swift/Method/follow(toTarget:activityCopyLimit:_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/">follow(toTarget:activityCopyLimit:_:)</a>
+                    <a class="token" href="#/s:21GetStreamActivityFeed04FlatD9PresenterC6follow8toTarget17activityCopyLimit_y0aB00D2IdV_Siys5Error_pSgctF">follow(toTarget:activityCopyLimit:_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -645,7 +620,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Follows to a target <code>FeedId</code>.</p>
 
                       </div>
                       <div class="declaration">
@@ -662,9 +637,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:21GetStreamActivityFeed04FlatD9PresenterC8unfollow10fromTarget11keepHistory_y0aB00D2IdV_Sbys5Error_pSgctF"></a>
                     <a name="//apple_ref/swift/Method/unfollow(fromTarget:keepHistory:_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/">unfollow(fromTarget:keepHistory:_:)</a>
+                    <a class="token" href="#/s:21GetStreamActivityFeed04FlatD9PresenterC8unfollow10fromTarget11keepHistory_y0aB00D2IdV_Sbys5Error_pSgctF">unfollow(fromTarget:keepHistory:_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -672,7 +647,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Unfollows from a target <code>FeedId</code>.</p>
 
                       </div>
                       <div class="declaration">
@@ -691,8 +666,8 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2019 <a class="link" href="getstream.io" target="_blank" rel="external">GetStream.io</a>. All rights reserved. (Last updated: 2019-03-27)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2019 <a class="link" href="getstream.io" target="_blank" rel="external">GetStream.io</a>. All rights reserved. (Last updated: 2019-03-29)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>

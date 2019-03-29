@@ -2,778 +2,239 @@
   "warnings": [
     {
       "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Activity/ActivityPresenter.swift",
-      "line": null,
-      "symbol": "ActivityPresenter",
-      "symbol_kind": "source.lang.swift.decl.extension",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Activity/ActivityPresenter.swift",
-      "line": 14,
-      "symbol": "ActivityPresenterReactionTypes",
-      "symbol_kind": "source.lang.swift.decl.struct",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Activity/ActivityPresenter.swift",
-      "line": 21,
-      "symbol": "ActivityPresenterReactionTypes.comments",
-      "symbol_kind": "source.lang.swift.decl.var.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Activity/ActivityPresenter.swift",
-      "line": 22,
-      "symbol": "ActivityPresenterReactionTypes.likes",
-      "symbol_kind": "source.lang.swift.decl.var.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Activity/ActivityPresenter.swift",
-      "line": 23,
-      "symbol": "ActivityPresenterReactionTypes.reposts",
-      "symbol_kind": "source.lang.swift.decl.var.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Activity/ActivityPresenter.swift",
-      "line": 28,
-      "symbol": "ActivityPresenter",
-      "symbol_kind": "source.lang.swift.decl.struct",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Activity/ActivityPresenter.swift",
-      "line": 29,
-      "symbol": "ActivityPresenter.activity",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Activity/ActivityPresenter.swift",
-      "line": 30,
-      "symbol": "ActivityPresenter.reactionPresenter",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Activity/ActivityPresenter.swift",
-      "line": 31,
-      "symbol": "ActivityPresenter.reactionTypes",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Activity/ActivityPresenter.swift",
-      "line": 33,
-      "symbol": "ActivityPresenter.originalActivity",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Activity/ActivityPresenter.swift",
-      "line": 43,
-      "symbol": "ActivityPresenter.originalActivityAttachment",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Activity/ActivityPresenter.swift",
-      "line": 47,
-      "symbol": "ActivityPresenter.init(activity:reactionPresenter:reactionTypes:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Activity/ActivityPresenter.swift",
-      "line": 53,
-      "symbol": "ActivityPresenter.reactionPaginator(activityId:reactionKind:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Activity/ActivityPresenter.swift",
-      "line": 62,
-      "symbol": "ActivityPresenterCellType",
-      "symbol_kind": "source.lang.swift.decl.enum",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Activity/ActivityPresenter.swift",
-      "line": 63,
+      "line": 77,
       "symbol": "ActivityPresenterCellType.activity",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Activity/ActivityPresenter.swift",
-      "line": 64,
+      "line": 78,
       "symbol": "ActivityPresenterCellType.attachmentImages(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Activity/ActivityPresenter.swift",
-      "line": 65,
+      "line": 79,
       "symbol": "ActivityPresenterCellType.attachmentOpenGraphData(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Activity/ActivityPresenter.swift",
-      "line": 66,
+      "line": 80,
       "symbol": "ActivityPresenterCellType.actions",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Activity/ActivityPresenter.swift",
-      "line": 67,
+      "line": 81,
       "symbol": "ActivityPresenterCellType.separator",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Activity/ActivityPresenter.swift",
-      "line": 72,
-      "symbol": "ActivityPresenter.cellsCount",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Activity/ActivityPresenter.swift",
-      "line": 88,
-      "symbol": "ActivityPresenter.cellType(at:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Activity/ActivityPresenter.swift",
-      "line": 118,
-      "symbol": "ActivityPresenter.withReactions",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
       "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/BaseFlatFeedViewController.swift",
-      "line": 12,
-      "symbol": "BaseFlatFeedViewController",
-      "symbol_kind": "source.lang.swift.decl.class",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/BaseFlatFeedViewController.swift",
-      "line": 16,
-      "symbol": "BaseFlatFeedViewController.tableView",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/BaseFlatFeedViewController.swift",
-      "line": 25,
-      "symbol": "BaseFlatFeedViewController.refreshControl",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/BaseFlatFeedViewController.swift",
-      "line": 27,
+      "line": 30,
       "symbol": "BaseFlatFeedViewController.viewDidLoad()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/BaseFlatFeedViewController.swift",
-      "line": 33,
+      "line": 36,
       "symbol": "BaseFlatFeedViewController.viewWillAppear(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/BaseFlatFeedViewController.swift",
-      "line": 41,
-      "symbol": "BaseFlatFeedViewController.setupTableView()",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/BaseFlatFeedViewController.swift",
-      "line": 45,
-      "symbol": "BaseFlatFeedViewController.setupRefreshControl()",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/BaseFlatFeedViewController.swift",
-      "line": 50,
-      "symbol": "BaseFlatFeedViewController.reloadData()",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/BaseFlatFeedViewController.swift",
-      "line": 52,
-      "symbol": "BaseFlatFeedViewController.dataLoaded(_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/BaseFlatFeedViewController.swift",
-      "line": 64,
+      "line": 75,
       "symbol": "BaseFlatFeedViewController.numberOfSections(in:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/BaseFlatFeedViewController.swift",
-      "line": 68,
+      "line": 79,
       "symbol": "BaseFlatFeedViewController.tableView(_:numberOfRowsInSection:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/BaseFlatFeedViewController.swift",
-      "line": 72,
+      "line": 83,
       "symbol": "BaseFlatFeedViewController.tableView(_:cellForRowAt:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/BaseFlatFeedViewController.swift",
-      "line": 76,
+      "line": 87,
       "symbol": "BaseFlatFeedViewController.tableView(_:titleForHeaderInSection:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/BaseFlatFeedViewController.swift",
-      "line": 80,
+      "line": 91,
       "symbol": "BaseFlatFeedViewController.tableView(_:titleForFooterInSection:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/BaseFlatFeedViewController.swift",
-      "line": 84,
+      "line": 95,
       "symbol": "BaseFlatFeedViewController.tableView(_:canEditRowAt:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/BaseFlatFeedViewController.swift",
-      "line": 88,
+      "line": 99,
       "symbol": "BaseFlatFeedViewController.tableView(_:commit:forRowAt:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/BaseFlatFeedViewController.swift",
-      "line": 91,
+      "line": 102,
       "symbol": "BaseFlatFeedViewController.tableView(_:canMoveRowAt:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/BaseFlatFeedViewController.swift",
-      "line": 95,
+      "line": 106,
       "symbol": "BaseFlatFeedViewController.tableView(_:moveRowAt:to:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/BaseFlatFeedViewController.swift",
-      "line": 100,
-      "symbol": "BaseFlatFeedViewController.updateAvatar(in:activity:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/BaseFlatFeedViewController.swift",
-      "line": 104,
-      "symbol": "BaseFlatFeedViewController.updateActions(in:activityPresenter:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
       "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/DetailViewController.swift",
-      "line": null,
-      "symbol": "DetailViewController",
-      "symbol_kind": "source.lang.swift.decl.extension",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/DetailViewController.swift",
-      "line": 15,
-      "symbol": "DetailViewControllerSectionTypes",
-      "symbol_kind": "source.lang.swift.decl.struct",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/DetailViewController.swift",
-      "line": 22,
-      "symbol": "DetailViewControllerSectionTypes.activity",
-      "symbol_kind": "source.lang.swift.decl.var.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/DetailViewController.swift",
-      "line": 23,
-      "symbol": "DetailViewControllerSectionTypes.likes",
-      "symbol_kind": "source.lang.swift.decl.var.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/DetailViewController.swift",
-      "line": 24,
-      "symbol": "DetailViewControllerSectionTypes.reposts",
-      "symbol_kind": "source.lang.swift.decl.var.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/DetailViewController.swift",
-      "line": 25,
-      "symbol": "DetailViewControllerSectionTypes.comments",
-      "symbol_kind": "source.lang.swift.decl.var.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/DetailViewController.swift",
-      "line": 30,
-      "symbol": "DetailViewControllerSection",
-      "symbol_kind": "source.lang.swift.decl.struct",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/DetailViewController.swift",
-      "line": 38,
-      "symbol": "DetailViewController",
-      "symbol_kind": "source.lang.swift.decl.class",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/DetailViewController.swift",
-      "line": 42,
-      "symbol": "DetailViewController.textToolBar",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/DetailViewController.swift",
-      "line": 43,
-      "symbol": "DetailViewController.reactionPaginator",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/DetailViewController.swift",
-      "line": 45,
-      "symbol": "DetailViewController.sectionsData",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/DetailViewController.swift",
-      "line": 46,
-      "symbol": "DetailViewController.sections",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/DetailViewController.swift",
-      "line": 47,
-      "symbol": "DetailViewController.childCommentsCount",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/DetailViewController.swift",
-      "line": 48,
-      "symbol": "DetailViewController.canAddComment",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/DetailViewController.swift",
-      "line": 49,
-      "symbol": "DetailViewController.showZeroSectionTitle",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/DetailViewController.swift",
-      "line": 51,
-      "symbol": "DetailViewController.activityPresenter",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/DetailViewController.swift",
-      "line": 60,
+      "line": 80,
       "symbol": "DetailViewController.viewDidLoad()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/DetailViewController.swift",
-      "line": 113,
-      "symbol": "DetailViewController.sectionTitle(for:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/DetailViewController.swift",
-      "line": 129,
-      "symbol": "DetailViewController.sectionTitle(in:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/DetailViewController.swift",
-      "line": 135,
-      "symbol": "DetailViewController.setupTableView()",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/DetailViewController.swift",
-      "line": 145,
-      "symbol": "DetailViewController.setupRefreshControl()",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/DetailViewController.swift",
-      "line": 157,
+      "line": 179,
       "symbol": "DetailViewController.numberOfSections(in:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/DetailViewController.swift",
-      "line": 177,
+      "line": 199,
       "symbol": "DetailViewController.tableView(_:numberOfRowsInSection:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/DetailViewController.swift",
-      "line": 202,
+      "line": 224,
       "symbol": "DetailViewController.tableView(_:titleForHeaderInSection:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/DetailViewController.swift",
-      "line": 206,
+      "line": 228,
       "symbol": "DetailViewController.tableView(_:cellForRowAt:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/DetailViewController.swift",
-      "line": 284,
-      "symbol": "DetailViewController.moreCommentsTitle(with:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/DetailViewController.swift",
-      "line": 290,
+      "line": 313,
       "symbol": "DetailViewController.tableView(_:shouldHighlightRowAt:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/DetailViewController.swift",
-      "line": 307,
+      "line": 330,
       "symbol": "DetailViewController.tableView(_:didSelectRowAt:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/DetailViewController.swift",
-      "line": 322,
+      "line": 345,
       "symbol": "DetailViewController.tableView(_:canEditRowAt:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/DetailViewController.swift",
-      "line": 330,
+      "line": 353,
       "symbol": "DetailViewController.tableView(_:commit:forRowAt:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/DetailViewController.swift",
-      "line": 467,
-      "symbol": "DetailViewController.setupNavigationBarForModallyPresented()",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
       "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/FlatFeedPresenter.swift",
-      "line": null,
-      "symbol": "FlatFeedPresenter",
-      "symbol_kind": "source.lang.swift.decl.extension",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/FlatFeedPresenter.swift",
-      "line": null,
-      "symbol": "FlatFeedPresenter",
-      "symbol_kind": "source.lang.swift.decl.extension",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/FlatFeedPresenter.swift",
-      "line": 13,
-      "symbol": "FlatFeedPresenter",
-      "symbol_kind": "source.lang.swift.decl.class",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/FlatFeedPresenter.swift",
-      "line": 15,
-      "symbol": "FlatFeedPresenter.Completion",
-      "symbol_kind": "source.lang.swift.decl.typealias",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/FlatFeedPresenter.swift",
-      "line": 17,
-      "symbol": "FlatFeedPresenter.flatFeed",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/FlatFeedPresenter.swift",
-      "line": 18,
-      "symbol": "FlatFeedPresenter.reactionPresenter",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/FlatFeedPresenter.swift",
-      "line": 19,
-      "symbol": "FlatFeedPresenter.includeReactions",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/FlatFeedPresenter.swift",
-      "line": 21,
-      "symbol": "FlatFeedPresenter.items",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/FlatFeedPresenter.swift",
-      "line": 22,
-      "symbol": "FlatFeedPresenter.next",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/FlatFeedPresenter.swift",
-      "line": 23,
-      "symbol": "FlatFeedPresenter.total",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/FlatFeedPresenter.swift",
-      "line": 24,
-      "symbol": "FlatFeedPresenter.subscriptionPresenter",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/FlatFeedPresenter.swift",
-      "line": 25,
-      "symbol": "FlatFeedPresenter.reactionTypes",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/FlatFeedPresenter.swift",
-      "line": 27,
+      "line": 34,
       "symbol": "FlatFeedPresenter.init(flatFeed:reactionTypes:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/FlatFeedPresenter.swift",
-      "line": 35,
-      "symbol": "FlatFeedPresenter.load(_:completion:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/FlatFeedPresenter.swift",
-      "line": 69,
-      "symbol": "FlatFeedPresenter.remove(activity:_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/FlatFeedPresenter.swift",
-      "line": 80,
-      "symbol": "FlatFeedPresenter.follow(toTarget:activityCopyLimit:_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/FlatFeedPresenter.swift",
-      "line": 84,
-      "symbol": "FlatFeedPresenter.unfollow(fromTarget:keepHistory:_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
       "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/FlatFeedViewController.swift",
-      "line": null,
-      "symbol": "FlatFeedViewController",
-      "symbol_kind": "source.lang.swift.decl.extension",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/FlatFeedViewController.swift",
-      "line": 15,
-      "symbol": "FlatFeedViewController",
-      "symbol_kind": "source.lang.swift.decl.class",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/FlatFeedViewController.swift",
-      "line": 19,
-      "symbol": "FlatFeedViewController.RemoveActivityAction",
-      "symbol_kind": "source.lang.swift.decl.typealias",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/FlatFeedViewController.swift",
-      "line": 20,
-      "symbol": "FlatFeedViewController.bannerView",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/FlatFeedViewController.swift",
-      "line": 22,
-      "symbol": "FlatFeedViewController.presenter",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/FlatFeedViewController.swift",
-      "line": 23,
-      "symbol": "FlatFeedViewController.removeActivityAction",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/FlatFeedViewController.swift",
-      "line": 25,
+      "line": 30,
       "symbol": "FlatFeedViewController.viewDidLoad()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/FlatFeedViewController.swift",
-      "line": 36,
+      "line": 41,
       "symbol": "FlatFeedViewController.viewWillAppear(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/FlatFeedViewController.swift",
-      "line": 44,
-      "symbol": "FlatFeedViewController.activityPresenter(in:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/FlatFeedViewController.swift",
-      "line": 52,
-      "symbol": "FlatFeedViewController.reloadData()",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/FlatFeedViewController.swift",
-      "line": 56,
-      "symbol": "FlatFeedViewController.dataLoaded(_:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/FlatFeedViewController.swift",
-      "line": 62,
+      "line": 68,
       "symbol": "FlatFeedViewController.numberOfSections(in:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/FlatFeedViewController.swift",
-      "line": 70,
+      "line": 76,
       "symbol": "FlatFeedViewController.tableView(_:numberOfRowsInSection:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/FlatFeedViewController.swift",
-      "line": 74,
+      "line": 80,
       "symbol": "FlatFeedViewController.tableView(_:cellForRowAt:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/FlatFeedViewController.swift",
-      "line": 94,
+      "line": 100,
       "symbol": "FlatFeedViewController.tableView(_:canEditRowAt:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/FlatFeedViewController.swift",
-      "line": 98,
+      "line": 104,
       "symbol": "FlatFeedViewController.tableView(_:commit:forRowAt:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/FlatFeedViewController.swift",
-      "line": 108,
+      "line": 114,
       "symbol": "FlatFeedViewController.tableView(_:didSelectRowAt:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/FlatFeedViewController.swift",
-      "line": 125,
-      "symbol": "FlatFeedViewController.subscribeForUpdates()",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/FlatFeedViewController.swift",
-      "line": 147,
-      "symbol": "FlatFeedViewController.unsubscribeFromUpdates()",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/FlatFeedViewController.swift",
-      "line": 151,
-      "symbol": "FlatFeedViewController.subscriptionNewItemsTitle(with:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Flat Feed/FlatFeedViewController.swift",
-      "line": 155,
-      "symbol": "FlatFeedViewController.subscriptionDeletedItemsTitle(with:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
@@ -933,6 +394,13 @@
     },
     {
       "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Subscription/BannerView.swift",
+      "line": 51,
+      "symbol": "BannerView.deinit",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Subscription/BannerView.swift",
       "line": 56,
       "symbol": "BannerView.make()",
       "symbol_kind": "source.lang.swift.decl.function.method.static",
@@ -974,6 +442,13 @@
       "warning": "undocumented"
     },
     {
+      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Subscription/SubscriptionPresenter.swift",
+      "line": 70,
+      "symbol": "SubscriptionId.deinit",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
       "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Components/Web View/WebViewController.swift",
       "line": 26,
       "symbol": "WebViewController.viewDidLoad()",
@@ -1010,303 +485,107 @@
     },
     {
       "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Models/Activity.swift",
-      "line": 11,
-      "symbol": "Reaction",
-      "symbol_kind": "source.lang.swift.decl.typealias",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Models/Activity.swift",
-      "line": 13,
-      "symbol": "Activity",
-      "symbol_kind": "source.lang.swift.decl.class",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Models/Activity.swift",
-      "line": 20,
+      "line": 23,
       "symbol": "Activity.text",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Models/Activity.swift",
-      "line": 21,
-      "symbol": "Activity.attachment",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Models/Activity.swift",
-      "line": 23,
+      "line": 26,
       "symbol": "Activity.original",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Models/Activity.swift",
-      "line": 32,
+      "line": 35,
       "symbol": "Activity.init(actor:verb:object:feedIds:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Models/Activity.swift",
-      "line": 36,
+      "line": 39,
       "symbol": "Activity.init(from:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Models/Activity.swift",
-      "line": 43,
+      "line": 46,
       "symbol": "Activity.encode(to:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Models/ActivityAttachment.swift",
-      "line": 12,
-      "symbol": "ActivityAttachment",
-      "symbol_kind": "source.lang.swift.decl.class",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Models/ActivityAttachment.swift",
-      "line": 19,
-      "symbol": "ActivityAttachment.make()",
-      "symbol_kind": "source.lang.swift.decl.function.method.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Models/ActivityAttachment.swift",
-      "line": 23,
-      "symbol": "ActivityAttachment.imageURLs",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Models/ActivityAttachment.swift",
-      "line": 24,
-      "symbol": "ActivityAttachment.openGraphData",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Models/ActivityAttachment.swift",
-      "line": 25,
-      "symbol": "ActivityAttachment.files",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Models/ActivityAttachment.swift",
-      "line": 30,
+      "line": 35,
       "symbol": "ActivityAttachmentFile",
       "symbol_kind": "source.lang.swift.decl.class",
       "warning": "undocumented"
     },
     {
       "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Models/ActivityAttachment.swift",
-      "line": 31,
+      "line": 36,
       "symbol": "ActivityAttachmentFile.name",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Models/ActivityAttachment.swift",
-      "line": 32,
+      "line": 37,
       "symbol": "ActivityAttachmentFile.url",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Models/ActivityAttachment.swift",
-      "line": 33,
+      "line": 38,
       "symbol": "ActivityAttachmentFile.mimeType",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Models/ActivityObject.swift",
-      "line": null,
-      "symbol": "ActivityObject",
-      "symbol_kind": "source.lang.swift.decl.extension",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Models/ActivityObject.swift",
-      "line": 11,
-      "symbol": "ActivityObjectProtocol",
-      "symbol_kind": "source.lang.swift.decl.protocol",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Models/ActivityObject.swift",
-      "line": 12,
+      "line": 13,
       "symbol": "ActivityObjectProtocol.text",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Models/ActivityObject.swift",
-      "line": 13,
+      "line": 14,
       "symbol": "ActivityObjectProtocol.imageURL",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Models/ActivityObject.swift",
-      "line": 16,
-      "symbol": "ActivityObject",
-      "symbol_kind": "source.lang.swift.decl.enum",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Models/ActivityObject.swift",
-      "line": 18,
+      "line": 20,
       "symbol": "ActivityObject.text(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Models/ActivityObject.swift",
-      "line": 19,
+      "line": 21,
       "symbol": "ActivityObject.image(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Models/ActivityObject.swift",
-      "line": 20,
+      "line": 22,
       "symbol": "ActivityObject.repost(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Models/ActivityObject.swift",
-      "line": 21,
+      "line": 23,
       "symbol": "ActivityObject.following(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Models/ActivityObject.swift",
-      "line": 23,
-      "symbol": "ActivityObject.referenceId",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Models/ActivityObject.swift",
-      "line": 36,
-      "symbol": "ActivityObject.encode(to:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Models/ActivityObject.swift",
-      "line": 51,
-      "symbol": "ActivityObject.init(from:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Models/ActivityObject.swift",
-      "line": 70,
-      "symbol": "ActivityObject.text",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Models/ActivityObject.swift",
-      "line": 78,
-      "symbol": "ActivityObject.imageURL",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Models/Protocols/AttachmentRepresentable.swift",
-      "line": null,
-      "symbol": "AttachmentRepresentable",
-      "symbol_kind": "source.lang.swift.decl.extension",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Models/Protocols/AttachmentRepresentable.swift",
-      "line": 11,
-      "symbol": "AttachmentRepresentable",
-      "symbol_kind": "source.lang.swift.decl.protocol",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Models/Protocols/AttachmentRepresentable.swift",
-      "line": 12,
-      "symbol": "AttachmentRepresentable.attachment",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Models/Protocols/AttachmentRepresentable.swift",
-      "line": 17,
-      "symbol": "AttachmentRepresentable.ogData",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Models/Protocols/AttachmentRepresentable.swift",
-      "line": 21,
-      "symbol": "AttachmentRepresentable.attachmentImageURLs()",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Models/Protocols/AvatarRepresentable.swift",
-      "line": null,
-      "symbol": "AvatarRepresentable",
-      "symbol_kind": "source.lang.swift.decl.extension",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Models/Protocols/AvatarRepresentable.swift",
-      "line": 12,
-      "symbol": "AvatarRepresentable",
-      "symbol_kind": "source.lang.swift.decl.protocol",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Models/Protocols/AvatarRepresentable.swift",
-      "line": 13,
-      "symbol": "AvatarRepresentable.avatarURL",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Models/Protocols/AvatarRepresentable.swift",
-      "line": 14,
-      "symbol": "AvatarRepresentable.avatarImage",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Models/Protocols/AvatarRepresentable.swift",
-      "line": 16,
-      "symbol": "AvatarRepresentable.loadAvatar(completion:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Models/Protocols/AvatarRepresentable.swift",
-      "line": 20,
-      "symbol": "AvatarRepresentable.loadAvatar(completion:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Models/Protocols/AvatarRepresentable.swift",
-      "line": 48,
-      "symbol": "AvatarRepresentable.updateAvatarURL(image:name:completion:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
@@ -1318,128 +597,100 @@
     },
     {
       "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Models/Protocols/PaginatorProtocol.swift",
-      "line": 28,
+      "line": 11,
+      "symbol": "PaginatorProtocol",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Models/Protocols/PaginatorProtocol.swift",
+      "line": 12,
+      "symbol": "PaginatorProtocol.ItemType",
+      "symbol_kind": "source.lang.swift.decl.associatedtype",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Models/Protocols/PaginatorProtocol.swift",
+      "line": 13,
+      "symbol": "PaginatorProtocol.Completion",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Models/Protocols/PaginatorProtocol.swift",
+      "line": 15,
+      "symbol": "PaginatorProtocol.items",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Models/Protocols/PaginatorProtocol.swift",
+      "line": 16,
+      "symbol": "PaginatorProtocol.next",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Models/Protocols/PaginatorProtocol.swift",
+      "line": 17,
       "symbol": "PaginatorProtocol.hasNext",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Models/Protocols/PaginatorProtocol.swift",
-      "line": 36,
+      "line": 18,
       "symbol": "PaginatorProtocol.count",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Models/Protocols/PaginatorProtocol.swift",
-      "line": 40,
+      "line": 20,
+      "symbol": "PaginatorProtocol.load(_:completion:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Models/Protocols/PaginatorProtocol.swift",
+      "line": 22,
+      "symbol": "PaginatorProtocol.loadNext(completion:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Models/Protocols/PaginatorProtocol.swift",
+      "line": 27,
+      "symbol": "PaginatorProtocol.hasNext",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Models/Protocols/PaginatorProtocol.swift",
+      "line": 35,
+      "symbol": "PaginatorProtocol.count",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Models/Protocols/PaginatorProtocol.swift",
+      "line": 39,
       "symbol": "PaginatorProtocol.loadNext(completion:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Models/Protocols/TextRepresentable.swift",
-      "line": 11,
-      "symbol": "TextRepresentable",
-      "symbol_kind": "source.lang.swift.decl.protocol",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Models/Protocols/TextRepresentable.swift",
-      "line": 12,
+      "line": 14,
       "symbol": "TextRepresentable.text",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Models/Protocols/UserNameRepresentable.swift",
-      "line": 11,
-      "symbol": "UserNameRepresentable",
-      "symbol_kind": "source.lang.swift.decl.protocol",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Models/Protocols/UserNameRepresentable.swift",
-      "line": 12,
-      "symbol": "UserNameRepresentable.name",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
       "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Models/User.swift",
-      "line": null,
-      "symbol": "User",
-      "symbol_kind": "source.lang.swift.decl.extension",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Models/User.swift",
-      "line": null,
-      "symbol": "User",
-      "symbol_kind": "source.lang.swift.decl.extension",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Models/User.swift",
-      "line": 13,
-      "symbol": "User",
-      "symbol_kind": "source.lang.swift.decl.class",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Models/User.swift",
-      "line": 19,
-      "symbol": "User.name",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Models/User.swift",
-      "line": 21,
-      "symbol": "User.avatarURL",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Models/User.swift",
-      "line": 26,
-      "symbol": "User.avatarImage",
-      "symbol_kind": "source.lang.swift.decl.var.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Models/User.swift",
-      "line": 42,
+      "line": 43,
       "symbol": "User.encode(to:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Models/User.swift",
-      "line": 54,
-      "symbol": "User.refresh(completion:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Models/User.swift",
-      "line": 64,
-      "symbol": "User.isFollow(toTarget:completion:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Models/Verb+Extensions.swift",
-      "line": 12,
-      "symbol": "Verb.post",
-      "symbol_kind": "source.lang.swift.decl.var.static",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alexey/Developer/swift-activity-feed/Sources/Models/Verb+Extensions.swift",
-      "line": 13,
-      "symbol": "Verb.follow",
-      "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
     },
     {

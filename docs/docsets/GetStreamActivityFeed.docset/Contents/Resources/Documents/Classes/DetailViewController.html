@@ -14,7 +14,7 @@
     <a title="DetailViewController Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">GetStreamActivityFeed Docs</a> (42% documented)</p>
+        <p><a href="../index.html">GetStreamActivityFeed Docs</a> (65% documented)</p>
         <p class="header-right"><a href="https://github.com/GetStream/swift-activity-feed"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -125,7 +125,7 @@
                 <a href="../Classes/SeparatorTableViewCell.html">SeparatorTableViewCell</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes.html#/s:21GetStreamActivityFeed14SubscriptionIdC">SubscriptionId</a>
+                <a href="../Classes/SubscriptionId.html">SubscriptionId</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/SubscriptionPresenter.html">SubscriptionPresenter</a>
@@ -169,9 +169,6 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Extensions/NSRange.html">NSRange</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Extensions/PaginatorProtocol.html">PaginatorProtocol</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Extensions/Range.html">Range</a>
@@ -230,6 +227,9 @@
                 <a href="../Protocols/BannerViewProtocol.html">BannerViewProtocol</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Protocols/PaginatorProtocol.html">PaginatorProtocol</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Protocols/ReactionPresenterProtocol.html">ReactionPresenterProtocol</a>
               </li>
               <li class="nav-group-task">
@@ -253,7 +253,7 @@
                 <a href="../Structs/DataDetectorURLItem.html">DataDetectorURLItem</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Structs.html#/s:21GetStreamActivityFeed27DetailViewControllerSectionV">DetailViewControllerSection</a>
+                <a href="../Structs/DetailViewControllerSection.html">DetailViewControllerSection</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/DetailViewControllerSectionTypes.html">DetailViewControllerSectionTypes</a>
@@ -264,7 +264,7 @@
             <a href="../Typealiases.html">Type Aliases</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Typealiases.html#/Reaction">Reaction</a>
+                <a href="../Typealiases.html#/s:21GetStreamActivityFeed8Reactiona">Reaction</a>
               </li>
             </ul>
           </li>
@@ -278,11 +278,22 @@
                 <div class="language">
                   <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">DetailViewController</span><span class="o">&lt;</span><span class="kt">T</span><span class="p">:</span> <span class="kt">ActivityProtocol</span><span class="o">&gt;</span><span class="p">:</span> <span class="kt"><a href="../Classes/BaseFlatFeedViewController.html">BaseFlatFeedViewController</a></span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">,</span> <span class="kt">UITableViewDelegate</span><span class="p">,</span> <span class="kt">UITextViewDelegate</span>
     <span class="k">where</span> <span class="kt">T</span><span class="o">.</span><span class="kt">ActorType</span><span class="p">:</span> <span class="kt">UserProtocol</span> <span class="o">&amp;</span> <span class="kt"><a href="../Protocols/UserNameRepresentable.html">UserNameRepresentable</a></span> <span class="o">&amp;</span> <span class="kt"><a href="../Protocols/AvatarRepresentable.html">AvatarRepresentable</a></span><span class="p">,</span>
-          <span class="kt">T</span><span class="o">.</span><span class="kt">ReactionType</span> <span class="o">==</span> <span class="kt">GetStream</span><span class="o">.</span><span class="kt"><a href="../Typealiases.html#/Reaction">Reaction</a></span><span class="o">&lt;</span><span class="kt">ReactionExtraData</span><span class="p">,</span> <span class="kt">T</span><span class="o">.</span><span class="kt">ActorType</span><span class="o">&gt;</span></code></pre>
+          <span class="kt">T</span><span class="o">.</span><span class="kt">ReactionType</span> <span class="o">==</span> <span class="kt">GetStream</span><span class="o">.</span><span class="kt"><a href="../Typealiases.html#/s:21GetStreamActivityFeed8Reactiona">Reaction</a></span><span class="o">&lt;</span><span class="kt">ReactionExtraData</span><span class="p">,</span> <span class="kt">T</span><span class="o">.</span><span class="kt">ActorType</span><span class="o">&gt;</span></code></pre>
 
                 </div>
               </div>
-            <p>Undocumented</p>
+            <p>Detail View Controller for an activity from <code><a href="../Structs/ActivityPresenter.html">ActivityPresenter</a></code>.</p>
+
+<p>It shows configurable sections of the activity details:</p>
+
+<ul>
+<li>activity content</li>
+<li>likes</li>
+<li>reposts</li>
+<li>comments</li>
+</ul>
+
+<p>Contains <code><a href="../Classes/TextToolBar.html">TextToolBar</a></code> for the adding of new comments.</p>
 
           </section>
           <section class="section task-group-section">
@@ -301,7 +312,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>An text view for new comments. See <code><a href="../Classes/TextToolBar.html">TextToolBar</a></code>.</p>
 
                       </div>
                       <div class="declaration">
@@ -318,9 +329,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/s:21GetStreamActivityFeed20DetailViewControllerC17reactionPaginatorAA08ReactionI0Cy0aB00J9ExtraDataO9ActorTypeQzGSgvp"></a>
                     <a name="//apple_ref/swift/Property/reactionPaginator" class="dashAnchor"></a>
-                    <a class="token" href="#/">reactionPaginator</a>
+                    <a class="token" href="#/s:21GetStreamActivityFeed20DetailViewControllerC17reactionPaginatorAA08ReactionI0Cy0aB00J9ExtraDataO9ActorTypeQzGSgvp">reactionPaginator</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -328,7 +339,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>A comments paginator. See <code><a href="../Classes/ReactionPaginator.html">ReactionPaginator</a></code>.</p>
 
                       </div>
                       <div class="declaration">
@@ -336,33 +347,6 @@
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">reactionPaginator</span><span class="p">:</span> <span class="kt"><a href="../Classes/ReactionPaginator.html">ReactionPaginator</a></span><span class="o">&lt;</span><span class="kt">ReactionExtraData</span><span class="p">,</span> <span class="kt">T</span><span class="o">.</span><span class="kt">ActorType</span><span class="o">&gt;</span><span class="p">?</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:21GetStreamActivityFeed20DetailViewControllerC12sectionsDataSayAA0efG7SectionVGvp"></a>
-                    <a name="//apple_ref/swift/Property/sectionsData" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21GetStreamActivityFeed20DetailViewControllerC12sectionsDataSayAA0efG7SectionVGvp">sectionsData</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">private(set)</span> <span class="k">var</span> <span class="nv">sectionsData</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Structs.html#/s:21GetStreamActivityFeed27DetailViewControllerSectionV">DetailViewControllerSection</a></span><span class="p">]</span></code></pre>
 
                         </div>
                       </div>
@@ -382,7 +366,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Section types in the table view.</p>
 
                       </div>
                       <div class="declaration">
@@ -390,6 +374,35 @@
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">sections</span><span class="p">:</span> <span class="kt"><a href="../Structs/DetailViewControllerSectionTypes.html">DetailViewControllerSectionTypes</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21GetStreamActivityFeed20DetailViewControllerC12sectionsDataSayAA0efG7SectionVGvp"></a>
+                    <a name="//apple_ref/swift/Property/sectionsData" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21GetStreamActivityFeed20DetailViewControllerC12sectionsDataSayAA0efG7SectionVGvp">sectionsData</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A list of section data for the table view.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">private(set)</span> <span class="k">var</span> <span class="nv">sectionsData</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Structs/DetailViewControllerSection.html">DetailViewControllerSection</a></span><span class="p">]</span> <span class="p">{</span>
+  <span class="k">get</span>
+  <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -409,7 +422,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>A number of reply comments for the top level comments.</p>
 
                       </div>
                       <div class="declaration">
@@ -436,7 +449,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Show the text view for the adding new comments.</p>
 
                       </div>
                       <div class="declaration">
@@ -463,7 +476,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Show the section title even if it&rsquo;s empty.</p>
 
                       </div>
                       <div class="declaration">
@@ -490,7 +503,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>An activity presenter. See <code><a href="../Structs/ActivityPresenter.html">ActivityPresenter</a></code>.</p>
 
                       </div>
                       <div class="declaration">
@@ -544,7 +557,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Return a title of the section by the section type.</p>
 
                       </div>
                       <div class="declaration">
@@ -571,7 +584,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Return a title of in the section by the section index.</p>
 
                       </div>
                       <div class="declaration">
@@ -609,8 +622,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
-
+                        
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -636,8 +648,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
-
+                        
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -771,7 +782,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>A title for bottom comment note, that it has replies.</p>
 
                       </div>
                       <div class="declaration">
@@ -941,7 +952,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Setup the close button on the navigation bar, when the view controller modally presented.</p>
 
                       </div>
                       <div class="declaration">
@@ -960,8 +971,8 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2019 <a class="link" href="getstream.io" target="_blank" rel="external">GetStream.io</a>. All rights reserved. (Last updated: 2019-03-27)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2019 <a class="link" href="getstream.io" target="_blank" rel="external">GetStream.io</a>. All rights reserved. (Last updated: 2019-03-29)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>
