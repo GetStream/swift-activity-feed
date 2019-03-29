@@ -1,5 +1,9 @@
 # Stream Swift and iOS Activity Feed Components
 
+[![Language: Swift 4.2](https://img.shields.io/badge/Swift-4.2-orange.svg)](https://swift.org)
+[![Documentation](https://github.com/GetStream/swift-activity-feed/blob/master/docs/badge.svg)](https://getstream.github.io/swift-activity-feed/)
+[![CocoaPods compatible](https://img.shields.io/cocoapods/v/GetStreamActivityFeed.svg)](https://cocoapods.org/pods/GetStream)
+
 ![react native activity feed](https://github.com/GetStream/react-native-activity-feed/blob/master/src/images/githubhero.png)
 
 The official iOS and Swift integration library for Stream, a web service for building scalable newsfeeds and activity streams.
