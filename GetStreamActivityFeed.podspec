@@ -18,8 +18,8 @@ DESC
   spec.resources = ["Sources/**/*.xib", "Sources/Icons.xcassets"]
   spec.framework = "Foundation", "UIKit"
   spec.dependency "GetStream", "~> 1.1"
-  spec.dependency "Nuke", "~> 7.5"
-  spec.dependency "Reusable", "~> 4.0"
-  spec.dependency "SnapKit", "~> 4.2"
+  spec.dependency "Nuke", "7.5.2"
+  spec.dependency "Reusable", "4.0.5"
+  spec.dependency "SnapKit", "4.2.0"
   spec.requires_arc = true
 end
