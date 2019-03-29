@@ -17,6 +17,8 @@ The official iOS and Swift integration library for Stream, a web service for bui
 
 [Tutorial](https://getstream.io/ios-activity-feed/tutorial/)
 
+[API Docs](https://getstream.github.io/swift-activity-feed/)
+
 [stream-swift API client](https://github.com/GetStream/stream-swift)
 
 ## Installation
