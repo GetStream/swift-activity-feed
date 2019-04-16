@@ -28,11 +28,13 @@ final class RootPresenter {
             return
         }
         
-        Client.shared.getCurrentUser(typeOf: User.self, withFollowCounts: true) {
+        Client.shared.createCurrentUser() { [weak self] in
             if let error = $0.error {
-                self.router.showClientInfo(error.localizedDescription)
+                self?.router.showClientInfo(error.localizedDescription)
             } else {
-                self.router.showTabBar()
+                Client.shared.getCurrentUser(typeOf: User.self, withFollowCounts: true) { _ in
+                    self?.router.showTabBar()
+                }
             }
         }
     }

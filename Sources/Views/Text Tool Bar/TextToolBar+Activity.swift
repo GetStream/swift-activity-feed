@@ -15,7 +15,7 @@ extension TextToolBar {
     public func addActivity(to flatFeed: FlatFeed, completion: @escaping ActivityCompletion<Activity>) {
         guard isValidContent else {
             print("❌ The TextToolBar content is not valid")
-            completion(.failure(.unexpectedError))
+            completion(.failure(.unexpectedError(nil)))
             return
         }
         
@@ -36,7 +36,7 @@ extension TextToolBar {
     private func addActivity(to flatFeed: FlatFeed, imageURLs: [URL], completion: @escaping ActivityCompletion<Activity>) {
         guard let user = User.current else {
             print("❌ The current user not found")
-            completion(.failure(.unexpectedError))
+            completion(.failure(.unexpectedError(nil)))
             return
         }
         
@@ -49,7 +49,7 @@ extension TextToolBar {
             object = .image(url)
             imageURLs.remove(at: 0)
         } else {
-            completion(.failure(.unexpectedError))
+            completion(.failure(.unexpectedError(nil)))
             return
         }
         
