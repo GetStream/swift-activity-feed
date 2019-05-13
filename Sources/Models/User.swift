@@ -24,6 +24,8 @@ public final class User: GetStream.User, UserNameRepresentable, AvatarRepresenta
     }
     
     private let dispatchQueue = DispatchQueue(label: "io.getstream.User")
+    private(set) lazy var feed: FlatFeed = Client.shared.flatFeed(FeedId.user(with: id))
+    
     public var avatarImage: UIImage?
     
     init(name: String, id: String) {
@@ -66,13 +68,7 @@ extension User {
     /// Checks if the user feed is following to a target.
     public func isFollow(toTarget target: FeedId,
                          completion: @escaping (_ isFollow: Bool, _ following: Follower?, _ error: Error?) -> Void) {
-        guard let userFeedId = FeedId.user else {
-            print("⚠️", #function, "userId not found in the Token")
-            completion(false, nil, nil)
-            return
-        }
-        
-        Client.shared.flatFeed(userFeedId).following(filter: [target]) {
+        feed.following(filter: [target]) {
             if let response = try? $0.get() {
                 completion(response.results.first != nil, response.results.first, nil)
             } else {

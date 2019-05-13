@@ -31,11 +31,19 @@ class ProfileViewController: UIViewController, BundledStoryboardLoadable {
     @IBOutlet weak var headerViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var feedContainerView: UIView!
     
-    var user: User?
-    var isCurrentUser: Bool = false
     var builder: ProfileBuilder?
-    private var flatFeedViewController: ActivityFeedViewController?
     
+    var user: User? {
+        didSet {
+            if let user = user, let currentUser = Client.shared.currentUser {
+                isCurrentUser = user.id == currentUser.id
+            }
+        }
+    }
+    
+    private(set) var isCurrentUser: Bool = false
+    private var flatFeedViewController: ActivityFeedViewController?
+
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         loadAvatar(onlyTabBarItem: true)
@@ -174,7 +182,7 @@ extension ProfileViewController {
             return
         }
         
-        let button =  BarButton(title: "Follow", backgroundColor: UIColor(red:0, green:0.48, blue:1, alpha:1))
+        let button =  BarButton(title: "Follow", backgroundColor: Appearance.Color.blue)
         button.setTitle("Updating...", backgroundColor: Appearance.Color.transparentWhite, for: .disabled)
         button.setTitle("Following", backgroundColor: Appearance.Color.transparentWhite, for: .selected)
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: button)
@@ -182,8 +190,7 @@ extension ProfileViewController {
         button.addTap { [weak flatFeedPresenter]  in
             if let button = $0 as? BarButton,
                 let feedId = flatFeedPresenter?.flatFeed.feedId,
-                let userFeedId = FeedId.user {
-                let userFeed = Client.shared.flatFeed(userFeedId)
+                let userFeed = User.current?.feed {
                 let isFollowing = button.isSelected
                 button.isEnabled = false
                 

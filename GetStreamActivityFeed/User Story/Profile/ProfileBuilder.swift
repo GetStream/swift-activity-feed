@@ -19,7 +19,6 @@ final class ProfileBuilder {
         
         if let viewController = navigationController.viewControllers.first as? ProfileViewController {
             viewController.user = user
-            viewController.isCurrentUser = true
             viewController.builder = self
         }
         
