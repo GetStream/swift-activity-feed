@@ -28,7 +28,7 @@ public final class User: GetStream.User, UserNameRepresentable, AvatarRepresenta
     
     public var avatarImage: UIImage?
     
-    init(name: String, id: String) {
+    public init(name: String, id: String) {
         self.name = name
         super.init(id: id)
     }

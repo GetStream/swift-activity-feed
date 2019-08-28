@@ -36,14 +36,14 @@ public final class Activity: EnrichedActivity<User, ActivityObject, Reaction>, T
         super.init(actor: actor, verb: verb, object: object, feedIds: feedIds)
     }
     
-    required public init(from decoder: Decoder) throws {
+    public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         text = try container.decodeIfPresent(String.self, forKey: .text)
         attachment = try container.decodeIfPresent(ActivityAttachment.self, forKey: .attachments)
         try super.init(from: decoder)
     }
     
-    override public func encode(to encoder: Encoder) throws {
+    public override func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(text, forKey: .text)
         try container.encodeIfPresent(attachment, forKey: .attachments)

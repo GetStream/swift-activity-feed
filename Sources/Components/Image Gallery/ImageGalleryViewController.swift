@@ -147,7 +147,7 @@ public final class ImageGalleryCollectionViewCell: UICollectionViewCell, Reusabl
         activityIndicatorView.snp.makeConstraints { $0.center.equalToSuperview() }
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
