@@ -8,7 +8,6 @@
 
 import Foundation
 import GetStream
-import Result
 
 /// A flat feed presenter.
 public final class FlatFeedPresenter<T: ActivityProtocol>: PaginatorProtocol {

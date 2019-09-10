@@ -6,7 +6,6 @@
 //  Copyright © 2019 Stream.io Inc. All rights reserved.
 //
 
-import Result
 import GetStream
 
 /// A reaction presenter protocol.

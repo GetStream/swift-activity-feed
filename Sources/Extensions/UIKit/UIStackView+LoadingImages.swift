@@ -33,8 +33,10 @@ extension UIStackView {
         }
         
         imageURLs.enumerated().forEach { index, url in
-            let task = ImagePipeline.shared.loadImage(with: url) { [weak self] response, error in
-                self?.addImage(at: index, response?.image)
+            let task = ImagePipeline.shared.loadImage(with: url) { [weak self] result in
+                if let response = try? result.get() {
+                    self?.addImage(at: index, response.image)
+                }
             }
             
             imageTasks.append(task)

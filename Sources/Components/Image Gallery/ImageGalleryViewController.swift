@@ -164,21 +164,21 @@ public final class ImageGalleryCollectionViewCell: UICollectionViewCell, Reusabl
         imageTask?.cancel()
         activityIndicatorView.startAnimating()
         
-        imageTask = ImagePipeline.shared.loadImage(with: url) { [weak self] response, error in
+        imageTask = ImagePipeline.shared.loadImage(with: url) { [weak self] result in
             guard let self = self else {
                 return
             }
             
             self.activityIndicatorView.stopAnimating()
             
-            if let image = response?.image {
+            if let image = try? result.get().image {
                 self.imageView.image = image
             } else {
                 self.imageView.contentMode = .center
                 self.imageView.image = .imageIcon
             }
             
-            completion(error)
+            completion(result.error)
         }
     }
 }

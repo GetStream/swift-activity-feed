@@ -8,7 +8,6 @@
 
 import UIKit
 import GetStream
-import Result
 
 /// A base class for reaction buttons.
 open class ReactionButton: UIButton {
@@ -61,7 +60,11 @@ open class ReactionButton: UIButton {
                 self.isEnabled = true
                 
                 if let error = $0.error {
-                    completion(.failure(error))
+                    if let clientError = error as? ClientError {
+                        completion(.failure(clientError))
+                    } else {
+                        completion(.failure(.unexpectedError(error)))
+                    }
                 } else {
                     self.isSelected = false
                     completion(.success((activity, self)))
@@ -74,11 +77,14 @@ open class ReactionButton: UIButton {
                                             _ completion: @escaping Completion<T>) where T.ReactionType: ReactionProtocol {
         isEnabled = true
         
-        if let activity = try? result.get() {
+        do {
+            let activity = try result.get()
             self.isSelected = isSelected
             completion(.success((activity, self)))
-        } else if let error = result.error {
-            completion(.failure(error))
+        } catch let clientError as ClientError {
+            completion(.failure(clientError))
+        } catch {
+            completion(.failure(.unexpectedError(error)))
         }
     }
 }

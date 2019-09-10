@@ -66,8 +66,8 @@ open class PostHeaderTableViewCell: BaseTableViewCell {
         messageBottomConstraint.priority = .defaultLow
         photoImageView.isHidden = false
         
-        ImagePipeline.shared.loadImage(with: url) { [weak self] response, error in
-            self?.photoImageView.image = response?.image
+        ImagePipeline.shared.loadImage(with: url) { [weak self] result in
+            self?.photoImageView.image = try? result.get().image
         }
     }
 }
@@ -110,8 +110,8 @@ extension PostHeaderTableViewCell {
         }
         
         if let avatarURL = avatar.avatarURL {
-            ImagePipeline.shared.loadImage(with: avatarURL.imageRequest(in: avatarButton)) { [weak self] response, error in
-                self?.updateAvatar(with: response?.image)
+            ImagePipeline.shared.loadImage(with: avatarURL.imageRequest(in: avatarButton)) { [weak self] result in
+                self?.updateAvatar(with: try? result.get().image)
             }
         }
     }

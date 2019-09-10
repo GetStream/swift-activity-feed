@@ -110,7 +110,8 @@ extension EditPostViewController: EditPostViewable {
         textView.attributedText = textView.attributedText.string
             .attributedString { attributedString in
                 dataDetectorURLItems.forEach { item in
-                    attributedString.addAttributes([.backgroundColor: Appearance.Color.transparentBlue2], range: item.range.range)
+                    attributedString.addAttributes([.backgroundColor: Appearance.Color.transparentBlue2],
+                                                   range: attributedString.string.nsRange(from: item.range))
                 }
             }
             .applyedFont(textView.font)

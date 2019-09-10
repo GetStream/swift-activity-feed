@@ -32,13 +32,13 @@ extension AvatarRepresentable {
             return
         }
         
-        ImagePipeline.shared.loadImage(with: avatarURL) { [weak self] response, error in
+        ImagePipeline.shared.loadImage(with: avatarURL) { [weak self] result in
             guard let self = self else {
                 completion(nil)
                 return
             }
             
-            if let response = response {
+            if let response = try? result.get() {
                 self.avatarImage = response.image
                 completion(response.image)
             } else {

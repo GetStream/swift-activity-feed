@@ -126,12 +126,12 @@ extension OpenGraphView {
             return
         }
         
-        ImagePipeline.shared.loadImage(with: url.imageRequest(in: previewImageView)) { [weak self] response, error in
+        ImagePipeline.shared.loadImage(with: url.imageRequest(in: previewImageView)) { [weak self] result in
             guard let self = self else {
                 return
             }
             
-            if let image = response?.image {
+            if let image = try? result.get().image {
                 self.previewImageView.image = image
                 self.previewImageView.contentMode = .scaleAspectFit
                 self.previewImageToTitleConstraint?.update(priority: 751)

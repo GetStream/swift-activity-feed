@@ -7,7 +7,6 @@
 //
 
 import GetStream
-import Result
 
 /// A reaction presenter.
 open class ReactionPresenter: ReactionPresenterProtocol {
@@ -53,7 +52,8 @@ open class ReactionPresenter: ReactionPresenterProtocol {
                                             for activity: T,
                                             _ parentReaction: T.ReactionType?,
                                             _ completion: @escaping Completion<T>) where T.ReactionType: ReactionProtocol {
-        if let reaction = try? result.get() {
+        do {
+            let reaction = try result.get()
             var activity = activity
             
             if let parentReaction = parentReaction {
@@ -65,8 +65,10 @@ open class ReactionPresenter: ReactionPresenterProtocol {
             
             completion(.success(activity))
             
-        } else if let error = result.error {
-            completion(.failure(error))
+        } catch let clientError as ClientError {
+            completion(.failure(clientError))
+        } catch {
+            completion(.failure(.unexpectedError(error)))
         }
     }
     
@@ -74,12 +76,16 @@ open class ReactionPresenter: ReactionPresenterProtocol {
     public func remove<T: ActivityProtocol>(reaction: T.ReactionType, activity: T, _ completion: @escaping Completion<T>)
         where T.ReactionType: ReactionProtocol {
             Client.shared.delete(reactionId: reaction.id) {
-                if $0.error == nil {
+                if let error = $0.error {
+                    if let clientError = error as? ClientError {
+                        completion(.failure(clientError))
+                    } else {
+                        completion(.failure(.unexpectedError(error)))
+                    }
+                } else {
                     var activity = activity
                     activity.removeUserOwnReaction(reaction)
                     completion(.success(activity))
-                } else if let error = $0.error {
-                    completion(.failure(error))
                 }
             }
     }
@@ -90,7 +96,11 @@ open class ReactionPresenter: ReactionPresenterProtocol {
                                             _ completion: @escaping (_ result: Result<T, ClientError>) -> Void) {
         Client.shared.delete(reactionId: reaction.id) {
             if let error = $0.error {
-                completion(.failure(error))
+                if let clientError = error as? ClientError {
+                    completion(.failure(clientError))
+                } else {
+                    completion(.failure(.unexpectedError(error)))
+                }
             } else {
                 var parentReaction = parentReaction
                 parentReaction.removeUserOwnChild(reaction)

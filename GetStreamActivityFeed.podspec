@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name         = "GetStreamActivityFeed"
-  spec.version      = "1.0.11"
+  spec.version      = "2.0.0"
   spec.summary      = "Stream iOS Activity Feed Components"
   
   spec.description  = <<-DESC
@@ -11,15 +11,15 @@ DESC
   spec.license = { :type => "BSD-3", :file => "LICENSE" }
   spec.author = { "Alexey Bukhtin" => "alexey@getstream.io" }
   spec.social_media_url = "https://getstream.io"
-  spec.swift_version = "4.2"
+  spec.swift_version = "5.0"
   spec.platform = :ios, "11.0"
   spec.source = { :git => "https://github.com/GetStream/swift-activity-feed.git", :tag => "#{spec.version}" }
   spec.source_files  = "Sources/**/*.swift"
   spec.resources = ["Sources/**/*.xib", "Sources/Icons.xcassets"]
   spec.framework = "Foundation", "UIKit"
-  spec.dependency "GetStream", "~> 1.1"
-  spec.dependency "Nuke", "7.5.2"
-  spec.dependency "Reusable", "4.0.5"
-  spec.dependency "SnapKit", "4.2.0"
+  spec.dependency "GetStream", "~> 2.0"
+  spec.dependency "Nuke", "~> 8.1"
+  spec.dependency "Reusable", "~> 4.1"
+  spec.dependency "SnapKit", "~> 5.0"
   spec.requires_arc = true
 end

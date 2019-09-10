@@ -8,18 +8,13 @@
 
 import Foundation
 
-extension NSRange {
-    /// Create a NSRange from Swift Range.
-    public init(_ range: Range<String.Index>) {
-        self.init(location: range.lowerBound.encodedOffset,
-                  length: range.upperBound.encodedOffset - range.lowerBound.encodedOffset)
-    }
-}
-
-extension Range where Bound == String.Index {
+extension StringProtocol where Index == String.Index {
     
-    /// Get the NSRange from the Swift Range.
-    public var range: NSRange {
-        return NSRange(self)
+    /// Create a NSRange from a Range.
+    ///
+    /// - Parameter range: a Range.
+    /// - Returns: a NSRange.
+    public func nsRange(from range: Range<Index>) -> NSRange {
+        return NSRange(range, in: self)
     }
 }

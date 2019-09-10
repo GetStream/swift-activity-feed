@@ -93,6 +93,8 @@ extension UIViewController {
             completion([:], status, false)
         case .authorized:
             showImagePicker(sourceType: sourceType, completion)
+        @unknown default:
+            break
         }
     }
 }

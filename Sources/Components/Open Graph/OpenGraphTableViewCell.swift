@@ -51,13 +51,13 @@ public final class OpenGraphTableViewCell: UITableViewCell, NibReusable {
             return
         }
         
-        ImagePipeline.shared.loadImage(with: url.imageRequest(in: previewImageView)) { [weak self] response, error in
+        ImagePipeline.shared.loadImage(with: url.imageRequest(in: previewImageView)) { [weak self] result in
             guard let self = self else {
                 return
             }
             
-            if let image = response?.image {
-                self.previewImageView.image = image
+            if let response = try? result.get() {
+                self.previewImageView.image = response.image
                 self.previewImageView.contentMode = .scaleAspectFit
                 self.previewImageView.backgroundColor = .white
             } else {

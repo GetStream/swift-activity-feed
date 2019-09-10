@@ -11,7 +11,8 @@ import Nuke
 
 extension URL {
     func imageRequest(in view: UIView) -> ImageRequest {
-        let imageSize = view.bounds.width * UIScreen.main.scale
-        return ImageRequest(url: self, targetSize: CGSize(width: imageSize, height: imageSize), contentMode: .aspectFill)
+        let size = CGSize(width: view.bounds.width, height: view.bounds.width)
+        let processors = [ImageProcessor.Resize(size: size, unit: .points, contentMode: .aspectFill, crop: true, upscale: false)]
+        return ImageRequest(url: self, processors: processors)
     }
 }

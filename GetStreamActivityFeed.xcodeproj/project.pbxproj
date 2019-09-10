@@ -86,6 +86,7 @@
 		8A7559B821FF5C1D002187EA /* SeparatorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7559B621FF5C1D002187EA /* SeparatorTableViewCell.swift */; };
 		8A7559B921FF5C1D002187EA /* SeparatorTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A7559B721FF5C1D002187EA /* SeparatorTableViewCell.xib */; };
 		8A7559BC22005AE8002187EA /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7559BB22005AE8002187EA /* WebViewController.swift */; };
+		8A7AE3182327EAFB00243CFD /* Result+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A7AE3172327EAFB00243CFD /* Result+Extensions.swift */; };
 		8A9A71542236D91C004E6607 /* ActivityFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9A71532236D91C004E6607 /* ActivityFeedViewController.swift */; };
 		8A9A71582237E2A6004E6607 /* TextRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9A71572237E2A6004E6607 /* TextRepresentable.swift */; };
 		8A9DFC4322034DDC002F8700 /* PostAttachmentImagesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9DFC4122034DDC002F8700 /* PostAttachmentImagesTableViewCell.swift */; };
@@ -195,6 +196,7 @@
 		8A7559B621FF5C1D002187EA /* SeparatorTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeparatorTableViewCell.swift; sourceTree = "<group>"; };
 		8A7559B721FF5C1D002187EA /* SeparatorTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SeparatorTableViewCell.xib; sourceTree = "<group>"; };
 		8A7559BB22005AE8002187EA /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		8A7AE3172327EAFB00243CFD /* Result+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Result+Extensions.swift"; sourceTree = "<group>"; };
 		8A9A71532236D91C004E6607 /* ActivityFeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityFeedViewController.swift; sourceTree = "<group>"; };
 		8A9A71572237E2A6004E6607 /* TextRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRepresentable.swift; sourceTree = "<group>"; };
 		8A9DFC4122034DDC002F8700 /* PostAttachmentImagesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostAttachmentImagesTableViewCell.swift; sourceTree = "<group>"; };
@@ -420,6 +422,7 @@
 				8A3573D421F76A25009EB9D7 /* URL+ImageRequest.swift */,
 				8A108D1421F223DE0080ADEB /* Date+Extensions.swift */,
 				8A3E63C021F08C2400E17543 /* Appearance.swift */,
+				8A7AE3172327EAFB00243CFD /* Result+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -709,12 +712,8 @@
 			);
 			inputFileListPaths = (
 			);
-			inputPaths = (
-			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-			);
-			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -810,6 +809,7 @@
 				8A9A71542236D91C004E6607 /* ActivityFeedViewController.swift in Sources */,
 				8A3E63BC21EF877600E17543 /* UIImage+Icons.swift in Sources */,
 				8A0759262211B061009C11FB /* PaginationTableViewCell.swift in Sources */,
+				8A7AE3182327EAFB00243CFD /* Result+Extensions.swift in Sources */,
 				8A420A31220B2E8300AF573F /* CommentTableViewCell.swift in Sources */,
 				8AC40FB821EE57570073B749 /* AvatarRepresentable.swift in Sources */,
 				8A6801D42200B3E600B77352 /* AddingImageCollectionViewCell.swift in Sources */,
@@ -916,7 +916,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -971,7 +971,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

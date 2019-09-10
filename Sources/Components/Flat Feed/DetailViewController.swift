@@ -82,7 +82,7 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
         updateSectionsIndex()
         
         if sections.contains(.comments) {
-            reactionPaginator?.load(completion: commentsLoaded)
+            reactionPaginator?.load(.limit(100), completion: commentsLoaded)
             
             if canAddComment {
                 User.current?.loadAvatar { [weak self] in self?.setupCommentTextField(avatarImage: $0) }
@@ -170,7 +170,7 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
             
             refreshControl.addValueChangedAction { [weak self] _ in
                 if let self = self, let reactionPaginator = self.reactionPaginator {
-                    reactionPaginator.load(completion: self.commentsLoaded)
+                    reactionPaginator.load(.limit(100), completion: self.commentsLoaded)
                 }
             }
         }
@@ -362,7 +362,7 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
                     if let error = $0.error {
                         self?.showErrorAlert(error)
                     } else if let self = self{
-                        self.reactionPaginator?.load(completion: self.commentsLoaded)
+                        self.reactionPaginator?.load(.limit(100), completion: self.commentsLoaded)
                     }
                 }
             } else {
@@ -477,7 +477,7 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
                                                             if let error = $0.error {
                                                                 self.showErrorAlert(error)
                                                             } else {
-                                                                self.reactionPaginator?.load(completion: self.commentsLoaded)
+                                                                self.reactionPaginator?.load(.limit(100), completion: self.commentsLoaded)
                                                             }
                                                         }
         }

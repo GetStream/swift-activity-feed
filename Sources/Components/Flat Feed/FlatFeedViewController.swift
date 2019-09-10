@@ -9,7 +9,6 @@
 import UIKit
 import GetStream
 import Reusable
-import Result
 import SnapKit
 
 /// A flat feed view controller.

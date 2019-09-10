@@ -39,7 +39,7 @@ extension TextToolBar {
             if !openGraphWorker.isBadURL(item.url) {
                 text.addAttributes([.underlineStyle: NSUnderlineStyle.thick.rawValue,
                                     .underlineColor: linksHighlightColor],
-                                   range: item.range.range)
+                                   range: text.string.nsRange(from: item.range))
             }
         }
         

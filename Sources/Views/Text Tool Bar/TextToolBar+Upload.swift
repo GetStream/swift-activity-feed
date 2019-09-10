@@ -16,9 +16,11 @@ extension TextToolBar {
                              _ completion: @escaping (_ imageURLs: [URL]?, _ error: Error?) -> Void) {
         File.files(from: images, process: { File(name: imagePrefixFileName.appending(String($0)), jpegImage: $1) }) { files in
             Client.shared.upload(images: files) { result in
-                if let imageURLs = try? result.get() {
+                do {
+                    
+                let imageURLs = try result.get()
                     completion(imageURLs, nil)
-                } else if let error = result.error {
+                } catch {
                     completion(nil, error)
                 }
             }

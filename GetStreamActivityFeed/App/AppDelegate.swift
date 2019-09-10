@@ -35,7 +35,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     private func setupClient() {
-        Bundle.main.setupStreamClient()
+        Bundle.main.setupStreamClient(logsEnabled: true)
         
         if let timelineFeedId = FeedId.timeline, let userFeedId = FeedId.user {
             Client.shared.flatFeed(timelineFeedId).follow(toTarget: userFeedId) { _ in }
