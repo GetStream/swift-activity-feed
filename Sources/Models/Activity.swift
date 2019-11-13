@@ -35,7 +35,17 @@ public final class Activity: EnrichedActivity<User, ActivityObject, Reaction>, T
     public init(actor: User, verb: Verb, object: ActivityObject, feedIds: FeedIds? = nil) {
         super.init(actor: actor, verb: verb, object: object, feedIds: feedIds)
     }
-    
+
+    required public init(actor: User,
+                         verb: Verb,
+                         object: ActivityObject,
+                         foreignId: String? = nil,
+                         time: Date? = nil,
+                         feedIds: FeedIds? = nil,
+                         originFeedId: FeedId? = nil) {
+        super.init(actor: actor, verb: verb, object: object, feedIds: feedIds)
+    }
+
     public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         text = try container.decodeIfPresent(String.self, forKey: .text)

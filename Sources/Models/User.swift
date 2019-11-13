@@ -33,6 +33,11 @@ public final class User: GetStream.User, UserNameRepresentable, AvatarRepresenta
         super.init(id: id)
     }
     
+    required init(id: String) {
+        name = ""
+        super.init(id: id)
+    }
+    
     required init(from decoder: Decoder) throws {
         let dataContainer = try decoder.container(keyedBy: DataCodingKeys.self)
         let container = try dataContainer.nestedContainer(keyedBy: CodingKeys.self, forKey: .data)
