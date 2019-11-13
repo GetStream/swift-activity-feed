@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name         = "GetStreamActivityFeed"
-  spec.version      = "2.0.0"
+  spec.version      = "2.1.0"
   spec.summary      = "Stream iOS Activity Feed Components"
   
   spec.description  = <<-DESC
@@ -17,7 +17,7 @@ DESC
   spec.source_files  = "Sources/**/*.swift"
   spec.resources = ["Sources/**/*.xib", "Sources/Icons.xcassets"]
   spec.framework = "Foundation", "UIKit"
-  spec.dependency "GetStream", "~> 2.0"
+  spec.dependency "GetStream", "~> 2.1"
   spec.dependency "Nuke", "~> 8.1"
   spec.dependency "Reusable", "~> 4.1"
   spec.dependency "SnapKit", "~> 5.0"
