@@ -4,7 +4,7 @@ inhibit_all_warnings!
 
 target 'GetStreamActivityFeed' do
   use_frameworks!
-  pod 'GetStream', :path => '../stream-swift'
+  pod 'GetStream'
   pod 'Nuke', '~> 8.1'
   pod 'Reusable', '~> 4.1'
   pod 'SnapKit', '~> 5.0'
