@@ -56,7 +56,7 @@ final class EditPostPresenter {
     
     private func saveWithImages(text: String?, completion: @escaping (_ error: Error?) -> Void) {
         File.files(from: images, process: { File(name: "image\($0)", jpegImage: $1) }) { [weak self] files in
-            self?.flatFeed.client.upload(images: files) { result in
+            Client.shared.upload(images: files) { result in
                 if let imageURLs = try? result.get() {
                     self?.saveActivity(text: text, imageURLs: imageURLs, completion: completion)
                 } else if let error = result.error {

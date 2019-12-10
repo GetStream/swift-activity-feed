@@ -85,7 +85,12 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
             reactionPaginator?.load(.limit(100), completion: commentsLoaded)
             
             if canAddComment {
-                User.current?.loadAvatar { [weak self] in self?.setupCommentTextField(avatarImage: $0) }
+                if let user = User.current {
+                    user.loadAvatar { [weak self] in self?.setupCommentTextField(avatarImage: $0) }
+                } else {
+                    print("❌ The current user not found")
+                    setupCommentTextField(avatarImage: nil)
+                }
             }
         }
         

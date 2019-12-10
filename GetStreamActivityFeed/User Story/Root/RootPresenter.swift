@@ -23,18 +23,25 @@ final class RootPresenter {
             return
         }
         
-        guard let currentUserId = Client.shared.currentUserId, !currentUserId.isEmpty else {
+        guard let token = Bundle.main.streamToken else {
             router.showClientInfo("⚠️ Token is wrong\n\nThe payload doesn't contain an userId or it's empty.")
             return
         }
         
-        Client.shared.createCurrentUser() { [weak self] in
-            if let error = $0.error {
+        if User.current != nil {
+            router.showTabBar()
+            return
+        }
+        
+        guard let currentUserId = token.userId else {
+            return
+        }
+        
+        Client.shared.setupUser(User(name: "", id: currentUserId), token: token) { [weak self] result in
+            if let error = result.error {
                 self?.router.showClientInfo(error.localizedDescription)
             } else {
-                Client.shared.getCurrentUser(typeOf: User.self, withFollowCounts: true) { _ in
-                    self?.router.showTabBar()
-                }
+                self?.router.showTabBar()
             }
         }
     }
