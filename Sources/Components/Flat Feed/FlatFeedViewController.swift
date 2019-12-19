@@ -157,11 +157,11 @@ extension FlatFeedViewController {
     
     /// Return a title of new activies for the banner view on updates.
     open func subscriptionNewItemsTitle(with count: Int) -> String {
-        return "You have \(count) new activit\(count == 1 "y" : "ies")"
+        return "You have \(count) new activit\(count == 1 ? "y" : "ies")"
     }
     
     /// Return a title of removed activities for the banner view on updates.
     open func subscriptionDeletedItemsTitle(with count: Int) -> String {
-        return "You have \(count) deleted activit\(count == 1 "y" : "ies")"
+        return "You have \(count) deleted activit\(count == 1 ? "y" : "ies")"
     }
 }
