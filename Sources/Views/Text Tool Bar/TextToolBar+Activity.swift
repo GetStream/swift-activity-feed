@@ -35,7 +35,13 @@ extension TextToolBar {
     
     private func addActivity(to flatFeed: FlatFeed, imageURLs: [URL], completion: @escaping ActivityCompletion<Activity>) {
         guard let user = User.current else {
-            print("❌ The current user not found")
+            if Client.shared.currentUser != nil {
+                print("❌ The current user was not setupped with correct type. " +
+                    "Did you setup `GetStream.User` and not `GetStreamActivityFeed.User`?")
+            } else {
+                print("❌ The current user not found. Did you setup the user with `setupUser`?")
+            }
+            
             completion(.failure(.unexpectedError(nil)))
             return
         }
