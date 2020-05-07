@@ -40,7 +40,7 @@ public final class NotificationsPresenter<T: ActivityProtocol>: PaginatorProtoco
 extension NotificationsPresenter {
     /// Load notifications with a given pagination options.
     public func load(_ pagination: Pagination = .none, completion: @escaping Completion) {
-        notificationFeed.get(typeOf: T.self, markOption: markOption) { [weak self] result in
+        notificationFeed.get(typeOf: T.self, pagination: pagination, markOption: markOption) { [weak self] result in
             guard let self = self else {
                 return
             }
