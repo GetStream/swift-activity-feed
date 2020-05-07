@@ -14,7 +14,7 @@
     <a title="TextToolBar Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">GetStreamActivityFeed Docs</a> (65% documented)</p>
+        <p><a href="../index.html">GetStreamActivityFeed Docs</a> (64% documented)</p>
         <p class="header-right"><a href="https://github.com/GetStream/swift-activity-feed"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -125,7 +125,7 @@
                 <a href="../Classes/SeparatorTableViewCell.html">SeparatorTableViewCell</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/SubscriptionId.html">SubscriptionId</a>
+                <a href="../Classes.html#/s:21GetStreamActivityFeed14SubscriptionIdC">SubscriptionId</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/SubscriptionPresenter.html">SubscriptionPresenter</a>
@@ -148,6 +148,9 @@
                 <a href="../Enums/ActivityObject.html">ActivityObject</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Enums/ActivityObjectError.html">ActivityObjectError</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Enums/ActivityPresenterCellType.html">ActivityPresenterCellType</a>
               </li>
             </ul>
@@ -168,13 +171,10 @@
                 <a href="../Extensions/NSMutableAttributedString.html">NSMutableAttributedString</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Extensions/NSRange.html">NSRange</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Extensions/Range.html">Range</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Extensions/String.html">String</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/StringProtocol.html">StringProtocol</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Extensions/UIButton.html">UIButton</a>
@@ -205,6 +205,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Extensions/UIViewController.html">UIViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/URL.html">URL</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Extensions/Verb.html">Verb</a>
@@ -277,6 +280,8 @@
               <div class="declaration">
                 <div class="language">
                   <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">TextToolBar</span> <span class="p">:</span> <span class="kt">UIView</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">TextToolBar</span><span class="p">:</span> <span class="kt">UITextViewDelegate</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">TextToolBar</span><span class="p">:</span> <span class="kt">UICollectionViewDataSource</span></code></pre>
 
                 </div>
               </div>
@@ -508,9 +513,11 @@
               <div class="task-name-container">
                 <a name="/Text%20View%20Container"></a>
                 <a name="//apple_ref/swift/Section/Text View Container" class="dashAnchor"></a>
-                <a href="#/Text%20View%20Container">
-                  <h3 class="section-name">Text View Container</h3>
-                </a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Text%20View%20Container"></a>
+                  <h3 class="section-name"><p>Text View Container</p>
+</h3>
+                </div>
               </div>
               <ul>
                 <li class="item">
@@ -818,9 +825,11 @@ You have to use the <code><a href="../Classes/TextToolBar.html#/s:21GetStreamAct
               <div class="task-name-container">
                 <a name="/Reply%20Container"></a>
                 <a name="//apple_ref/swift/Section/Reply Container" class="dashAnchor"></a>
-                <a href="#/Reply%20Container">
-                  <h3 class="section-name">Reply Container</h3>
-                </a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Reply%20Container"></a>
+                  <h3 class="section-name"><p>Reply Container</p>
+</h3>
+                </div>
               </div>
               <ul>
                 <li class="item">
@@ -856,9 +865,11 @@ You have to use the <code><a href="../Classes/TextToolBar.html#/s:21GetStreamAct
               <div class="task-name-container">
                 <a name="/Open%20Graph%20Container"></a>
                 <a name="//apple_ref/swift/Section/Open Graph Container" class="dashAnchor"></a>
-                <a href="#/Open%20Graph%20Container">
-                  <h3 class="section-name">Open Graph Container</h3>
-                </a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Open%20Graph%20Container"></a>
+                  <h3 class="section-name"><p>Open Graph Container</p>
+</h3>
+                </div>
               </div>
               <ul>
                 <li class="item">
@@ -935,9 +946,7 @@ You have to use the <code><a href="../Classes/TextToolBar.html#/s:21GetStreamAct
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">internal(set)</span> <span class="k">var</span> <span class="nv">openGraphData</span><span class="p">:</span> <span class="kt">OGResponse</span><span class="p">?</span> <span class="p">{</span>
-  <span class="k">get</span>
-  <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">internal(set)</span> <span class="k">var</span> <span class="nv">openGraphData</span><span class="p">:</span> <span class="kt">OGResponse</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -950,9 +959,11 @@ You have to use the <code><a href="../Classes/TextToolBar.html#/s:21GetStreamAct
               <div class="task-name-container">
                 <a name="/Images%20Collection%20View"></a>
                 <a name="//apple_ref/swift/Section/Images Collection View" class="dashAnchor"></a>
-                <a href="#/Images%20Collection%20View">
-                  <h3 class="section-name">Images Collection View</h3>
-                </a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Images%20Collection%20View"></a>
+                  <h3 class="section-name"><p>Images Collection View</p>
+</h3>
+                </div>
               </div>
               <ul>
                 <li class="item">
@@ -1167,16 +1178,12 @@ Use this method to add <code>TextToolBar</code> to the view hierarchy and you no
                     </section>
                   </div>
                 </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:21GetStreamActivityFeed11TextToolBarC03addC02to10completiony0aB004FlatD0C_y6ResultAJOyAA0C0CAG11ClientErrorOGctF"></a>
+                    <a name="/s:21GetStreamActivityFeed11TextToolBarC03addC02to10completiony0aB004FlatD0C_ys6ResultOyAA0C0CAG11ClientErrorOGctF"></a>
                     <a name="//apple_ref/swift/Method/addActivity(to:completion:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21GetStreamActivityFeed11TextToolBarC03addC02to10completiony0aB004FlatD0C_y6ResultAJOyAA0C0CAG11ClientErrorOGctF">addActivity(to:completion:)</a>
+                    <a class="token" href="#/s:21GetStreamActivityFeed11TextToolBarC03addC02to10completiony0aB004FlatD0C_ys6ResultOyAA0C0CAG11ClientErrorOGctF">addActivity(to:completion:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1198,10 +1205,87 @@ Use this method to add <code>TextToolBar</code> to the view hierarchy and you no
                     </section>
                   </div>
                 </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21GetStreamActivityFeed11TextToolBarC15updateOpenGraphyySayAA19DataDetectorURLItemVGF"></a>
+                    <a name="//apple_ref/swift/Method/updateOpenGraph(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21GetStreamActivityFeed11TextToolBarC15updateOpenGraphyySayAA19DataDetectorURLItemVGF">updateOpenGraph(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">updateOpenGraph</span><span class="p">(</span><span class="n">_</span> <span class="nv">dataDetectorURLItems</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Structs/DataDetectorURLItem.html">DataDetectorURLItem</a></span><span class="p">])</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21GetStreamActivityFeed11TextToolBarC14underlineLinks4withySayAA19DataDetectorURLItemVG_tF"></a>
+                    <a name="//apple_ref/swift/Method/underlineLinks(with:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21GetStreamActivityFeed11TextToolBarC14underlineLinks4withySayAA19DataDetectorURLItemVG_tF">underlineLinks(with:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">underlineLinks</span><span class="p">(</span><span class="n">with</span> <span class="nv">dataDetectorURLItems</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Structs/DataDetectorURLItem.html">DataDetectorURLItem</a></span><span class="p">])</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21GetStreamActivityFeed11TextToolBarC22updateOpenGraphPreviewyyF"></a>
+                    <a name="//apple_ref/swift/Method/updateOpenGraphPreview()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21GetStreamActivityFeed11TextToolBarC22updateOpenGraphPreviewyyF">updateOpenGraphPreview()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">updateOpenGraphPreview</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
                 <li class="item">
                   <div>
                     <code>
@@ -1234,11 +1318,53 @@ Use this method to add <code>TextToolBar</code> to the view hierarchy and you no
             </div>
             <div class="task-group">
               <div class="task-name-container">
+                <a name="/Text%20View%20Height"></a>
+                <a name="//apple_ref/swift/Section/Text View Height" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Text%20View%20Height"></a>
+                  <h3 class="section-name"><p>Text View Height</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:21GetStreamActivityFeed11TextToolBarC06updateE14HeightIfNeededyyF"></a>
+                    <a name="//apple_ref/swift/Method/updateTextHeightIfNeeded()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:21GetStreamActivityFeed11TextToolBarC06updateE14HeightIfNeededyyF">updateTextHeightIfNeeded()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Update the height of the text view for a big text length.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">updateTextHeightIfNeeded</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
                 <a name="/Text%20View%20Delegate"></a>
                 <a name="//apple_ref/swift/Section/Text View Delegate" class="dashAnchor"></a>
-                <a href="#/Text%20View%20Delegate">
-                  <h3 class="section-name">Text View Delegate</h3>
-                </a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Text%20View%20Delegate"></a>
+                  <h3 class="section-name"><p>Text View Delegate</p>
+</h3>
+                </div>
               </div>
               <ul>
                 <li class="item">
@@ -1326,11 +1452,54 @@ Use this method to add <code>TextToolBar</code> to the view hierarchy and you no
             </div>
             <div class="task-group">
               <div class="task-name-container">
+                <a name="/Keyboard%20Events"></a>
+                <a name="//apple_ref/swift/Section/Keyboard Events" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Keyboard%20Events"></a>
+                  <h3 class="section-name"><p>Keyboard Events</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@GetStreamActivityFeed@objc(cs)TextToolBar(im)keyboardUpdated:"></a>
+                    <a name="//apple_ref/swift/Method/keyboardUpdated(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@GetStreamActivityFeed@objc(cs)TextToolBar(im)keyboardUpdated:">keyboardUpdated(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@objc</span>
+<span class="kd">func</span> <span class="nf">keyboardUpdated</span><span class="p">(</span><span class="n">_</span> <span class="nv">notification</span><span class="p">:</span> <span class="kt">NSNotification</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
                 <a name="/Images%20Collection%20View2"></a>
                 <a name="//apple_ref/swift/Section/Images Collection View" class="dashAnchor"></a>
-                <a href="#/Images%20Collection%20View2">
-                  <h3 class="section-name">Images Collection View</h3>
-                </a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Images%20Collection%20View2"></a>
+                  <h3 class="section-name"><p>Images Collection View</p>
+</h3>
+                </div>
               </div>
               <ul>
                 <li class="item">
@@ -1420,8 +1589,8 @@ The view controller will be used to present <code>UIImagePickerController</code>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2019 <a class="link" href="getstream.io" target="_blank" rel="external">GetStream.io</a>. All rights reserved. (Last updated: 2019-03-29)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2020 <a class="link" href="getstream.io" target="_blank" rel="external">GetStream.io</a>. All rights reserved. (Last updated: 2020-05-07)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.1</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>
