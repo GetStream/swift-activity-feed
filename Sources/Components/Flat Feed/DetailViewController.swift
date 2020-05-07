@@ -88,7 +88,12 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
                 if let user = User.current {
                     user.loadAvatar { [weak self] in self?.setupCommentTextField(avatarImage: $0) }
                 } else {
-                    print("❌ The current user not found")
+                    if Client.shared.currentUser != nil {
+                        print("❌ The current user was not setupped with correct type. " +
+                            "Did you setup `GetStream.User` and not `GetStreamActivityFeed.User`?")
+                    } else {
+                        print("❌ The current user not found. Did you setup the user with `setupUser`?")
+                    }
                     setupCommentTextField(avatarImage: nil)
                 }
             }

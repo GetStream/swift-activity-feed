@@ -10,6 +10,11 @@ import Foundation
 import GetStream
 import Nuke
 
+fileprivate struct UserData: Codable {
+    let name: String?
+    let profileImage: URL?
+}
+
 /// An advanced Stream user with a name and avatar.
 public final class User: GetStream.User, UserNameRepresentable, AvatarRepresentable {
     private enum CodingKeys: String, CodingKey {
@@ -40,10 +45,18 @@ public final class User: GetStream.User, UserNameRepresentable, AvatarRepresenta
     
     required init(from decoder: Decoder) throws {
         let dataContainer = try decoder.container(keyedBy: DataCodingKeys.self)
-        let container = try dataContainer.nestedContainer(keyedBy: CodingKeys.self, forKey: .data)
-        let name = try container.decodeIfPresent(String.self, forKey: .name)
-        self.name = name ?? "NoName"
-        avatarURL = try container.decodeIfPresent(URL.self, forKey: .avatarURL)
+        
+        let userData = try dataContainer.decodeIfPresent(UserData.self, forKey: .data)
+        
+        if userData == nil {
+            print("❌ User/Actor is in invalid format. " +
+                "Did you create `GetStream.User` and trying to decode `GetStreamActivityFeed.User`? " +
+                "Please update your user so it's a `GetStreamActivityFeed.User`.")
+        }
+        
+        name = userData?.name ?? "NoName"
+        avatarURL = userData?.profileImage
+        
         try super.init(from: decoder)
     }
     
