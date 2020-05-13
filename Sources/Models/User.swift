@@ -9,7 +9,6 @@
 import Foundation
 import GetStream
 import Nuke
-import Result
 
 fileprivate struct UserData: Codable {
     let name: String?
