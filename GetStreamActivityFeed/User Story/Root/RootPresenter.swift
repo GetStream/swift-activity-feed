@@ -23,7 +23,7 @@ final class RootPresenter {
             return
         }
         
-        guard let token = Bundle.main.streamToken else {
+        guard let token = Bundle.main.streamValue(for: .streamToken) else {
             router.showClientInfo("⚠️ Token is wrong\n\nThe payload doesn't contain an userId or it's empty.")
             return
         }
@@ -37,7 +37,7 @@ final class RootPresenter {
             return
         }
         
-        Client.shared.setupUser(User(name: "", id: currentUserId), token: token) { [weak self] result in
+        Client.shared.update(user: User(name: "", id: currentUserId)) { [weak self] result in
             if let error = result.error {
                 self?.router.showClientInfo(error.localizedDescription)
             } else {
