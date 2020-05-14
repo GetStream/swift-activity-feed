@@ -23,17 +23,12 @@ final class RootPresenter {
             return
         }
         
-        guard let token = Bundle.main.streamValue(for: .streamToken) else {
-            router.showClientInfo("⚠️ Token is wrong\n\nThe payload doesn't contain an userId or it's empty.")
-            return
-        }
-        
         if User.current != nil {
             router.showTabBar()
             return
         }
         
-        guard let currentUserId = token.userId else {
+        guard let currentUserId = Client.shared.currentUserId else {
             return
         }
         
