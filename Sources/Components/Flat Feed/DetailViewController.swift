@@ -82,7 +82,8 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
         updateSectionsIndex()
         
         if sections.contains(.comments) {
-            reactionPaginator?.load(completion: commentsLoaded)
+            reactionPaginator?.reset()
+            reactionPaginator?.load(.limit(100), completion: commentsLoaded)
             
             if canAddComment {
                 if let user = User.current {
@@ -180,7 +181,8 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
             
             refreshControl.addValueChangedAction { [weak self] _ in
                 if let self = self, let reactionPaginator = self.reactionPaginator {
-                    reactionPaginator.load(completion: self.commentsLoaded)
+                    reactionPaginator.reset()
+                    reactionPaginator.load(.limit(100), completion: self.commentsLoaded)
                 }
             }
         }

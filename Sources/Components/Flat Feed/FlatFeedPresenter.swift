@@ -38,6 +38,11 @@ public final class FlatFeedPresenter<T: ActivityProtocol>: PaginatorProtocol {
         subscriptionPresenter = SubscriptionPresenter(feed: flatFeed)
     }
     
+    /// Resets the items loaded so far.
+    public func reset() {
+        items = []
+    }
+    
     /// Load feed with a pagination. See `Pagination`.
     public func load(_ pagination: Pagination = .none, completion: @escaping Completion) {
         flatFeed.get(typeOf: T.self, pagination: pagination, includeReactions: includeReactions) { [weak self] result in
