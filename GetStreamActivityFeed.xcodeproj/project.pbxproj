@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		63355CB6DBAFB62CCA26DB99 /* Pods_GetStreamActivityFeed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60A554AB5CB724535E1CB46B /* Pods_GetStreamActivityFeed.framework */; };
+		8078A997246C73140072C3C3 /* Result+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8078A996246C73140072C3C3 /* Result+Extensions.swift */; };
 		8A0525B321FBA7A90029E385 /* Range+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0525B221FBA7A90029E385 /* Range+Extensions.swift */; };
 		8A0759232211AAA9009C11FB /* ReactionPaginator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0759222211AAA9009C11FB /* ReactionPaginator.swift */; };
 		8A0759262211B061009C11FB /* PaginationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0759242211B061009C11FB /* PaginationTableViewCell.swift */; };
@@ -112,6 +113,7 @@
 
 /* Begin PBXFileReference section */
 		60A554AB5CB724535E1CB46B /* Pods_GetStreamActivityFeed.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GetStreamActivityFeed.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8078A996246C73140072C3C3 /* Result+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Result+Extensions.swift"; sourceTree = "<group>"; };
 		8A0525B221FBA7A90029E385 /* Range+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Range+Extensions.swift"; sourceTree = "<group>"; };
 		8A0759222211AAA9009C11FB /* ReactionPaginator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionPaginator.swift; sourceTree = "<group>"; };
 		8A0759242211B061009C11FB /* PaginationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationTableViewCell.swift; sourceTree = "<group>"; };
@@ -418,6 +420,7 @@
 				8A0525B221FBA7A90029E385 /* Range+Extensions.swift */,
 				8A7559A721FF06AA002187EA /* NSAttributedString+Extensions.swift */,
 				8A3573D421F76A25009EB9D7 /* URL+ImageRequest.swift */,
+				8078A996246C73140072C3C3 /* Result+Extensions.swift */,
 				8A108D1421F223DE0080ADEB /* Date+Extensions.swift */,
 				8A3E63C021F08C2400E17543 /* Appearance.swift */,
 			);
@@ -806,6 +809,7 @@
 				8A9A71542236D91C004E6607 /* ActivityFeedViewController.swift in Sources */,
 				8A3E63BC21EF877600E17543 /* UIImage+Icons.swift in Sources */,
 				8A0759262211B061009C11FB /* PaginationTableViewCell.swift in Sources */,
+				8078A997246C73140072C3C3 /* Result+Extensions.swift in Sources */,
 				8A420A31220B2E8300AF573F /* CommentTableViewCell.swift in Sources */,
 				8AC40FB821EE57570073B749 /* AvatarRepresentable.swift in Sources */,
 				8A6801D42200B3E600B77352 /* AddingImageCollectionViewCell.swift in Sources */,
