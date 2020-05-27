@@ -82,8 +82,7 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
         updateSectionsIndex()
         
         if sections.contains(.comments) {
-            reactionPaginator?.reset()
-            reactionPaginator?.load(.limit(100), completion: commentsLoaded)
+            resetComments()
             
             if canAddComment {
                 if let user = User.current {
@@ -141,6 +140,11 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
         self.sectionsData = sectionsData
     }
     
+    private func resetComments() {
+        reactionPaginator?.reset()
+        reactionPaginator?.load(.limit(100), completion: commentsLoaded)
+    }
+    
     /// Return a title of the section by the section type.
     open func sectionTitle(for type: DetailViewControllerSectionTypes) -> String? {
         if type == .likes {
@@ -180,10 +184,7 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
             tableView.refreshControl = refreshControl
             
             refreshControl.addValueChangedAction { [weak self] _ in
-                if let self = self, let reactionPaginator = self.reactionPaginator {
-                    reactionPaginator.reset()
-                    reactionPaginator.load(.limit(100), completion: self.commentsLoaded)
-                }
+                self?.resetComments()
             }
         }
     }
@@ -373,8 +374,8 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
                 activityPresenter.reactionPresenter.remove(reaction: comment, activity: activityPresenter.activity) { [weak self] in
                     if let error = $0.error {
                         self?.showErrorAlert(error)
-                    } else if let self = self{
-                        self.reactionPaginator?.load(.limit(100), completion: self.commentsLoaded)
+                    } else if let self = self {
+                        self.resetComments()
                     }
                 }
             } else {
@@ -489,7 +490,7 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
                                                             if let error = $0.error {
                                                                 self.showErrorAlert(error)
                                                             } else {
-                                                                self.reactionPaginator?.load(.limit(100), completion: self.commentsLoaded)
+                                                                self.resetComments()
                                                             }
                                                         }
         }
