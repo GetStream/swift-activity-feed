@@ -121,56 +121,56 @@
     },
     {
       "file": "/Users/bahadir/stream/swift-activity-feed/Sources/Components/Flat Feed/DetailViewController.swift",
-      "line": 189,
+      "line": 192,
       "symbol": "DetailViewController.numberOfSections(in:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/bahadir/stream/swift-activity-feed/Sources/Components/Flat Feed/DetailViewController.swift",
-      "line": 209,
+      "line": 212,
       "symbol": "DetailViewController.tableView(_:numberOfRowsInSection:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/bahadir/stream/swift-activity-feed/Sources/Components/Flat Feed/DetailViewController.swift",
-      "line": 234,
+      "line": 237,
       "symbol": "DetailViewController.tableView(_:titleForHeaderInSection:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/bahadir/stream/swift-activity-feed/Sources/Components/Flat Feed/DetailViewController.swift",
-      "line": 238,
+      "line": 241,
       "symbol": "DetailViewController.tableView(_:cellForRowAt:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/bahadir/stream/swift-activity-feed/Sources/Components/Flat Feed/DetailViewController.swift",
-      "line": 323,
+      "line": 326,
       "symbol": "DetailViewController.tableView(_:shouldHighlightRowAt:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/bahadir/stream/swift-activity-feed/Sources/Components/Flat Feed/DetailViewController.swift",
-      "line": 340,
+      "line": 343,
       "symbol": "DetailViewController.tableView(_:didSelectRowAt:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/bahadir/stream/swift-activity-feed/Sources/Components/Flat Feed/DetailViewController.swift",
-      "line": 355,
+      "line": 358,
       "symbol": "DetailViewController.tableView(_:canEditRowAt:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/bahadir/stream/swift-activity-feed/Sources/Components/Flat Feed/DetailViewController.swift",
-      "line": 363,
+      "line": 366,
       "symbol": "DetailViewController.tableView(_:commit:forRowAt:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -477,6 +477,13 @@
       "warning": "undocumented"
     },
     {
+      "file": "/Users/bahadir/stream/swift-activity-feed/Sources/Extensions/Result+Extensions.swift",
+      "line": 12,
+      "symbol": "Result.error",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
       "file": "/Users/bahadir/stream/swift-activity-feed/Sources/Extensions/UIKit/UIImage+Extensions.swift",
       "line": 76,
       "symbol": "UIImage.scale(xTimes:)",
@@ -689,41 +696,48 @@
     {
       "file": "/Users/bahadir/stream/swift-activity-feed/Sources/Models/Protocols/PaginatorProtocol.swift",
       "line": 20,
-      "symbol": "PaginatorProtocol.load(_:completion:)",
+      "symbol": "PaginatorProtocol.reset()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/bahadir/stream/swift-activity-feed/Sources/Models/Protocols/PaginatorProtocol.swift",
       "line": 22,
+      "symbol": "PaginatorProtocol.load(_:completion:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/bahadir/stream/swift-activity-feed/Sources/Models/Protocols/PaginatorProtocol.swift",
+      "line": 24,
       "symbol": "PaginatorProtocol.loadNext(completion:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/bahadir/stream/swift-activity-feed/Sources/Models/Protocols/PaginatorProtocol.swift",
-      "line": 25,
+      "line": 27,
       "symbol": "PaginatorProtocol",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/bahadir/stream/swift-activity-feed/Sources/Models/Protocols/PaginatorProtocol.swift",
-      "line": 27,
+      "line": 29,
       "symbol": "PaginatorProtocol.hasNext",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/bahadir/stream/swift-activity-feed/Sources/Models/Protocols/PaginatorProtocol.swift",
-      "line": 35,
+      "line": 37,
       "symbol": "PaginatorProtocol.count",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/bahadir/stream/swift-activity-feed/Sources/Models/Protocols/PaginatorProtocol.swift",
-      "line": 39,
+      "line": 41,
       "symbol": "PaginatorProtocol.loadNext(completion:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"

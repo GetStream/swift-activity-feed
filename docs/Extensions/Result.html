@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Activity Class Reference</title>
+    <title>Result Extension Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -10,8 +10,8 @@
     
   </head>
   <body>
-    <a name="//apple_ref/swift/Class/Activity" class="dashAnchor"></a>
-    <a title="Activity Class Reference"></a>
+    <a name="//apple_ref/swift/Extension/Result" class="dashAnchor"></a>
+    <a title="Result Extension Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html">GetStreamActivityFeed Docs</a> (64% documented)</p>
@@ -22,7 +22,7 @@
       <p id="breadcrumbs">
         <a href="../index.html">GetStreamActivityFeed Reference</a>
         <img id="carat" src="../img/carat.png" />
-        Activity Class Reference
+        Result Extension Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -279,16 +279,14 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>Activity</h1>
+            <h1>Result</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">Activity</span> <span class="p">:</span> <span class="kt">EnrichedActivity</span><span class="o">&lt;</span><span class="kt"><a href="../Classes/User.html">User</a></span><span class="p">,</span> <span class="kt"><a href="../Enums/ActivityObject.html">ActivityObject</a></span><span class="p">,</span> <span class="kt"><a href="../Typealiases.html#/s:21GetStreamActivityFeed8Reactiona">Reaction</a></span><span class="o">&gt;</span><span class="p">,</span> <span class="kt"><a href="../Protocols/TextRepresentable.html">TextRepresentable</a></span><span class="p">,</span> <span class="kt"><a href="../Protocols/AttachmentRepresentable.html">AttachmentRepresentable</a></span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Result</span></code></pre>
 
                 </div>
               </div>
-            <p>An enriched activity with <code><a href="../Classes/User.html">User</a></code> type, <code><a href="../Enums/ActivityObject.html">ActivityObject</a></code> as object type and <code><a href="../Typealiases.html#/s:21GetStreamActivityFeed8Reactiona">Reaction</a></code> as reation type.
-It has additional properties: text and attachment. See <code><a href="../Protocols/AttachmentRepresentable.html">AttachmentRepresentable</a></code>.</p>
-
+            
           </section>
           <section class="section task-group-section">
             <div class="task-group">
@@ -296,9 +294,9 @@ It has additional properties: text and attachment. See <code><a href="../Protoco
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:21GetStreamActivityFeed0C0C4textSSSgvp"></a>
-                    <a name="//apple_ref/swift/Property/text" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21GetStreamActivityFeed0C0C4textSSSgvp">text</a>
+                    <a name="/s:s6ResultO21GetStreamActivityFeedE5errorq_Sgvp"></a>
+                    <a name="//apple_ref/swift/Property/error" class="dashAnchor"></a>
+                    <a class="token" href="#/s:s6ResultO21GetStreamActivityFeedE5errorq_Sgvp">error</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -313,173 +311,7 @@ It has additional properties: text and attachment. See <code><a href="../Protoco
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">text</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:21GetStreamActivityFeed23AttachmentRepresentableP10attachmentAA0cE0CSgvp"></a>
-                    <a name="//apple_ref/swift/Property/attachment" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21GetStreamActivityFeed23AttachmentRepresentableP10attachmentAA0cE0CSgvp">attachment</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">attachment</span><span class="p">:</span> <span class="kt"><a href="../Classes/ActivityAttachment.html">ActivityAttachment</a></span><span class="p">?</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:21GetStreamActivityFeed0C0C8originalACvp"></a>
-                    <a name="//apple_ref/swift/Property/original" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21GetStreamActivityFeed0C0C8originalACvp">original</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">original</span><span class="p">:</span> <span class="kt">Activity</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:21GetStreamActivityFeed0C0C5actor4verb6object7feedIdsAcA4UserC_SSAA0C6ObjectOSay0aB00D2IdVGSgtcfc"></a>
-                    <a name="//apple_ref/swift/Method/init(actor:verb:object:feedIds:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21GetStreamActivityFeed0C0C5actor4verb6object7feedIdsAcA4UserC_SSAA0C6ObjectOSay0aB00D2IdVGSgtcfc">init(actor:verb:object:feedIds:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">actor</span><span class="p">:</span> <span class="kt"><a href="../Classes/User.html">User</a></span><span class="p">,</span> <span class="nv">verb</span><span class="p">:</span> <span class="kt">Verb</span><span class="p">,</span> <span class="nv">object</span><span class="p">:</span> <span class="kt"><a href="../Enums/ActivityObject.html">ActivityObject</a></span><span class="p">,</span> <span class="nv">feedIds</span><span class="p">:</span> <span class="kt">FeedIds</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:21GetStreamActivityFeed0C0C5actor4verb6object9foreignId4time7feedIds06origindI0AcA4UserC_SSAA0C6ObjectOSSSg10Foundation4DateVSgSay0aB00dI0VGSgAVSgtcfc"></a>
-                    <a name="//apple_ref/swift/Method/init(actor:verb:object:foreignId:time:feedIds:originFeedId:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21GetStreamActivityFeed0C0C5actor4verb6object9foreignId4time7feedIds06origindI0AcA4UserC_SSAA0C6ObjectOSSSg10Foundation4DateVSgSay0aB00dI0VGSgAVSgtcfc">init(actor:verb:object:foreignId:time:feedIds:originFeedId:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">required</span> <span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">actor</span><span class="p">:</span> <span class="kt"><a href="../Classes/User.html">User</a></span><span class="p">,</span>
-                     <span class="nv">verb</span><span class="p">:</span> <span class="kt">Verb</span><span class="p">,</span>
-                     <span class="nv">object</span><span class="p">:</span> <span class="kt"><a href="../Enums/ActivityObject.html">ActivityObject</a></span><span class="p">,</span>
-                     <span class="nv">foreignId</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
-                     <span class="nv">time</span><span class="p">:</span> <span class="kt">Date</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
-                     <span class="nv">feedIds</span><span class="p">:</span> <span class="kt">FeedIds</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
-                     <span class="nv">originFeedId</span><span class="p">:</span> <span class="kt">FeedId</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:21GetStreamActivityFeed0C0C4fromACs7Decoder_p_tKcfc"></a>
-                    <a name="//apple_ref/swift/Method/init(from:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21GetStreamActivityFeed0C0C4fromACs7Decoder_p_tKcfc">init(from:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">required</span> <span class="nf">init</span><span class="p">(</span><span class="n">from</span> <span class="nv">decoder</span><span class="p">:</span> <span class="kt">Decoder</span><span class="p">)</span> <span class="k">throws</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:21GetStreamActivityFeed0C0C6encode2toys7Encoder_p_tKF"></a>
-                    <a name="//apple_ref/swift/Method/encode(to:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:21GetStreamActivityFeed0C0C6encode2toys7Encoder_p_tKF">encode(to:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">override</span> <span class="kd">func</span> <span class="nf">encode</span><span class="p">(</span><span class="n">to</span> <span class="nv">encoder</span><span class="p">:</span> <span class="kt">Encoder</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">Failure</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
