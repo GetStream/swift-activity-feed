@@ -30,9 +30,14 @@ public final class ReactionPaginator<T: ReactionExtraDataProtocol, U: UserProtoc
     }
 }
 
-// MARK: - Pagiantion
+// MARK: - Pagination
 
 extension ReactionPaginator {
+    /// Resets the reactions loaded so far.
+    public func reset() {
+        items = []
+    }
+    
     /// Load reactions with a given pagination options.
     public func load(_ pagination: Pagination = .none, completion: @escaping Completion) {
         Client.shared.reactions(forActivityId: activityId,

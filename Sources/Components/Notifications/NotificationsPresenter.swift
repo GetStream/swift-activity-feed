@@ -38,6 +38,11 @@ public final class NotificationsPresenter<T: ActivityProtocol>: PaginatorProtoco
 }
 
 extension NotificationsPresenter {
+    /// Resets the notifications loaded so far.
+    public func reset() {
+        items = []
+    }
+    
     /// Load notifications with a given pagination options.
     public func load(_ pagination: Pagination = .none, completion: @escaping Completion) {
         notificationFeed.get(typeOf: T.self, pagination: pagination, markOption: markOption) { [weak self] result in
