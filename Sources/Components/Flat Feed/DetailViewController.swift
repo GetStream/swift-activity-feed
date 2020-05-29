@@ -82,7 +82,7 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
         updateSectionsIndex()
         
         if sections.contains(.comments) {
-            resetComments()
+            reloadComments()
             
             if canAddComment {
                 if let user = User.current {
@@ -140,7 +140,7 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
         self.sectionsData = sectionsData
     }
     
-    private func resetComments() {
+    private func reloadComments() {
         reactionPaginator?.reset()
         reactionPaginator?.load(.limit(100), completion: commentsLoaded)
     }
@@ -184,7 +184,7 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
             tableView.refreshControl = refreshControl
             
             refreshControl.addValueChangedAction { [weak self] _ in
-                self?.resetComments()
+                self?.reloadComments()
             }
         }
     }
@@ -375,7 +375,7 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
                     if let error = $0.error {
                         self?.showErrorAlert(error)
                     } else if let self = self {
-                        self.resetComments()
+                        self.reloadComments()
                     }
                 }
             } else {
@@ -490,7 +490,7 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
                                                             if let error = $0.error {
                                                                 self.showErrorAlert(error)
                                                             } else {
-                                                                self.resetComments()
+                                                                self.reloadComments()
                                                             }
                                                         }
         }
