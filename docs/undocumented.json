@@ -520,35 +520,35 @@
     },
     {
       "file": "/Users/bahadir/stream/swift-activity-feed/Sources/Models/Activity.swift",
-      "line": 23,
+      "line": 24,
       "symbol": "Activity.text",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/bahadir/stream/swift-activity-feed/Sources/Models/Activity.swift",
-      "line": 26,
+      "line": 27,
       "symbol": "Activity.original",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/bahadir/stream/swift-activity-feed/Sources/Models/Activity.swift",
-      "line": 35,
+      "line": 36,
       "symbol": "Activity.init(actor:verb:object:feedIds:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/bahadir/stream/swift-activity-feed/Sources/Models/Activity.swift",
-      "line": 49,
+      "line": 50,
       "symbol": "Activity.init(from:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/bahadir/stream/swift-activity-feed/Sources/Models/Activity.swift",
-      "line": 56,
+      "line": 57,
       "symbol": "Activity.encode(to:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -583,63 +583,63 @@
     },
     {
       "file": "/Users/bahadir/stream/swift-activity-feed/Sources/Models/ActivityObject.swift",
-      "line": 13,
+      "line": 14,
       "symbol": "ActivityObjectProtocol.text",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/bahadir/stream/swift-activity-feed/Sources/Models/ActivityObject.swift",
-      "line": 14,
+      "line": 15,
       "symbol": "ActivityObjectProtocol.imageURL",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/bahadir/stream/swift-activity-feed/Sources/Models/ActivityObject.swift",
-      "line": 19,
+      "line": 20,
       "symbol": "ActivityObject.unknown",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/bahadir/stream/swift-activity-feed/Sources/Models/ActivityObject.swift",
-      "line": 20,
+      "line": 21,
       "symbol": "ActivityObject.text(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/bahadir/stream/swift-activity-feed/Sources/Models/ActivityObject.swift",
-      "line": 21,
+      "line": 22,
       "symbol": "ActivityObject.image(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/bahadir/stream/swift-activity-feed/Sources/Models/ActivityObject.swift",
-      "line": 22,
+      "line": 23,
       "symbol": "ActivityObject.repost(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/bahadir/stream/swift-activity-feed/Sources/Models/ActivityObject.swift",
-      "line": 23,
+      "line": 24,
       "symbol": "ActivityObject.following(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/bahadir/stream/swift-activity-feed/Sources/Models/ActivityObject.swift",
-      "line": 109,
+      "line": 110,
       "symbol": "ActivityObjectError",
       "symbol_kind": "source.lang.swift.decl.enum",
       "warning": "undocumented"
     },
     {
       "file": "/Users/bahadir/stream/swift-activity-feed/Sources/Models/ActivityObject.swift",
-      "line": 110,
+      "line": 111,
       "symbol": "ActivityObjectError.unkownValue",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
@@ -751,14 +751,14 @@
     },
     {
       "file": "/Users/bahadir/stream/swift-activity-feed/Sources/Models/User.swift",
-      "line": 36,
+      "line": 37,
       "symbol": "User.init(name:id:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/bahadir/stream/swift-activity-feed/Sources/Models/User.swift",
-      "line": 63,
+      "line": 64,
       "symbol": "User.encode(to:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -1136,30 +1136,23 @@
     },
     {
       "file": "/Users/bahadir/stream/swift-activity-feed/Sources/Views/Text Tool Bar/TextToolBar+OpenGraphData.swift",
-      "line": 14,
+      "line": 15,
       "symbol": "TextToolBar.updateOpenGraph(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/bahadir/stream/swift-activity-feed/Sources/Views/Text Tool Bar/TextToolBar+OpenGraphData.swift",
-      "line": 35,
+      "line": 36,
       "symbol": "TextToolBar.underlineLinks(with:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/bahadir/stream/swift-activity-feed/Sources/Views/Text Tool Bar/TextToolBar+OpenGraphData.swift",
-      "line": 49,
+      "line": 50,
       "symbol": "TextToolBar.updateOpenGraphPreview()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/bahadir/stream/swift-activity-feed/Sources/Views/Text Tool Bar/TextToolBar.swift",
-      "line": 12,
-      "symbol": "TextToolBar",
-      "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
@@ -1181,6 +1174,13 @@
       "line": 13,
       "symbol": "TextToolBar",
       "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/bahadir/stream/swift-activity-feed/Sources/Views/Text Tool Bar/TextToolBar.swift",
+      "line": 13,
+      "symbol": "TextToolBar",
+      "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
