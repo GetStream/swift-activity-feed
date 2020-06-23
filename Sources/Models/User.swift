@@ -9,6 +9,7 @@
 import Foundation
 import GetStream
 import Nuke
+import UIKit
 
 fileprivate struct UserData: Codable {
     let name: String?

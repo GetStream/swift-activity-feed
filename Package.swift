@@ -5,6 +5,9 @@ import PackageDescription
 
 let package = Package(
     name: "GetStreamActivityFeed",
+    platforms: [
+        .iOS(.v11),
+    ],
     products: [
         .library(
             name: "GetStreamActivityFeed",
@@ -19,6 +22,7 @@ let package = Package(
     targets: [
         .target(
             name: "GetStreamActivityFeed",
-            dependencies: ["GetStream", "Nuke", "Reusable", "SnapKit"]),
+            dependencies: ["GetStream", "Nuke", "Reusable", "SnapKit"],
+            path: "Sources/"),
     ]
 )

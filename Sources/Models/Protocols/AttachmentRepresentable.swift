@@ -7,6 +7,7 @@
 //
 
 import GetStream
+import UIKit
 
 /// An attachment container protocol.
 public protocol AttachmentRepresentable {

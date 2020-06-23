@@ -6,6 +6,7 @@
 //  Copyright © 2019 Stream.io Inc. All rights reserved.
 //
 
+import Foundation
 import GetStream
 
 /// A reaction with `ReactionExtraData` and `User`. See `ReactionExtraData`, `User`.

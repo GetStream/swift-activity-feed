@@ -7,6 +7,7 @@
 //
 
 import GetStream
+import UIKit
 
 /// An activity object protocol.
 public protocol ActivityObjectProtocol: Enrichable {

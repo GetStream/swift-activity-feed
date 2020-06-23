@@ -8,6 +8,7 @@
 
 import Foundation
 import GetStream
+import UIKit
 
 extension TextToolBar {
     

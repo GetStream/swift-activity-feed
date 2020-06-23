@@ -8,6 +8,7 @@
 
 import GetStream
 import Nuke
+import UIKit
 
 /// An avatar container protocol.
 public protocol AvatarRepresentable: class, UserProtocol {
