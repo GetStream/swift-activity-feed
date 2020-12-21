@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name         = "GetStreamActivityFeed"
-  spec.version      = "2.2.3"
+  spec.version      = "2.2.4"
   spec.summary      = "Stream iOS Activity Feed Components"
   
   spec.description  = <<-DESC

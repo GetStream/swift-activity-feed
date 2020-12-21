@@ -39,11 +39,7 @@ In any file you'd like to use Stream in, don't forget to import the framework wi
 
 ### Carthage
 
-Make the following entry in your Cartfile:
-```
-github "GetStream/swift-activity-feed"
-```
-Then run `carthage update`.
+The project is not currently supported by Carthage. Please contact us if you need it.
 
 ## Credits & Contributors
 
