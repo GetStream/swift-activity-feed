@@ -30,9 +30,11 @@ The official iOS and Swift integration library for Stream, a web service for bui
 ### CocoaPods
 
 For Stream, use the following entry in your `Podfile`:
+
 ```
 pod 'GetStreamActivityFeed', '~> 1.0'
 ```
+
 Then run `pod install`.
 
 In any file you'd like to use Stream in, don't forget to import the framework with `import GetStream`.
@@ -43,7 +45,11 @@ The project is not currently supported by Carthage. Please contact us if you nee
 
 ## Credits & Contributors
 
-Project is maintained by [Alexey Bukhtin](https://github.com/buh).
+This repository is no longer actively maintained by Stream.
+
+A Feeds integration includes a combination of server-side and client-side code and the interface can vary widely which is why we are no longer focussing on supporting this SDK.
+
+This is by no means a reflection of our commitment to maintaining and improving the Feeds API which will always be a product that we support.
 
 We continue to welcome pull requests from community members.
 
