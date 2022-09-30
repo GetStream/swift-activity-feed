@@ -8,7 +8,7 @@
 
 The official iOS and Swift integration library for Stream, a web service for building scalable newsfeeds and activity streams.
 
-## :warning: No longer actively maintained by Stream
+## :warning: Client-side SDK no longer actively maintained by Stream
 
 A Feeds integration includes a combination of server-side and client-side code and the interface can vary widely which is why we are no longer focussing on supporting this SDK. If you are starting from scratch we recommend you only use the server-side SDKs. 
 
