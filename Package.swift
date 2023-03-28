@@ -23,7 +23,7 @@ let package = Package(
     targets: [
         .target(
             name: "Stream-Feed-UIKit-IOS",
-            dependencies: ["GetStream", "Nuke", "Reusable", "SnapKit"],
+            dependencies: ["stream-swift", "Nuke", "Reusable", "SnapKit"],
             path: "Sources/"
         ),
         .testTarget(
