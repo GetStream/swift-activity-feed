@@ -4,15 +4,15 @@
 import PackageDescription
 
 let package = Package(
-    name: "Stream-Feed-UIKit-IOS",
+    name: "GetStreamActivityFeed",
     defaultLocalization: "en", // Set the default localization here
     platforms: [
         .iOS(.v14),
     ],
     products: [
         .library(
-            name: "Stream-Feed-UIKit-IOS",
-            targets: ["Stream-Feed-UIKit-IOS"])
+            name: "GetStreamActivityFeed",
+            targets: ["GetStreamActivityFeed"])
     ],
     dependencies: [
         .package(url: "https://github.com/camelan/stream-swift", .upToNextMajor(from: "1.0.0")),
@@ -21,13 +21,9 @@ let package = Package(
         .package(url: "https://github.com/SnapKit/SnapKit", .upToNextMajor(from: "5.0.0")),
     ],
     targets: [
-        .target(
-            name: "Stream-Feed-UIKit-IOS",
-            dependencies: ["stream-swift", "Nuke", "Reusable", "SnapKit"],
-            path: "Sources/"
-        ),
-        .testTarget(
-            name: "Stream-Feed-UIKit-IOSTests",
-            dependencies: ["Stream-Feed-UIKit-IOS"])
-    ]
+          .target(
+              name: "GetStreamActivityFeed",
+              dependencies: ["stream-swift", "Nuke", "Reusable", "SnapKit"],
+              path: "Sources/"),
+      ]
 )
