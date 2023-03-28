@@ -23,7 +23,8 @@ let package = Package(
     targets: [
           .target(
               name: "GetStreamActivityFeed",
-              dependencies: ["GetStream", "Nuke", "Reusable", "SnapKit"],
+              dependencies: ["Nuke", "Reusable", "SnapKit",
+                .product(name: "GetStream", package: "stream-swift") ],
               path: "Sources/"),
       ]
 )
