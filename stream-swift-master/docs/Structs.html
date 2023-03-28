@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Structures  Reference</title>
+    <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="js/jquery.min.js" defer></script>
+    <script src="js/jazzy.js" defer></script>
+    
+    <script src="js/lunr.min.js" defer></script>
+    <script src="js/typeahead.jquery.js" defer></script>
+    <script src="js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Section/Structures" class="dashAnchor"></a>
+    <a title="Structures  Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="index.html">GetStream 2.2.4 Docs</a> (79% documented)</p>
+        <p class="header-right"><a href="https://github.com/GetStream/stream-swift"><img src="img/gh.png"/>View on GitHub</a></p>
+        <p class="header-right">
+          <form role="search" action="search.json">
+            <input type="text" placeholder="Search documentation" data-typeahead>
+          </form>
+        </p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="index.html">GetStream Reference</a>
+        <img id="carat" src="img/carat.png" />
+        Structures  Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Classes/AggregatedFeed.html">AggregatedFeed</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/Client.html">Client</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/Client/Config.html">– Config</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/ClientLogger.html">ClientLogger</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/CollectionObject.html">CollectionObject</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/CollectionObject/CollectionObjectCodingKeys.html">– CollectionObjectCodingKeys</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/CollectionObject/DataCodingKeys.html">– DataCodingKeys</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/EnrichedActivity.html">EnrichedActivity</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/Feed.html">Feed</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/FlatFeed.html">FlatFeed</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/Group.html">Group</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/NotificationFeed.html">NotificationFeed</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/NotificationGroup.html">NotificationGroup</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/Reaction.html">Reaction</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/SubscribedChannel.html">SubscribedChannel</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/User.html">User</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/User/DataCodingKeys.html">– DataCodingKeys</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Enums/ClientError.html">ClientError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/ClientError/Info.html">– Info</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/FeedMarkOption.html">FeedMarkOption</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/Pagination.html">Pagination</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/ReactionExtraData.html">ReactionExtraData</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/ReactionsError.html">ReactionsError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/StringOrInt.html">StringOrInt</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/SubscriptionError.html">SubscriptionError</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Extensions/Bundle.html">Bundle</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/Date.html">Date</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/DateFormatter.html">DateFormatter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/DateFormatter/Stream.html">– Stream</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions.html#/c:objc(cs)NSISO8601DateFormatter">Foundation.ISO8601DateFormatter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/JSONDecoder.html">JSONDecoder</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/JSONEncoder.html">JSONEncoder</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/ReactionKind.html">ReactionKind</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/Result.html">Result</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/String.html">String</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/Swime.html">Swime</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/Token.html">Token</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Protocols/ActivityProtocol.html">ActivityProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/CollectionObjectProtocol.html">CollectionObjectProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/Enrichable.html">Enrichable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/ISO8601DateFormatter.html">ISO8601DateFormatter</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/Missable.html">Missable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/OriginalRepresentable.html">OriginalRepresentable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/ReactionProtocol.html">ReactionProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/Reactionable.html">Reactionable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/UserProtocol.html">UserProtocol</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Structs/BaseURL.html">BaseURL</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/BaseURL/Service.html">– Service</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/BaseURL/Location.html">– Location</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/Comment.html">Comment</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/EmptyReactionExtraData.html">EmptyReactionExtraData</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/EnrichingActivityError.html">EnrichingActivityError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/FeedId.html">FeedId</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/FeedReactionsOptions.html">FeedReactionsOptions</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/File.html">File</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/Follower.html">Follower</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/ImageProcess.html">ImageProcess</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/ImageProcess/ResizeStrategy.html">– ResizeStrategy</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/ImageProcess/CropMode.html">– CropMode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/MissingReference.html">MissingReference</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/OGAudioResponse.html">OGAudioResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/OGImageResponse.html">OGImageResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/OGResponse.html">OGResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/OGVideoResponse.html">OGVideoResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/Reactions.html">Reactions</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/Response.html">Response</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/SubscriptionResponse.html">SubscriptionResponse</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:9GetStream20ActivitiesCompletiona">ActivitiesCompletion</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:9GetStream8Activitya">Activity</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:9GetStream18ActivityCompletiona">ActivityCompletion</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:9GetStream11Cancellablea">Cancellable</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:9GetStream26CollectionObjectCompletiona">CollectionObjectCompletion</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:9GetStream15DefaultReactiona">DefaultReaction</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:9GetStream25DefaultReactionCompletiona">DefaultReactionCompletion</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:9GetStream26DefaultReactionsCompletiona">DefaultReactionsCompletion</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:9GetStream7FeedIdsa">FeedIds</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:9GetStream19FollowersCompletiona">FollowersCompletion</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:9GetStream15GroupCompletiona">GroupCompletion</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/Image">Image</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:9GetStream5Imagea">Image</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:9GetStream4JSONa">JSON</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:9GetStream24MultipleUploadCompletiona">MultipleUploadCompletion</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:9GetStream12OGCompletiona">OGCompletion</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:9GetStream10Propertiesa">Properties</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:9GetStream18ReactionCompletiona">ReactionCompletion</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:9GetStream25ReactionExtraDataProtocola">ReactionExtraDataProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:9GetStream12ReactionKinda">ReactionKind</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:9GetStream19ReactionsCompletiona">ReactionsCompletion</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:9GetStream17RemovedCompletiona">RemovedCompletion</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:9GetStream20StatusCodeCompletiona">StatusCodeCompletion</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:9GetStream12Subscriptiona">Subscription</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:9GetStream5Tokena">Token</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:9GetStream16UploadCompletiona">UploadCompletion</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:9GetStream14UserCompletiona">UserCompletion</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:9GetStream4Verba">Verb</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>Structures</h1>
+            <p>The following structures are available globally.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Error%20Activity"></a>
+                <a name="//apple_ref/swift/Section/Error Activity" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Error%20Activity"></a>
+                  <h3 class="section-name"><p>Error Activity</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9GetStream22EnrichingActivityErrorV"></a>
+                    <a name="//apple_ref/swift/Struct/EnrichingActivityError" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9GetStream22EnrichingActivityErrorV">EnrichingActivityError</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>An error type of enriching activity properties.</p>
+
+                        <a href="Structs/EnrichingActivityError.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">EnrichingActivityError</span> <span class="p">:</span> <span class="kt">LocalizedError</span><span class="p">,</span> <span class="kt">Decodable</span><span class="p">,</span> <span class="kt">CustomStringConvertible</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9GetStream7BaseURLV"></a>
+                    <a name="//apple_ref/swift/Struct/BaseURL" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9GetStream7BaseURLV">BaseURL</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A base URL for the <code><a href="Classes/Client.html">Client</a></code>.</p>
+
+                        <a href="Structs/BaseURL.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">BaseURL</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">BaseURL</span><span class="p">:</span> <span class="kt">CustomStringConvertible</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9GetStream16MissingReferenceV"></a>
+                    <a name="//apple_ref/swift/Struct/MissingReference" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9GetStream16MissingReferenceV">MissingReference</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A wrapper for missing reference object.</p>
+
+                        <a href="Structs/MissingReference.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">MissingReference</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt">Codable</span> <span class="k">where</span> <span class="kt">T</span> <span class="p">:</span> <span class="kt"><a href="Protocols/Missable.html">Missable</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9GetStream8ResponseV"></a>
+                    <a name="//apple_ref/swift/Struct/Response" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9GetStream8ResponseV">Response</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A general response object.</p>
+
+                        <a href="Structs/Response.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Response</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt">Decodable</span> <span class="k">where</span> <span class="kt">T</span> <span class="p">:</span> <span class="kt">Decodable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Reactions%20Option"></a>
+                <a name="//apple_ref/swift/Section/Reactions Option" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Reactions%20Option"></a>
+                  <h3 class="section-name"><p>Reactions Option</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9GetStream20FeedReactionsOptionsV"></a>
+                    <a name="//apple_ref/swift/Struct/FeedReactionsOptions" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9GetStream20FeedReactionsOptionsV">FeedReactionsOptions</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A feed reaction options to include reaction for activities.</p>
+
+<ul>
+<li>Available options:
+
+<ul>
+<li><code>includeOwn</code>: include reactions added by current user to all activities.</li>
+<li><code>includeOwnChildren</code>: include reactions added by current user to all reactions.</li>
+<li><code>includeRecent</code>: include recent reactions to activities.</li>
+<li><code>includeCounts</code>: include reaction counts to activities.</li>
+</ul></li>
+</ul>
+
+                        <a href="Structs/FeedReactionsOptions.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">FeedReactionsOptions</span> <span class="p">:</span> <span class="kt">OptionSet</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9GetStream6FeedIdV"></a>
+                    <a name="//apple_ref/swift/Struct/FeedId" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9GetStream6FeedIdV">FeedId</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A feed identifier based on <code>feedSlug</code> and <code>userId</code>.</p>
+
+                        <a href="Structs/FeedId.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">FeedId</span> <span class="p">:</span> <span class="kt">CustomStringConvertible</span><span class="p">,</span> <span class="kt">Codable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">FeedId</span><span class="p">:</span> <span class="kt">Equatable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9GetStream8FollowerV"></a>
+                    <a name="//apple_ref/swift/Struct/Follower" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9GetStream8FollowerV">Follower</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A feed Follower.</p>
+
+                        <a href="Structs/Follower.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Follower</span> <span class="p">:</span> <span class="kt">Decodable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9GetStream4FileV"></a>
+                    <a name="//apple_ref/swift/Struct/File" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9GetStream4FileV">File</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A file type.</p>
+
+                        <a href="Structs/File.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">File</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9GetStream12ImageProcessV"></a>
+                    <a name="//apple_ref/swift/Struct/ImageProcess" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9GetStream12ImageProcessV">ImageProcess</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>An image process option type.</p>
+
+                        <a href="Structs/ImageProcess.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">ImageProcess</span> <span class="p">:</span> <span class="kt">Codable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Client%20Open%20Graph"></a>
+                <a name="//apple_ref/swift/Section/Client Open Graph" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Client%20Open%20Graph"></a>
+                  <h3 class="section-name"><p>Client Open Graph</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9GetStream10OGResponseV"></a>
+                    <a name="//apple_ref/swift/Struct/OGResponse" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9GetStream10OGResponseV">OGResponse</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>An Open Graph response.</p>
+
+                        <a href="Structs/OGResponse.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">OGResponse</span> <span class="p">:</span> <span class="kt">Codable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9GetStream15OGImageResponseV"></a>
+                    <a name="//apple_ref/swift/Struct/OGImageResponse" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9GetStream15OGImageResponseV">OGImageResponse</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>An Open Graph image response.</p>
+
+                        <a href="Structs/OGImageResponse.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">OGImageResponse</span> <span class="p">:</span> <span class="kt">Codable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9GetStream15OGVideoResponseV"></a>
+                    <a name="//apple_ref/swift/Struct/OGVideoResponse" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9GetStream15OGVideoResponseV">OGVideoResponse</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>An Open Graph video response.</p>
+
+                        <a href="Structs/OGVideoResponse.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">OGVideoResponse</span> <span class="p">:</span> <span class="kt">Codable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9GetStream15OGAudioResponseV"></a>
+                    <a name="//apple_ref/swift/Struct/OGAudioResponse" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9GetStream15OGAudioResponseV">OGAudioResponse</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>An Open Graph audio response.</p>
+
+                        <a href="Structs/OGAudioResponse.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">OGAudioResponse</span> <span class="p">:</span> <span class="kt">Codable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Empty%20reaction%20extra%20data"></a>
+                <a name="//apple_ref/swift/Section/Empty reaction extra data" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Empty%20reaction%20extra%20data"></a>
+                  <h3 class="section-name"><p>Empty reaction extra data</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9GetStream22EmptyReactionExtraDataV"></a>
+                    <a name="//apple_ref/swift/Struct/EmptyReactionExtraData" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9GetStream22EmptyReactionExtraDataV">EmptyReactionExtraData</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A default empty type of <code><a href="Typealiases.html#/s:9GetStream25ReactionExtraDataProtocola">ReactionExtraDataProtocol</a></code>.</p>
+
+                        <a href="Structs/EmptyReactionExtraData.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">EmptyReactionExtraData</span> <span class="p">:</span> <span class="kt"><a href="Typealiases.html#/s:9GetStream25ReactionExtraDataProtocola">ReactionExtraDataProtocol</a></span><span class="p">,</span> <span class="kt">Equatable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9GetStream7CommentV"></a>
+                    <a name="//apple_ref/swift/Struct/Comment" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9GetStream7CommentV">Comment</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>MARK: - Comment
+Comment reaction extra data.</p>
+
+                        <a href="Structs/Comment.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Comment</span> <span class="p">:</span> <span class="kt"><a href="Typealiases.html#/s:9GetStream25ReactionExtraDataProtocola">ReactionExtraDataProtocol</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9GetStream9ReactionsV"></a>
+                    <a name="//apple_ref/swift/Struct/Reactions" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9GetStream9ReactionsV">Reactions</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A reactions type.</p>
+
+                        <a href="Structs/Reactions.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Reactions</span><span class="o">&lt;</span><span class="kt">T</span><span class="p">,</span> <span class="kt">U</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt">Decodable</span> <span class="k">where</span> <span class="kt">T</span> <span class="p">:</span> <span class="kt">Decodable</span><span class="p">,</span> <span class="kt">T</span> <span class="p">:</span> <span class="kt">Encodable</span><span class="p">,</span> <span class="kt">U</span> <span class="p">:</span> <span class="kt"><a href="Protocols/UserProtocol.html">UserProtocol</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:9GetStream20SubscriptionResponseV"></a>
+                    <a name="//apple_ref/swift/Struct/SubscriptionResponse" class="dashAnchor"></a>
+                    <a class="token" href="#/s:9GetStream20SubscriptionResponseV">SubscriptionResponse</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A responce object of changes from a subscription.</p>
+
+                        <a href="Structs/SubscriptionResponse.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">SubscriptionResponse</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt">Decodable</span> <span class="k">where</span> <span class="kt">T</span> <span class="p">:</span> <span class="kt"><a href="Protocols/ActivityProtocol.html">ActivityProtocol</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2021 <a class="link" href="getstream.io" target="_blank" rel="external">GetStream.io</a>. All rights reserved. (Last updated: 2021-02-18)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>
