@@ -29,7 +29,7 @@
         <!--HOME-->
         <scene sceneID="Tjh-9f-wCb">
             <objects>
-                <viewController storyboardIdentifier="ActivityFeedViewController" id="PEt-yD-taj" customClass="ActivityFeedViewController" customModule="Stream_Feed_UIKit_IOS" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ActivityFeedViewController" id="PEt-yD-taj" customClass="ActivityFeedViewController" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="xWb-xC-gUN">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -55,7 +55,7 @@
         <!--POST DETAIL-->
         <scene sceneID="mb5-HH-uRU">
             <objects>
-                <viewController storyboardIdentifier="PostDetailTableViewController" title="POST DETAIL" hidesBottomBarWhenPushed="YES" id="BLY-u4-gAI" customClass="PostDetailTableViewController" customModule="Stream_Feed_UIKit_IOS" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PostDetailTableViewController" title="POST DETAIL" hidesBottomBarWhenPushed="YES" id="BLY-u4-gAI" customClass="PostDetailTableViewController" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="eQP-Xx-dLf">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -70,7 +70,7 @@
         <!--NEW POST-->
         <scene sceneID="j9F-ru-1d7">
             <objects>
-                <viewController storyboardIdentifier="EditPostViewController" id="NxW-4H-H8V" customClass="EditPostViewController" customModule="Stream_Feed_UIKit_IOS" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EditPostViewController" id="NxW-4H-H8V" customClass="EditPostViewController" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2nd-8t-W3J">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
