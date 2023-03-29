@@ -28,7 +28,7 @@
         <!--NOTIFICATIONS-->
         <scene sceneID="AJL-Ay-foL">
             <objects>
-                <tableViewController id="8FM-RS-m5m" customClass="NotificationsViewController" customModule="Stream_Feed_UIKit_IOS" sceneMemberID="viewController">
+                <tableViewController id="8FM-RS-m5m" customClass="NotificationsViewController" customModule="GetStreamActivityFeed" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="TLu-t3-R9D">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

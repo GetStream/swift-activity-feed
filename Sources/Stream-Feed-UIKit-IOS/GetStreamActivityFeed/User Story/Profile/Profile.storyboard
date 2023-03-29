@@ -11,7 +11,7 @@
         <!--Profile View Controller-->
         <scene sceneID="P2h-mx-Lx1">
             <objects>
-                <viewController storyboardIdentifier="ProfileViewController" id="yR4-5f-Xg8" customClass="ProfileViewController" customModule="Stream_Feed_UIKit_IOS" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ProfileViewController" id="yR4-5f-Xg8" customClass="ProfileViewController" customModule="GetStreamActivityFeed" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2Dh-sh-Su5">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -141,7 +141,7 @@
         <!--EDIT PROFILE-->
         <scene sceneID="mCT-bD-GU6">
             <objects>
-                <viewController id="qwC-fR-fcm" customClass="EditProfileViewController" customModule="Stream_Feed_UIKit_IOS" sceneMemberID="viewController">
+                <viewController id="qwC-fR-fcm" customClass="EditProfileViewController" customModule="GetStreamActivityFeed" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="yS8-ek-7lT">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
