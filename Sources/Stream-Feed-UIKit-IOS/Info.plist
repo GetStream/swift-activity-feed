@@ -27,6 +27,13 @@
 		<key>NSAllowsArbitraryLoadsInWebContent</key>
 		<true/>
 	</dict>
+	<key>UIAppFonts</key>
+	<array>
+		<string>gt-walsheim-bold.ttf</string>
+		<string>gt-walsheim-light.ttf</string>
+		<string>gt-walsheim-medium.ttf</string>
+		<string>gt-walsheim-regular.ttf</string>
+	</array>
 	<key>NSCameraUsageDescription</key>
 	<string>$(PRODUCT_NAME) would like to access your camera</string>
 	<key>NSHumanReadableCopyright</key>
