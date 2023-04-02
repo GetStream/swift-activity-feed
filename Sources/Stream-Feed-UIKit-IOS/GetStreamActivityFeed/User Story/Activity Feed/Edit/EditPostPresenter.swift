@@ -68,7 +68,7 @@ public final class EditPostPresenter {
     }
     
     private func saveActivity(text: String?, imageURLs: [URL] = [], completion: @escaping (_ error: Error?) -> Void) {
-        guard let user = Client.shared.currentUser as? CustomUser , (text != nil || imageURLs.count > 0) else {
+        guard let user = Client.shared.currentUser as? User , (text != nil || imageURLs.count > 0) else {
             completion(nil)
             return
         }
