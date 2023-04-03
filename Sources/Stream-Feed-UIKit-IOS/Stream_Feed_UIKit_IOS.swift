@@ -19,11 +19,12 @@ public struct StreamFeedUIKitIOS {
             }
             
           let currentUser = Client.shared.currentUser as? User
-          let feedID = FeedId(feedSlug: "user", userId: "userId")
+          let feedID = FeedId(feedSlug: "user", userId: userId)
             currentUser?.isFollow(toTarget: feedID, completion: { isFollow, following, error in
                 print("BNBN \(error?.localizedDescription)")
                 print("BNBN isFollow \(isFollow)")
                 print("BNBN isFollowing \(following)")
+                
             })
             
         }

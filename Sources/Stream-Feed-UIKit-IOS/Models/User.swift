@@ -87,7 +87,7 @@ extension User {
     /// Checks if the user feed is following to a target.
     public func isFollow(toTarget target: FeedId,
                          completion: @escaping (_ isFollow: Bool, _ following: Follower?, _ error: Error?) -> Void) {
-        feed.following(filter: [target]) {
+        feed.following() {
             if let response = try? $0.get() {
                 completion(response.results.first != nil, response.results.first, nil)
             } else {
