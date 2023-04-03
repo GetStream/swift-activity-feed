@@ -76,14 +76,13 @@ public final class EditPostPresenter {
         let activity: Activity
         let attachment = ActivityAttachment()
         var imageURLs = imageURLs
-        
-        let currentUser = User(name: user.name, id: user.id)
+      
         if let imageURL = imageURLs.first {
             imageURLs.removeFirst()
-            activity = Activity(actor: currentUser, verb: .post, object: .image(imageURL))
+            activity = Activity(actor: user, verb: .post, object: .image(imageURL))
             activity.text = text
         } else if let text = text {
-            activity = Activity(actor: currentUser, verb: .post, object: .text(text))
+            activity = Activity(actor: user, verb: .post, object: .text(text))
         } else {
             completion(nil)
             return
