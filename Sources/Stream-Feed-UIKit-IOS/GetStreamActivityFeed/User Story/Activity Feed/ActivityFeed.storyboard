@@ -140,7 +140,7 @@
                                                 <outlet property="delegate" destination="NxW-4H-H8V" id="7qF-3r-Tsj"/>
                                             </connections>
                                         </textView>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HzJ-7T-FPr" customClass="AvatarView">
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HzJ-7T-FPr" customClass="AvatarView" customModule="GetStreamActivityFeed">
                                             <rect key="frame" x="16" y="16" width="48" height="48"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
