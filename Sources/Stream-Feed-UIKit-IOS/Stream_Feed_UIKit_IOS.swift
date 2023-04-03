@@ -10,12 +10,15 @@ public struct StreamFeedUIKitIOS {
         let presenter = FlatFeedPresenter<Activity>(flatFeed: flatFeed,
                                                     reactionTypes: [.likes, .comments])
       
-        presenter.follow(toTarget: FeedId(feedSlug: "user", userId: userId)) { error in
-            if let error = error {
-                print("BNBN Follow Error \(error.localizedDescription)")
+        if !isCurrentUser {
+            presenter.follow(toTarget: FeedId(feedSlug: "user", userId: userId)) { error in
+                if let error = error {
+                    print("BNBN Follow Error \(error.localizedDescription)")
+                }
+                print("BNBN Follow Success")
             }
-            print("BNBN Follow Success")
         }
+   
         timeLineVC.presenter = presenter
 
         return nav.viewControllers.first as! ActivityFeedViewController

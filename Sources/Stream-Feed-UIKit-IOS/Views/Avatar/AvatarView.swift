@@ -57,8 +57,8 @@ public class AvatarView: UIView {
             DispatchQueue.main.async { [weak self] in
                 self?.imageView.contentMode = .scaleAspectFill
                 self?.imageView.image = newValue
+                self?.touchPlaceholder()
             }
-            touchPlaceholder()
         }
     }
     
