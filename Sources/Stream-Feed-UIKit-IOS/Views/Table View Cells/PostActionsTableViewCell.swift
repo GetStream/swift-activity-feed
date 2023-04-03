@@ -114,13 +114,13 @@ extension PostActionsTableViewCell {
                                                                  _ completion: @escaping ReactionButton.ErrorCompletion)
         where T.ReactionType == GetStream.Reaction<ReactionExtraData, U> {
             updateLike(isLiked: presenter.originalActivity.isUserLiked,
-                       likesCount: presenter.originalActivity.likesCount) { [weak self] control in
-                    //    if let button = $0 as? LikeButton {
-                self?.likeButton.like(presenter.originalActivity,
-                                presenter: presenter.reactionPresenter,
-                                userTypeOf: userType,
-                                completion)
-                      //  }
+                       likesCount: presenter.originalActivity.likesCount) {
+                        if let button = $0 as? LikeButton {
+                            button.like(presenter.originalActivity,
+                                        presenter: presenter.reactionPresenter,
+                                        userTypeOf: userType,
+                                        completion)
+                        }
             }
     }
 }

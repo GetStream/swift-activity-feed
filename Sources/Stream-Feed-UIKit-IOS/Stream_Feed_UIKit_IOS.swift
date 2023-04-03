@@ -41,9 +41,6 @@ public struct StreamFeedUIKitIOS {
     
     public static func createUser(userId: String, displayName: String, profileImage: String, completion: @escaping ((Error?) -> Void)) {
         let customUser = User(name: displayName, id: userId)
-        if !profileImage.isEmpty {
-            customUser.avatarURL = URL(string: profileImage)
-        }
         Client.shared.create(user: customUser, getOrCreate: true) { result in
             do {
                 let retrivedUser = try result.get()
@@ -62,9 +59,6 @@ public struct StreamFeedUIKitIOS {
     
     public static func updateUser(userId: String, displayName: String, profileImage: String, completion: @escaping ((Error?) -> Void)) {
         let customUser = User(name: displayName, id: userId)
-        if !profileImage.isEmpty {
-            customUser.avatarURL = URL(string: profileImage)
-        }
         
         Client.shared.update(user: customUser) { result in
             do {
@@ -89,9 +83,11 @@ public struct StreamFeedUIKitIOS {
                 print("BNBN \(retrivedUser.name)")
                 print("BNBN \(retrivedUser.id)")
                 let currentUser = Client.shared.currentUser as? User
-                if !profileImage.isEmpty {
-                    currentUser?.avatarURL = URL(string: profileImage)!
-                    print("BNBN Avatar \(currentUser?.avatarURL)")
+                DispatchQueue.main.async {
+                    if !profileImage.isEmpty {
+                        currentUser?.avatarURL = URL(string: profileImage)!
+                        print("BNBN Avatar \(currentUser?.avatarURL)")
+                    }
                 }
                 completion(nil)
             }
