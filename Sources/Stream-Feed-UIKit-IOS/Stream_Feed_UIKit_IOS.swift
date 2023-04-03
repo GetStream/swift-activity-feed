@@ -3,8 +3,7 @@ import GetStream
 
 public struct StreamFeedUIKitIOS {
     
-    public static func makeTimeLineVC(userId: String, isCurrentUser: Bool) -> ActivityFeedViewController {
-        let feedSlug = isCurrentUser ? "timeline" : "*"
+    public static func makeTimeLineVC(feedSlug: String, userId: String) -> ActivityFeedViewController {
         let timeLineVC = ActivityFeedViewController.fromBundledStoryboard()
         let nav = UINavigationController(rootViewController: timeLineVC)
         let flatFeed = Client.shared.flatFeed(feedSlug: feedSlug, userId: userId)
@@ -94,38 +93,3 @@ public struct StreamFeedUIKitIOS {
     }
     
 }
-
-//final class CustomUser: GetStream.User {
-//    private enum CodingKeys: String, CodingKey {
-//        case name
-//        case profileImage
-//    }
-//
-//    var name: String
-//    var profileImage: String
-//
-//    init(id: String, name: String, profileImage: String) {
-//        self.name = name
-//        self.profileImage = profileImage
-//        super.init(id: id)
-//    }
-//
-//    required init(from decoder: Decoder) throws {
-//        let dataContainer = try decoder.container(keyedBy: DataCodingKeys.self)
-//        let container = try dataContainer.nestedContainer(keyedBy: CodingKeys.self, forKey: .data)
-//        name = try container.decode(String.self, forKey: .name)
-//        profileImage = try container.decode(String.self, forKey: .profileImage)
-//        try super.init(from: decoder)
-//    }
-//
-//    required init(id: String) {
-//        fatalError("init(id:) has not been implemented")
-//    }
-//
-//    override func encode(to encoder: Encoder) throws {
-//        var dataContainer = encoder.container(keyedBy: DataCodingKeys.self)
-//        var container = dataContainer.nestedContainer(keyedBy: CodingKeys.self, forKey: .data)
-//        try container.encode(name, forKey: .name)
-//        try super.encode(to: encoder)
-//    }
-//}
