@@ -3,12 +3,19 @@ import GetStream
 
 public struct StreamFeedUIKitIOS {
     
-    public static func makeTimeLineVC(feedSlug: String, userId: String) -> ActivityFeedViewController {
+    public static func makeTimeLineVC(feedSlug: String, userId: String, isCurrentUser: Bool) -> ActivityFeedViewController {
         let timeLineVC = ActivityFeedViewController.fromBundledStoryboard()
         let nav = UINavigationController(rootViewController: timeLineVC)
         let flatFeed = Client.shared.flatFeed(feedSlug: feedSlug, userId: userId)
         let presenter = FlatFeedPresenter<Activity>(flatFeed: flatFeed,
                                                     reactionTypes: [.likes, .comments])
+      
+        presenter.follow(toTarget: FeedId(feedSlug: "user", userId: userId)) { error in
+            if let error = error {
+                print("BNBN Follow Error \(error.localizedDescription)")
+            }
+            print("BNBN Follow Success")
+        }
         timeLineVC.presenter = presenter
 
         return nav.viewControllers.first as! ActivityFeedViewController
