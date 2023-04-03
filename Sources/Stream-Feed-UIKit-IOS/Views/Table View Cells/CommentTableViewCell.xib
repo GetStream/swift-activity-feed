@@ -84,7 +84,7 @@
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" image="reply_icon"/>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Fy-LO-AKF" customClass="LikeButton" customModule="GetStreamActivityFeed" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Fy-LO-AKF" customClass="LikeButton" customModule="GetStreamActivityFeed">
                                 <rect key="frame" x="30" y="0.0" width="50" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="bE2-fJ-VBl"/>
