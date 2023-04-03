@@ -20,7 +20,7 @@
                     <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="c0b-VY-MFZ">
                         <rect key="frame" x="16" y="0.0" width="188" height="35"/>
                         <subviews>
-                            <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ufJ-5T-eWv" customClass="LikeButton" customModule="GetStreamActivityFeed" customModuleProvider="target">
+                            <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ufJ-5T-eWv" customClass="LikeButton" customModule="GetStreamActivityFeed">
                                 <rect key="frame" x="0.0" y="0.0" width="57" height="35"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -33,7 +33,7 @@
                                 <state key="selected" image="love_icon"/>
                                 <state key="highlighted" image="love_icon"/>
                             </button>
-                            <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="amC-3J-B63" customClass="RepostButton" customModule="GetStreamActivityFeed" customModuleProvider="target">
+                            <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="amC-3J-B63" customClass="RepostButton" customModule="GetStreamActivityFeed">
                                 <rect key="frame" x="73" y="0.0" width="49" height="35"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
