@@ -3,19 +3,15 @@ import GetStream
 
 public struct StreamFeedUIKitIOS {
     
-    public static func makeTimeLineVC(feedSlug: String = "timeline", userId: String, isCurrentUser: Bool) -> ActivityFeedViewController {
+    public static func makeTimeLineVC(userId: String, isCurrentUser: Bool) -> ActivityFeedViewController {
+        let feedSlug = isCurrentUser ? "timeline" : "user"
         let timeLineVC = ActivityFeedViewController.fromBundledStoryboard()
         let nav = UINavigationController(rootViewController: timeLineVC)
         let flatFeed = Client.shared.flatFeed(feedSlug: feedSlug, userId: userId)
         let presenter = FlatFeedPresenter<Activity>(flatFeed: flatFeed,
-                                                    reactionTypes: [.comments, .reposts, .likes])
-        if !isCurrentUser {
-            let feedID = FeedId(feedSlug: feedSlug, userId: userId)
-            presenter.follow(toTarget: feedID, { _ in })
-        }
+                                                    reactionTypes: [.likes, .comments])
         timeLineVC.presenter = presenter
 
-        
         return nav.viewControllers.first as! ActivityFeedViewController
     }
     
@@ -78,15 +74,16 @@ public struct StreamFeedUIKitIOS {
     
     public static func registerUser(withToken token: String, userId: String, displayName: String, profileImage: String, completion: @escaping ((Error?) -> Void)) {
         let customUser = User(name: displayName, id: userId)
-        if !profileImage.isEmpty {
-            customUser.avatarURL = URL(string: profileImage)
-        }
         Client.shared.setupUser(customUser, token: token) { result in
             do {
                 let retrivedUser = try result.get()
                 print("BNBN \(retrivedUser.name)")
-                print("BNBN \(retrivedUser.avatarURL)")
                 print("BNBN \(retrivedUser.id)")
+                let currentUser = Client.shared.currentUser as? User
+                if !profileImage.isEmpty {
+                    currentUser?.avatarURL = URL(string: profileImage)!
+                    print("BNBN Avatar \(currentUser?.avatarURL)")
+                }
                 completion(nil)
             }
             catch {
