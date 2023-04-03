@@ -11,7 +11,7 @@ public struct StreamFeedUIKitIOS {
                                                     reactionTypes: [.likes, .comments])
       
         if !isCurrentUser {
-            presenter.follow(toTarget: FeedId(feedSlug: "user", userId: userId)) { error in
+            presenter.follow(toTarget: FeedId(feedSlug: "timeline", userId: userId)) { error in
                 if let error = error {
                     print("BNBN Follow Error \(error.localizedDescription)")
                 }
