@@ -83,11 +83,9 @@ public struct StreamFeedUIKitIOS {
                 print("BNBN \(retrivedUser.name)")
                 print("BNBN \(retrivedUser.id)")
                 let currentUser = Client.shared.currentUser as? User
-                DispatchQueue.main.async {
-                    if !profileImage.isEmpty {
-                        currentUser?.avatarURL = URL(string: profileImage)!
-                        print("BNBN Avatar \(currentUser?.avatarURL)")
-                    }
+                if !profileImage.isEmpty {
+                    currentUser?.avatarURL = URL(string: profileImage)!
+                    print("BNBN Avatar \(currentUser?.avatarURL)")
                 }
                 completion(nil)
             }
