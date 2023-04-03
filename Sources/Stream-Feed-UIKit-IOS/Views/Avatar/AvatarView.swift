@@ -54,11 +54,12 @@ public class AvatarView: UIView {
             return imageView.image
         }
         set {
-            DispatchQueue.main.async { [weak self] in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
                 self?.imageView.contentMode = .scaleAspectFill
                 self?.imageView.image = newValue
                 self?.touchPlaceholder()
             }
+           
         }
     }
     

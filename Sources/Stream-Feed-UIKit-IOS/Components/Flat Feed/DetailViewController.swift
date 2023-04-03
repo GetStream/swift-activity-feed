@@ -437,9 +437,9 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
         cell.likeButton.setTitle(countTitle == 0 ? "" : String(countTitle), for: .normal)
         cell.likeButton.isSelected = comment.hasUserOwnChildReaction(.like)
         
-        cell.likeButton.addTap { [weak self] in
-            if let activityPresenter = self?.activityPresenter, let button = $0 as? LikeButton {
-                button.like(activityPresenter.originalActivity,
+        cell.likeButton.addTap { [weak self] _ in
+            if let activityPresenter = self?.activityPresenter { //, let button = $0 as? LikeButton {
+                cell.likeButton.like(activityPresenter.originalActivity,
                             presenter: activityPresenter.reactionPresenter,
                             likedReaction: comment.userOwnChildReaction(.like),
                             parentReaction: comment,
