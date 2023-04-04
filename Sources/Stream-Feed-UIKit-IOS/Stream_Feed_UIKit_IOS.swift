@@ -3,40 +3,21 @@ import GetStream
 
 public struct StreamFeedUIKitIOS {
     
-    public static func makeTimeLineVC(feedSlug: String, userId: String, isCurrentUser: Bool) -> ActivityFeedViewController {
+    public static func makeTimeLineVC(feedSlug: String, userId: String, profilePictureURL: String?) -> ActivityFeedViewController {
         let timeLineVC = ActivityFeedViewController.fromBundledStoryboard()
+        timeLineVC.profilePictureURL = profilePictureURL
         let nav = UINavigationController(rootViewController: timeLineVC)
         let flatFeed = Client.shared.flatFeed(feedSlug: feedSlug, userId: userId)
         let presenter = FlatFeedPresenter<Activity>(flatFeed: flatFeed,
                                                     reactionTypes: [.likes, .comments])
-      
-        if !isCurrentUser {
-            presenter.follow(toTarget: FeedId(feedSlug: "timeline", userId: userId)) { error in
-                if let error = error {
-                    print("BNBN Follow Error \(error.localizedDescription)")
-                }
-                print("BNBN Follow Success")
-            }
-            
-          let currentUser = Client.shared.currentUser as? User
-          let feedID = FeedId(feedSlug: "user", userId: userId)
-            currentUser?.isFollow(toTarget: feedID, completion: { isFollow, following, error in
-                print("BNBN \(error?.localizedDescription)")
-                print("BNBN isFollow \(isFollow)")
-                print("BNBN isFollowing \(following)")
-                
-            })
-            
-        }
-   
         timeLineVC.presenter = presenter
-
+        
         return nav.viewControllers.first as! ActivityFeedViewController
     }
     
     
     public static func makeEditPostVC() -> UIViewController {
-        guard let userFeedId: FeedId = FeedId(feedSlug: "timeline") else { return UIViewController() }
+        guard let userFeedId: FeedId = FeedId(feedSlug: "user") else { return UIViewController() }
         let editPostViewController = EditPostViewController.fromBundledStoryboard()
         editPostViewController.presenter = EditPostPresenter(flatFeed: Client.shared.flatFeed(userFeedId),
                                                              view: editPostViewController)
@@ -73,9 +54,14 @@ public struct StreamFeedUIKitIOS {
         Client.shared.update(user: customUser) { result in
             do {
                 let retrivedUser = try result.get()
-                print("BNBN Create User \(retrivedUser.name)")
+                print("BNBN Update User \(retrivedUser.name)")
                 print("BNBN \(retrivedUser.avatarURL)")
-                print("BNBN Create User \(retrivedUser.id)")
+                print("BNBN Update User \(retrivedUser.id)")
+                let currentUser = Client.shared.currentUser as? User
+                if !profileImage.isEmpty {
+                    currentUser?.avatarURL = URL(string: profileImage)!
+                    print("BNBN Updated Avatar \(currentUser?.avatarURL)")
+                }
                 completion(nil)
             }
             catch {

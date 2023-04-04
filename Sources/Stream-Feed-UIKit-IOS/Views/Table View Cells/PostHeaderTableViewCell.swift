@@ -62,13 +62,20 @@ open class PostHeaderTableViewCell: BaseTableViewCell {
         }
     }
     
+    public func updateAvatar(with profilePictureURL: String) {
+        let imageURL = URL(string: profilePictureURL)!
+        ImagePipeline.shared.loadImage(with: imageURL.imageRequest(in: avatarButton), completion:  { [weak self] result in
+            self?.updateAvatar(with: try? result.get().image)
+        })
+    }
+
     public func updatePhoto(with url: URL) {
         messageBottomConstraint.priority = .defaultLow
         photoImageView.isHidden = false
         
-        ImagePipeline.shared.loadImage(with: url) { [weak self] result in
+        ImagePipeline.shared.loadImage(with: url, completion:  { [weak self] result in
             self?.photoImageView.image = try? result.get().image
-        }
+        })
     }
 }
 
@@ -110,9 +117,9 @@ extension PostHeaderTableViewCell {
         }
         
         if let avatarURL = avatar.avatarURL {
-            ImagePipeline.shared.loadImage(with: avatarURL.imageRequest(in: avatarButton)) { [weak self] result in
+            ImagePipeline.shared.loadImage(with: avatarURL.imageRequest(in: avatarButton), completion:  { [weak self] result in
                 self?.updateAvatar(with: try? result.get().image)
-            }
+            })
         }
     }
 }

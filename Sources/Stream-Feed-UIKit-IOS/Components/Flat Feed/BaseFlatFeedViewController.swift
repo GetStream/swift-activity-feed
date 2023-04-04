@@ -14,6 +14,8 @@ open class BaseFlatFeedViewController<T: ActivityProtocol>: UIViewController, UI
     where T.ActorType: UserProtocol & UserNameRepresentable & AvatarRepresentable,
           T.ReactionType == GetStream.Reaction<ReactionExtraData, T.ActorType> {
     
+    public var onPostUpdate: (() -> Void)?
+    
     /// A table view of the flat feed.
     public private(set) lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)

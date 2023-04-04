@@ -54,7 +54,7 @@ public class AvatarView: UIView {
             return imageView.image
         }
         set {
-            //imageView.contentMode = .scaleAspectFill
+            imageView.contentMode = .scaleAspectFill
             imageView.image = newValue
             touchPlaceholder()
         }

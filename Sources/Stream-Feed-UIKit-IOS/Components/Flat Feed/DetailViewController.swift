@@ -67,6 +67,8 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
     /// Show the section title even if it's empty.
     public var showZeroSectionTitle = true
     
+    public var profilePictureURL: String?
+    
     /// An activity presenter. See `ActivityPresenter`.
     public var activityPresenter: ActivityPresenter<T>? {
         didSet {
@@ -248,7 +250,9 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
             
             if section.section == .activity, let cell = tableView.postCell(at: indexPath, presenter: activityPresenter) {
                 if let cell = cell as? PostHeaderTableViewCell {
-                    updateAvatar(in: cell, activity: activityPresenter.originalActivity)
+                    if profilePictureURL != nil {
+                        cell.updateAvatar(with: profilePictureURL ?? "")
+                    }
                 }
                 
                 if let cell = cell as? PostActionsTableViewCell {
