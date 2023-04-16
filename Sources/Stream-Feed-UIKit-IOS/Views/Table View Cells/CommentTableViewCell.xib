@@ -31,10 +31,10 @@
                         </userDefinedRuntimeAttributes>
                     </imageView>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="hfV-iQ-bwJ">
-                        <rect key="frame" x="54" y="11" width="225" height="100"/>
+                        <rect key="frame" x="54" y="11" width="240.5" height="100"/>
                         <subviews>
                             <label userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gaC-2d-zYq">
-                                <rect key="frame" x="0.0" y="0.0" width="225" height="78"/>
+                                <rect key="frame" x="0.0" y="0.0" width="240.5" height="78"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <attributedString key="attributedText">
                                     <fragment content="TheBat LOL! I bet he thinks this is great. 2 mins">
@@ -48,7 +48,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="1Qu-57-rmG">
-                                <rect key="frame" x="0.0" y="82" width="225" height="18"/>
+                                <rect key="frame" x="0.0" y="82" width="240.5" height="18"/>
                                 <subviews>
                                     <imageView opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="reply_icon" translatesAutoresizingMaskIntoConstraints="NO" id="NgK-zH-tEv">
                                         <rect key="frame" x="0.0" y="0.0" width="25" height="18"/>
@@ -59,7 +59,7 @@
                                         </constraints>
                                     </imageView>
                                     <label userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4 more replies" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="riN-Gu-lx4">
-                                        <rect key="frame" x="29" y="2" width="196" height="14.5"/>
+                                        <rect key="frame" x="29" y="2" width="211.5" height="14.5"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -73,10 +73,10 @@
                         </subviews>
                     </stackView>
                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="YJe-Ln-RFC">
-                        <rect key="frame" x="279" y="11" width="80" height="30"/>
+                        <rect key="frame" x="294.5" y="11" width="64.5" height="30"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pcu-27-34M">
-                                <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pcu-27-34M">
+                                <rect key="frame" x="-30" y="0.0" width="30" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="30" id="l61-rY-iSB"/>
                                     <constraint firstAttribute="height" constant="30" id="s0G-6N-pVM"/>
@@ -85,7 +85,7 @@
                                 <state key="normal" image="reply_icon"/>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Fy-LO-AKF" customClass="LikeButton" customModule="GetStreamActivityFeed">
-                                <rect key="frame" x="30" y="0.0" width="50" height="30"/>
+                                <rect key="frame" x="0.0" y="0.0" width="64.5" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="bE2-fJ-VBl"/>
                                 </constraints>
@@ -93,11 +93,11 @@
                                 <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <inset key="imageEdgeInsets" minX="-8" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <state key="normal" title="11" image="love_gray_icon">
+                                <state key="normal" title="11" image="like-disabled">
                                     <color key="titleColor" red="0.43529412150000002" green="0.4431372583" blue="0.47450980539999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
-                                <state key="selected" image="love_icon"/>
-                                <state key="highlighted" image="love_icon"/>
+                                <state key="selected" image="like-enabled"/>
+                                <state key="highlighted" image="like-enabled"/>
                             </button>
                         </subviews>
                         <constraints>
@@ -129,9 +129,14 @@
             <point key="canvasLocation" x="-95.200000000000003" y="61.169415292353825"/>
         </tableViewCell>
     </objects>
+    <designables>
+        <designable name="5Fy-LO-AKF">
+            <size key="intrinsicContentSize" width="44" height="22"/>
+        </designable>
+    </designables>
     <resources>
-        <image name="love_gray_icon" width="18" height="16"/>
-        <image name="love_icon" width="17" height="15"/>
+        <image name="like-disabled" width="24" height="22"/>
+        <image name="like-enabled" width="22" height="20"/>
         <image name="reply_icon" width="19" height="14"/>
         <image name="user_icon" width="24" height="24"/>
     </resources>

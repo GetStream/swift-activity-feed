@@ -26,7 +26,9 @@ open class FlatFeedViewController<T: ActivityProtocol>: BaseFlatFeedViewControll
     /// A block for the removing of an action.
     public var removeActivityAction: RemoveActivityAction?
     
-    public var profilePictureURL: String?
+    let currentUser = Client.shared.currentUser as? User
+    public lazy var profilePictureURL: String? = currentUser?.avatarURL?.absoluteString
+    public var isCurrentUserTimeline: Bool = false
     
     open override func viewDidLoad() {
         super.viewDidLoad()
@@ -91,12 +93,32 @@ open class FlatFeedViewController<T: ActivityProtocol>: BaseFlatFeedViewControll
         
         if let cell = cell as? PostHeaderTableViewCell {
             if profilePictureURL != nil {
+                profilePictureURL = currentUser?.avatarURL?.absoluteString
+                cell.setActivity(with: activityPresenter.originalActivity.id,isCurrentUserTimeLine: isCurrentUserTimeline)
+                cell.removePostTapped = { [weak self] activityId in
+                    self?.removePostConfirmation(activityId: activityId)
+                }
                 cell.updateAvatar(with: profilePictureURL ?? "")
             }
         } else if let cell = cell as? PostActionsTableViewCell {
-            updateActions(in: cell, activityPresenter: activityPresenter)
+           updateActions(in: cell, activityPresenter: activityPresenter)
         }
         return cell
+    }
+    
+    private func removePostConfirmation(activityId: String) {
+        let removePostAction: AlertAction = ("Delete Post", .destructive, { [weak self] in
+            guard let self = self else { return }
+            print("BNBN Remove Post Tapped \(activityId)")
+            guard let activity = self.presenter?.items.filter({ $0.originalActivity.id == activityId }).first else { return }
+            self.presenter?.remove(activity: activity.activity as! Activity, { error in
+                print("BNBN remove Error: \(error?.localizedDescription)")
+            })
+        }, true)
+
+        let cancelAction: AlertAction = ("Cancel", .cancel, {}, true)
+        
+        self.alertWithAction(title: "Post Options", message: "", alertStyle: .actionSheet, tintColor: nil, actions: [removePostAction, cancelAction])
     }
     
     open override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

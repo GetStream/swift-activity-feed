@@ -20,6 +20,10 @@ open class PostHeaderTableViewCell: BaseTableViewCell {
     @IBOutlet public weak var messageLabel: UILabel!
     @IBOutlet private weak var messageBottomConstraint: NSLayoutConstraint!
     @IBOutlet private weak var photoImageView: UIImageView!
+    @IBOutlet public weak var removePostButton: UIButton!
+    
+    var activityID: String = ""
+    var removePostTapped: ((String) -> Void)?
     
     public var repost: String? {
         get {
@@ -50,6 +54,11 @@ open class PostHeaderTableViewCell: BaseTableViewCell {
         photoImageView.isHidden = true
     }
     
+    public func setActivity(with activityID: String, isCurrentUserTimeLine: Bool) {
+        self.activityID = activityID
+        self.removePostButton.isHidden = !isCurrentUserTimeLine
+    }
+    
     public func updateAvatar(with image: UIImage?) {
         if let image = image {
             avatarButton.setImage(image, for: .normal)
@@ -60,6 +69,7 @@ open class PostHeaderTableViewCell: BaseTableViewCell {
             avatarButton.contentHorizontalAlignment = .center
             avatarButton.contentVerticalAlignment = .center
         }
+        avatarButton.imageView?.contentMode = .scaleAspectFill
     }
     
     public func updateAvatar(with profilePictureURL: String) {
@@ -76,6 +86,10 @@ open class PostHeaderTableViewCell: BaseTableViewCell {
         ImagePipeline.shared.loadImage(with: url, completion:  { [weak self] result in
             self?.photoImageView.image = try? result.get().image
         })
+    }
+    
+    @IBAction func removePost(_ sender: UIButton) {
+       removePostTapped?(activityID)
     }
 }
 

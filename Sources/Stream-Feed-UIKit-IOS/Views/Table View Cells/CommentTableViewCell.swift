@@ -43,7 +43,7 @@ open class CommentTableViewCell: BaseTableViewCell {
         commentLabel.attributedText = nil
         replyButton.removeTap()
         replyButton.isSelected = false
-        replyButton.isHidden = false
+        replyButton.isHidden = true
         likeButton.removeTap()
         likeButton.isSelected = false
         likeButton.isHidden = false

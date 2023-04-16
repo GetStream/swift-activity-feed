@@ -16,9 +16,9 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/camelan/stream-swift", .upToNextMajor(from: "1.0.0")),
-        .package(url: "https://github.com/kean/Nuke", .upToNextMajor(from: "8.1.0")),
-        .package(url: "https://github.com/AliSoftware/Reusable.git", .upToNextMajor(from: "4.1.0")),
-        .package(url: "https://github.com/SnapKit/SnapKit", .upToNextMajor(from: "5.0.0")),
+        .package(url: "https://github.com/kean/Nuke", .upToNextMajor(from: "9.4.0")),
+        .package(url: "https://github.com/AliSoftware/Reusable.git", .upToNextMajor(from: "4.1.2")),
+        .package(url: "https://github.com/SnapKit/SnapKit", .upToNextMajor(from: "5.6.0")),
     ],
     targets: [
           .target(

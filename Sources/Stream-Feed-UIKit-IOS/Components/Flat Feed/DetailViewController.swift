@@ -67,7 +67,12 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
     /// Show the section title even if it's empty.
     public var showZeroSectionTitle = true
     
-    public var profilePictureURL: String?
+    let currentUser = Client.shared.currentUser as? User
+    public lazy var profilePictureURL: String? = currentUser?.avatarURL?.absoluteString
+    
+    public var isCurrentUserTimeline: Bool = false
+    public var presenter: FlatFeedPresenter<T>?
+    
     
     /// An activity presenter. See `ActivityPresenter`.
     public var activityPresenter: ActivityPresenter<T>? {
@@ -106,6 +111,27 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
         if isModal {
             setupNavigationBarForModallyPresented()
         }
+        
+       keyboardBinding()
+    }
+    
+    private func keyboardBinding(){
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            if let bottomConstraint = tableView.constraints.first(where: { $0.secondAnchor == tableView.bottomAnchor }) {
+                bottomConstraint.constant -= keyboardSize.height - self.view.safeAreaInset.bottom
+            }
+        }
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if let bottomConstraint = tableView.constraints.first(where: { $0.secondAnchor == tableView.bottomAnchor }) {
+            bottomConstraint.constant = 0
+        }
     }
     
     private func updateSectionsIndex() {
@@ -121,7 +147,7 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
             sectionsData.append(DetailViewControllerSection(section: .activity,
                                                             title: nil,
                                                             count: activityPresenter.cellsCount - 1))
-        }
+        } 
         
         if sections.contains(.likes), (originalActivity.likesCount > 0 || showZeroSectionTitle) {
             let title = sectionTitle(for: .likes)
@@ -140,6 +166,25 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
         }
         
         self.sectionsData = sectionsData
+    }
+    
+    private func removePostConfirmation(activityId: String) {
+        let removePostAction: AlertAction = ("Delete Post", .destructive, { [weak self] in
+            guard let self = self else { return }
+            print("BNBN Remove Post Tapped \(activityId)")
+            guard let activity = self.presenter?.items.filter({ $0.originalActivity.id == activityId }).first else { return }
+            self.presenter?.remove(activity: activity.activity as! Activity, { error in
+                DispatchQueue.main.async { [weak self] in
+                    self?.navigationController?.popViewController(animated: true)
+                }
+                
+                print("BNBN remove Error: \(error?.localizedDescription)")
+            })
+        }, true)
+
+        let cancelAction: AlertAction = ("Cancel", .cancel, {}, true)
+        
+        self.alertWithAction(title: "Post Options", message: "", alertStyle: .actionSheet, tintColor: nil, actions: [removePostAction, cancelAction])
     }
     
     private func reloadComments() {
@@ -250,7 +295,12 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
             
             if section.section == .activity, let cell = tableView.postCell(at: indexPath, presenter: activityPresenter) {
                 if let cell = cell as? PostHeaderTableViewCell {
+                    profilePictureURL = currentUser?.avatarURL?.absoluteString
                     if profilePictureURL != nil {
+                        cell.setActivity(with: activityPresenter.originalActivity.id,isCurrentUserTimeLine: isCurrentUserTimeline)
+                        cell.removePostTapped = { [weak self] activityId in
+                            self?.removePostConfirmation(activityId: activityId)
+                        }
                         cell.updateAvatar(with: profilePictureURL ?? "")
                     }
                 }
@@ -324,7 +374,6 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
     open func moreCommentsTitle(with count: Int) -> String {
         return "\(count) more replies"
     }
-    
     // MARK: - Table View - Select Cell
     
     open func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
@@ -470,10 +519,12 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
         tableView.snp.makeConstraints { $0.bottom.equalTo(textToolBar.snp.top) }
         textToolBar.showAvatar = true
         textToolBar.avatarView.image = avatarImage
-        textToolBar.sendButton.addTarget(self, action: #selector(send(_:)), for: .touchUpInside)
+        textToolBar.sendButton.addTarget(self, action: #selector(send(_:)), for: .touchUpOutside)
     }
     
+    
     @objc func send(_ button: UIButton) {
+        print("BNBN \(button.allControlEvents)")
         let parentReaction = textToolBar.replyText == nil ? nil : replyToComment
         view.endEditing(true)
         

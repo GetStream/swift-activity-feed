@@ -138,9 +138,9 @@ public final class TextToolBar: UIView {
     public private(set) lazy var sendButton: UIButton = {
         let button = UIButton(frame: .zero)
         button.setTitle(sendTitle, for: .normal)
-        button.setTitleColor(Appearance.Color.blue, for: .normal)
+        button.setTitleColor(Appearance.Color.gray, for: .normal)
         button.setTitleColor(.lightGray, for: .disabled)
-        button.titleLabel?.font = .systemFont(ofSize: 15, weight: .medium)
+        button.titleLabel?.font = .systemFont(ofSize: 16, weight: .medium)
         button.backgroundColor = backgroundColor
         return button
     }()
@@ -298,15 +298,15 @@ public final class TextToolBar: UIView {
         addSubview(stackView)
         stackView.snp.makeConstraints { $0.edges.equalToSuperview() }
         
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(keyboardUpdated(_:)),
-                                               name: UIResponder.keyboardWillChangeFrameNotification,
-                                               object: nil)
-        
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(keyboardUpdated(_:)),
-                                               name: UIResponder.keyboardWillHideNotification,
-                                               object: nil)
+//        NotificationCenter.default.addObserver(self,
+//                                               selector: #selector(keyboardUpdated(_:)),
+//                                               name: UIResponder.keyboardWillChangeFrameNotification,
+//                                               object: nil)
+//
+//        NotificationCenter.default.addObserver(self,
+//                                               selector: #selector(keyboardUpdated(_:)),
+//                                               name: UIResponder.keyboardWillHideNotification,
+//                                               object: nil)
     }
     
     /// Add the `TextToolBar` to a view container.
@@ -384,6 +384,7 @@ public final class TextToolBar: UIView {
         }
         
         container.isHidden = !textView.isFirstResponder
+        container.didMoveToSuperview()
         
         if !container.isHidden {
             sendButton.setTitle(isValidContent ? sendTitle : cancelTitle, for: .normal)

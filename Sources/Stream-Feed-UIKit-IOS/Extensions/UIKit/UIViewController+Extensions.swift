@@ -10,6 +10,7 @@ import UIKit
 import SnapKit
 
 // MARK: - Child View Controllers
+typealias AlertAction = (title: String, style: UIAlertAction.Style, action: () -> Void, isEnabled: Bool?)
 
 extension UIViewController {
     
@@ -42,6 +43,52 @@ extension UIViewController {
     private func addChildViewControllerViewToContainerView(containerView: UIView, childView: UIView) {
         containerView.addSubview(childView)
     }
+    
+    func hideKeyboardWhenTappedAround() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+
+    @objc func dismissKeyboard() {
+        UIApplication.shared.windows.filter{$0.isKeyWindow}.first?.endEditing(true)
+    }
+    
+    func alertWithAction(title: String?,
+                         message: String?,
+                         alertStyle: UIAlertController.Style,
+                         tintColor: UIColor?,
+                         actions: [AlertAction]) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: alertStyle)
+        actions.map { action in
+                let alertAction = UIAlertAction(title: action.title, style: action.style, handler: { (_) in
+                    action.action()
+                })
+            alertAction.isEnabled = action.isEnabled ?? true
+            return alertAction
+            }.forEach {
+                alert.addAction($0)
+            }
+
+        if alertStyle == .actionSheet {
+            alert.view.superview?.isUserInteractionEnabled = true
+            alert.view.superview?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.alertControllerBackgroundTapped)))
+        }
+        if let tintColor = tintColor {
+            alert.view.tintColor = tintColor
+        }
+        if var topController = UIApplication.shared.keyWindow?.rootViewController  {
+        while let presentedViewController = topController.presentedViewController {
+              topController = presentedViewController
+             }
+             topController.present(alert, animated: true)
+        }
+
+    }
+    
+    @objc private func alertControllerBackgroundTapped() {
+        self.dismiss(animated: true, completion: nil)
+    }
 }
 
 extension UIView {
@@ -51,6 +98,39 @@ extension UIView {
         childViewController.view.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
+    }
+    
+    var safeAreaInset: UIEdgeInsets {
+        if let window = UIApplication.shared.windows.filter({($0.isKeyWindow)}).first {
+            return window.safeAreaInsets
+        }
+        return self.safeAreaInsets
+    }
+    
+    func bindToKeyboard(){
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        self.frame.origin.y = 0
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            self.frame.origin.y -= keyboardSize.height - self.safeAreaInset.bottom
+        }
+    }
+
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if self.frame.origin.y != 0 {
+            self.frame.origin.y = 0
+        }
+    }
+    
+    func removeBindToKeyboard() {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    @objc func dismissKeyboardOnTap() {
+        self.endEditing(true)
     }
 }
 

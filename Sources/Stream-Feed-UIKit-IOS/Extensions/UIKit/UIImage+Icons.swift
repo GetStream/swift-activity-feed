@@ -24,9 +24,9 @@ extension UIImage {
     /// A reply icon.
     public static let replyIcon = stream(named: "reply_icon")
     /// An unselected like icon.
-    public static let likeInactiveIcon = stream(named: "love_gray_icon")
+    public static let likeInactiveIcon = stream(named: "like-disabled")
     /// A selected like icon.
-    public static let likeIcon = stream(named: "love_icon")
+    public static let likeIcon = stream(named: "like-enabled")
     /// A repost icon.
     public static let repostIcon = stream(named: "repost_icon")
     

@@ -11,7 +11,6 @@ import Reusable
 import GetStream
 
 open class PostActionsTableViewCell: UITableViewCell, NibReusable {
-    
     @IBOutlet public weak var replyButton: UIButton!
     @IBOutlet public weak var repostButton: RepostButton!
     @IBOutlet public weak var likeButton: LikeButton!
@@ -48,7 +47,6 @@ open class PostActionsTableViewCell: UITableViewCell, NibReusable {
 // MARK: - Update with Activity
 
 extension PostActionsTableViewCell {
-    
     public func updateReply(commentsCount: Int, action: UIControl.Action? = nil) {
         if let action = action {
             replyButton.addTap(action)

@@ -17,6 +17,8 @@ public final class EditPostViewController: UIViewController, BundledStoryboardLo
     @IBOutlet weak var saveBarButtonItem: UIBarButtonItem!
     @IBOutlet weak var activityIndicatorBarButtonItem: UIBarButtonItem!
     let activityIndicator = UIActivityIndicatorView(style: .gray)
+    @IBOutlet weak var galleryStackView: UIStackView!
+    @IBOutlet weak var galleryStackViewBottomConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var avatarView: AvatarView!
     @IBOutlet weak var textView: UITextView!
@@ -33,6 +35,29 @@ public final class EditPostViewController: UIViewController, BundledStoryboardLo
         setupTableView()
         setupCollectionView()
         activityIndicatorBarButtonItem.customView = activityIndicator
+        hideKeyboardWhenTappedAround()
+        keyboardBinding()
+    }
+    
+    private func keyboardBinding(){
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            galleryStackViewBottomConstraint.constant -= keyboardSize.height - self.view.safeAreaInset.bottom
+        }
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        galleryStackViewBottomConstraint.constant = 0
+    }
+    
+    public override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        galleryStackView.removeBindToKeyboard()
     }
     
     @IBAction func close(_ sender: Any) {

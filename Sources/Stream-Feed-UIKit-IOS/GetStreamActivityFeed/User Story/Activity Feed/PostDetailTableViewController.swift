@@ -17,6 +17,7 @@ class PostDetailTableViewController: DetailViewController<Activity> {
         navigationController?.setNavigationBarHidden(false, animated: true)
         navigationController?.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         hideBackButtonTitle()
+        hideKeyboardWhenTappedAround()
     }
 }
 

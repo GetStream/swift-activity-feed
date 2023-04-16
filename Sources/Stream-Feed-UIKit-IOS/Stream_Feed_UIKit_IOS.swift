@@ -3,9 +3,9 @@ import GetStream
 
 public struct StreamFeedUIKitIOS {
     
-    public static func makeTimeLineVC(feedSlug: String, userId: String, profilePictureURL: String?) -> ActivityFeedViewController {
+    public static func makeTimeLineVC(feedSlug: String, userId: String, isCurrentUserTimeline: Bool) -> ActivityFeedViewController {
         let timeLineVC = ActivityFeedViewController.fromBundledStoryboard()
-        timeLineVC.profilePictureURL = profilePictureURL
+        timeLineVC.isCurrentUserTimeline = isCurrentUserTimeline
         let nav = UINavigationController(rootViewController: timeLineVC)
         let flatFeed = Client.shared.flatFeed(feedSlug: feedSlug, userId: userId)
         let presenter = FlatFeedPresenter<Activity>(flatFeed: flatFeed,
