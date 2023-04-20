@@ -1,0 +1,167 @@
+{
+  "pins" : [
+    {
+      "identity" : "alamofire",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Alamofire/Alamofire.git",
+      "state" : {
+        "revision" : "78424be314842833c04bc3bef5b72e85fff99204",
+        "version" : "5.6.4"
+      }
+    },
+    {
+      "identity" : "logger",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/shibapm/Logger",
+      "state" : {
+        "revision" : "53c3ecca5abe8cf46697e33901ee774236d94cce",
+        "version" : "0.2.3"
+      }
+    },
+    {
+      "identity" : "moya",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Moya/Moya.git",
+      "state" : {
+        "revision" : "d27767c3624cc64a45bb371b267b89c92d70c670",
+        "version" : "14.0.1"
+      }
+    },
+    {
+      "identity" : "nimble",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Quick/Nimble",
+      "state" : {
+        "revision" : "7a46a5fc86cb917f69e3daf79fcb045283d8f008",
+        "version" : "8.1.2"
+      }
+    },
+    {
+      "identity" : "nuke",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/kean/Nuke",
+      "state" : {
+        "revision" : "7f73ceaeacd5df75a7994cd82e165ad9ff1815db",
+        "version" : "9.6.1"
+      }
+    },
+    {
+      "identity" : "ohhttpstubs",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/AliSoftware/OHHTTPStubs.git",
+      "state" : {
+        "revision" : "12f19662426d0434d6c330c6974d53e2eb10ecd9",
+        "version" : "9.1.0"
+      }
+    },
+    {
+      "identity" : "packageconfig",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/shibapm/PackageConfig.git",
+      "state" : {
+        "revision" : "58523193c26fb821ed1720dcd8a21009055c7cdb",
+        "version" : "1.1.3"
+      }
+    },
+    {
+      "identity" : "quick",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Quick/Quick",
+      "state" : {
+        "revision" : "09b3becb37cb2163919a3842a4c5fa6ec7130792",
+        "version" : "2.2.1"
+      }
+    },
+    {
+      "identity" : "reactiveswift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Moya/ReactiveSwift.git",
+      "state" : {
+        "revision" : "f195d82bb30e412e70446e2b4a77e1b514099e88",
+        "version" : "6.1.0"
+      }
+    },
+    {
+      "identity" : "reusable",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/AliSoftware/Reusable.git",
+      "state" : {
+        "revision" : "18674709421360e210c2ecd4e8e08b217d4ea61d",
+        "version" : "4.1.2"
+      }
+    },
+    {
+      "identity" : "rocket",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/shibapm/Rocket",
+      "state" : {
+        "revision" : "32af356776108ee7289884874a0eb63ceacb9e5d",
+        "version" : "1.3.0"
+      }
+    },
+    {
+      "identity" : "rxswift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ReactiveX/RxSwift.git",
+      "state" : {
+        "revision" : "cec68169a048a079f461ba203fe85636548d7a89",
+        "version" : "5.1.3"
+      }
+    },
+    {
+      "identity" : "snapkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SnapKit/SnapKit",
+      "state" : {
+        "revision" : "f222cbdf325885926566172f6f5f06af95473158",
+        "version" : "5.6.0"
+      }
+    },
+    {
+      "identity" : "starscream",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/daltoniam/Starscream.git",
+      "state" : {
+        "revision" : "df8d82047f6654d8e4b655d1b1525c64e1059d21",
+        "version" : "4.0.4"
+      }
+    },
+    {
+      "identity" : "stream-swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/camelan/stream-swift",
+      "state" : {
+        "revision" : "f43d84cf97f3397201c18b83aa2f211c30ec39d8",
+        "version" : "1.0.3"
+      }
+    },
+    {
+      "identity" : "swiftshell",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/kareman/SwiftShell",
+      "state" : {
+        "revision" : "99680b2efc7c7dbcace1da0b3979d266f02e213c",
+        "version" : "5.1.0"
+      }
+    },
+    {
+      "identity" : "swime",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/camelan/Swime",
+      "state" : {
+        "revision" : "2de2e8c2bc71f8f8c93e06ea261fce8ce92edecf",
+        "version" : "3.1.1"
+      }
+    },
+    {
+      "identity" : "yams",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/jpsim/Yams",
+      "state" : {
+        "revision" : "f47ba4838c30dbd59998a4e4c87ab620ff959e8a",
+        "version" : "5.0.5"
+      }
+    }
+  ],
+  "version" : 2
+}
