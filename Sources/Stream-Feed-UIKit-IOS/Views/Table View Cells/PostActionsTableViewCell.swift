@@ -39,8 +39,10 @@ open class PostActionsTableViewCell: UITableViewCell, NibReusable {
         repostButton.isEnabled = true
         likeButton.isEnabled = true
         replyButton.isHidden = true
+        replyButton.semanticContentAttribute = .forceLeftToRight
         repostButton.isHidden = true
         likeButton.isHidden = true
+        likeButton.semanticContentAttribute = .forceLeftToRight
     }
 }
 

@@ -93,6 +93,7 @@ public final class ActivityFeedViewController: FlatFeedViewController<Activity>,
             let activityPresenter = sender as? ActivityPresenter<Activity> else {
                 return
         }
+        activityDetailTableViewController.profilePictureURL = profilePictureURL
         activityDetailTableViewController.isCurrentUserTimeline = isCurrentUserTimeline
         activityDetailTableViewController.presenter = presenter
         activityDetailTableViewController.activityPresenter = activityPresenter

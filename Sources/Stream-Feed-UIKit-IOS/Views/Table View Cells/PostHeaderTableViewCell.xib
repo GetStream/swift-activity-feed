@@ -94,12 +94,23 @@
                             <action selector="removePost:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Awc-3l-ccV"/>
                         </connections>
                     </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jj7-32-SZg">
+                        <rect key="frame" x="0.0" y="122" width="375" height="320"/>
+                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                        <connections>
+                            <action selector="photoImageTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="94b-ws-geg"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="TUl-zR-7tp" firstAttribute="leading" secondItem="S86-6T-t2E" secondAttribute="trailing" constant="8" id="0DS-xr-uFR"/>
                     <constraint firstItem="Mbn-bb-JtW" firstAttribute="top" secondItem="S86-6T-t2E" secondAttribute="bottom" constant="10" id="3Ms-Sa-Gip"/>
+                    <constraint firstItem="jj7-32-SZg" firstAttribute="trailing" secondItem="Pi4-xh-ICN" secondAttribute="trailing" id="43V-xO-AqI"/>
+                    <constraint firstItem="jj7-32-SZg" firstAttribute="leading" secondItem="Pi4-xh-ICN" secondAttribute="leading" id="5Sf-KC-XkT"/>
+                    <constraint firstItem="jj7-32-SZg" firstAttribute="bottom" secondItem="Pi4-xh-ICN" secondAttribute="bottom" id="CVE-Mu-ZJP"/>
                     <constraint firstItem="S86-6T-t2E" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="D1h-s1-jMO"/>
                     <constraint firstItem="TUl-zR-7tp" firstAttribute="centerY" secondItem="S86-6T-t2E" secondAttribute="centerY" id="Ftu-oa-kNB"/>
+                    <constraint firstItem="jj7-32-SZg" firstAttribute="top" secondItem="Pi4-xh-ICN" secondAttribute="top" id="Iio-Vf-VZm"/>
                     <constraint firstAttribute="trailing" secondItem="Mbn-bb-JtW" secondAttribute="trailing" constant="16" id="J9P-h0-Usx"/>
                     <constraint firstItem="S86-6T-t2E" firstAttribute="leading" secondItem="Kjh-KD-aLe" secondAttribute="trailing" constant="16" id="WOK-gi-gaD"/>
                     <constraint firstAttribute="bottom" secondItem="Pi4-xh-ICN" secondAttribute="bottom" priority="750" constant="8" id="Xhy-AB-TtM"/>

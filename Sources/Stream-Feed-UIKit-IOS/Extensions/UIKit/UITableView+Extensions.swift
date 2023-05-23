@@ -33,7 +33,7 @@ extension UITableView {
     /// - Parameters:
     ///     - indexPath: the index path of the requested cell.
     ///     - presenter: the `ActivityPresenter` for the requested cell.
-    public func postCell<T: ActivityProtocol>(at indexPath: IndexPath, presenter: ActivityPresenter<T>) -> UITableViewCell?
+    public func postCell<T: ActivityProtocol>(at indexPath: IndexPath, presenter: ActivityPresenter<T>, imagesTappedAction: (([URL]) -> ())? = nil) -> UITableViewCell?
         where T.ActorType: UserNameRepresentable, T.ReactionType: ReactionProtocol {
             guard let cellType = presenter.cellType(at: indexPath.row) else {
                 return nil
@@ -47,6 +47,9 @@ extension UITableView {
             case .attachmentImages(let urls):
                 let cell = dequeueReusableCell(for: indexPath) as PostAttachmentImagesTableViewCell
                 cell.stackView.loadImages(with: urls)
+                cell.imagesTapped = {
+                    imagesTappedAction?(urls)
+                }
                 return cell
             case .attachmentOpenGraphData(let ogData):
                 let cell = dequeueReusableCell(for: indexPath) as OpenGraphTableViewCell

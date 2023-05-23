@@ -44,9 +44,11 @@ open class CommentTableViewCell: BaseTableViewCell {
         replyButton.removeTap()
         replyButton.isSelected = false
         replyButton.isHidden = true
+        replyButton.semanticContentAttribute = .forceLeftToRight
         likeButton.removeTap()
         likeButton.isSelected = false
         likeButton.isHidden = false
+        likeButton.semanticContentAttribute = .forceLeftToRight
         withIndent = false
         moreReplies = ""
     }

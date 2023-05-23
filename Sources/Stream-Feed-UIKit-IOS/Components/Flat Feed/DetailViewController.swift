@@ -171,20 +171,17 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
     private func removePostConfirmation(activityId: String) {
         let removePostAction: AlertAction = ("Delete Post", .destructive, { [weak self] in
             guard let self = self else { return }
-            print("BNBN Remove Post Tapped \(activityId)")
             guard let activity = self.presenter?.items.filter({ $0.originalActivity.id == activityId }).first else { return }
             self.presenter?.remove(activity: activity.activity as! Activity, { error in
                 DispatchQueue.main.async { [weak self] in
                     self?.navigationController?.popViewController(animated: true)
                 }
-                
-                print("BNBN remove Error: \(error?.localizedDescription)")
             })
         }, true)
 
         let cancelAction: AlertAction = ("Cancel", .cancel, {}, true)
         
-        self.alertWithAction(title: "Post Options", message: "", alertStyle: .actionSheet, tintColor: nil, actions: [removePostAction, cancelAction])
+        self.alertWithAction(title: nil, message: nil, alertStyle: .actionSheet, tintColor: nil, actions: [removePostAction, cancelAction])
     }
     
     private func reloadComments() {
@@ -293,13 +290,17 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
         if indexPath.section < sectionsData.count {
             let section = sectionsData[indexPath.section]
             
-            if section.section == .activity, let cell = tableView.postCell(at: indexPath, presenter: activityPresenter) {
+            if section.section == .activity, let cell = tableView.postCell(at: indexPath, presenter: activityPresenter, imagesTappedAction: { [weak self] imageURLs in
+                self?.showImageGallery(with: imageURLs)
+            }) {
                 if let cell = cell as? PostHeaderTableViewCell {
-                    profilePictureURL = currentUser?.avatarURL?.absoluteString
-                    if profilePictureURL != nil {
+                     if profilePictureURL != nil {
                         cell.setActivity(with: activityPresenter.originalActivity.id,isCurrentUserTimeLine: isCurrentUserTimeline)
                         cell.removePostTapped = { [weak self] activityId in
                             self?.removePostConfirmation(activityId: activityId)
+                        }
+                        cell.photoImageTapped = { [weak self] imageURL in
+                            self?.showImageGallery(with: [imageURL])
                         }
                         cell.updateAvatar(with: profilePictureURL ?? "")
                     }
@@ -474,6 +475,7 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
         }
         
         cell.updateComment(name: comment.user.name, comment: text, date: comment.created)
+        dump(comment.user)
         comment.user.loadAvatar { [weak cell] in cell?.avatarImageView?.image = $0 }
         
         // Reply button.
@@ -524,9 +526,8 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
     
     
     @objc func send(_ button: UIButton) {
-        print("BNBN \(button.allControlEvents)")
         let parentReaction = textToolBar.replyText == nil ? nil : replyToComment
-        view.endEditing(true)
+        
         
         guard textToolBar.isValidContent, let activityPresenter = activityPresenter else {
             return

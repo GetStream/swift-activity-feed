@@ -16,11 +16,13 @@ public final class EditPostViewController: UIViewController, BundledStoryboardLo
     
     @IBOutlet weak var saveBarButtonItem: UIBarButtonItem!
     @IBOutlet weak var activityIndicatorBarButtonItem: UIBarButtonItem!
-    let activityIndicator = UIActivityIndicatorView(style: .gray)
+    let activityIndicator = UIActivityIndicatorView(style: .medium)
     @IBOutlet weak var galleryStackView: UIStackView!
+    @IBOutlet weak var uploadImageStackView: UIStackView!
     @IBOutlet weak var galleryStackViewBottomConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var avatarView: AvatarView!
+    @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var collectionView: UICollectionView!
@@ -30,7 +32,7 @@ public final class EditPostViewController: UIViewController, BundledStoryboardLo
     
     public override func viewDidLoad() {
         super.viewDidLoad()
-        loadAvatar()
+        setupUserData()
         setupTextView()
         setupTableView()
         setupCollectionView()
@@ -46,17 +48,19 @@ public final class EditPostViewController: UIViewController, BundledStoryboardLo
     
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            collectionView.isHidden = true
             galleryStackViewBottomConstraint.constant -= keyboardSize.height - self.view.safeAreaInset.bottom
         }
     }
     
     @objc func keyboardWillHide(notification: NSNotification) {
+        collectionView.isHidden = false
         galleryStackViewBottomConstraint.constant = 0
     }
     
     public override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
+        collectionView.isHidden = false
         galleryStackView.removeBindToKeyboard()
     }
     
@@ -87,16 +91,31 @@ public final class EditPostViewController: UIViewController, BundledStoryboardLo
     }
     
     @IBAction func addImage(_ sender: Any) {
-        view.endEditing(true)
-        
-        pickImage(title: "Add a photo") { [weak self] info, status, _ in
-            if let image = info[.originalImage] as? UIImage {
-                self?.presenter?.images.insert(image, at: 0)
-                self?.updateCollectionView()
-            } else if status != .authorized {
-                print("❌ Photos authorization status: ", status)
+        addImageAction()
+    }
+    
+    @IBAction func addImageTextTapped(_ sender: Any) {
+        addImageAction()
+    }
+    
+    private func addImageAction() {
+            view.endEditing(true)
+            
+            pickImage(title: "Add a photo") { [weak self] info, status, _ in
+                guard let self else { return }
+                if let image = info[.originalImage] as? UIImage {
+                    self.presenter?.images.insert(image, at: 0)
+                    self.updateCollectionView()
+                    self.checkUploadedImageLimit()
+                } else if status != .authorized {
+                    print("❌ Photos authorization status: ", status)
+                }
             }
-        }
+    }
+    private func checkUploadedImageLimit() {
+        let maximumLimit = self.presenter?.images.count ?? 0 >= 6
+        self.uploadImageStackView.isUserInteractionEnabled = maximumLimit ? false : true
+        self.uploadImageStackView.alpha = maximumLimit ? 0.5 : 1.0
     }
     
     private func removeImage(at indexPath: IndexPath) {
@@ -108,6 +127,11 @@ public final class EditPostViewController: UIViewController, BundledStoryboardLo
     
     @objc func done() {
         view.endEditing(true)
+    }
+    
+    private func setupUserData() {
+        userNameLabel.text = User.current?.name
+        loadAvatar()
     }
     
     private func loadAvatar() {
@@ -164,6 +188,7 @@ extension EditPostViewController: UITextViewDelegate {
                          UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))]
         
         textView.inputAccessoryView = toolbar
+        textView.becomeFirstResponder()
     }
     
     public func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
@@ -184,7 +209,7 @@ extension EditPostViewController: UITextViewDelegate {
     
     public func textViewDidEndEditing(_ textView: UITextView) {
         updateSaveButtonEnabling()
-        
+
         if !saveBarButtonItem.isEnabled {
             textView.attributedText = EditPostViewController.textViewPlaceholder.applyedFont(textView.font)
         }
@@ -239,7 +264,9 @@ extension EditPostViewController: UICollectionViewDataSource {
         }
         
         collectionViewHeightConstraint.constant = presenter.images.count > 0 ? AddingImageCollectionViewCell.height : 0
-        collectionView.reloadData()
+        DispatchQueue.main.async { [weak self] in
+            self?.collectionView.reloadData()
+        }
         updateSaveButtonEnabling()
     }
     
@@ -252,7 +279,9 @@ extension EditPostViewController: UICollectionViewDataSource {
         cell.imageView.image = presenter?.images[indexPath.item]
         
         cell.removeButton.addTap { [weak self] _ in
-            self?.removeImage(at: indexPath)
+            guard let self else { return }
+            self.removeImage(at: indexPath)
+            self.checkUploadedImageLimit()
         }
         
         return cell

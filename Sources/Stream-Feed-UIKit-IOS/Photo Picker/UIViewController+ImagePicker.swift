@@ -41,12 +41,6 @@ extension UIViewController {
             }))
         }
         
-        if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum) {
-            alert.addAction(UIAlertAction(title: "Saved Photos Album", style: .default, handler: { _ in
-                self.authorizeImagePicker(sourceType: .savedPhotosAlbum, completion)
-            }))
-        }
-        
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
             alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { _ in
                 self.authorizeImagePicker(sourceType: .camera, completion)

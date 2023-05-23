@@ -23,7 +23,9 @@ open class PostHeaderTableViewCell: BaseTableViewCell {
     @IBOutlet public weak var removePostButton: UIButton!
     
     var activityID: String = ""
+    var postImageURL: URL?
     var removePostTapped: ((String) -> Void)?
+    var photoImageTapped: ((URL) -> Void)?
     
     public var repost: String? {
         get {
@@ -82,6 +84,7 @@ open class PostHeaderTableViewCell: BaseTableViewCell {
     public func updatePhoto(with url: URL) {
         messageBottomConstraint.priority = .defaultLow
         photoImageView.isHidden = false
+        postImageURL = url
         
         ImagePipeline.shared.loadImage(with: url, completion:  { [weak self] result in
             self?.photoImageView.image = try? result.get().image
@@ -90,6 +93,11 @@ open class PostHeaderTableViewCell: BaseTableViewCell {
     
     @IBAction func removePost(_ sender: UIButton) {
        removePostTapped?(activityID)
+    }
+    
+    @IBAction func photoImageTapped(_ sender: UIButton) {
+        guard let postImageURL = postImageURL else { return }
+        photoImageTapped?(postImageURL)
     }
 }
 

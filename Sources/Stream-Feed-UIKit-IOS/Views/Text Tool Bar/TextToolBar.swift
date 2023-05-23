@@ -339,7 +339,7 @@ public final class TextToolBar: UIView {
     
     /// Check if the content is valid: text is not empty or at least one image was added.
     public var isValidContent: Bool {
-        return !textView.attributedText.string.isEmpty || !images.isEmpty
+        return !textView.attributedText.string.trimmingCharacters(in: .whitespaces).isEmpty || !images.isEmpty
     }
     
     /// Reset states of all child views and clear all added/generated data.

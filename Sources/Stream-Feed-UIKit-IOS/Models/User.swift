@@ -24,7 +24,6 @@ public final class User: GetStream.User, UserNameRepresentable, AvatarRepresenta
     }
     
     public var name: String
-    
     public var avatarURL: URL? {
         didSet { avatarImage = nil }
     }
@@ -36,6 +35,12 @@ public final class User: GetStream.User, UserNameRepresentable, AvatarRepresenta
     
     public init(name: String, id: String) {
         self.name = name
+        super.init(id: id)
+    }
+    
+    public init(name: String, id: String, profileImage: String) {
+        self.name = name
+        self.avatarURL = URL(string: profileImage)
         super.init(id: id)
     }
     
