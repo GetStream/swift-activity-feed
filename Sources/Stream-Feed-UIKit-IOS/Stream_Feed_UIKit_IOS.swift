@@ -7,7 +7,9 @@ public struct StreamFeedUIKitIOS {
         let timeLineVC = ActivityFeedViewController.fromBundledStoryboard()
         timeLineVC.isCurrentUserTimeline = isCurrentUserTimeline
         timeLineVC.profilePictureURL = profilePictureURL
+        timeLineVC.modalPresentationStyle = .fullScreen
         let nav = UINavigationController(rootViewController: timeLineVC)
+        nav.modalPresentationStyle = .fullScreen
         let flatFeed = Client.shared.flatFeed(feedSlug: feedSlug, userId: userId)
         let presenter = FlatFeedPresenter<Activity>(flatFeed: flatFeed,
                                                     reactionTypes: [.likes, .comments])
@@ -17,10 +19,11 @@ public struct StreamFeedUIKitIOS {
     }
     
     
-    public static func makeEditPostVC() -> UIViewController {
-        guard let userFeedId: FeedId = FeedId(feedSlug: "user") else { return UIViewController() }
+    public static func makeEditPostVC() -> EditPostViewController {
+        guard let userFeedId: FeedId = FeedId(feedSlug: "user") else { return EditPostViewController() }
         let editPostViewController = EditPostViewController.fromBundledStoryboard()
         editPostViewController.presenter = EditPostPresenter(flatFeed: Client.shared.flatFeed(userFeedId),view: editPostViewController)
+        editPostViewController.modalPresentationStyle = .fullScreen
         return editPostViewController
     }
     
@@ -49,9 +52,12 @@ public struct StreamFeedUIKitIOS {
         Client.shared.update(user: customUser) { result in
             do {
                 let retrivedUser = try result.get()
-                let currentUser = Client.shared.currentUser as? User
+                var currentUser = Client.shared.currentUser as? User
                 if !profileImage.isEmpty {
                     currentUser?.avatarURL = URL(string: profileImage)!
+                }
+                if !displayName.isEmpty {
+                    currentUser?.name = displayName
                 }
                 completion(nil)
             }

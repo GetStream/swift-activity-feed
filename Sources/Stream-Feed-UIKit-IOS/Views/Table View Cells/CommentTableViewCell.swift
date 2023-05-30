@@ -39,7 +39,7 @@ open class CommentTableViewCell: BaseTableViewCell {
     }
     
     open override func reset() {
-        avatarImageView.image = .userIcon
+        avatarImageView.image = UIImage(named: "user_icon")
         commentLabel.attributedText = nil
         replyButton.removeTap()
         replyButton.isSelected = false

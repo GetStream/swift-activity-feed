@@ -11,7 +11,7 @@ import Nuke
 import UIKit
 
 /// An avatar container protocol.
-public protocol AvatarRepresentable: class, UserProtocol {
+public protocol AvatarRepresentable: AnyObject, UserProtocol {
     /// An avatar URL.
     var avatarURL: URL? { get set }
     /// An avatar downloaded image.

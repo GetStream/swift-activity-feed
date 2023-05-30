@@ -35,15 +35,16 @@ public final class ImageGalleryViewController: UIViewController {
     
     private func addCloseButton() {
         let closeButton = UIButton(frame: .zero)
-        closeButton.setImage(.closeIcon, for: .normal)
+        closeButton.setImage(UIImage(named: "close-circle")!, for: .normal)
         closeButton.tintColor = .white
         closeButton.contentMode = .center
         closeButton.addTap { [weak self] _ in self?.dismiss(animated: true) }
         view.addSubview(closeButton)
-
+        view.bringSubviewToFront(closeButton)
+        
         closeButton.snp.makeConstraints { make in
             make.top.equalTo(26)
-            make.right.equalTo(-16)
+            make.left.equalTo(16)
             make.width.height.equalTo(40)
         }
     }
@@ -175,7 +176,7 @@ public final class ImageGalleryCollectionViewCell: UICollectionViewCell, Reusabl
                 self.imageView.image = image
             } else {
                 self.imageView.contentMode = .center
-                self.imageView.image = .imageIcon
+                self.imageView.image = UIImage(named: "user_icon")
             }
             
             completion(result.error)

@@ -11,13 +11,31 @@ import SnapKit
 import GetStream
 
 class PostDetailTableViewController: DetailViewController<Activity> {
+    weak var backBtn: UIBarButtonItem? {
+        let image = UIImage(named: "backArrow")
+        let desiredImage = image
+        let back = UIBarButtonItem(image: desiredImage, style: .plain, target: self, action: #selector(backBtnPressed(_:)))
+        return back
+    }
     
     open override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.setNavigationBarHidden(false, animated: true)
-        navigationController?.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         hideBackButtonTitle()
         hideKeyboardWhenTappedAround()
+        setupNavigationBar()
+    }
+    
+    private func setupNavigationBar() {
+        navigationItem.largeTitleDisplayMode = .never
+        navigationController?.navigationItem.largeTitleDisplayMode = .never
+        navigationController?.navigationBar.setCustomTitleFont(font: UIFont(name: "GTWalsheimProBold", size: 18.0)!)
+        navigationController?.setNavigationBarHidden(false, animated: true)
+        navigationItem.leftBarButtonItem = backBtn
+    }
+    
+    @objc private func backBtnPressed(_ sender: UIBarButtonItem) {
+        view.endEditing(true)
+        navigationController?.popViewController(animated: true)
     }
 }
 

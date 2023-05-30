@@ -93,7 +93,7 @@ public final class TextToolBar: UIView {
         let avatarView = AvatarView()
         avatarView.shadowRadius = 6
         avatarView.cornerRadius = TextToolBar.avatarWidth / 2
-        avatarView.placeholder = .userIcon
+        avatarView.placeholder = UIImage(named: "user_icon")
         avatarView.tintColor = .gray
         avatarView.alpha = 0.9
         return avatarView
@@ -114,7 +114,7 @@ public final class TextToolBar: UIView {
     public var textViewTextAttributes: [NSAttributedString.Key: Any] = {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineHeightMultiple = 1.1
-        return [.font: UIFont.systemFont(ofSize: 15), .paragraphStyle: paragraphStyle]
+        return [.font: UIFont(name: "GTWalsheimProRegular", size: 15.0)!, .paragraphStyle: paragraphStyle]
     }()
     
     /// A placeholder label.
@@ -300,13 +300,18 @@ public final class TextToolBar: UIView {
         
 //        NotificationCenter.default.addObserver(self,
 //                                               selector: #selector(keyboardUpdated(_:)),
-//                                               name: UIResponder.keyboardWillChangeFrameNotification,
+//                                               name: UIResponder.keyboardWillShowNotification,
 //                                               object: nil)
 //
 //        NotificationCenter.default.addObserver(self,
 //                                               selector: #selector(keyboardUpdated(_:)),
 //                                               name: UIResponder.keyboardWillHideNotification,
 //                                               object: nil)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     /// Add the `TextToolBar` to a view container.
@@ -334,6 +339,7 @@ public final class TextToolBar: UIView {
         
         if let sendButtonAction = sendButtonAction {
             sendButton.addTap(sendButtonAction)
+            sendButton.titleLabel?.font = UIFont(name: "GTWalsheimProRegular", size: 14.0)!
         }
     }
     

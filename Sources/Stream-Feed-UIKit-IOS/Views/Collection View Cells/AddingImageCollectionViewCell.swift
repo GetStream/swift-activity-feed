@@ -23,6 +23,11 @@ public final class AddingImageCollectionViewCell: UICollectionViewCell, NibReusa
         reset()
     }
     
+    
+    func setImage(image: UIImage) {
+        imageView.image = image
+    }
+    
     public override func prepareForReuse() {
         reset()
         super.prepareForReuse()

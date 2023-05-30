@@ -1,0 +1,26 @@
+{
+  "images" : [
+    {
+      "filename" : "backArrow.png",
+      "idiom" : "universal",
+      "language-direction" : "left-to-right",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "backArrow@2x.png",
+      "idiom" : "universal",
+      "language-direction" : "left-to-right",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "backArrow@3x.png",
+      "idiom" : "universal",
+      "language-direction" : "left-to-right",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

@@ -40,7 +40,9 @@ public final class User: GetStream.User, UserNameRepresentable, AvatarRepresenta
     
     public init(name: String, id: String, profileImage: String) {
         self.name = name
-        self.avatarURL = URL(string: profileImage)
+        if !profileImage.isEmpty {
+            self.avatarURL = URL(string: profileImage)
+        }
         super.init(id: id)
     }
     

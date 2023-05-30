@@ -16,7 +16,7 @@ class PostAttachmentImagesTableViewCell: BaseTableViewCell {
     var imagesTapped: (() -> Void)?
     
     open override func reset() {
-        stackView.cancelImagesLoading()
+        //stackView.cancelImagesLoading()
         scrollView.semanticContentAttribute = .forceLeftToRight
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
         scrollView.addGestureRecognizer(tapGestureRecognizer)

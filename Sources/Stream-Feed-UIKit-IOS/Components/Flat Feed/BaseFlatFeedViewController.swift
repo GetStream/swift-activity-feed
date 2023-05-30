@@ -21,6 +21,7 @@ open class BaseFlatFeedViewController<T: ActivityProtocol>: UIViewController, UI
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.separatorStyle = .none
         tableView.dataSource = self
+        tableView.automaticallyAdjustsScrollIndicatorInsets = false
         tableView.registerCells()
         view.addSubview(tableView)
         return tableView

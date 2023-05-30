@@ -109,7 +109,7 @@ extension WebViewController: WKNavigationDelegate {
 
 extension WebViewController {
     private func setupToolbar() {
-        let closeButton = UIBarButtonItem(image: .closeIcon, style: .plain, target: self, action: #selector(close(_:)))
+        let closeButton = UIBarButtonItem(image: UIImage(named: "close_icon"), style: .plain, target: self, action: #selector(close(_:)))
         navigationItem.leftBarButtonItem = closeButton
         
         goBackButton.isEnabled = false

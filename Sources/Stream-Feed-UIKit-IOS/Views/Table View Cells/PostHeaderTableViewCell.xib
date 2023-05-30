@@ -18,7 +18,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <stackView contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="S86-6T-t2E">
-                        <rect key="frame" x="80" y="16" width="242.5" height="48"/>
+                        <rect key="frame" x="80" y="16" width="238" height="48"/>
                         <subviews>
                             <label userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wonder Woman" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BlM-ye-otK">
                                 <rect key="frame" x="0.0" y="0.0" width="111.5" height="16"/>
@@ -87,7 +87,11 @@
                         </userDefinedRuntimeAttributes>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TUl-zR-7tp">
-                        <rect key="frame" x="330.5" y="31" width="20.5" height="18"/>
+                        <rect key="frame" x="326" y="30" width="25" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="25" id="XwW-rZ-UDv"/>
+                            <constraint firstAttribute="height" constant="20" id="fao-OD-Wwk"/>
+                        </constraints>
                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                         <state key="normal" image="options"/>
                         <connections>
@@ -126,6 +130,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="ImagePostButton" destination="jj7-32-SZg" id="1Ow-mt-pzU"/>
                 <outlet property="avatarButton" destination="Kjh-KD-aLe" id="f5t-wj-0QD"/>
                 <outlet property="dateLabel" destination="tMt-4B-jFP" id="NCY-qf-kXg"/>
                 <outlet property="messageBottomConstraint" destination="wnt-Ix-CDy" id="9b9-TO-jxz"/>

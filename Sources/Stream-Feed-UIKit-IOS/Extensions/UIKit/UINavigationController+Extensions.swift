@@ -80,6 +80,24 @@ extension UINavigationController {
     public func hideNavigationBarBottomLine() {
         navigationBar.shadowImage = UIImage()
     }
+    
+    func hideHairline() {
+        if let hairline = findHairlineImageViewUnder(navigationBar) {
+            hairline.isHidden = true
+        }
+    }
+    
+    private func findHairlineImageViewUnder(_ view: UIView) -> UIImageView? {
+        if view is UIImageView && view.bounds.size.height <= 1.0 {
+            return view as? UIImageView
+        }
+        for subview in view.subviews {
+            if let imageView = self.findHairlineImageViewUnder(subview) {
+                return imageView
+            }
+        }
+        return nil
+    }
 }
 
 // MARK: - Back Button
@@ -88,5 +106,19 @@ extension UIViewController {
     /// Hides the back button title from the navigation bar.
     public func hideBackButtonTitle() {
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+    }
+}
+
+extension UINavigationBar {
+    func setCustomTitleFont(font: UIFont, color: UIColor = .black) {
+        let appearance = UINavigationBarAppearance()
+        
+        appearance.configureWithOpaqueBackground()
+        appearance.titleTextAttributes = [.foregroundColor: color]
+        
+        appearance.titleTextAttributes = [.font: font]
+        self.compactAppearance = appearance
+        self.standardAppearance = appearance
+        self.scrollEdgeAppearance = appearance
     }
 }

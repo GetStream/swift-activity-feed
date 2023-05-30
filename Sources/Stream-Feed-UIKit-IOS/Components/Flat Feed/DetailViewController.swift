@@ -118,20 +118,28 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
     private func keyboardBinding(){
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(willResignActive), name: UIApplication.willResignActiveNotification, object: nil)
     }
     
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            if let bottomConstraint = tableView.constraints.first(where: { $0.secondAnchor == tableView.bottomAnchor }) {
-                bottomConstraint.constant -= keyboardSize.height - self.view.safeAreaInset.bottom
-            }
+            view.frame.origin.y -= keyboardSize.height
         }
     }
-    
+
     @objc func keyboardWillHide(notification: NSNotification) {
-        if let bottomConstraint = tableView.constraints.first(where: { $0.secondAnchor == tableView.bottomAnchor }) {
-            bottomConstraint.constant = 0
-        }
+        guard view.frame.origin.y < -100 else { return }
+        view.frame.origin.y = 92
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIApplication.willResignActiveNotification, object: nil)
+    }
+    
+    @objc func willResignActive() {
+        view.endEditing(true)
     }
     
     private func updateSectionsIndex() {
@@ -169,7 +177,7 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
     }
     
     private func removePostConfirmation(activityId: String) {
-        let removePostAction: AlertAction = ("Delete Post", .destructive, { [weak self] in
+        let removePostAction: AlertAction = ("Delete post", .destructive, { [weak self] in
             guard let self = self else { return }
             guard let activity = self.presenter?.items.filter({ $0.originalActivity.id == activityId }).first else { return }
             self.presenter?.remove(activity: activity.activity as! Activity, { error in
@@ -181,7 +189,7 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
 
         let cancelAction: AlertAction = ("Cancel", .cancel, {}, true)
         
-        self.alertWithAction(title: nil, message: nil, alertStyle: .actionSheet, tintColor: nil, actions: [removePostAction, cancelAction])
+        self.alertWithAction(title: "Are you sure you want to delete this post?", message: nil, alertStyle: .actionSheet, tintColor: nil, actions: [removePostAction, cancelAction])
     }
     
     private func reloadComments() {
@@ -282,27 +290,43 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
         return section < sectionsData.count && sectionsData.count != 1 ? sectionsData[section].title : nil
     }
     
+    var imageURLsDic: [Int: [URL]] = [0: []]
+    
     open override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let activityPresenter = activityPresenter, let reactionPaginator = reactionPaginator else {
             return .unused
         }
-        
         if indexPath.section < sectionsData.count {
             let section = sectionsData[indexPath.section]
             
             if section.section == .activity, let cell = tableView.postCell(at: indexPath, presenter: activityPresenter, imagesTappedAction: { [weak self] imageURLs in
+                guard let imageURLs = self?.imageURLsDic[indexPath.section] else { return }
                 self?.showImageGallery(with: imageURLs)
+            }, sendImageURLValues: { [weak self] imageURLs in
+                guard let self else { return }
+                imageURLs.forEach { imageURL in
+                    if !(self.imageURLsDic[indexPath.section]?.contains(imageURL) ?? false) {
+                        self.imageURLsDic[indexPath.section]?.append(imageURL)
+                    }
+                }
             }) {
                 if let cell = cell as? PostHeaderTableViewCell {
-                     if profilePictureURL != nil {
-                        cell.setActivity(with: activityPresenter.originalActivity.id,isCurrentUserTimeLine: isCurrentUserTimeline)
-                        cell.removePostTapped = { [weak self] activityId in
-                            self?.removePostConfirmation(activityId: activityId)
-                        }
-                        cell.photoImageTapped = { [weak self] imageURL in
-                            self?.showImageGallery(with: [imageURL])
-                        }
+                    if profilePictureURL != nil {
                         cell.updateAvatar(with: profilePictureURL ?? "")
+                    }
+                    cell.setActivity(with: activityPresenter.originalActivity.id,isCurrentUserTimeLine: isCurrentUserTimeline)
+                    cell.removePostTapped = { [weak self] activityId in
+                        self?.removePostConfirmation(activityId: activityId)
+                    }
+                    cell.photoImageTapped = { [weak self] imageURL in
+                        guard let imageURLs = self?.imageURLsDic[indexPath.section] else { return }
+                        self?.showImageGallery(with: imageURLs)
+                    }
+                    cell.sendImageURLValues = { [weak self] imageURL in
+                        guard let self else { return }
+                        if !(self.imageURLsDic[indexPath.section]?.contains(imageURL) ?? false) {
+                            self.imageURLsDic[indexPath.section]?.insert(imageURL, at: 0)
+                        }
                     }
                 }
                 
@@ -427,7 +451,7 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
             if comment == parentComment {
                 activityPresenter.reactionPresenter.remove(reaction: comment, activity: activityPresenter.activity) { [weak self] in
                     if let error = $0.error {
-                        self?.showErrorAlert(error)
+                        //self?.showErrorAlert(error)
                     } else if let self = self {
                         self.reloadComments()
                     }
@@ -435,7 +459,7 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
             } else {
                 activityPresenter.reactionPresenter.remove(reaction: comment, parentReaction: parentComment) { [weak self] in
                     if let error = $0.error {
-                        self?.showErrorAlert(error)
+                        //self?.showErrorAlert(error)
                     } else {
                         self?.tableView.reloadData()
                     }
@@ -507,7 +531,7 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
         refreshControl.endRefreshing()
         
         if let error = error {
-            showErrorAlert(error)
+            //showErrorAlert(error)
         } else {
             updateSectionsIndex()
             tableView.reloadData()
@@ -541,10 +565,11 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
                                                        userTypeOf: T.ActorType.self) { [weak self] in
                                                         if let self = self {
                                                             self.textToolBar.text = ""
+                                                            self.textToolBar.updateTextHeightIfNeeded()
                                                             self.textToolBar.textView.isEditable = true
                                                             
                                                             if let error = $0.error {
-                                                                self.showErrorAlert(error)
+                                                           //     self.showErrorAlert(error)
                                                             } else {
                                                                 self.reloadComments()
                                                             }
@@ -563,7 +588,7 @@ extension DetailViewController {
         }
         
         let closeButton = UIButton(type: .custom)
-        closeButton.setImage(.closeIcon, for: .normal)
+        closeButton.setImage(UIImage(named: "close_icon"), for: .normal)
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: closeButton)
         
         closeButton.addTap { [weak self] _ in

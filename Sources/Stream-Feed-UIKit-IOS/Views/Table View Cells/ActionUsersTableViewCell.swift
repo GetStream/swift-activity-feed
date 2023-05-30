@@ -14,7 +14,7 @@ class ActionUsersTableViewCell: BaseTableViewCell {
     @IBOutlet public weak var titleLabel: UILabel!
     
     open override func reset() {
-        avatarsStackView.cancelImagesLoading()
+     //   avatarsStackView.cancelImagesLoading()
         titleLabel.text = nil
     }
 }

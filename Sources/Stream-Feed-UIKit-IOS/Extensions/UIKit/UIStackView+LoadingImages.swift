@@ -27,19 +27,19 @@ extension UIStackView {
         }
         
         var imageURLs = imageURLs
-        
         if imageURLs.count > arrangedSubviews.count {
             imageURLs = Array(imageURLs.dropLast(imageURLs.count - arrangedSubviews.count))
         }
-        
-        imageURLs.enumerated().forEach { index, url in
-            let task = ImagePipeline.shared.loadImage(with: url, completion:  { [weak self] result in
-                if let response = try? result.get() {
-                    self?.addImage(at: index, response.image)
+    
+        imageURLs.enumerated().forEach { (index, url) in
+            guard let imageView = arrangedSubviews[index] as? UIImageView else {
+                return
+            }
+            imageView.loadImage(from: url.absoluteString) { [weak self] result in
+                if let image = try? result.get().image {
+                    self?.addImage(at: index, image)
                 }
-            })
-            
-            imageTasks.append(task)
+            }
         }
     }
     

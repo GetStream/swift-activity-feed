@@ -106,32 +106,6 @@ extension UIView {
         }
         return self.safeAreaInsets
     }
-    
-    func bindToKeyboard(){
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-    
-    @objc func keyboardWillShow(notification: NSNotification) {
-        self.frame.origin.y = 0
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            self.frame.origin.y -= keyboardSize.height - self.safeAreaInset.bottom
-        }
-    }
-
-    @objc func keyboardWillHide(notification: NSNotification) {
-        if self.frame.origin.y != 0 {
-            self.frame.origin.y = 0
-        }
-    }
-    
-    func removeBindToKeyboard() {
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-    @objc func dismissKeyboardOnTap() {
-        self.endEditing(true)
-    }
 }
 
 // MARK: - Modal

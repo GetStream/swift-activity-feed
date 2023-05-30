@@ -82,9 +82,7 @@ open class FlatFeedViewController<T: ActivityProtocol>: BaseFlatFeedViewControll
     
     open override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let activityPresenter = activityPresenter(in: indexPath.section),
-            let cell = tableView.postCell(at: indexPath, presenter: activityPresenter, imagesTappedAction: { [weak self] imageURLs in
-                self?.showImageGallery(with: imageURLs)
-            }) else {
+            let cell = tableView.postCell(at: indexPath, presenter: activityPresenter) else {
                 if let presenter = presenter, presenter.hasNext {
                     presenter.loadNext(completion: dataLoaded)
                     return tableView.dequeueReusableCell(for: indexPath) as PaginationTableViewCell
@@ -94,16 +92,20 @@ open class FlatFeedViewController<T: ActivityProtocol>: BaseFlatFeedViewControll
         }
         
         if let cell = cell as? PostHeaderTableViewCell {
+            cell.ImagePostButton.isUserInteractionEnabled = false
+            if isCurrentUserTimeline && profilePictureURL == nil {
+                profilePictureURL = currentUser?.avatarURL?.absoluteString
+            }
+            
             if profilePictureURL != nil {
-                cell.setActivity(with: activityPresenter.originalActivity.id,isCurrentUserTimeLine: isCurrentUserTimeline)
-                cell.removePostTapped = { [weak self] activityId in
-                    self?.removePostConfirmation(activityId: activityId)
-                }
-                cell.photoImageTapped = { [weak self] imageURL in
-                    self?.showImageGallery(with: [imageURL])
-                }
                 cell.updateAvatar(with: profilePictureURL ?? "")
             }
+        
+            cell.setActivity(with: activityPresenter.originalActivity.id,isCurrentUserTimeLine: isCurrentUserTimeline)
+            cell.removePostTapped = { [weak self] activityId in
+                self?.removePostConfirmation(activityId: activityId)
+            }
+            
         } else if let cell = cell as? PostActionsTableViewCell {
            updateActions(in: cell, activityPresenter: activityPresenter)
         }
@@ -111,15 +113,17 @@ open class FlatFeedViewController<T: ActivityProtocol>: BaseFlatFeedViewControll
     }
     
     private func removePostConfirmation(activityId: String) {
-        let removePostAction: AlertAction = ("Delete Post", .destructive, { [weak self] in
+        let removePostAction: AlertAction = ("Delete post", .destructive, { [weak self] in
             guard let self = self else { return }
             guard let activity = self.presenter?.items.filter({ $0.originalActivity.id == activityId }).first else { return }
-            self.presenter?.remove(activity: activity.activity as! Activity, { error in })
+            self.presenter?.remove(activity: activity.activity as! Activity, { [weak self] error in
+                self?.onPostUpdate?()
+            })
         }, true)
 
         let cancelAction: AlertAction = ("Cancel", .cancel, {}, true)
         
-        self.alertWithAction(title: nil, message: nil, alertStyle: .actionSheet, tintColor: nil, actions: [removePostAction, cancelAction])
+        self.alertWithAction(title: "Are you sure you want to delete this post?", message: nil, alertStyle: .actionSheet, tintColor: nil, actions: [removePostAction, cancelAction])
     }
     
     open override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

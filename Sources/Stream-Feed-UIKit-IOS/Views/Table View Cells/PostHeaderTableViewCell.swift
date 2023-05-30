@@ -9,6 +9,7 @@
 import UIKit
 import Nuke
 import GetStream
+import Kingfisher
 
 open class PostHeaderTableViewCell: BaseTableViewCell {
 
@@ -19,13 +20,16 @@ open class PostHeaderTableViewCell: BaseTableViewCell {
     @IBOutlet public weak var dateLabel: UILabel!
     @IBOutlet public weak var messageLabel: UILabel!
     @IBOutlet private weak var messageBottomConstraint: NSLayoutConstraint!
-    @IBOutlet private weak var photoImageView: UIImageView!
+    @IBOutlet private(set) weak var photoImageView: UIImageView!
     @IBOutlet public weak var removePostButton: UIButton!
+    @IBOutlet public weak var ImagePostButton: UIButton!
     
+    var allImageURLs: [URL] = []
     var activityID: String = ""
     var postImageURL: URL?
     var removePostTapped: ((String) -> Void)?
     var photoImageTapped: ((URL) -> Void)?
+    var sendImageURLValues: ((URL) -> Void)?
     
     public var repost: String? {
         get {
@@ -67,7 +71,7 @@ open class PostHeaderTableViewCell: BaseTableViewCell {
             avatarButton.contentHorizontalAlignment = .fill
             avatarButton.contentVerticalAlignment = .fill
         } else {
-            avatarButton.setImage(.userIcon, for: .normal)
+            avatarButton.setImage(UIImage(named: "user_icon"), for: .normal)
             avatarButton.contentHorizontalAlignment = .center
             avatarButton.contentVerticalAlignment = .center
         }
@@ -75,7 +79,7 @@ open class PostHeaderTableViewCell: BaseTableViewCell {
     }
     
     public func updateAvatar(with profilePictureURL: String) {
-        let imageURL = URL(string: profilePictureURL)!
+        guard let imageURL = URL(string: profilePictureURL) else { return }
         ImagePipeline.shared.loadImage(with: imageURL.imageRequest(in: avatarButton), completion:  { [weak self] result in
             self?.updateAvatar(with: try? result.get().image)
         })
@@ -85,10 +89,8 @@ open class PostHeaderTableViewCell: BaseTableViewCell {
         messageBottomConstraint.priority = .defaultLow
         photoImageView.isHidden = false
         postImageURL = url
-        
-        ImagePipeline.shared.loadImage(with: url, completion:  { [weak self] result in
-            self?.photoImageView.image = try? result.get().image
-        })
+        sendImageURLValues?(url)
+        photoImageView.loadImage(from: url.absoluteString)
     }
     
     @IBAction func removePost(_ sender: UIButton) {

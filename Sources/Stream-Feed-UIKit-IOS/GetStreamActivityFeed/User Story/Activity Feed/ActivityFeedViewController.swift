@@ -48,7 +48,7 @@ public final class ActivityFeedViewController: FlatFeedViewController<Activity>,
     
     public override func dataLoaded(_ error: Error?) {
         super.dataLoaded(error)
-        showErrorAlertIfNeeded(error)
+        //showErrorAlertIfNeeded(error)
     }
     
     public override func updateAvatar(in cell: PostHeaderTableViewCell, activity: Activity) {
@@ -67,7 +67,7 @@ public final class ActivityFeedViewController: FlatFeedViewController<Activity>,
             return
         }
         
-        var showDetail = indexPath.row == 0
+        var showDetail = indexPath.row == 0 || indexPath.row == 1
         
         if !showDetail, case .actions = cellType {
             showDetail = true

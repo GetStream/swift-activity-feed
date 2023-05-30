@@ -33,7 +33,7 @@ extension UITableView {
     /// - Parameters:
     ///     - indexPath: the index path of the requested cell.
     ///     - presenter: the `ActivityPresenter` for the requested cell.
-    public func postCell<T: ActivityProtocol>(at indexPath: IndexPath, presenter: ActivityPresenter<T>, imagesTappedAction: (([URL]) -> ())? = nil) -> UITableViewCell?
+    public func postCell<T: ActivityProtocol>(at indexPath: IndexPath, presenter: ActivityPresenter<T>, imagesTappedAction: (([URL]) -> ())? = nil, sendImageURLValues: (([URL]) -> ())? = nil) -> UITableViewCell?
         where T.ActorType: UserNameRepresentable, T.ReactionType: ReactionProtocol {
             guard let cellType = presenter.cellType(at: indexPath.row) else {
                 return nil
@@ -46,7 +46,10 @@ extension UITableView {
                 return cell
             case .attachmentImages(let urls):
                 let cell = dequeueReusableCell(for: indexPath) as PostAttachmentImagesTableViewCell
+                cell.stackView.arrangedSubviews.forEach { $0.isHidden = true }
+                cell.scrollView.isUserInteractionEnabled = (imagesTappedAction != nil)
                 cell.stackView.loadImages(with: urls)
+                sendImageURLValues?(urls)
                 cell.imagesTapped = {
                     imagesTappedAction?(urls)
                 }
