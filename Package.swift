@@ -15,7 +15,7 @@ let package = Package(
             targets: ["GetStreamActivityFeed"])
     ],
     dependencies: [
-        .package(url: "https://github.com/camelan/stream-swift", .upToNextMajor(from: "1.0.9")),
+        .package(url: "https://github.com/camelan/stream-swift", .upToNextMajor(from: "1.0.10")),
         .package(url: "https://github.com/kean/Nuke", .upToNextMajor(from: "12.1.0")),
         .package(url: "https://github.com/AliSoftware/Reusable.git", .upToNextMajor(from: "4.1.2")),
         .package(url: "https://github.com/SnapKit/SnapKit", .upToNextMajor(from: "5.6.0")),
