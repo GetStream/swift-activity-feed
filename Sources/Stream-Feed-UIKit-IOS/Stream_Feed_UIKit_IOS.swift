@@ -29,12 +29,22 @@ public struct StreamFeedUIKitIOS {
     
     
     public static func setupStream(apiKey: String, appId: String, region: BaseURL.Location, logsEnabled: Bool = true) {
-        Client.shared = Client(apiKey: apiKey,
-                               appId: appId,
-                               baseURL: BaseURL(location: region),
-                               logsEnabled: logsEnabled)
+        if Client.shared.token.isEmpty {
+            Client.shared = Client(apiKey: apiKey,
+                                   appId: appId,
+                                   baseURL: BaseURL(location: region),
+                                   logsEnabled: logsEnabled)
+        }
         Client.config = .init(apiKey: apiKey, appId: appId, baseURL: BaseURL(location: region), logsEnabled: logsEnabled)
         UIFont.overrideInitialize()
+    }
+    
+    
+    public static func logOut() {
+        Client.shared = Client(apiKey: "", appId: "")
+        Client.shared.currentUser = nil
+        Client.shared.currentUserId = nil
+        Client.shared.token = ""
     }
     
     public static func createUser(userId: String, displayName: String, profileImage: String, completion: @escaping ((Error?) -> Void)) {

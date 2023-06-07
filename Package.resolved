@@ -41,8 +41,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/kean/Nuke",
       "state" : {
-        "revision" : "7f73ceaeacd5df75a7994cd82e165ad9ff1815db",
-        "version" : "9.6.1"
+        "revision" : "f4d9b95788679d0654c032961f73e7e9c16ca6b4",
+        "version" : "12.1.0"
       }
     },
     {
@@ -131,8 +131,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/camelan/stream-swift",
       "state" : {
-        "revision" : "f43d84cf97f3397201c18b83aa2f211c30ec39d8",
-        "version" : "1.0.3"
+        "revision" : "b67ca378535aee42a18b96446b4da947d0b737bf",
+        "version" : "1.0.9"
       }
     },
     {
