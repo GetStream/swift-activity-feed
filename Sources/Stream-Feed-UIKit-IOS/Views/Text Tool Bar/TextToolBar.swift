@@ -140,7 +140,7 @@ public final class TextToolBar: UIView {
         button.setTitle(sendTitle, for: .normal)
         button.setTitleColor(Appearance.Color.gray, for: .normal)
         button.setTitleColor(.lightGray, for: .disabled)
-        button.titleLabel?.font = .systemFont(ofSize: 16, weight: .medium)
+        button.titleLabel?.font = UIFont(name: "GTWalsheimProMedium", size: 16.0)!
         button.backgroundColor = backgroundColor
         return button
     }()
@@ -189,7 +189,7 @@ public final class TextToolBar: UIView {
     
     private lazy var replyLabel: UILabel = {
         let label = UILabel(frame: .zero)
-        label.font = UIFont.systemFont(ofSize: 12)
+        label.font = UIFont(name: "GTWalsheimProRegular", size: 12.0)!
         label.textColor = .gray
         label.backgroundColor = backgroundColor
         replyContainer.addSubview(label)

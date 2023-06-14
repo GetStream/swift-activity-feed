@@ -201,7 +201,7 @@ extension EditPostViewController: EditPostViewable {
                                                    range: attributedString.string.nsRange(from: item.range))
                 }
             }
-            .applyedFont(textView.font)
+            .applyedFont(UIFont(name: "GTWalsheimProRegular", size: 14.0)!)
     }
     
     public func updateOpenGraphData() {
@@ -226,7 +226,7 @@ extension EditPostViewController: UITextViewDelegate {
     
     public func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
         if textView.attributedText.string == EditPostViewController.textViewPlaceholder.string {
-            textView.attributedText = NSAttributedString(string: "").applyedFont(textView.font)
+            textView.attributedText = NSAttributedString(string: "").applyedFont(UIFont(name: "GTWalsheimProRegular", size: 14.0)!)
         }
         
         return true
@@ -244,7 +244,7 @@ extension EditPostViewController: UITextViewDelegate {
         updateSaveButtonEnabling()
 
         if !(navigationItem.rightBarButtonItem?.isEnabled ?? false) {
-            textView.attributedText = EditPostViewController.textViewPlaceholder.applyedFont(textView.font)
+            textView.attributedText = EditPostViewController.textViewPlaceholder.applyedFont(UIFont(name: "GTWalsheimProRegular", size: 14.0)!)
         }
     }
     

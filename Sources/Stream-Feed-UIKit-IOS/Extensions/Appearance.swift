@@ -26,6 +26,6 @@ struct Appearance {
     }
     
     static func headerTextAttributes() -> [NSAttributedString.Key : Any]? {
-        return [.font: UIFont.systemFont(ofSize: 13, weight: .medium), .kern: 1]
+        return [.font: UIFont(name: "GTWalsheimProMedium", size: 13.0)!, .kern: 1]
     }
 }

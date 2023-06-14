@@ -499,7 +499,7 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
         }
         
         cell.updateComment(name: comment.user.name, comment: text, date: comment.created)
-        dump(comment.user)
+      
         comment.user.loadAvatar { [weak cell] in cell?.avatarImageView?.image = $0 }
         
         // Reply button.

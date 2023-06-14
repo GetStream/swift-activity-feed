@@ -54,10 +54,11 @@ open class CommentTableViewCell: BaseTableViewCell {
     }
     
     public func updateComment(name: String, comment: String, date: Date) {
-        let attributedText = NSMutableAttributedString(string: name, attributes: [.font: UIFont.systemFont(ofSize: 12, weight: .bold)])
-        let comment = NSAttributedString(string: "\n\(comment)", attributes: [.font: UIFont.systemFont(ofSize: 12)])
+        let attributedText = NSMutableAttributedString(string: name, attributes: [.font: UIFont(name: "GTWalsheimProMedium", size: 15.0)!])
+        let comment = NSAttributedString(string: "\n\(comment)", attributes: [.font: UIFont(name: "GTWalsheimProRegular", size: 15.0)!])
         attributedText.append(comment)
-        let date = NSAttributedString(string: "\n\(date.relative)", attributes: [.foregroundColor: UIColor.lightGray])
+        let date = NSAttributedString(string: "\n\(date.relative)", attributes: [.foregroundColor: UIColor.lightGray,
+                                                                                 .font: UIFont(name: "GTWalsheimProRegular", size: 12.0)!])
         attributedText.append(date)
         
         attributedText.applyParagraphStyle { paragraphStyle in
