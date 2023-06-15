@@ -21,6 +21,7 @@ public final class EditPostViewController: UIViewController, BundledStoryboardLo
     @IBOutlet weak var uploadImageStackView: UIStackView!
     @IBOutlet weak var galleryStackViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var avatarView: AvatarView!
+    @IBOutlet weak var topMainView: UIView!
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var tableView: UITableView!
@@ -59,6 +60,7 @@ public final class EditPostViewController: UIViewController, BundledStoryboardLo
         addImageBtn.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(addImage)))
         addImageTextBtn.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(addImageTextTapped)))
         setupNavigationBarItems()
+        topMainView.frame.size.height = tableView.frame.height - galleryStackView.frame.height
     }
     
     public override func viewWillAppear(_ animated: Bool) {
@@ -106,15 +108,16 @@ public final class EditPostViewController: UIViewController, BundledStoryboardLo
     
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            collectionView.isHidden = true
-            galleryStackViewBottomConstraint.constant -= keyboardSize.height - self.view.safeAreaInset.bottom
+            galleryStackViewBottomConstraint.constant -= keyboardSize.height - view.safeAreaInset.bottom
+            topMainView.frame.size.height = tableView.frame.height - keyboardSize.height - galleryStackView.frame.height + view.safeAreaInset.bottom
+            topMainView.layoutIfNeeded()
         }
     }
     
     @objc func keyboardWillHide(notification: NSNotification) {
-        collectionView.isHidden = false
-        
         galleryStackViewBottomConstraint.constant = 0
+        topMainView.frame.size.height = tableView.frame.height - galleryStackView.frame.height + view.safeAreaInset.bottom
+        topMainView.layoutIfNeeded()
     }
     
     public override func viewWillDisappear(_ animated: Bool) {

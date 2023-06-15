@@ -261,6 +261,7 @@
                         <outlet property="galleryStackViewBottomConstraint" destination="btA-eK-i98" id="Mtg-8l-wfm"/>
                         <outlet property="tableView" destination="bCs-tc-Bde" id="FdK-9R-CcV"/>
                         <outlet property="textView" destination="P22-kY-1vq" id="mlv-z7-Z1M"/>
+                        <outlet property="topMainView" destination="Rvb-k9-EQH" id="851-3B-7ef"/>
                         <outlet property="uploadImageStackView" destination="yyy-1a-Yvt" id="TtB-bp-EFf"/>
                         <outlet property="userNameLabel" destination="cSf-Yh-E7f" id="i6d-eR-UuD"/>
                     </connections>
