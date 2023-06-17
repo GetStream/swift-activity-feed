@@ -103,7 +103,7 @@
                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                         <state key="normal" image="options"/>
                         <connections>
-                            <action selector="removePost:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Awc-3l-ccV"/>
+                            <action selector="postSettings:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="iva-px-vGu"/>
                         </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jj7-32-SZg">
@@ -145,7 +145,7 @@
                 <outlet property="messageLabel" destination="Mbn-bb-JtW" id="mNO-Yq-i9R"/>
                 <outlet property="nameLabel" destination="BlM-ye-otK" id="yFf-vh-Ofz"/>
                 <outlet property="photoImageView" destination="Pi4-xh-ICN" id="Wue-Hq-U2j"/>
-                <outlet property="removePostButton" destination="TUl-zR-7tp" id="gIW-fS-9GM"/>
+                <outlet property="postSettingsButton" destination="TUl-zR-7tp" id="Xg3-EI-eti"/>
                 <outlet property="repostInfoLabel" destination="YjD-CN-ZL2" id="sel-SM-DWR"/>
                 <outlet property="repostInfoStackView" destination="NcK-Ag-RoS" id="Yn7-XS-SdY"/>
             </connections>

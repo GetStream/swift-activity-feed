@@ -69,6 +69,7 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
     
     let currentUser = Client.shared.currentUser as? User
     public lazy var profilePictureURL: String? = currentUser?.avatarURL?.absoluteString
+    public var reportUserAction: ((String, String) -> Void)?
     
     public var isCurrentUserTimeline: Bool = false
     public var presenter: FlatFeedPresenter<T>?
@@ -176,6 +177,15 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
         self.sectionsData = sectionsData
     }
     
+    private func postSettingsAction(activityId: String) {
+        if isCurrentUserTimeline {
+            removePostConfirmation(activityId: activityId)
+            //2- Edit Post
+        } else {
+            reportUserConfirmation(activityId: activityId)
+        }
+    }
+    
     private func removePostConfirmation(activityId: String) {
         let removePostAction: AlertAction = ("Delete post", .destructive, { [weak self] in
             guard let self = self else { return }
@@ -190,6 +200,18 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
         let cancelAction: AlertAction = ("Cancel", .cancel, {}, true)
         
         self.alertWithAction(title: "Are you sure you want to delete this post?", message: nil, alertStyle: .actionSheet, tintColor: nil, actions: [removePostAction, cancelAction])
+    }
+    
+    private func reportUserConfirmation(activityId: String) {
+        let reportUsertAction: AlertAction = ("Report", .destructive, { [weak self] in
+            guard let self = self else { return }
+            guard let userId = currentUser?.id else { return }
+            self.reportUserAction?(userId, activityId)
+        }, true)
+
+        let cancelAction: AlertAction = ("Cancel", .cancel, {}, true)
+        
+        self.alertWithAction(title: "Are you sure you want to report this post?", message: nil, alertStyle: .actionSheet, tintColor: nil, actions: [reportUsertAction, cancelAction])
     }
     
     private func reloadComments() {
@@ -315,8 +337,8 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
                         cell.updateAvatar(with: profilePictureURL ?? "")
                     }
                     cell.setActivity(with: activityPresenter.originalActivity.id,isCurrentUserTimeLine: isCurrentUserTimeline)
-                    cell.removePostTapped = { [weak self] activityId in
-                        self?.removePostConfirmation(activityId: activityId)
+                    cell.postSettingsTapped = { [weak self] activityId in
+                        self?.postSettingsAction(activityId: activityId)
                     }
                     cell.photoImageTapped = { [weak self] imageURL in
                         guard let imageURLs = self?.imageURLsDic[indexPath.section] else { return }

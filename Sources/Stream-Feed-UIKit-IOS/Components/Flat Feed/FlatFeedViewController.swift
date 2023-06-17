@@ -29,6 +29,7 @@ open class FlatFeedViewController<T: ActivityProtocol>: BaseFlatFeedViewControll
     let currentUser = Client.shared.currentUser as? User
     public lazy var profilePictureURL: String? = currentUser?.avatarURL?.absoluteString
     public var isCurrentUserTimeline: Bool = false
+    public var reportUserAction: ((String, String) -> Void)?
     
     open override func viewDidLoad() {
         super.viewDidLoad()
@@ -102,14 +103,23 @@ open class FlatFeedViewController<T: ActivityProtocol>: BaseFlatFeedViewControll
             }
         
             cell.setActivity(with: activityPresenter.originalActivity.id,isCurrentUserTimeLine: isCurrentUserTimeline)
-            cell.removePostTapped = { [weak self] activityId in
-                self?.removePostConfirmation(activityId: activityId)
+            cell.postSettingsTapped = { [weak self] activityId in
+                self?.postSettingsAction(activityId: activityId)
             }
             
         } else if let cell = cell as? PostActionsTableViewCell {
            updateActions(in: cell, activityPresenter: activityPresenter)
         }
         return cell
+    }
+    
+    private func postSettingsAction(activityId: String) {
+        if isCurrentUserTimeline {
+            removePostConfirmation(activityId: activityId)
+            //2- Edit Post
+        } else {
+            reportUserConfirmation(activityId: activityId)
+        }
     }
     
     private func removePostConfirmation(activityId: String) {
@@ -124,6 +134,18 @@ open class FlatFeedViewController<T: ActivityProtocol>: BaseFlatFeedViewControll
         let cancelAction: AlertAction = ("Cancel", .cancel, {}, true)
         
         self.alertWithAction(title: "Are you sure you want to delete this post?", message: nil, alertStyle: .actionSheet, tintColor: nil, actions: [removePostAction, cancelAction])
+    }
+    
+    private func reportUserConfirmation(activityId: String) {
+        let reportUsertAction: AlertAction = ("Report", .destructive, { [weak self] in
+            guard let self = self else { return }
+            guard let userId = currentUser?.id else { return }
+            self.reportUserAction?(userId, activityId)
+        }, true)
+
+        let cancelAction: AlertAction = ("Cancel", .cancel, {}, true)
+        
+        self.alertWithAction(title: "Are you sure you want to report this post?", message: nil, alertStyle: .actionSheet, tintColor: nil, actions: [reportUsertAction, cancelAction])
     }
     
     open override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

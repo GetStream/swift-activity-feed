@@ -94,6 +94,7 @@ public final class ActivityFeedViewController: FlatFeedViewController<Activity>,
                 return
         }
         activityDetailTableViewController.profilePictureURL = profilePictureURL
+        activityDetailTableViewController.reportUserAction = reportUserAction
         activityDetailTableViewController.isCurrentUserTimeline = isCurrentUserTimeline
         activityDetailTableViewController.presenter = presenter
         activityDetailTableViewController.activityPresenter = activityPresenter

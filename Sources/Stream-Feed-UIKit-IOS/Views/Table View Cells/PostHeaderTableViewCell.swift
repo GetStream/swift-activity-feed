@@ -21,13 +21,13 @@ open class PostHeaderTableViewCell: BaseTableViewCell {
     @IBOutlet public weak var messageLabel: UILabel!
     @IBOutlet private weak var messageBottomConstraint: NSLayoutConstraint!
     @IBOutlet private(set) weak var photoImageView: UIImageView!
-    @IBOutlet public weak var removePostButton: UIButton!
+    @IBOutlet public weak var postSettingsButton: UIButton!
     @IBOutlet public weak var ImagePostButton: UIButton!
     
     var allImageURLs: [URL] = []
     var activityID: String = ""
     var postImageURL: URL?
-    var removePostTapped: ((String) -> Void)?
+    var postSettingsTapped: ((String) -> Void)?
     var photoImageTapped: ((URL) -> Void)?
     var sendImageURLValues: ((URL) -> Void)?
     
@@ -62,7 +62,6 @@ open class PostHeaderTableViewCell: BaseTableViewCell {
     
     public func setActivity(with activityID: String, isCurrentUserTimeLine: Bool) {
         self.activityID = activityID
-        self.removePostButton.isHidden = !isCurrentUserTimeLine
     }
     
     public func updateAvatar(with image: UIImage?) {
@@ -93,8 +92,8 @@ open class PostHeaderTableViewCell: BaseTableViewCell {
         photoImageView.loadImage(from: url.absoluteString)
     }
     
-    @IBAction func removePost(_ sender: UIButton) {
-       removePostTapped?(activityID)
+    @IBAction func postSettings(_ sender: UIButton) {
+       postSettingsTapped?(activityID)
     }
     
     @IBAction func photoImageTapped(_ sender: UIButton) {

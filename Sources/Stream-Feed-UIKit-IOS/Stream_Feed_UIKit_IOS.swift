@@ -3,10 +3,11 @@ import GetStream
 
 public struct StreamFeedUIKitIOS {
     
-    public static func makeTimeLineVC(feedSlug: String, userId: String, isCurrentUserTimeline: Bool, profilePictureURL: String) -> ActivityFeedViewController {
+    public static func makeTimeLineVC(feedSlug: String, userId: String, isCurrentUserTimeline: Bool, profilePictureURL: String, reportUserAction: @escaping ((String, String) -> Void)) -> ActivityFeedViewController {
         let timeLineVC = ActivityFeedViewController.fromBundledStoryboard()
         timeLineVC.isCurrentUserTimeline = isCurrentUserTimeline
         timeLineVC.profilePictureURL = profilePictureURL
+        timeLineVC.reportUserAction = reportUserAction
         timeLineVC.modalPresentationStyle = .fullScreen
         let nav = UINavigationController(rootViewController: timeLineVC)
         nav.modalPresentationStyle = .fullScreen
