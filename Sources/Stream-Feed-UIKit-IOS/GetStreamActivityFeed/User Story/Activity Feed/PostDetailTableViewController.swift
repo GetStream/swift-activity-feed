@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import GetStream
 
-class PostDetailTableViewController: DetailViewController<Activity> {
+public final class PostDetailTableViewController: DetailViewController<Activity> {
     weak var backBtn: UIBarButtonItem? {
         let image = UIImage(named: "backArrow")
         let desiredImage = image
@@ -18,11 +18,39 @@ class PostDetailTableViewController: DetailViewController<Activity> {
         return back
     }
     
-    open override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
         hideBackButtonTitle()
         hideKeyboardWhenTappedAround()
         setupNavigationBar()
+        keyboardBinding()
+    }
+    
+    private func keyboardBinding(){
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(willResignActive), name: UIApplication.willResignActiveNotification, object: nil)
+    }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            view.frame.origin.y -= keyboardSize.height
+        }
+    }
+
+    @objc func keyboardWillHide(notification: NSNotification) {
+        guard view.frame.origin.y < -100 else { return }
+        view.frame.origin.y = 92
+    }
+    
+    @objc func willResignActive() {
+        view.endEditing(true)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIApplication.willResignActiveNotification, object: nil)
     }
     
     private func setupNavigationBar() {

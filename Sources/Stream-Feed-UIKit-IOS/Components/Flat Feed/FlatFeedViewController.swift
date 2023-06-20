@@ -27,9 +27,9 @@ open class FlatFeedViewController<T: ActivityProtocol>: BaseFlatFeedViewControll
     public var removeActivityAction: RemoveActivityAction?
     
     let currentUser = Client.shared.currentUser as? User
-    public lazy var profilePictureURL: String? = currentUser?.avatarURL?.absoluteString
-    public var isCurrentUserTimeline: Bool = false
+    public var isCurrentUser: Bool = false
     public var reportUserAction: ((String, String) -> Void)?
+    public var shareTimeLinePostAction: ((String?) -> Void)?
     
     open override func viewDidLoad() {
         super.viewDidLoad()
@@ -94,31 +94,44 @@ open class FlatFeedViewController<T: ActivityProtocol>: BaseFlatFeedViewControll
         
         if let cell = cell as? PostHeaderTableViewCell {
             cell.ImagePostButton.isUserInteractionEnabled = false
-            if isCurrentUserTimeline && profilePictureURL == nil {
-                profilePictureURL = currentUser?.avatarURL?.absoluteString
+            if let profilePictureURL = activityPresenter.originalActivity.actor.avatarURL?.absoluteString {
+                cell.updateAvatar(with: profilePictureURL)
             }
-            
-            if profilePictureURL != nil {
-                cell.updateAvatar(with: profilePictureURL ?? "")
-            }
-        
-            cell.setActivity(with: activityPresenter.originalActivity.id,isCurrentUserTimeLine: isCurrentUserTimeline)
-            cell.postSettingsTapped = { [weak self] activityId in
-                self?.postSettingsAction(activityId: activityId)
+            cell.setActivity(with: activityPresenter.originalActivity as! Activity)
+            cell.postSettingsTapped = { [weak self] activity in
+                self?.postSettingsAction(activity: activity)
             }
             
         } else if let cell = cell as? PostActionsTableViewCell {
-           updateActions(in: cell, activityPresenter: activityPresenter)
+            cell.setActivity(with: activityPresenter.originalActivity as! Activity)
+            sharePostAction(cell)
+            updateActions(in: cell, activityPresenter: activityPresenter)
         }
         return cell
     }
     
-    private func postSettingsAction(activityId: String) {
-        if isCurrentUserTimeline {
-            removePostConfirmation(activityId: activityId)
+    private func sharePostAction(_ cell: PostActionsTableViewCell) {
+        cell.sharePostAction = { [weak self] activity in
+            guard let self else { return }
+            guard let activityId = activity?.id else {
+                self.shareTimeLinePostAction?(nil)
+                return
+            }
+            self.shareTimeLinePostAction?(activityId)
+        }
+    }
+    
+    private func postSettingsAction(activity: Activity) {
+        dump(activity)
+        
+        if isCurrentUser {
+            removePostConfirmation(activityId: activity.id)
+//            DispatchQueue.main.async { [weak self] in
+//                self?.editPostAction(activity: activity)
+//            }
             //2- Edit Post
         } else {
-            reportUserConfirmation(activityId: activityId)
+            reportUserConfirmation(activityId: activity.id)
         }
     }
     
@@ -146,6 +159,10 @@ open class FlatFeedViewController<T: ActivityProtocol>: BaseFlatFeedViewControll
         let cancelAction: AlertAction = ("Cancel", .cancel, {}, true)
         
         self.alertWithAction(title: "Are you sure you want to report this post?", message: nil, alertStyle: .actionSheet, tintColor: nil, actions: [reportUsertAction, cancelAction])
+    }
+    
+    func editPostAction(activity: Activity) {
+       performSegue(show: EditPostViewController.self, sender: activity)
     }
     
     open override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

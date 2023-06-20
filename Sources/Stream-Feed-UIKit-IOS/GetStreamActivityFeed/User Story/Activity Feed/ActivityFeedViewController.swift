@@ -81,21 +81,26 @@ public final class ActivityFeedViewController: FlatFeedViewController<Activity>,
     }
     
     public override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let editPostnavigationController = segue.destination as? UINavigationController,
-            let editPostViewController = editPostnavigationController.viewControllers.first as? EditPostViewController,
-            let userFeedId = FeedId.user {
+         if segue.destination is EditPostViewController,
+           // let editPostViewController = segue.destination.viewControllers.first as? EditPostViewController,
+            let userFeedId = FeedId.user,
+            let activity = sender as? Activity {
+            let editPostViewController = segue.destination as! EditPostViewController
+            print("BNBN userFeedID \(userFeedId)")
+            dump(activity)
+            print("BNBN")
             editPostViewController.presenter = EditPostPresenter(flatFeed: Client.shared.flatFeed(userFeedId),
-                                                                 view: editPostViewController)
+                                                                 view: editPostViewController, activity: activity)
             return
         }
         
         guard let activityDetailTableViewController = segue.destination as? PostDetailTableViewController,
-            let activityPresenter = sender as? ActivityPresenter<Activity> else {
+              let activityPresenter = sender as? ActivityPresenter<Activity> else {
                 return
         }
-        activityDetailTableViewController.profilePictureURL = profilePictureURL
         activityDetailTableViewController.reportUserAction = reportUserAction
-        activityDetailTableViewController.isCurrentUserTimeline = isCurrentUserTimeline
+        activityDetailTableViewController.shareTimeLinePostAction = shareTimeLinePostAction
+        activityDetailTableViewController.isCurrentUser = isCurrentUser
         activityDetailTableViewController.presenter = presenter
         activityDetailTableViewController.activityPresenter = activityPresenter
         activityDetailTableViewController.sections = [.activity, .comments]

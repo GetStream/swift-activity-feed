@@ -146,7 +146,7 @@ public final class TextToolBar: UIView {
     }()
     
     /// An `UIActivityIndicatorView`.
-    public private(set) lazy var activityIndicatorView = UIActivityIndicatorView(style: .gray)
+    public private(set) lazy var activityIndicatorView = UIActivityIndicatorView(style: .medium)
     
     /// The text of the text view.
     public var text: String {

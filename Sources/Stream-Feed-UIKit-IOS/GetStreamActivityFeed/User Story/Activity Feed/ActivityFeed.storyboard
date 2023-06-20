@@ -55,7 +55,7 @@
                     </navigationItem>
                     <connections>
                         <segue destination="BLY-u4-gAI" kind="show" identifier="PostDetailTableViewController" id="Vq8-9B-cEd"/>
-                        <segue destination="ibm-wW-ZPp" kind="presentation" identifier="EditPostViewController" id="WSX-k6-HPX"/>
+                        <segue destination="NxW-4H-H8V" kind="show" identifier="EditPostViewController" id="8DG-dA-lA0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="U9R-9Y-D9G" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -72,6 +72,7 @@
                         <viewLayoutGuide key="safeArea" id="Ucu-Ix-KfA"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
+                    <navigationItem key="navigationItem" id="yI0-JS-jZ0"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nCn-eJ-BlQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -86,7 +87,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bCs-tc-Bde">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="Rvb-k9-EQH">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="320"/>
@@ -268,22 +269,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w70-7d-Bkb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2648.8000000000002" y="-243.32833583208398"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="QlW-nZ-4zF">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ibm-wW-ZPp" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="AhG-ta-soP">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="xkQ-69-FS1" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1892" y="-243"/>
+            <point key="canvasLocation" x="1855" y="-240"/>
         </scene>
     </scenes>
     <resources>

@@ -27,9 +27,10 @@ open class PostHeaderTableViewCell: BaseTableViewCell {
     var allImageURLs: [URL] = []
     var activityID: String = ""
     var postImageURL: URL?
-    var postSettingsTapped: ((String) -> Void)?
+    var postSettingsTapped: ((Activity) -> Void)?
     var photoImageTapped: ((URL) -> Void)?
     var sendImageURLValues: ((URL) -> Void)?
+    var currentActivity: Activity?
     
     public var repost: String? {
         get {
@@ -60,8 +61,9 @@ open class PostHeaderTableViewCell: BaseTableViewCell {
         photoImageView.isHidden = true
     }
     
-    public func setActivity(with activityID: String, isCurrentUserTimeLine: Bool) {
-        self.activityID = activityID
+    public func setActivity(with activity: Activity) {
+        self.currentActivity = activity
+        self.activityID = activity.id
     }
     
     public func updateAvatar(with image: UIImage?) {
@@ -93,7 +95,8 @@ open class PostHeaderTableViewCell: BaseTableViewCell {
     }
     
     @IBAction func postSettings(_ sender: UIButton) {
-       postSettingsTapped?(activityID)
+       guard let currentActivity = currentActivity else { return }
+       postSettingsTapped?(currentActivity)
     }
     
     @IBAction func photoImageTapped(_ sender: UIButton) {

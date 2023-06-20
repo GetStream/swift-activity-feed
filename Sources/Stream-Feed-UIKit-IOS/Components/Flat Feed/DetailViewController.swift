@@ -68,10 +68,10 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
     public var showZeroSectionTitle = true
     
     let currentUser = Client.shared.currentUser as? User
-    public lazy var profilePictureURL: String? = currentUser?.avatarURL?.absoluteString
     public var reportUserAction: ((String, String) -> Void)?
+    public var shareTimeLinePostAction: ((String?) -> Void)?
     
-    public var isCurrentUserTimeline: Bool = false
+    public var isCurrentUser: Bool = false
     public var presenter: FlatFeedPresenter<T>?
     
     
@@ -112,37 +112,8 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
         if isModal {
             setupNavigationBarForModallyPresented()
         }
-        
-       keyboardBinding()
-    }
-    
-    private func keyboardBinding(){
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(willResignActive), name: UIApplication.willResignActiveNotification, object: nil)
-    }
-    
-    @objc func keyboardWillShow(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            view.frame.origin.y -= keyboardSize.height
-        }
     }
 
-    @objc func keyboardWillHide(notification: NSNotification) {
-        guard view.frame.origin.y < -100 else { return }
-        view.frame.origin.y = 92
-    }
-    
-    deinit {
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: UIApplication.willResignActiveNotification, object: nil)
-    }
-    
-    @objc func willResignActive() {
-        view.endEditing(true)
-    }
-    
     private func updateSectionsIndex() {
         guard let activityPresenter = activityPresenter else {
             self.sectionsData = []
@@ -177,12 +148,13 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
         self.sectionsData = sectionsData
     }
     
-    private func postSettingsAction(activityId: String) {
-        if isCurrentUserTimeline {
-            removePostConfirmation(activityId: activityId)
-            //2- Edit Post
+    private func postSettingsAction(activity: Activity) {
+        if isCurrentUser {
+            removePostConfirmation(activityId: activity.id)
+          //  editPostAction(activity: activity)
+
         } else {
-            reportUserConfirmation(activityId: activityId)
+            reportUserConfirmation(activityId: activity.id)
         }
     }
     
@@ -333,12 +305,12 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
                 }
             }) {
                 if let cell = cell as? PostHeaderTableViewCell {
-                    if profilePictureURL != nil {
-                        cell.updateAvatar(with: profilePictureURL ?? "")
+                    if let profilePictureURL = activityPresenter.originalActivity.actor.avatarURL?.absoluteString {
+                        cell.updateAvatar(with: profilePictureURL)
                     }
-                    cell.setActivity(with: activityPresenter.originalActivity.id,isCurrentUserTimeLine: isCurrentUserTimeline)
-                    cell.postSettingsTapped = { [weak self] activityId in
-                        self?.postSettingsAction(activityId: activityId)
+                    cell.setActivity(with: activityPresenter.originalActivity as! Activity)
+                    cell.postSettingsTapped = { [weak self] activity in
+                        self?.postSettingsAction(activity: activity)
                     }
                     cell.photoImageTapped = { [weak self] imageURL in
                         guard let imageURLs = self?.imageURLsDic[indexPath.section] else { return }
@@ -353,6 +325,8 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
                 }
                 
                 if let cell = cell as? PostActionsTableViewCell {
+                    cell.setActivity(with: activityPresenter.originalActivity as! Activity)
+                    sharePostAction(cell)
                     updateActions(in: cell, activityPresenter: activityPresenter)
                 }
                 
@@ -415,6 +389,17 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
         }
         
         return cell
+    }
+    
+    private func sharePostAction(_ cell: PostActionsTableViewCell) {
+        cell.sharePostAction = { [weak self] activity in
+            guard let self else { return }
+            guard let activityId = activity?.id else {
+                self.shareTimeLinePostAction?(nil)
+                return
+            }
+            self.shareTimeLinePostAction?(activityId)
+        }
     }
     
     /// A title for bottom comment note, that it has replies.

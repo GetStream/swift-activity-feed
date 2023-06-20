@@ -12,8 +12,12 @@ import GetStream
 
 open class PostActionsTableViewCell: UITableViewCell, NibReusable {
     @IBOutlet public weak var replyButton: UIButton!
+    @IBOutlet public weak var sharePostButton: UIButton!
     @IBOutlet public weak var repostButton: RepostButton!
     @IBOutlet public weak var likeButton: LikeButton!
+    
+    var currentActivity: Activity?
+    var sharePostAction: ((Activity?) -> Void)?
     
     open override func awakeFromNib() {
         super.awakeFromNib()
@@ -43,6 +47,14 @@ open class PostActionsTableViewCell: UITableViewCell, NibReusable {
         repostButton.isHidden = true
         likeButton.isHidden = true
         likeButton.semanticContentAttribute = .forceLeftToRight
+    }
+    
+    public func setActivity(with activity: Activity) {
+        self.currentActivity = activity
+    }
+    
+    @IBAction func sharePostAction(sender: UIButton) {
+        sharePostAction?(currentActivity)
     }
 }
 

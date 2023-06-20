@@ -3,11 +3,11 @@ import GetStream
 
 public struct StreamFeedUIKitIOS {
     
-    public static func makeTimeLineVC(feedSlug: String, userId: String, isCurrentUserTimeline: Bool, profilePictureURL: String, reportUserAction: @escaping ((String, String) -> Void)) -> ActivityFeedViewController {
+    public static func makeTimeLineVC(feedSlug: String, userId: String, isCurrentUser: Bool, reportUserAction: @escaping ((String, String) -> Void), shareTimeLinePostAction:  @escaping ((String?) -> Void)) -> ActivityFeedViewController {
         let timeLineVC = ActivityFeedViewController.fromBundledStoryboard()
-        timeLineVC.isCurrentUserTimeline = isCurrentUserTimeline
-        timeLineVC.profilePictureURL = profilePictureURL
+        timeLineVC.isCurrentUser = isCurrentUser
         timeLineVC.reportUserAction = reportUserAction
+        timeLineVC.shareTimeLinePostAction = shareTimeLinePostAction
         timeLineVC.modalPresentationStyle = .fullScreen
         let nav = UINavigationController(rootViewController: timeLineVC)
         nav.modalPresentationStyle = .fullScreen
@@ -28,6 +28,64 @@ public struct StreamFeedUIKitIOS {
         return editPostViewController
     }
     
+    public static func makePostDetailsVC(with activityId: String,
+                                  currentUserId: String,
+                                  reportUserAction: @escaping ((String, String) -> Void),
+                                  shareTimeLinePostAction:  @escaping ((String?) -> Void),
+                                  completion: @escaping (Result<PostDetailTableViewController, Error>) -> Void) {
+        
+        StreamFeedUIKitIOS.loadActivityByID(activityId: activityId) { result in
+            do {
+                let activity = try result.get()
+                let isCurrentUser: Bool = activity.actor.id == currentUserId
+                let activityDetailTableViewController = self.createActivityDetailTableViewController(activity: activity,
+                                                                                                     isCurrentUser: isCurrentUser,
+                                                                                                     reportUserAction: reportUserAction,
+                                                                                                     shareTimeLinePostAction: shareTimeLinePostAction)
+                completion(.success(activityDetailTableViewController))
+            } catch {
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    private static func createActivityDetailTableViewController(activity: Activity,
+                                                         isCurrentUser: Bool,
+                                                         reportUserAction: @escaping ((String, String) -> Void),
+                                                         shareTimeLinePostAction:  @escaping ((String?) -> Void)) -> PostDetailTableViewController {
+        
+        let activityDetailTableViewController = PostDetailTableViewController()
+        guard let flatFeed = Client.shared.flatFeed(feedSlug: "user") else { return PostDetailTableViewController() }
+        let flatFeedPresenter = FlatFeedPresenter<Activity>(flatFeed: flatFeed,
+                                                            reactionTypes: [.comments, .likes])
+        let reactionPresenter = ReactionPresenter()
+        
+        let activityPresenter = ActivityPresenter(activity: activity, reactionPresenter: reactionPresenter, reactionTypes: [.comments, .likes])
+        
+        activityDetailTableViewController.reportUserAction = reportUserAction
+        activityDetailTableViewController.shareTimeLinePostAction = shareTimeLinePostAction
+        activityDetailTableViewController.isCurrentUser = isCurrentUser
+        activityDetailTableViewController.presenter = flatFeedPresenter
+        activityDetailTableViewController.activityPresenter = activityPresenter
+        activityDetailTableViewController.sections = [.activity, .comments]
+        
+        return activityDetailTableViewController
+    }
+
+    
+    public static func loadActivityByID(activityId: String, completion: @escaping (Result<Activity, Error>) -> Void) {
+        Client.shared.get(typeOf: Activity.self, activityIds: [activityId]) { result in
+            do {
+                let response = try result.get()
+                guard let activity = response.results.first else {
+                    return
+                }
+                completion(.success(activity))
+            } catch let responseError {
+                completion(.failure(responseError))
+            }
+        }
+    }
     
     public static func setupStream(apiKey: String, appId: String, region: BaseURL.Location, logsEnabled: Bool = true) {
         if Client.shared.token.isEmpty {
