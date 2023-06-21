@@ -103,7 +103,6 @@ public final class TextToolBar: UIView {
     /// You have to use the `text` property to change the value of the text view.
     public private(set) lazy var textView: UITextView = {
         let textView = UITextView(frame: .zero)
-        textView.autocorrectionType = .no
         textView.attributedText = NSAttributedString(string: "", attributes: textViewTextAttributes)
         textView.backgroundColor = backgroundColor
         textView.delegate = self
