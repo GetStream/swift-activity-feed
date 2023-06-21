@@ -60,7 +60,7 @@ extension ReactionPaginator {
                                     
                                     do {
                                         let response = try result.get()
-                                        self.items.append(contentsOf: response.reactions)
+                                        self.items.append(contentsOf: response.reactions.reversed())
                                         self.next = response.next ?? .none
                                     } catch let responseError {
                                         error = responseError

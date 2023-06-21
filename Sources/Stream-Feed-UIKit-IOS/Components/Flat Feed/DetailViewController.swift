@@ -542,6 +542,7 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
         } else {
             updateSectionsIndex()
             tableView.reloadData()
+            tableView.scrollToBottom(animated: true)
         }
     }
     
