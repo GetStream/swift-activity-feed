@@ -112,7 +112,47 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
         if isModal {
             setupNavigationBarForModallyPresented()
         }
+        
+        keyboardBinding()
     }
+    
+    private func keyboardBinding() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(willResignActive), name: UIApplication.willResignActiveNotification, object: nil)
+    }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            let keyboardHeight = keyboardSize.height
+            // Update your textToolBar bottom constraint constant here based on the keyboardHeight
+            // For example, if you have a constraint called textToolBarBottomConstraint:
+            textToolBar.bottomConstraint?.update(offset: -keyboardHeight)
+            UIView.animate(withDuration: 0.3) {
+                self.view.layoutIfNeeded()
+            }
+        }
+    }
+
+    @objc func keyboardWillHide(notification: NSNotification) {
+        // Reset your textToolBar bottom constraint constant to its original value (e.g., 0)
+        textToolBar.bottomConstraint?.update(offset: 0)
+        UIView.animate(withDuration: 0.3) {
+            self.view.layoutIfNeeded()
+        }
+    }
+
+    
+    @objc func willResignActive() {
+        view.endEditing(true)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIApplication.willResignActiveNotification, object: nil)
+    }
+    
 
     private func updateSectionsIndex() {
         guard let activityPresenter = activityPresenter else {

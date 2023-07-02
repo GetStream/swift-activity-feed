@@ -173,7 +173,7 @@ public final class TextToolBar: UIView {
     }
     
     private weak var heightConstraint: Constraint?
-    private weak var bottomConstraint: Constraint?
+    weak var bottomConstraint: Constraint?
     private var baseTextHeight = CGFloat.greatestFiniteMagnitude
     
     // MARK: - Reply Container
@@ -296,16 +296,6 @@ public final class TextToolBar: UIView {
         backgroundColor = UIColor(white: 0.97, alpha: 1)
         addSubview(stackView)
         stackView.snp.makeConstraints { $0.edges.equalToSuperview() }
-        
-//        NotificationCenter.default.addObserver(self,
-//                                               selector: #selector(keyboardUpdated(_:)),
-//                                               name: UIResponder.keyboardWillShowNotification,
-//                                               object: nil)
-//
-//        NotificationCenter.default.addObserver(self,
-//                                               selector: #selector(keyboardUpdated(_:)),
-//                                               name: UIResponder.keyboardWillHideNotification,
-//                                               object: nil)
     }
     
     deinit {
@@ -478,28 +468,6 @@ extension TextToolBar: UITextViewDelegate {
             openGraphData = nil
             updateOpenGraphPreview()
         }
-    }
-}
-
-// MARK: - Keyboard Events
-
-extension TextToolBar {
-    @objc func keyboardUpdated(_ notification: NSNotification) {
-        guard let userInfo = notification.userInfo,
-            let value = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue,
-            superview != nil else {
-                return
-        }
-        
-        let willHide = notification.name == UIResponder.keyboardWillHideNotification
-        let offset: CGFloat = willHide ? 0 : -value.cgRectValue.height
-        bottomConstraint?.update(offset: offset)
-        
-        if willHide {
-            replyText = nil
-        }
-        
-        layoutIfNeeded()
     }
 }
 
