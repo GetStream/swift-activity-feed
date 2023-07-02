@@ -190,19 +190,21 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
     
     private func postSettingsAction(activity: Activity) {
         if isCurrentUser {
-            removePostConfirmation(activityId: activity.id)
-          //  editPostAction(activity: activity)
-
+            openPostSettingOptions(activity: activity)
         } else {
-            reportUserConfirmation(activityId: activity.id)
+            reportUserConfirmation(activity: activity)
         }
     }
     
-    private func removePostConfirmation(activityId: String) {
+    private func openPostSettingOptions(activity: Activity) {
+//        let editPostAction: AlertAction = ("Edit post", .destructive, { [weak self] in
+//            guard let self = self else { return }
+//            self.navigateToPostDetails(with: activity)
+//        }, true)
+        
         let removePostAction: AlertAction = ("Delete post", .destructive, { [weak self] in
             guard let self = self else { return }
-            guard let activity = self.presenter?.items.filter({ $0.originalActivity.id == activityId }).first else { return }
-            self.presenter?.remove(activity: activity.activity as! Activity, { error in
+            self.presenter?.remove(activity: activity, { error in
                 DispatchQueue.main.async { [weak self] in
                     self?.navigationController?.popViewController(animated: true)
                 }
@@ -211,14 +213,17 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
 
         let cancelAction: AlertAction = ("Cancel", .cancel, {}, true)
         
+        //"Timeline Post Settings"
+        //editPostAction,
         self.alertWithAction(title: "Are you sure you want to delete this post?", message: nil, alertStyle: .actionSheet, tintColor: nil, actions: [removePostAction, cancelAction])
+       
     }
     
-    private func reportUserConfirmation(activityId: String) {
+    private func reportUserConfirmation(activity: Activity) {
         let reportUsertAction: AlertAction = ("Report", .destructive, { [weak self] in
             guard let self = self else { return }
             guard let userId = currentUser?.id else { return }
-            self.reportUserAction?(userId, activityId)
+            self.reportUserAction?(userId, activity.id)
         }, true)
 
         let cancelAction: AlertAction = ("Cancel", .cancel, {}, true)
@@ -226,9 +231,21 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
         self.alertWithAction(title: "Are you sure you want to report this post?", message: nil, alertStyle: .actionSheet, tintColor: nil, actions: [reportUsertAction, cancelAction])
     }
     
-    private func reloadComments() {
+    private func navigateToPostDetails(with activity: Activity) {
+        guard let userFeedId: FeedId = FeedId(feedSlug: "user") else { return }
+        let editPostViewController = EditPostViewController.fromBundledStoryboard()
+        editPostViewController.presenter = EditPostPresenter(flatFeed: Client.shared.flatFeed(userFeedId),view: editPostViewController, activity: activity)
+        editPostViewController.entryPoint = .editPost
+        editPostViewController.modalPresentationStyle = .fullScreen
+        
+        self.navigationController?.pushViewController(editPostViewController, animated: true)
+    }
+    
+    private func reloadComments(isNewCommentSent: Bool = false) {
         reactionPaginator?.reset()
-        reactionPaginator?.load(.limit(100), completion: commentsLoaded)
+        reactionPaginator?.load(.limit(100), completion: { [weak self] error in
+            self?.commentsLoaded(isNewCommentSent: isNewCommentSent, error)
+        })
     }
     
     /// Return a title of the section by the section type.
@@ -405,7 +422,9 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
         
         guard let comment = comment(at: indexPath) else {
             if reactionPaginator.hasNext {
-                reactionPaginator.loadNext(completion: commentsLoaded)
+                reactionPaginator.loadNext { [weak self] error in
+                    self?.commentsLoaded(isNewCommentSent: false, error)
+                }
                 return tableView.dequeueReusableCell(for: indexPath) as PaginationTableViewCell
             }
             
@@ -574,7 +593,7 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
         }
     }
     
-    private func commentsLoaded(_ error: Error?) {
+    private func commentsLoaded(isNewCommentSent: Bool = false, _ error: Error?) {
         refreshControl.endRefreshing()
         
         if let error = error {
@@ -582,7 +601,9 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
         } else {
             updateSectionsIndex()
             tableView.reloadData()
-            tableView.scrollToBottom(animated: true)
+            if isNewCommentSent {
+                tableView.scrollToBottom(animated: true)
+            }
         }
     }
     
@@ -619,7 +640,7 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
                                                             if let error = $0.error {
                                                            //     self.showErrorAlert(error)
                                                             } else {
-                                                                self.reloadComments()
+                                                                self.reloadComments(isNewCommentSent: true)
                                                             }
                                                         }
         }

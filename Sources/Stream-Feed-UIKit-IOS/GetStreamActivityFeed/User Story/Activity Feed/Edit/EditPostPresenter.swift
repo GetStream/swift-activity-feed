@@ -100,6 +100,35 @@ public final class EditPostPresenter {
         
         flatFeed.add(activity) { completion($0.error) }
     }
+    
+    
+    
+    func updateActivity(with text: String) {
+//        guard let updatedActivity = activity else { return }
+//        let activity = Activity(actor: updatedActivity.actor, verb: updatedActivity.verb, object: .text(text), foreignId: updatedActivity.foreignId, time: updatedActivity.time, feedIds: updatedActivity.feedIds, originFeedId: updatedActivity.originFeedId)
+//        activity.id = updatedActivity.id
+//
+//        Client.shared.update(activities: [updatedActivity]) { result in
+//            do {
+//                let x = try result.get()
+//                dump("BNBN \(x)")
+//            } catch {
+//                print("BNBN Error \(error.localizedDescription)")
+//            }
+//        }
+//        let properties = Properties()
+//        Client.shared.updateActivity(typeOf: Activity.self, setProperties: properties, activityId: updatedActivity.id) { result in
+//            do {
+//                let x = try result.get()
+//                dump("BNBN2 \(x)")
+//            } catch {
+//                print("BNBN2 Error \(error.localizedDescription)")
+//            }
+//        }
+    }
+    
+    
+    
 }
 
 extension EditPostPresenter {

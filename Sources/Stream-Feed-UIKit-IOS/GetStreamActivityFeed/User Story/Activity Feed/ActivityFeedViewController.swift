@@ -82,13 +82,9 @@ public final class ActivityFeedViewController: FlatFeedViewController<Activity>,
     
     public override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
          if segue.destination is EditPostViewController,
-           // let editPostViewController = segue.destination.viewControllers.first as? EditPostViewController,
             let userFeedId = FeedId.user,
             let activity = sender as? Activity {
             let editPostViewController = segue.destination as! EditPostViewController
-            print("BNBN userFeedID \(userFeedId)")
-            dump(activity)
-            print("BNBN")
             editPostViewController.presenter = EditPostPresenter(flatFeed: Client.shared.flatFeed(userFeedId),
                                                                  view: editPostViewController, activity: activity)
             return

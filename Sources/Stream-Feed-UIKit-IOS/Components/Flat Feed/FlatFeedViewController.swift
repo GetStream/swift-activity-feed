@@ -122,20 +122,21 @@ open class FlatFeedViewController<T: ActivityProtocol>: BaseFlatFeedViewControll
     }
     
     private func postSettingsAction(activity: Activity) {
-        dump(activity)
-        
+        let activityID = activity.id
         if isCurrentUser {
-            removePostConfirmation(activityId: activity.id)
-//            DispatchQueue.main.async { [weak self] in
-//                self?.editPostAction(activity: activity)
-//            }
-            //2- Edit Post
+            openPostSettingOptions(activityId: activityID)
         } else {
-            reportUserConfirmation(activityId: activity.id)
+            reportUserConfirmation(activityId: activityID)
         }
     }
     
-    private func removePostConfirmation(activityId: String) {
+    private func openPostSettingOptions(activityId: String) {
+//        let editPostAction: AlertAction = ("Edit post", .destructive, { [weak self] in
+//            guard let self = self else { return }
+//            guard let activity = self.presenter?.items.filter({ $0.originalActivity.id == activityId }).first as? Activity else { return }
+//            self.editPostAction(activity: activity)
+//        }, true)
+        
         let removePostAction: AlertAction = ("Delete post", .destructive, { [weak self] in
             guard let self = self else { return }
             guard let activity = self.presenter?.items.filter({ $0.originalActivity.id == activityId }).first else { return }
@@ -146,6 +147,8 @@ open class FlatFeedViewController<T: ActivityProtocol>: BaseFlatFeedViewControll
 
         let cancelAction: AlertAction = ("Cancel", .cancel, {}, true)
         
+        //"Timeline Post Settings"
+        //editPostAction
         self.alertWithAction(title: "Are you sure you want to delete this post?", message: nil, alertStyle: .actionSheet, tintColor: nil, actions: [removePostAction, cancelAction])
     }
     

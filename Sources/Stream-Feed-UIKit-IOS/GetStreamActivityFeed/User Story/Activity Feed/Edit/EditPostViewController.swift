@@ -10,11 +10,17 @@ import UIKit
 import GetStream
 import Nuke
 
+enum EditTimelinePostEntryPoint {
+    case editPost
+    case newPost
+}
+
 public final class EditPostViewController: UIViewController, BundledStoryboardLoadable {
     public static var storyboardName = "ActivityFeed"
     private static let textViewPlaceholder = NSAttributedString(string: "Share something...")
     let activityIndicator = UIActivityIndicatorView(style: .medium)
     var presenter: EditPostPresenter?
+    var entryPoint: EditTimelinePostEntryPoint = .newPost
     
     @IBOutlet weak var activityIndicatorBarButtonItem: UIBarButtonItem!
     @IBOutlet weak var galleryStackView: UIStackView!
@@ -33,7 +39,7 @@ public final class EditPostViewController: UIViewController, BundledStoryboardLo
     weak var postBtn: UIButton? {
         let btn = UIButton(frame: CGRect(origin: .zero, size: CGSize(width: 78, height: 40)))
         btn.backgroundColor = UIColor(red: 95/255, green: 65/255, blue: 224/255, alpha: 1)
-        let postButtonTitle = "Post"
+        let postButtonTitle = entryPoint == .editPost ? "Update" : "Post"
         btn.setTitle(postButtonTitle, for: .normal)
         btn.titleLabel?.font = UIFont(name: "GTWalsheimProRegular", size: 16.0)!
         btn.layer.cornerRadius = 8
@@ -61,6 +67,25 @@ public final class EditPostViewController: UIViewController, BundledStoryboardLo
         addImageTextBtn.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(addImageTextTapped)))
         setupNavigationBarItems()
         topMainView.frame.size.height = tableView.frame.height - galleryStackView.frame.height
+        setPostData()
+    }
+    
+    private func setPostData() {
+        guard let activity = presenter?.activity, entryPoint == .editPost else {
+            return
+        }
+        let activityObject = activity.object
+        switch activityObject {
+        case .text(let text):
+            textView.text = text
+        case .image(let url):
+            // updatePhoto(with: url)
+            break
+        default:
+            return
+        }
+    
+        navigationItem.title = "EDIT POST"
     }
     
     public override func viewWillAppear(_ animated: Bool) {
@@ -78,7 +103,12 @@ public final class EditPostViewController: UIViewController, BundledStoryboardLo
     
     @objc private func backBtnPressed(_ sender: UIBarButtonItem) {
         view.endEditing(true)
-        dismiss(animated: true)
+        
+        if entryPoint == .editPost {
+            navigationController?.popViewController(animated: true)
+        } else {
+            dismiss(animated: true)
+        }
     }
     
     @objc private func postBtnPressed(_ sender: UIBarButtonItem) {
@@ -86,17 +116,21 @@ public final class EditPostViewController: UIViewController, BundledStoryboardLo
         activityIndicator.startAnimating()
         sender.isEnabled = false
         
-        presenter?.save(validatedText()) { [weak self] error in
-            guard let self = self else {
-                return
-            }
-            
-            self.activityIndicator.stopAnimating()
-            
-            if let error = error {
-               // self.showErrorAlert(error)
-            } else {
-                self.dismiss(animated: true)
+        if entryPoint == .editPost {
+            presenter?.updateActivity(with: textView.text)
+        } else {
+            presenter?.save(validatedText()) { [weak self] error in
+                guard let self = self else {
+                    return
+                }
+                
+                self.activityIndicator.stopAnimating()
+                
+                if let error = error {
+                    // self.showErrorAlert(error)
+                } else {
+                    backBtnPressed(UIBarButtonItem())
+                }
             }
         }
     }
