@@ -21,6 +21,7 @@ public final class EditPostViewController: UIViewController, BundledStoryboardLo
     let activityIndicator = UIActivityIndicatorView(style: .medium)
     var presenter: EditPostPresenter?
     var entryPoint: EditTimelinePostEntryPoint = .newPost
+    var keyboardIsShown: Bool = false
     
     @IBOutlet weak var activityIndicatorBarButtonItem: UIBarButtonItem!
     @IBOutlet weak var galleryStackView: UIStackView!
@@ -141,14 +142,22 @@ public final class EditPostViewController: UIViewController, BundledStoryboardLo
     }
     
     @objc func keyboardWillShow(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            galleryStackViewBottomConstraint.constant -= keyboardSize.height - view.safeAreaInset.bottom
-            topMainView.frame.size.height = tableView.frame.height - keyboardSize.height - galleryStackView.frame.height + view.safeAreaInset.bottom
-            topMainView.layoutIfNeeded()
+        guard let keyboardFrame = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
+            return
         }
+        
+        if keyboardIsShown {
+            return
+        }
+        
+        keyboardIsShown = true
+        galleryStackViewBottomConstraint.constant -= keyboardFrame.height - view.safeAreaInset.bottom
+        topMainView.frame.size.height = tableView.frame.height - keyboardFrame.height - galleryStackView.frame.height + view.safeAreaInset.bottom
+        topMainView.layoutIfNeeded()
     }
-    
+
     @objc func keyboardWillHide(notification: NSNotification) {
+        keyboardIsShown = false
         galleryStackViewBottomConstraint.constant = 0
         topMainView.frame.size.height = tableView.frame.height - galleryStackView.frame.height + view.safeAreaInset.bottom
         topMainView.layoutIfNeeded()

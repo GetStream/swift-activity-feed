@@ -23,6 +23,7 @@ public final class PostDetailTableViewController: DetailViewController<Activity>
         hideBackButtonTitle()
         hideKeyboardWhenTappedAround()
         setupNavigationBar()
+        setupUI()
     }
     
     private func setupNavigationBar() {
@@ -31,6 +32,11 @@ public final class PostDetailTableViewController: DetailViewController<Activity>
         navigationController?.navigationBar.setCustomTitleFont(font: UIFont(name: "GTWalsheimProBold", size: 18.0)!)
         navigationController?.setNavigationBarHidden(false, animated: true)
         navigationItem.leftBarButtonItem = backBtn
+    }
+    
+    private func setupUI() {
+        extendedLayoutIncludesOpaqueBars = true
+        view.backgroundColor = .white
     }
     
     @objc private func backBtnPressed(_ sender: UIBarButtonItem) {
