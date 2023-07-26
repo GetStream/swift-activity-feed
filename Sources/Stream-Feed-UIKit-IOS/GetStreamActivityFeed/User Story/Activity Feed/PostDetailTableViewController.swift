@@ -29,8 +29,11 @@ public final class PostDetailTableViewController: DetailViewController<Activity>
     private func setupNavigationBar() {
         navigationItem.largeTitleDisplayMode = .never
         navigationController?.navigationItem.largeTitleDisplayMode = .never
+        navigationController?.navigationBar.tintColor = UIColor.black
         navigationController?.navigationBar.setCustomTitleFont(font: UIFont(name: "GTWalsheimProBold", size: 18.0)!)
         navigationController?.setNavigationBarHidden(false, animated: true)
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
         navigationItem.leftBarButtonItem = backBtn
     }
     
@@ -72,5 +75,16 @@ extension PostDetailTableViewController {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return section == 0 || sectionTitle(in: section) == nil ? 0 : 30
+    }
+}
+extension PostDetailTableViewController: UIGestureRecognizerDelegate {
+    public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return (navigationController?.viewControllers.count ?? 0) > 1
+    }
+    
+    // This is necessary because without it, subviews of your top controller can
+    // cancel out your gesture recognizer on the edge.
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
     }
 }
