@@ -2,6 +2,7 @@ import UIKit
 import GetStream
 
 public struct StreamFeedUIKitIOS {
+    public static var flatFeed: FlatFeed?
     
     public static func makeTimeLineVC(feedSlug: String, userId: String, isCurrentUser: Bool, reportUserAction: @escaping ((String, String) -> Void), shareTimeLinePostAction:  @escaping ((String?) -> Void)) -> ActivityFeedViewController {
         let timeLineVC = ActivityFeedViewController.fromBundledStoryboard()
@@ -80,11 +81,26 @@ public struct StreamFeedUIKitIOS {
                 guard let activity = response.results.first else {
                     return
                 }
-                completion(.success(activity))
+                StreamFeedUIKitIOS.filterUserActivity(activityId: activityId, userId: activity.actor.id, completion: completion)
             } catch let responseError {
                 completion(.failure(responseError))
             }
         }
+    }
+    
+    public static func filterUserActivity(activityId: String, userId: String, completion: @escaping (Result<Activity, Error>) -> Void) {
+        let feedID = FeedId(feedSlug: "user", userId: userId)
+        StreamFeedUIKitIOS.flatFeed = FlatFeed(feedID)
+        StreamFeedUIKitIOS.flatFeed?.get(typeOf: Activity.self, pagination: .none, includeReactions: [.counts, .own, .latest], completion: { result in
+            do {
+                let response = try result.get()
+                let activites = response.results
+                guard let userActivityWithReactions = activites.filter { $0.id == activityId }.first else { return }
+                completion(.success(userActivityWithReactions))
+            } catch let responseError {
+                completion(.failure(responseError))
+            }
+        })
     }
     
     public static func setupStream(apiKey: String, appId: String, region: BaseURL.Location, logsEnabled: Bool = true) {
