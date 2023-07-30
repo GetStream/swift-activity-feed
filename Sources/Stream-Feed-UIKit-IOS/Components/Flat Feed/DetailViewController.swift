@@ -89,12 +89,19 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
         super.viewDidLoad()
         updateSectionsIndex()
         
+        setupCommentTextField(avatarImage: nil)
         if sections.contains(.comments) {
             reloadComments()
             
             if canAddComment {
                 if let user = User.current {
-                    user.loadAvatar { [weak self] in self?.setupCommentTextField(avatarImage: $0) }
+                    DispatchQueue.global().async {
+                        user.loadAvatar { image in
+                            DispatchQueue.main.async { [weak self] in
+                                self?.setupCommentTextField(avatarImage: image)
+                            }
+                        }
+                    }
                 } else {
                     if Client.shared.currentUser != nil {
                         print("❌ The current user was not setupped with correct type. " +
