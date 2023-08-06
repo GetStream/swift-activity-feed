@@ -7,6 +7,7 @@
 
 import Kingfisher
 import UIKit
+import AVFoundation
 
 extension UIImageView {
     func loadImage(from urlString: String?, placeholder: UIImage? = nil, displayLoader: Bool = true,loaderStyle: UIActivityIndicatorView.Style = .medium, loaderColor: UIColor = .gray, isGIF: Bool = false, onComplete: ((Result<RetrieveImageResult, KingfisherError>) -> Void)? = nil) {
@@ -43,7 +44,9 @@ class KingFisherCustomIndicator: Indicator {
         return view
     }()
     deinit {
-        view.removeFromSuperview()
+        DispatchQueue.mainAsyncIfNeeded { [weak view] in
+            view?.removeFromSuperview()
+        }
     }
     func startAnimatingView() {
         (view as! UIActivityIndicatorView).startAnimating()
