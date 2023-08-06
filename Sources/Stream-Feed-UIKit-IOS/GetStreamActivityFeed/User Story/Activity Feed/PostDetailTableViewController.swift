@@ -35,6 +35,7 @@ public final class PostDetailTableViewController: DetailViewController<Activity>
         navigationController?.interactivePopGestureRecognizer?.isEnabled = true
         navigationController?.interactivePopGestureRecognizer?.delegate = self
         navigationItem.leftBarButtonItem = backBtn
+        navigationItem.title = "Post Details"
     }
     
     private func setupUI() {
