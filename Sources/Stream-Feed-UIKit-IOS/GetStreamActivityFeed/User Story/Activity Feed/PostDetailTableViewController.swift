@@ -26,6 +26,12 @@ public final class PostDetailTableViewController: DetailViewController<Activity>
         setupUI()
     }
     
+    public override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        setupNavigationBar()
+    }
+    
     private func setupNavigationBar() {
         navigationItem.largeTitleDisplayMode = .never
         navigationController?.navigationItem.largeTitleDisplayMode = .never
@@ -36,6 +42,13 @@ public final class PostDetailTableViewController: DetailViewController<Activity>
         navigationController?.interactivePopGestureRecognizer?.delegate = self
         navigationItem.leftBarButtonItem = backBtn
         navigationItem.title = "Post Details"
+    }
+    
+    public override func willMove(toParent parent: UIViewController?) {
+        super.willMove(toParent: parent)
+        if parent == nil {
+            navigationController?.setNavigationBarHidden(true, animated: false)
+        }
     }
     
     private func setupUI() {
