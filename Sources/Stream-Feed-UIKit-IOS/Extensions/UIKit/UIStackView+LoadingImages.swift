@@ -8,6 +8,7 @@
 
 import UIKit
 import Nuke
+import Kingfisher
 
 extension UIStackView {
     private struct AssociatedKeys {
@@ -35,7 +36,10 @@ extension UIStackView {
             guard let imageView = arrangedSubviews[index] as? UIImageView else {
                 return
             }
-            imageView.loadImage(from: url.absoluteString) { [weak self] result in
+            
+            let imageId = url.getImageID()
+            let resource = KF.ImageResource(downloadURL: url, cacheKey: imageId)
+            imageView.loadImage(from: resource) { [weak self] result in
                 if let image = try? result.get().image {
                     self?.addImage(at: index, image)
                 }

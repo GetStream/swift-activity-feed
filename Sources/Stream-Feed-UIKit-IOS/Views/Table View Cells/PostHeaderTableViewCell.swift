@@ -57,8 +57,6 @@ open class PostHeaderTableViewCell: BaseTableViewCell {
         repostInfoStackView.isHidden = true
         messageLabel.text = nil
         messageBottomConstraint.priority = .defaultHigh + 1
-        photoImageView.image = nil
-        photoImageView.isHidden = true
     }
     
     public func setActivity(with activity: Activity) {
@@ -81,9 +79,9 @@ open class PostHeaderTableViewCell: BaseTableViewCell {
     
     public func updateAvatar(with profilePictureURL: String) {
         guard let imageURL = URL(string: profilePictureURL) else { return }
-        ImagePipeline.shared.loadImage(with: imageURL.imageRequest(in: avatarButton), completion:  { [weak self] result in
-            self?.updateAvatar(with: try? result.get().image)
-        })
+        avatarButton.loadImage(from: imageURL.absoluteString, placeholder: UIImage(named: "user_icon")) { [weak self] _ in
+            self?.updateAvatar(with: self?.avatarButton.imageView?.image)
+        }
     }
 
     public func updatePhoto(with url: URL) {
@@ -91,8 +89,16 @@ open class PostHeaderTableViewCell: BaseTableViewCell {
         photoImageView.isHidden = false
         postImageURL = url
         sendImageURLValues?(url)
-        photoImageView.loadImage(from: url.absoluteString)
+        loadImage(with: url)
     }
+    
+    private func loadImage(with url: URL) {
+        let imageId = url.getImageID()
+        let resource = KF.ImageResource(downloadURL: url, cacheKey: imageId)
+        
+        photoImageView.loadImage(from: resource)
+    }
+
     
     @IBAction func postSettings(_ sender: UIButton) {
        guard let currentActivity = currentActivity else { return }

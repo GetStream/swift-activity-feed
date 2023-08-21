@@ -16,4 +16,12 @@ extension URL {
         let processors = [ImageProcessors.Resize(size: size, unit: .points, contentMode: .aspectFill, crop: true, upscale: false)]
         return ImageRequest(url: self, processors: processors)
     }
+    
+    func getImageID() -> String {
+         let pathComponents = self.pathComponents
+         guard pathComponents.count > 2 else { return "" }
+         let imageId = pathComponents[3]
+         
+         return imageId
+     }
 }
