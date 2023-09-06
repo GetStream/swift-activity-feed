@@ -29,6 +29,7 @@ open class PostHeaderTableViewCell: BaseTableViewCell {
     var postImageURL: URL?
     var postSettingsTapped: ((Activity) -> Void)?
     var photoImageTapped: ((URL) -> Void)?
+    var profileImageTapped: ((String) -> Void)?
     var sendImageURLValues: ((URL) -> Void)?
     var currentActivity: Activity?
     
@@ -108,6 +109,21 @@ open class PostHeaderTableViewCell: BaseTableViewCell {
     @IBAction func photoImageTapped(_ sender: UIButton) {
         guard let postImageURL = postImageURL else { return }
         photoImageTapped?(postImageURL)
+    }
+    
+    @IBAction func profileImageTapped(_ sender: UIButton) {
+        navigateToUserProfileAction()
+    }
+    
+    @IBAction func userNameTapped(_ sender: UIButton) {
+        navigateToUserProfileAction()
+    }
+    
+    private func navigateToUserProfileAction() {
+        let originalActivity = currentActivity?.original
+        guard let actorId = originalActivity?.actor.id else { return }
+        
+        profileImageTapped?(actorId)
     }
 }
 

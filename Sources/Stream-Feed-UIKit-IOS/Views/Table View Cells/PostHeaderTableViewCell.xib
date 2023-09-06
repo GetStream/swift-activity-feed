@@ -3,8 +3,9 @@
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -28,13 +29,35 @@
                     <stackView contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="S86-6T-t2E">
                         <rect key="frame" x="80" y="16" width="238" height="48"/>
                         <subviews>
-                            <label userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wonder Woman" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BlM-ye-otK">
-                                <rect key="frame" x="0.0" y="0.0" width="110.5" height="16"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" name="GTWalsheimProMedium" family="GT Walsheim Pro" pointSize="15"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L3V-L9-7WK">
+                                <rect key="frame" x="0.0" y="0.0" width="150.5" height="16"/>
+                                <subviews>
+                                    <label userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wonder Woman" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BlM-ye-otK">
+                                        <rect key="frame" x="0.0" y="-1" width="110.5" height="18.5"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" name="GTWalsheimProMedium" family="GT Walsheim Pro" pointSize="15"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oKI-Kg-5cW">
+                                        <rect key="frame" x="0.0" y="0.0" width="150.5" height="16"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <connections>
+                                            <action selector="userNameTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="dSd-J0-PdC"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="16" id="9K4-3v-yJF"/>
+                                    <constraint firstAttribute="trailing" secondItem="oKI-Kg-5cW" secondAttribute="trailing" id="Aq8-nh-Ob4"/>
+                                    <constraint firstAttribute="bottom" secondItem="oKI-Kg-5cW" secondAttribute="bottom" id="cZM-wh-T7U"/>
+                                    <constraint firstItem="BlM-ye-otK" firstAttribute="leading" secondItem="L3V-L9-7WK" secondAttribute="leading" id="eVo-gj-WXq"/>
+                                    <constraint firstItem="BlM-ye-otK" firstAttribute="centerY" secondItem="L3V-L9-7WK" secondAttribute="centerY" id="i1p-zM-PkN"/>
+                                    <constraint firstItem="oKI-Kg-5cW" firstAttribute="top" secondItem="L3V-L9-7WK" secondAttribute="top" id="uPZ-4f-bpV"/>
+                                    <constraint firstItem="oKI-Kg-5cW" firstAttribute="leading" secondItem="L3V-L9-7WK" secondAttribute="leading" id="w8O-8e-kQ4"/>
+                                </constraints>
+                            </view>
                             <label userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2 min" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tMt-4B-jFP">
                                 <rect key="frame" x="0.0" y="16" width="31.5" height="16"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -93,6 +116,9 @@
                                 <integer key="value" value="24"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
+                        <connections>
+                            <action selector="profileImageTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="EkX-Q9-LfZ"/>
+                        </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TUl-zR-7tp">
                         <rect key="frame" x="326" y="30" width="25" height="20"/>
@@ -156,5 +182,8 @@
         <image name="options" width="20.5" height="4"/>
         <image name="repost_icon" width="18" height="16"/>
         <image name="user_icon" width="24" height="24"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

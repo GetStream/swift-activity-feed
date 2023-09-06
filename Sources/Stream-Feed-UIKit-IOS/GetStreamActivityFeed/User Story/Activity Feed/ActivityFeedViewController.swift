@@ -25,25 +25,42 @@ public final class ActivityFeedViewController: FlatFeedViewController<Activity>,
         return nil
     }()
     
+    weak var backBtn: UIBarButtonItem? {
+        let image = UIImage(named: "backArrow")
+        let desiredImage = image
+        let back = UIBarButtonItem(image: desiredImage, style: .plain, target: self, action: #selector(backBtnPressed(_:)))
+        return back
+    }
+    
     public override func viewDidLoad() {
         super.viewDidLoad()
-        tabBarItem = UITabBarItem(title: "Home", image: .homeIcon, tag: 0)
-        hideBackButtonTitle()
         subscribeForUpdates()
-        setupBellButton()
+        setupNavigationBar()
+    }
+    
+    private func setupNavigationBar() {
+        navigationItem.largeTitleDisplayMode = .never
+        navigationController?.navigationItem.largeTitleDisplayMode = .never
+        navigationController?.navigationBar.tintColor = UIColor.black
+        navigationController?.navigationBar.setCustomTitleFont(font: UIFont(name: "GTWalsheimProBold", size: 18.0)!)
+        navigationController?.setNavigationBarHidden(false, animated: true)
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
+        navigationItem.leftBarButtonItem = backBtn
+        navigationItem.title = localizedNavigationTitle
+    }
+    
+    @objc private func backBtnPressed(_ sender: UIBarButtonItem) {
+        view.endEditing(true)
+        navigationController?.popViewController(animated: true)
     }
     
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        updateBellCounter()
         
         if parent == nil || parent is UINavigationController {
             navigationController?.restoreDefaultNavigationBar(animated: animated)
         }
-    }
-    
-    @IBAction func showEditPost(_ sender: Any) {
-        performSegue(show: EditPostViewController.self, sender: nil)
     }
     
     public override func dataLoaded(_ error: Error?) {
@@ -96,6 +113,7 @@ public final class ActivityFeedViewController: FlatFeedViewController<Activity>,
         }
         activityDetailTableViewController.reportUserAction = reportUserAction
         activityDetailTableViewController.shareTimeLinePostAction = shareTimeLinePostAction
+        activityDetailTableViewController.navigateToUserProfileAction = navigateToUserProfileAction
         activityDetailTableViewController.isCurrentUser = isCurrentUser
         activityDetailTableViewController.presenter = presenter
         activityDetailTableViewController.activityPresenter = activityPresenter
@@ -103,36 +121,14 @@ public final class ActivityFeedViewController: FlatFeedViewController<Activity>,
     }
 }
 
-// MARK: - Bell Button
-
-extension ActivityFeedViewController {
-    func setupBellButton() {
-        guard let notificationsPresenter = notificationsPresenter else {
-            return
-        }
-        
-        let bellButton = BellButton()
-        bellButton.addTap { [weak self] _ in self?.tabBarController?.selectTab(with: NotificationsViewController.self) }
-        
-        notificationsSubscriptionId = notificationsPresenter.subscriptionPresenter.subscribe { [weak bellButton] in
-            if let response = try? $0.get() {
-                let newCount = response.newActivities.count
-                let removedCount = response.deletedActivitiesIds.count
-                bellButton?.count += newCount > 0 ? newCount : (removedCount > 0 ? removedCount : 0)
-            } else {
-                bellButton?.count = 0
-            }
-        }
-        
-        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: bellButton)
+extension ActivityFeedViewController : UIGestureRecognizerDelegate {
+    public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return (navigationController?.viewControllers.count ?? 0) > 1
     }
     
-    func updateBellCounter() {
-        guard let notificationsViewController = tabBarController?.find(viewControllerType: NotificationsViewController.self),
-            let bellButton = navigationItem.leftBarButtonItem?.customView as? BellButton else {
-                return
-        }
-        
-        bellButton.count = notificationsViewController.badgeValue
+    // This is necessary because without it, subviews of your top controller can
+    // cancel out your gesture recognizer on the edge.
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
     }
 }

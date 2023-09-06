@@ -28,8 +28,11 @@ open class FlatFeedViewController<T: ActivityProtocol>: BaseFlatFeedViewControll
     
     let currentUser = Client.shared.currentUser as? User
     public var isCurrentUser: Bool = false
+    public var localizedNavigationTitle: String = ""
+    public var pageSize: Int = 10
     public var reportUserAction: ((String, String) -> Void)?
     public var shareTimeLinePostAction: ((String?) -> Void)?
+    public var navigateToUserProfileAction: ((String) -> Void)?
     
     open override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,7 +63,9 @@ open class FlatFeedViewController<T: ActivityProtocol>: BaseFlatFeedViewControll
     }
     
     open override func reloadData() {
-        presenter?.load(completion: dataLoaded)
+        let paginationLimit: Pagination = .limit(pageSize)
+        
+        presenter?.load(paginationLimit, completion: dataLoaded)
     }
     
     open override func dataLoaded(_ error: Error?) {
@@ -100,6 +105,10 @@ open class FlatFeedViewController<T: ActivityProtocol>: BaseFlatFeedViewControll
             cell.setActivity(with: activityPresenter.originalActivity as! Activity)
             cell.postSettingsTapped = { [weak self] activity in
                 self?.postSettingsAction(activity: activity)
+            }
+            
+            cell.profileImageTapped = { [weak self] actorId in
+                self?.navigateToUserProfileAction?(actorId)
             }
             
         } else if let cell = cell as? PostActionsTableViewCell {

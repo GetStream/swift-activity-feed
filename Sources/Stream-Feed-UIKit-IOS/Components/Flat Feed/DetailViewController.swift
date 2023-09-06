@@ -69,6 +69,7 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
     
     let currentUser = Client.shared.currentUser as? User
     public var reportUserAction: ((String, String) -> Void)?
+    public var navigateToUserProfileAction: ((String) -> Void)?
     public var shareTimeLinePostAction: ((String?) -> Void)?
     
     public var isCurrentUser: Bool = false
@@ -380,6 +381,11 @@ open class DetailViewController<T: ActivityProtocol>: BaseFlatFeedViewController
                         guard let imageURLs = self?.imageURLsDic[indexPath.section] else { return }
                         self?.showImageGallery(with: imageURLs)
                     }
+                    
+                    cell.profileImageTapped = { [weak self] actorID in
+                        self?.navigateToUserProfileAction?(actorID)
+                    }
+                    
                     cell.sendImageURLValues = { [weak self] imageURL in
                         guard let self else { return }
                         if !(self.imageURLsDic[indexPath.section]?.contains(imageURL) ?? false) {

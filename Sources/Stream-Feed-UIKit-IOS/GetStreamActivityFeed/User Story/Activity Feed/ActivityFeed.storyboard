@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="2bB-QO-nc9">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -18,24 +18,6 @@
         </array>
     </customFonts>
     <scenes>
-        <!--Navigation Controller-->
-        <scene sceneID="Pwj-bb-RW6">
-            <objects>
-                <navigationController storyboardIdentifier="UINavigationController" automaticallyAdjustsScrollViewInsets="NO" id="2bB-QO-nc9" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="xxg-h9-eWs">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="PEt-yD-taj" kind="relationship" relationship="rootViewController" id="MNa-UY-D9A"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="C7r-cn-tHY" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="312.80000000000001" y="-239.73013493253376"/>
-        </scene>
         <!--HOME-->
         <scene sceneID="Tjh-9f-wCb">
             <objects>
@@ -46,13 +28,7 @@
                         <viewLayoutGuide key="safeArea" id="EYm-aa-5Ca"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
-                    <navigationItem key="navigationItem" title="HOME" id="Iun-wq-1u5">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="pnu-yS-1zx">
-                            <connections>
-                                <action selector="showEditPost:" destination="PEt-yD-taj" id="XGd-45-QSz"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="HOME" id="Iun-wq-1u5"/>
                     <connections>
                         <segue destination="BLY-u4-gAI" kind="show" identifier="PostDetailTableViewController" id="Vq8-9B-cEd"/>
                         <segue destination="NxW-4H-H8V" kind="show" identifier="EditPostViewController" id="8DG-dA-lA0"/>
@@ -67,7 +43,7 @@
             <objects>
                 <viewController storyboardIdentifier="PostDetailTableViewController" title="POST DETAIL" hidesBottomBarWhenPushed="YES" id="BLY-u4-gAI" customClass="PostDetailTableViewController" customModule="GetStreamActivityFeed" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="eQP-Xx-dLf">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="Ucu-Ix-KfA"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -83,11 +59,11 @@
             <objects>
                 <viewController storyboardIdentifier="EditPostViewController" id="NxW-4H-H8V" customClass="EditPostViewController" customModule="GetStreamActivityFeed" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2nd-8t-W3J">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bCs-tc-Bde">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="Rvb-k9-EQH">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="320"/>
@@ -146,7 +122,7 @@
                                 </view>
                             </tableView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="VAt-jb-2kR">
-                                <rect key="frame" x="0.0" y="515" width="375" height="152"/>
+                                <rect key="frame" x="0.0" y="495" width="375" height="152"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="n2g-WX-1wN">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="107"/>
