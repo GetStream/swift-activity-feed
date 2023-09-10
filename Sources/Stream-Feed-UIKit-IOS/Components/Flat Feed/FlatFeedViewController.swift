@@ -11,6 +11,11 @@ import GetStream
 import Reusable
 import SnapKit
 
+public enum GetStreamFeedEntryPoint {
+    case timeline
+    case followingFeeds
+}
+
 /// A flat feed view controller.
 open class FlatFeedViewController<T: ActivityProtocol>: BaseFlatFeedViewController<T>, UITableViewDelegate
     where T.ActorType: UserProtocol & UserNameRepresentable & AvatarRepresentable,
@@ -33,6 +38,7 @@ open class FlatFeedViewController<T: ActivityProtocol>: BaseFlatFeedViewControll
     public var reportUserAction: ((String, String) -> Void)?
     public var shareTimeLinePostAction: ((String?) -> Void)?
     public var navigateToUserProfileAction: ((String) -> Void)?
+    public var entryPoint: GetStreamFeedEntryPoint = .timeline
     
     open override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,7 +70,6 @@ open class FlatFeedViewController<T: ActivityProtocol>: BaseFlatFeedViewControll
     
     open override func reloadData() {
         let paginationLimit: Pagination = .limit(pageSize)
-        
         presenter?.load(paginationLimit, completion: dataLoaded)
     }
     
@@ -88,13 +93,13 @@ open class FlatFeedViewController<T: ActivityProtocol>: BaseFlatFeedViewControll
     
     open override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let activityPresenter = activityPresenter(in: indexPath.section),
-            let cell = tableView.postCell(at: indexPath, presenter: activityPresenter) else {
-                if let presenter = presenter, presenter.hasNext {
-                    presenter.loadNext(completion: dataLoaded)
-                    return tableView.dequeueReusableCell(for: indexPath) as PaginationTableViewCell
-                }
-                
-                return .unused
+              let cell = tableView.postCell(at: indexPath, presenter: activityPresenter) else {
+            if let presenter = presenter, presenter.hasNext, entryPoint == .followingFeeds {
+                presenter.loadNext(completion: dataLoaded)
+                return tableView.dequeueReusableCell(for: indexPath) as PaginationTableViewCell
+            }
+            
+            return .unused
         }
         
         if let cell = cell as? PostHeaderTableViewCell {
@@ -117,6 +122,12 @@ open class FlatFeedViewController<T: ActivityProtocol>: BaseFlatFeedViewControll
             updateActions(in: cell, activityPresenter: activityPresenter)
         }
         return cell
+    }
+    
+    public func loadNext() {
+        if let presenter = presenter, presenter.hasNext, !presenter.isPrefetching {
+              presenter.loadNext(completion: dataLoaded)
+          }
     }
     
     private func sharePostAction(_ cell: PostActionsTableViewCell) {

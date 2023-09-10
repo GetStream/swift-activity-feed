@@ -4,7 +4,8 @@ import GetStream
 public struct StreamFeedUIKitIOS {
     public static var flatFeed: FlatFeed?
     
-    public static func makeTimeLineVC(feedSlug: String,
+    public static func makeTimeLineVC(entryPoint: GetStreamFeedEntryPoint = .timeline,
+                                      feedSlug: String,
                                       userId: String,
                                       isCurrentUser: Bool,
                                       pageSize: Int,
@@ -16,6 +17,7 @@ public struct StreamFeedUIKitIOS {
         timeLineVC.isCurrentUser = isCurrentUser
         timeLineVC.localizedNavigationTitle = localizedNavigationTitle
         timeLineVC.pageSize = pageSize
+        timeLineVC.entryPoint = entryPoint
         timeLineVC.reportUserAction = reportUserAction
         timeLineVC.shareTimeLinePostAction = shareTimeLinePostAction
         timeLineVC.navigateToUserProfileAction = navigateToUserProfileAction

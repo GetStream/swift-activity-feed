@@ -29,6 +29,7 @@ public final class FlatFeedPresenter<T: ActivityProtocol>: PaginatorProtocol {
     public let subscriptionPresenter: SubscriptionPresenter<T>
     /// Reaction types for activities. See `ActivityPresenterReactionTypes`.
     public var reactionTypes: ActivityPresenterReactionTypes = []
+    public var isPrefetching = false
     
     public init(flatFeed: FlatFeed, reactionTypes: ActivityPresenterReactionTypes = []) {
         self.flatFeed = flatFeed
@@ -45,11 +46,12 @@ public final class FlatFeedPresenter<T: ActivityProtocol>: PaginatorProtocol {
     
     /// Load feed with a pagination. See `Pagination`.
     public func load(_ pagination: Pagination = .none, completion: @escaping Completion) {
+        isPrefetching = true
         flatFeed.get(typeOf: T.self, pagination: pagination, includeReactions: includeReactions) { [weak self] result in
             guard let self = self else {
                 return
             }
-            
+            self.isPrefetching = false
             if case .none = pagination {
                 self.items = []
                 self.next = .none
@@ -64,7 +66,6 @@ public final class FlatFeedPresenter<T: ActivityProtocol>: PaginatorProtocol {
                     .map({ ActivityPresenter(activity: $0,
                                              reactionPresenter: self.reactionPresenter,
                                              reactionTypes: self.reactionTypes) }))
-                
                 self.next = response.next ?? .none
             } catch let responseError {
                 error = responseError
