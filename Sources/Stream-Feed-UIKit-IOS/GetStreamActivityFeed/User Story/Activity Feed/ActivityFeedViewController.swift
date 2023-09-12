@@ -39,15 +39,17 @@ public final class ActivityFeedViewController: FlatFeedViewController<Activity>,
     }
     
     private func setupNavigationBar() {
-        navigationItem.largeTitleDisplayMode = .never
-        navigationController?.navigationItem.largeTitleDisplayMode = .never
-        navigationController?.navigationBar.tintColor = UIColor.black
-        navigationController?.navigationBar.setCustomTitleFont(font: UIFont(name: "GTWalsheimProBold", size: 18.0)!)
-        navigationController?.setNavigationBarHidden(false, animated: true)
-        navigationController?.interactivePopGestureRecognizer?.isEnabled = true
-        navigationController?.interactivePopGestureRecognizer?.delegate = self
-        navigationItem.leftBarButtonItem = backBtn
-        navigationItem.title = localizedNavigationTitle
+        if entryPoint == .followingFeeds {
+            navigationItem.largeTitleDisplayMode = .never
+            navigationController?.navigationItem.largeTitleDisplayMode = .never
+            navigationController?.navigationBar.tintColor = UIColor.black
+            navigationController?.navigationBar.setCustomTitleFont(font: UIFont(name: "GTWalsheimProBold", size: 18.0)!)
+            navigationController?.setNavigationBarHidden(false, animated: true)
+            navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+            navigationController?.interactivePopGestureRecognizer?.delegate = self
+            navigationItem.leftBarButtonItem = backBtn
+            navigationItem.title = localizedNavigationTitle
+        }
     }
     
     @objc private func backBtnPressed(_ sender: UIBarButtonItem) {
@@ -57,7 +59,8 @@ public final class ActivityFeedViewController: FlatFeedViewController<Activity>,
     
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        setupNavigationBar()
+
         if parent == nil || parent is UINavigationController {
             navigationController?.restoreDefaultNavigationBar(animated: animated)
         }

@@ -69,7 +69,7 @@ open class FlatFeedViewController<T: ActivityProtocol>: BaseFlatFeedViewControll
     }
     
     open override func reloadData() {
-        let paginationLimit: Pagination = .limit(pageSize)
+        let paginationLimit: Pagination = .none
         presenter?.load(paginationLimit, completion: dataLoaded)
     }
     
