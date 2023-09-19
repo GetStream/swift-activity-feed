@@ -59,7 +59,7 @@ public enum ActivityObject: ActivityObjectProtocol {
         let container = try decoder.singleValueContainer()
         
         if let text = try? container.decode(String.self) {
-            if text.hasPrefix("http"), let imageURL = URL(string: text) {
+            if text.hasPrefix("http"), let imageURL = URL(string: text), let host = imageURL.host, host.contains("stream-io") == true {
                 self = .image(imageURL)
             } else {
                 self = .text(text)

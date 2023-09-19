@@ -19,6 +19,7 @@ let package = Package(
         .package(url: "https://github.com/kean/Nuke", .upToNextMajor(from: "12.1.0")),
         .package(url: "https://github.com/AliSoftware/Reusable.git", .upToNextMajor(from: "4.1.2")),
         .package(url: "https://github.com/SnapKit/SnapKit", .upToNextMajor(from: "5.6.0")),
+        .package(url: "https://github.com/onevcat/Kingfisher.git", .exactItem("7.8.0"))
     ],
     targets: [
           .target(

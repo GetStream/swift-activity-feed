@@ -18,10 +18,10 @@ extension URL {
     }
     
     func getImageID() -> String {
-         let pathComponents = self.pathComponents
-         guard pathComponents.count > 2 else { return "" }
-         let imageId = pathComponents[3]
-         
-         return imageId
-     }
+        let pathComponents = self.pathComponents
+        guard pathComponents.count > 3 else { return "" }
+        let imageId = pathComponents.last ?? ""
+        
+        return imageId
+    }
 }

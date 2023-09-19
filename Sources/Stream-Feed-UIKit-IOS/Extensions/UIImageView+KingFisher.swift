@@ -27,6 +27,7 @@ extension UIImageView {
         if isGIF == false {
             imageOptions.insert(.processor(DownsamplingImageProcessor(size: self.frame.size)), at: 0)
         }
+        self.kf.cancelDownloadTask()
         self.kf.setImage(with: imageResource, placeholder: placeholder, options: imageOptions) { (result: Result<RetrieveImageResult, KingfisherError>) in
             onComplete?(result)
         }
