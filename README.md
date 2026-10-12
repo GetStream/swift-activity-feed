@@ -1,3 +1,5 @@
+> **`swift-activity-feed` is no longer maintained and is archived.** It was the Feeds v2 UI components for iOS. New projects should use Feeds v3 with [`stream-feeds-swift`](https://github.com/GetStream/stream-feeds-swift). See https://getstream.io/activity-feeds/sdk/ios/
+
 # Stream Swift and iOS Activity Feed Components
 
 [![Language: Swift 4.2](https://img.shields.io/badge/Swift-4.2-orange.svg)](https://swift.org)
